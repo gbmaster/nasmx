@@ -1,23 +1,244 @@
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX Preprocessor
+;// Copyright (c) 2005-2010, The NASMX Project
+;//
 %ifndef _NASMX_INC_
 %define _NASMX_INC_
 
-%ifidn	 __OUTPUT_FORMAT__,elf
-%elifidn __OUTPUT_FORMAT__,elf32
-%elifidn __OUTPUT_FORMAT__,elf64
-%elifidn __OUTPUT_FORMAT__,win32
-	%define __UNDERSCORE__
-%elifidn __OUTPUT_FORMAT__,win64
-	%define __UNDERSCORE__
+;//////////////////////////////////////////////////////////////
+;//
+;// Check NASM Version
+;//
+%define __nxerrmsg "NASM v2.08 or later required"
+%ifdef __NASM_VERSION_ID__
+	%if __NASM_VERSION_ID__ < 0x02075000
+		%fatal __nxerrmsg
+	%endif
 %else
-	%define __CDECL_UNDERSCORE__
-	%define __UNDERSCORE__
+	%fatal __nxerrmsg
+%endif
+%undef __nxerrmsg
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Set a NASMX Definition
+;//
+%macro NASMX_DEFINE 1-2
+	%if %0 > 1
+		%ixdefine __NASMX_%1__ %2
+	%else
+		%ixdefine __NASMX_%1__
+	%endif
+%endmacro
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Get a NASMX Definition
+;//
+%macro NASMX_GET_DEFINE 2
+	%ifdef __NASMX_%1__
+		%xdefine %2 __NASMX_%1__
+	%elifdef %2
+		%undef %2
+	%endif
+%endmacro
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Undefine a NASMX Definition
+;//
+%macro NASMX_UNDEF 1
+	%ifdef __NASMX_%1__
+		%undef __NASMX_%1__
+	%else
+		%warning NASMX Definition %1 is not defined
+	%endif
+%endmacro
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Define NASMX Version
+;//
+NASMX_DEFINE VERSION,"20100801"
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// init NASMX context stack
+;//
+;%push __NASMX_CTX__
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Set a Context Stack Value
+;//
+%macro NASMX_SET_CONTEXT_VALUE 2
+	%xdefine %$$%1 %2
+%endmacro
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// native sizes
+;//
+%idefine byte_size 1
+%idefine word_size 2
+%idefine dword_size 4
+%idefine qword_size 8
+%idefine tword_size 10
+%idefine oword_size 16
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// nasm reserves
+;//
+%idefine byte_res RESB
+%idefine word_res RESW
+%idefine dword_res RESD
+%idefine qword_res RESQ
+%idefine tword_res REST
+%idefine oword_res RESO
+
+%idefine sizeof(x) x %+ _size
+%idefine reserve(x) x %+ _res
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX typedef macro
+;//
+;// usage:
+;//   typedef dword, int32_t
+%imacro typedef 2
+   %xdefine %{2}_size %{1}_size
+   %xdefine %{2}_res %{1}_res
+   %xdefine %{2} %{1}
+%endm
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX int types
+;//
+typedef tword, tbyte  ; MASM Style TBYTE
+typedef byte, int8_t
+typedef byte, uint8_t
+typedef word, int16_t
+typedef word, uint16_t
+typedef dword, int32_t
+typedef dword, uint32_t
+typedef qword, int64_t
+typedef qword, uint64_t
+typedef tbyte, int80_t
+typedef tbyte, uint80_t
+typedef oword, int128_t
+typedef oword, uint128_t
+typedef qword, long64_t
+typedef qword, ulong64_t
+typedef oword, long128_t
+typedef oword, ulong128_t
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX pointer types
+;//
+typedef dword, ptr32_t
+typedef qword, ptr64_t
+;// use for 32->64 bit expansion of either int or ptr
+%ixdefine NX_PTR ptr%[__BITS__]_t
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX C types
+;//
+typedef byte, char_t
+typedef byte, uchar_t
+typedef word, short_t
+typedef word, ushort_t
+typedef dword, int_t
+typedef dword, uint_t
+typedef qword, long_t
+typedef qword, ulong_t
+typedef dword, float_t
+typedef qword, double_t
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX Unicode Transformation Format types
+;//
+typedef byte, utf8_t
+typedef word, utf16_t
+typedef dword, utf32_t
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX struc overload
+;//
+%imacro struc 1-2 0
+%push
+%define %{$name} %{1}
+[ABSOLUTE %{2}]
+%{$name}:
+%endm
+
+%imacro endstruc 0
+%{$name}_size equ ($-%{$name})
+%define %{$name}_res RESB %{$name}_size
+%pop
+%endm
+
+%ifidn	 __OUTPUT_FORMAT__,elf
+	NASMX_DEFINE UNDERSCORE
+	typedef dword, wchar_t
+%elifidn __OUTPUT_FORMAT__,elf32
+	NASMX_DEFINE UNDERSCORE
+	typedef dword, wchar_t
+%elifidn __OUTPUT_FORMAT__,elf64
+	NASMX_DEFINE UNDERSCORE
+	typedef dword, wchar_t
+%elifidn __OUTPUT_FORMAT__,macho
+	NASMX_DEFINE UNDERSCORE
+	NASMX_DEFINE CDECL_UNDERSCORE
+	typedef dword, wchar_t
+%elifidn __OUTPUT_FORMAT__,macho32
+	NASMX_DEFINE UNDERSCORE
+	NASMX_DEFINE CDECL_UNDERSCORE
+	typedef dword, wchar_t
+%elifidn __OUTPUT_FORAMT__,macho64
+	NASMX_DEFINE UNDERSCORE
+	NASMX_DEFINE CDECL_UNDERSCORE
+	typedef dword, wchar_t
+%elifidn __OUTPUT_FORMAT__,win32
+	NASMX_DEFINE UNDERSCORE
+	typedef word, wchar_t
+%elifidn __OUTPUT_FORMAT__,win64
+	NASMX_DEFINE UNDERSCORE
+	typedef word, wchar_t
+%else
+	NASMX_DEFINE UNDERSCORE
+	NASMX_DEFINE CDECL_UNDERSCORE
+	typedef dword, wchar_t
 %endif
 
+%ifdef UNICODE
+	%idefine NX_CHAR wchar_t
+%else
+	%idefine NX_CHAR char_t
+%endif
 
 %imacro IMPORT 1-2
+;	%warning 'DEBUG MACRO ENTRY(import):' %0 %1 %2
 	%ifndef __imp_defined_%1
 		%if %0 = 1
-			%ifdef __CDECL_UNDERSCORE__
+			%ifdef __NASMX_CDECL_UNDERSCORE__
 				%define __cdecl_defined_%1 _%1
 				%define __imp_defined_%1 _%1
 			%else
@@ -25,7 +246,7 @@
 				%define __imp_defined_%1 %1
 			%endif
 		%else
-			%ifdef __UNDERSCORE__
+			%ifdef __NASMX_UNDERSCORE__
 				%define __imp_defined_%1 _%1@%2
 			%else
 				%define __imp_defined_%1 %1@%2
@@ -34,10 +255,12 @@
 	%else
 		%error Import symbol %1 has already been defined
 	%endif
+;	%warning 'DEBUG MACRO EXIT(import):' %0 %1 %2
 %endmacro
 
 
 %imacro INVOKE 1-100
+;	%warning 'DEBUG MACRO ENTRY(invoke):' %0 %1 %2
 %push invoke
 	%assign %$args 0
 	%assign %$arg_rot -1
@@ -113,7 +336,7 @@
 							%endif
 						%endif
 					%else
-		        			%ifstr %1
+	        			%ifstr %1
 							jmp %%endstr_%$args
 							%%str_%$args: db %1, 0
 							%%endstr_%$args:
@@ -138,7 +361,7 @@
 							%endif
 						%endif
 					%endif
-		    		%else
+		    	%else
 					%ifstr %1
 						jmp %%endstr_%$args
 						%%str_%$args: db %1, 0
@@ -203,7 +426,7 @@
 	%if %$args <> 0
 		%rotate %$arg_rot
 		%ifdef __cdecl_defined_%1
-				add	esp, %$args
+			add	esp, %$args
 		%endif
 	%endif
 %endif
@@ -212,10 +435,12 @@
 %endif
 %undef	_proc
 %pop
+;%warning 'DEBUG MACRO EXIT(invoke):' %0 %1 %2
 %endmacro
 
 
 %imacro PROC 1-100
+;	%warning 'DEBUG MACRO ENTRY(PROC):' %0 %1 %2
 %push proc
 	%ifidn __BITS__,64
 		%assign %$arg 0x30
@@ -224,7 +449,7 @@
 	%endif
 	%ifdef __entry_%1
 		%ifndef __PROCEDURE__
-			%ifdef __UNDERSCORE__
+			%ifdef __NASMX_UNDERSCORE__
 				global	_main
 				_main:
 			%else
@@ -256,6 +481,7 @@
 			%error "missing endproc directive."
 		%endif
 	%endif
+;	%warning 'DEBUG MACRO EXIT(PROC):' %0 %1 %2
 %endmacro
 
 
@@ -317,6 +543,7 @@
 
 
 %imacro ENDPROC 0
+;	%warning 'DEBUG MACRO ENTRY(ENDPROC):'
 	%ifdef __PROCEDURE__
 		__PROCEDURE__:
 		%ifndef _entry_
@@ -328,6 +555,7 @@
 	%else
 		%error "missing proc directive."
 	%endif
+;	%warning 'DEBUG MACRO ENTRY(ENDPROC):'
 %endmacro
 
 
@@ -348,7 +576,7 @@
 %imacro RET 0-1
 	%ifdef __PROCEDURE__
 		%ifndef __leave_present__
-		%ifctx proc
+			%ifctx proc
 				leave
 				ret %1
 				%undef __leave_present__
@@ -367,13 +595,13 @@
 
 %imacro PROTO 1-2
 	%if %0 = 1
-		%ifdef __CDECL_UNDERSCORE__
+		%ifdef __NASMX_CDECL_UNDERSCORE__
 			global _%1
 		%else
 			global %1
 		%endif
 	%else
-		%ifdef __UNDERSCORE__
+		%ifdef __NASMX_UNDERSCORE__
 			global _%1
 		%else
 			global %1
@@ -382,7 +610,7 @@
 %endmacro
 
 %imacro ENTRY 1
-	%ifdef __UNDERSCORE__
+	%ifdef __NASMX_UNDERSCORE__
 		%define __entry_%1 _main
 	%else
 		%define __entry_%1 main

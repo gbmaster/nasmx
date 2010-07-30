@@ -7753,118 +7753,125 @@
 
 ; structures
 STRUC RECT
-.left RESD 1
-.top RESD 1
-.right RESD 1
-.bottom RESD 1
+.left reserve(int32_t) 1
+.top reserve(int32_t) 1
+.right reserve(int32_t) 1
+.bottom reserve(int32_t) 1
 ENDSTRUC
 
 STRUC POINT
-.x RESD 1
-.y RESD 1
+.x reserve(int32_t) 1
+.y reserve(int32_t) 1
 ENDSTRUC
 
 STRUC SIZEL
-.x RESD 1
-.y RESD 1
+.x reserve(int32_t) 1
+.y reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MSG
-.hwnd RESD 1
-.message RESD 1
-.wParam RESD 1
-.lParam RESD 1
-.time RESD 1
-.pt RESB POINT_size
+.hwnd reserve(NX_PTR) 1
+.message reserve(uint32_t) 1
+.wParam reserve(NX_PTR) 1
+.lParam reserve(NX_PTR) 1
+.time reserve(uint32_t) 1
+.pt reserve(POINT)
+%ifidn __OUTPUT_FORMAT__,macho
+	.lPrivate reserve(int32_t) 1
+%elifidn __OUTPUT_FORMAT__,macho32
+	.lPrivate reserve(int32_t) 1
+%elifidn __OUTPUT_FORMAT__,macho64
+	.lPrivate reserve(int64_t) 1
+%endif
 ENDSTRUC
 
 STRUC SID_AND_ATTRIBUTES
-.Sid RESD 1
-.Attributes RESD 1
+.Sid reserve(NX_PTR) 1
+.Attributes reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC SID_IDENTIFIER_AUTHORITY
-.Value RESB 1
+.Value RESB 6
 ENDSTRUC
 
 STRUC OVERLAPPED
-.Internal RESD 1
-.InternalHigh RESD 1
-.loffset RESD 1
-.OffsetHigh RESD 1
-.hEvent RESD 1
+.Internal reserve(NX_PTR) 1
+.InternalHigh reserve(NX_PTR) 1
+.loffset reserve(uint32_t) 1
+.OffsetHigh reserve(uint32_t) 1
+.hEvent reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC SECURITY_ATTRIBUTES
-.niLength RESD 1
-.lpSecurityDescriptor RESD 1
-.bInheritHandle RESD 1
+.niLength reserve(uint32_t) 1
+.lpSecurityDescriptor reserve(NX_PTR) 1
+.bInheritHandle reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PROCESS_INFORMATION
-.hProcess RESD 1
-.hThread RESD 1
-.dwProcessId RESD 1
-.dwThreadId RESD 1
+.hProcess reserve(NX_PTR) 1
+.hThread reserve(NX_PTR) 1
+.dwProcessId reserve(uint32_t) 1
+.dwThreadId reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC FILETIME
-.dwLowDateTime RESD 1
-.dwHighDateTime RESD 1
+.dwLowDateTime reserve(uint32_t) 1
+.dwHighDateTime reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC SYSTEMTIME
-.wYear RESW 1
-.wMonth RESW 1
-.wDayOfWeek RESW 1
-.wDay RESW 1
-.wHour RESW 1
-.wMinute RESW 1
-.wSecond RESW 1
-.wMilliseconds RESW 1
+.wYear reserve(ushort_t) 1
+.wMonth reserve(ushort_t) 1
+.wDayOfWeek reserve(ushort_t) 1
+.wDay reserve(ushort_t) 1
+.wHour reserve(ushort_t) 1
+.wMinute reserve(ushort_t) 1
+.wSecond reserve(ushort_t) 1
+.wMilliseconds reserve(ushort_t) 1
 ENDSTRUC
 
 STRUC COMMPROP
-.wPacketiLength RESW 1
-.wPacketVersion RESW 1
-.dwServiceMask RESD 1
-.dwReserved1 RESD 1
-.dwMaxTxQueue RESD 1
-.dwMaxRxQueue RESD 1
-.dwMaxBaud RESD 1
-.dwProvSubType RESD 1
-.dwProvCapabilities RESD 1
-.dwSettableParams RESD 1
-.dwSettableBaud RESD 1
-.wSettableData RESW 1
-.wSettableStopParity RESW 1
-.dwCurrentTxQueue RESD 1
-.dwCurrentRxQueue RESD 1
-.dwProvSpec1 RESD 1
-.dwProvSpec2 RESD 1
-.wcProvChar RESW 1
+.wPacketiLength reserve(ushort_t) 1
+.wPacketVersion reserve(ushort_t) 1
+.dwServiceMask reserve(uint32_t) 1
+.dwReserved1 reserve(uint32_t) 1
+.dwMaxTxQueue reserve(uint32_t) 1
+.dwMaxRxQueue reserve(uint32_t) 1
+.dwMaxBaud reserve(uint32_t) 1
+.dwProvSubType reserve(uint32_t) 1
+.dwProvCapabilities reserve(uint32_t) 1
+.dwSettableParams reserve(uint32_t) 1
+.dwSettableBaud reserve(uint32_t) 1
+.wSettableData reserve(ushort_t) 1
+.wSettableStopParity reserve(ushort_t) 1
+.dwCurrentTxQueue reserve(uint32_t) 1
+.dwCurrentRxQueue reserve(uint32_t) 1
+.dwProvSpec1 reserve(uint32_t) 1
+.dwProvSpec2 reserve(uint32_t) 1
+.wcProvChar reserve(wchar_t) 1
 ENDSTRUC
 
 STRUC COMSTAT
-.fCtsHold RESD 1
-.fDsrHold RESD 1
-.fRlsdHold RESD 1
-.fXoffHold RESD 1
-.fXoffSent RESD 1
-.fEof RESD 1
-.fTxim RESD 1
-.fReserved RESD 1
-.cbInQue RESD 1
-.cbOutQue RESD 1
+.fCtsHold reserve(uint32_t) 1
+.fDsrHold reserve(uint32_t) 1
+.fRlsdHold reserve(uint32_t) 1
+.fXoffHold reserve(uint32_t) 1
+.fXoffSent reserve(uint32_t) 1
+.fEof reserve(uint32_t) 1
+.fTxim reserve(uint32_t) 1
+.fReserved reserve(uint32_t) 1
+.cbInQue reserve(uint32_t) 1
+.cbOutQue reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC DCB
-.DCBlength RESD 1
-.BaudRate RESD 1
-.fbits RESD 1
-.wReserved RESW 1
-.XonLim RESW 1
-.XoffLim RESW 1
+.DCBlength reserve(int32_t) 1
+.BaudRate reserve(int32_t) 1
+.fbits reserve(int32_t) 1
+.wReserved reserve(short_t) 1
+.XonLim reserve(short_t) 1
+.XoffLim reserve(short_t) 1
 .ByteSize RESB 1
 .Parity RESB 1
 .StopBits RESB 1
@@ -7876,328 +7883,328 @@ STRUC DCB
 ENDSTRUC
 
 STRUC COMMTIMEOUTS
-.ReadIntervalTimeout RESD 1
-.ReadTotalTimeoutMultiplier RESD 1
-.ReadTotalTimeoutConstant RESD 1
-.WriteTotalTimeoutMultiplier RESD 1
-.WriteTotalTimeoutConstant RESD 1
+.ReadIntervalTimeout reserve(uint32_t) 1
+.ReadTotalTimeoutMultiplier reserve(uint32_t) 1
+.ReadTotalTimeoutConstant reserve(uint32_t) 1
+.WriteTotalTimeoutMultiplier reserve(uint32_t) 1
+.WriteTotalTimeoutConstant reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC SYSTEM_INFO
-.dwOemID RESD 1
-.dwPageSize RESD 1
-.lpMinimumApplicationAddress RESD 1
-.lpMaximumApplicationAddress RESD 1
-.dwActiveProcessorMask RESD 1
-.dwNumberOrfProcessors RESD 1
-.dwProcessorType RESD 1
-.dwAllocationGranularity RESD 1
-.wProcessorLevel RESW 1
-.wProcessorRevision RESW 1
+.dwOemID reserve(uint32_t) 1
+.dwPageSize reserve(uint32_t) 1
+.lpMinimumApplicationAddress reserve(NX_PTR) 1
+.lpMaximumApplicationAddress reserve(NX_PTR) 1
+.dwActiveProcessorMask reserve(NX_PTR) 1
+.dwNumberOrfProcessors reserve(uint32_t) 1
+.dwProcessorType reserve(uint32_t) 1
+.dwAllocationGranularity reserve(uint32_t) 1
+.wProcessorLevel reserve(ushort_t) 1
+.wProcessorRevision reserve(ushort_t) 1
 ENDSTRUC
 
 STRUC MEMORYSTATUS
-.dwiLength RESD 1
-.dwMemoryLoad RESD 1
-.dwTotalPhys RESD 1
-.dwAvailPhys RESD 1
-.dwTotalPageFile RESD 1
-.dwAvailPageFile RESD 1
-.dwTotalVirtual RESD 1
-.dwAvailVirtual RESD 1
+.dwiLength reserve(uint32_t) 1
+.dwMemoryLoad reserve(uint32_t) 1
+.dwTotalPhys reserve(NX_PTR) 1
+.dwAvailPhys reserve(NX_PTR) 1
+.dwTotalPageFile reserve(NX_PTR) 1
+.dwAvailPageFile reserve(NX_PTR) 1
+.dwTotalVirtual reserve(NX_PTR) 1
+.dwAvailVirtual reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC TPMPARAMS
-.cbSize RESD 1
-.rcExclude RESB RECT_size
+.cbSize reserve(uint32_t) 1
+.rcExclude reserve(RECT)
 ENDSTRUC
 
 STRUC GENERIC_MAPPING
-.GenericRead RESD 1
-.GenericWrite RESD 1
-.GenericExecute RESD 1
-.GenericAll RESD 1
+.GenericRead reserve(uint32_t) 1
+.GenericWrite reserve(uint32_t) 1
+.GenericExecute reserve(uint32_t) 1
+.GenericAll reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC LUID
-.LowPart RESD 1
-.HighPart RESD 1
+.LowPart reserve(uint32_t) 1
+.HighPart reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LUID_AND_ATTRIBUTES
-.pLuid RESD 1
-.Attributes RESD 1
+.pLuid reserve(NX_PTR) 1
+.Attributes reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC ACL
 .AclRevision RESB 1
 .Sbz1 RESB 1
-.AclSize RESW 1
-.AceCount RESW 1
-.Sbz2 RESW 1
+.AclSize reserve(uint16_t) 1
+.AceCount reserve(uint16_t) 1
+.Sbz2 reserve(uint16_t) 1
 ENDSTRUC
 
 STRUC ACE_HEADER
 .AceType RESB 1
 .AceFlags RESB 1
-.AceSize RESD 1
+.AceSize reserve(uint16_t) 1
 ENDSTRUC
 
 STRUC ACCESS_ALLOWED_ACE
-.Header RESD 1
-.imask RESD 1
-.SidStart RESD 1
+.Header reserve(ACE_HEADER)
+.imask reserve(uint32_t) 1
+.SidStart reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC ACCESS_DENIED_ACE
-.Header RESD 1
-.imask RESD 1
-.SidStart RESD 1
+.Header reserve(ACE_HEADER)
+.imask reserve(uint32_t) 1
+.SidStart reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC SYSTEM_AUDIT_ACE
-.Header RESD 1
-.imask RESD 1
-.SidStart RESD 1
+.Header reserve(ACE_HEADER)
+.imask reserve(uint32_t) 1
+.SidStart reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC SYSTEM_ALARM_ACE
-.Header RESD 1
-.imask RESD 1
-.SidStart RESD 1
+.Header reserve(ACE_HEADER)
+.imask reserve(uint32_t) 1
+.SidStart reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC ACL_REVISION_INFORMATION
-.AclRevision RESD 1
+.AclRevision reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC ACL_SIZE_INFORMATION
-.AceCount RESD 1
-.AclBytesInUse RESD 1
-.AclBytesFree RESD 1
+.AceCount reserve(uint32_t) 1
+.AclBytesInUse reserve(uint32_t) 1
+.AclBytesFree reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC SECURITY_DESCRIPTOR
 .Revision RESB 1
 .Sbz1 RESB 1
-.Control RESD 1
-.Owner RESD 1
-.lGroup RESD 1
-.Sacl RESD 1
-.Dacl RESD 1
+.Control reserve(uint16_t) 1
+.Owner reserve(NX_PTR) 1
+.lGroup reserve(NX_PTR) 1
+.Sacl reserve(NX_PTR) 1
+.Dacl reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC PRIVILEGE_SET
-.PrivilegeCount RESD 1
-.Control RESD 1
-.Privilege RESD 1
+.PrivilegeCount reserve(uint32_t) 1
+.Control reserve(uint32_t) 1
+.Privilege reserve(LUID_AND_ATTRIBUTES)
 ENDSTRUC
 
 STRUC EXCEPTION_RECORD
-.ExceptionCode RESD 1
-.ExceptionFlags RESD 1
-.pExceptionRecord RESD 1
-.ExceptionAddress RESD 1
-.NumberParameters RESD 1
-.ExceptionInformation RESD 1
+.ExceptionCode reserve(uint32_t) 1
+.ExceptionFlags reserve(uint32_t) 1
+.pExceptionRecord reserve(NX_PTR) 1
+.ExceptionAddress reserve(NX_PTR) 1
+.NumberParameters reserve(uint32_t) 1
+.ExceptionInformation reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC EXCEPTION_DEBUG_INFO
-.pExceptionRecord RESD 1
-.dwFirstChance RESD 1
+.pExceptionRecord reserve(EXCEPTION_RECORD)
+.dwFirstChance reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC CREATE_THREAD_DEBUG_INFO
-.hThread RESD 1
-.lpThreadLocalBase RESD 1
-.lpStartAddress RESD 1
+.hThread reserve(NX_PTR) 1
+.lpThreadLocalBase reserve(NX_PTR) 1
+.lpStartAddress reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC CREATE_PROCESS_DEBUG_INFO
-.hFile RESD 1
-.hProcess RESD 1
-.hThread RESD 1
-.lpBaseOfImage RESD 1
-.dwDebugInfoFileOffset RESD 1
-.nDebugInfoSize RESD 1
-.lpThreadLocalBase RESD 1
-.lpStartAddress RESD 1
-.lpImageName RESD 1
-.fUnicode RESD 1
+.hFile reserve(NX_PTR) 1
+.hProcess reserve(NX_PTR) 1
+.hThread reserve(NX_PTR) 1
+.lpBaseOfImage reserve(NX_PTR) 1
+.dwDebugInfoFileOffset reserve(uint32_t) 1
+.nDebugInfoSize reserve(uint32_t) 1
+.lpThreadLocalBase reserve(NX_PTR) 1
+.lpStartAddress reserve(NX_PTR) 1
+.lpImageName reserve(NX_PTR) 1
+.fUnicode reserve(uint16_t) 1
 ENDSTRUC
 
 STRUC EXIT_THREAD_DEBUG_INFO
-.dwExitCode RESD 1
+.dwExitCode reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC EXIT_PROCESS_DEBUG_INFO
-.dwExitCode RESD 1
+.dwExitCode reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC LOAD_DLL_DEBUG_INFO
-.hFile RESD 1
-.lpBaseOfDll RESD 1
-.dwDebugInfoFileOffset RESD 1
-.nDebugInfoSize RESD 1
-.lpImageName RESD 1
-.fUnicode RESW 1
+.hFile reserve(NX_PTR) 1
+.lpBaseOfDll reserve(NX_PTR) 1
+.dwDebugInfoFileOffset reserve(uint32_t) 1
+.nDebugInfoSize reserve(uint32_t) 1
+.lpImageName reserve(NX_PTR) 1
+.fUnicode reserve(uint16_t) 1
 ENDSTRUC
 
 STRUC UNLOAD_DLL_DEBUG_INFO
-.lpBaseOfDll RESD 1
+.lpBaseOfDll reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC OUTPUT_DEBUG_STRING_INFO
-.lpDebugStringData RESD 1
-.fUnicode RESW 1
-.nDebugStringiLength RESW 1
+.lpDebugStringData reserve(NX_PTR) 1
+.fUnicode reserve(uint16_t) 1
+.nDebugStringiLength reserve(uint16_t) 1
 ENDSTRUC
 
 STRUC RIP_INFO
-.dwError RESD 1
-.dwType RESD 1
+.dwError reserve(uint32_t) 1
+.dwType reserve(uint32_t) 1
 ENDSTRUC
 
 STRUC OFSTRUCT
 .cBytes RESB 1
 .fFixedDisk RESB 1
-.nErrCode RESW 1
-.Reserved1 RESW 1
-.Reserved2 RESW 1
-.szPathName RESB 1
+.nErrCode reserve(uint16_t) 1
+.Reserved1 reserve(uint16_t) 1
+.Reserved2 reserve(uint16_t) 1
+.szPathName reserve(char_t) 128
 ENDSTRUC
 
 STRUC WNDCLASSEX
-.cbSize RESD 1
-.style RESD 1
-.lpfnWndProc RESD 1
-.cbClsExtra RESD 1
-.cbWndExtra RESD 1
-.hInstance RESD 1
-.hIcon RESD 1
-.hCursor RESD 1
-.hbrBackground RESD 1
-.lpszMenuName RESD 1
-.lpszClassName RESD 1
-.hIconSm RESD 1
+.cbSize reserve(uint32_t) 1
+.style reserve(uint32_t) 1
+.lpfnWndProc reserve(NX_PTR) 1
+.cbClsExtra reserve(int32_t) 1
+.cbWndExtra reserve(int32_t) 1
+.hInstance reserve(NX_PTR) 1
+.hIcon reserve(NX_PTR) 1
+.hCursor reserve(NX_PTR) 1
+.hbrBackground reserve(NX_PTR) 1
+.lpszMenuName reserve(NX_PTR) 1
+.lpszClassName reserve(NX_PTR) 1
+.hIconSm reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC WNDCLASS
-.style RESD 1
-.lpfnWndProc RESD 1
-.cbClsExtra RESD 1
-.cbWndExtra RESD 1
-.hInstance RESD 1
-.hIcon RESD 1
-.hCursor RESD 1
-.hbrBackground RESD 1
-.lpszMenuName RESD 1
-.lpszClassName RESD 1
+.style reserve(uint32_t) 1
+.lpfnWndProc reserve(NX_PTR) 1
+.cbClsExtra reserve(int32_t) 1
+.cbWndExtra reserve(int32_t) 1
+.hInstance reserve(NX_PTR) 1
+.hIcon reserve(NX_PTR) 1
+.hCursor reserve(NX_PTR) 1
+.hbrBackground reserve(NX_PTR) 1
+.lpszMenuName reserve(NX_PTR) 1
+.lpszClassName reserve(NX_PTR) 1
 ENDSTRUC
 
 STRUC CRITICAL_SECTION
-.Par1 RESD 1
-.Par2 RESD 1
-.Par3 RESD 1
-.Par4 RESD 1
-.Par5 RESD 1
-.Par6 RESD 1
+.Par1 reserve(int32_t) 1
+.Par2 reserve(int32_t) 1
+.Par3 reserve(int32_t) 1
+.Par4 reserve(int32_t) 1
+.Par5 reserve(int32_t) 1
+.Par6 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC BY_HANDLE_FILE_INFORMATION
-.dwFileAttributes RESD 1
-.ftCreationTime RESB FILETIME_size
-.ftLastAccessTime RESB FILETIME_size
-.ftLastWriteTime RESB FILETIME_size
-.dwVolumeSerialNumber RESD 1
-.nFileSizeHigh RESD 1
-.nFileSizeLow RESD 1
-.nNumberOfLinks RESD 1
-.nFileIndexHigh RESD 1
-.nFileIndexLow RESD 1
+.dwFileAttributes reserve(int32_t) 1
+.ftCreationTime reserve(FILETIME)
+.ftLastAccessTime reserve(FILETIME)
+.ftLastWriteTime reserve(FILETIME)
+.dwVolumeSerialNumber reserve(int32_t) 1
+.nFileSizeHigh reserve(int32_t) 1
+.nFileSizeLow reserve(int32_t) 1
+.nNumberOfLinks reserve(int32_t) 1
+.nFileIndexHigh reserve(int32_t) 1
+.nFileIndexLow reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MEMORY_BASIC_INFORMATION
-.BaseAddress RESD 1
-.AllocationBase RESD 1
-.AllocationProtect RESD 1
-.RegionSize RESD 1
-.State RESD 1
-.Protect RESD 1
-.lType RESD 1
+.BaseAddress reserve(int32_t) 1
+.AllocationBase reserve(int32_t) 1
+.AllocationProtect reserve(int32_t) 1
+.RegionSize reserve(int32_t) 1
+.State reserve(int32_t) 1
+.Protect reserve(int32_t) 1
+.lType reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EVENTLOGRECORD
-.iLength RESD 1
-.Reserved RESD 1
-.RecordNumber RESD 1
-.TimeGenerated RESD 1
-.TimeWritten RESD 1
-.EventID RESD 1
-.EventType RESW 1
-.NumStrings RESW 1
-.EventCategory RESW 1
-.ReservedFlags RESW 1
-.ClosingRecordNumber RESD 1
-.StringOffset RESD 1
-.UserSidiLength RESD 1
-.UserSidOffset RESD 1
-.DataiLength RESD 1
-.DataOffset RESD 1
+.iLength reserve(int32_t) 1
+.Reserved reserve(int32_t) 1
+.RecordNumber reserve(int32_t) 1
+.TimeGenerated reserve(int32_t) 1
+.TimeWritten reserve(int32_t) 1
+.EventID reserve(int32_t) 1
+.EventType reserve(short_t) 1
+.NumStrings reserve(short_t) 1
+.EventCategory reserve(short_t) 1
+.ReservedFlags reserve(short_t) 1
+.ClosingRecordNumber reserve(int32_t) 1
+.StringOffset reserve(int32_t) 1
+.UserSidiLength reserve(int32_t) 1
+.UserSidOffset reserve(int32_t) 1
+.DataiLength reserve(int32_t) 1
+.DataOffset reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TOKEN_GROUPS
-.GroupCount RESD 1
-.Groups RESD 1
+.GroupCount reserve(int32_t) 1
+.Groups reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TOKEN_PRIVILEGES
-.PrivilegeCount RESD 1
-.Privileges RESD 1
+.PrivilegeCount reserve(int32_t) 1
+.Privileges reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FLOATING_SAVE_AREA
-.ControlWord RESD 1
-.StatusWord RESD 1
-.TagWord RESD 1
-.ErrorOffset RESD 1
-.ErrorSelector RESD 1
-.DataOffset RESD 1
-.DataSelector RESD 1
+.ControlWord reserve(int32_t) 1
+.StatusWord reserve(int32_t) 1
+.TagWord reserve(int32_t) 1
+.ErrorOffset reserve(int32_t) 1
+.ErrorSelector reserve(int32_t) 1
+.DataOffset reserve(int32_t) 1
+.DataSelector reserve(int32_t) 1
 .RegisterArea RESB 1
-.Cr0NpxState RESD 1
+.Cr0NpxState reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CONTEXT
-.ContextFlags RESD 1
-.iDr0 RESD 1
-.iDr1 RESD 1
-.iDr2 RESD 1
-.iDr3 RESD 1
-.iDr6 RESD 1
-.iDr7 RESD 1
-.FloatSave RESD 1
-.regGs RESD 1
-.regFs RESD 1
-.regEs RESD 1
-.regDs RESD 1
-.regEdi RESD 1
-.regEsi RESD 1
-.regEbx RESD 1
-.regEdx RESD 1
-.regEcx RESD 1
-.regEax RESD 1
-.regEbp RESD 1
-.regEip RESD 1
-.regCs RESD 1
-.regFlag RESD 1
-.regEsp RESD 1
-.regSs RESD 1
+.ContextFlags reserve(int32_t) 1
+.iDr0 reserve(int32_t) 1
+.iDr1 reserve(int32_t) 1
+.iDr2 reserve(int32_t) 1
+.iDr3 reserve(int32_t) 1
+.iDr6 reserve(int32_t) 1
+.iDr7 reserve(int32_t) 1
+.FloatSave reserve(int32_t) 1
+.regGs reserve(int32_t) 1
+.regFs reserve(int32_t) 1
+.regEs reserve(int32_t) 1
+.regDs reserve(int32_t) 1
+.regEdi reserve(int32_t) 1
+.regEsi reserve(int32_t) 1
+.regEbx reserve(int32_t) 1
+.regEdx reserve(int32_t) 1
+.regEcx reserve(int32_t) 1
+.regEax reserve(int32_t) 1
+.regEbp reserve(int32_t) 1
+.regEip reserve(int32_t) 1
+.regCs reserve(int32_t) 1
+.regFlag reserve(int32_t) 1
+.regEsp reserve(int32_t) 1
+.regSs reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EXCEPTION_POINTERS
-.pExceptionRecord RESD 1
-.ContextRecord RESD 1
+.pExceptionRecord reserve(int32_t) 1
+.ContextRecord reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LDT_BYTES
@@ -8208,146 +8215,146 @@ STRUC LDT_BYTES
 ENDSTRUC
 
 STRUC LDT_ENTRY
-.LimitLow RESW 1
-.BaseLow RESW 1
-.HiWord RESD 1
+.LimitLow reserve(short_t) 1
+.BaseLow reserve(short_t) 1
+.HiWord reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TIME_ZONE_INFORMATION
-.Bias RESD 1
-.StandardName RESW 1
-.StandardDate RESD 1
-.StandardBias RESD 1
-.DaylightName RESW 1
-.DaylightDate RESD 1
-.DaylightBias RESD 1
+.Bias reserve(int32_t) 1
+.StandardName reserve(short_t) 1
+.StandardDate reserve(int32_t) 1
+.StandardBias reserve(int32_t) 1
+.DaylightName reserve(short_t) 1
+.DaylightDate reserve(int32_t) 1
+.DaylightBias reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WIN32_STREAM_ID
-.dwStreamID RESD 1
-.dwStreamAttributes RESD 1
-.dwStreamSizeLow RESD 1
-.dwStreamSizeHigh RESD 1
-.dwStreamNameSize RESD 1
+.dwStreamID reserve(int32_t) 1
+.dwStreamAttributes reserve(int32_t) 1
+.dwStreamSizeLow reserve(int32_t) 1
+.dwStreamSizeHigh reserve(int32_t) 1
+.dwStreamNameSize reserve(int32_t) 1
 .cStreamName RESB 1
 ENDSTRUC
 
 STRUC STARTUPINFO
-.cb RESD 1
-.lpReserved RESD 1
-.lpDesktop RESD 1
-.lpTitle RESD 1
-.dwX RESD 1
-.dwY RESD 1
-.dwXSize RESD 1
-.dwYSize RESD 1
-.dwXCountChars RESD 1
-.dwYCountChars RESD 1
-.dwFillAttribute RESD 1
-.dwFlags RESD 1
-.wShowWindow RESW 1
-.cbReserved2 RESW 1
+.cb reserve(int32_t) 1
+.lpReserved reserve(int32_t) 1
+.lpDesktop reserve(int32_t) 1
+.lpTitle reserve(int32_t) 1
+.dwX reserve(int32_t) 1
+.dwY reserve(int32_t) 1
+.dwXSize reserve(int32_t) 1
+.dwYSize reserve(int32_t) 1
+.dwXCountChars reserve(int32_t) 1
+.dwYCountChars reserve(int32_t) 1
+.dwFillAttribute reserve(int32_t) 1
+.dwFlags reserve(int32_t) 1
+.wShowWindow reserve(short_t) 1
+.cbReserved2 reserve(short_t) 1
 .lpReserved2 RESB 1
-.hStdInput RESD 1
-.hStdOutput RESD 1
-.hStdError RESD 1
+.hStdInput reserve(int32_t) 1
+.hStdOutput reserve(int32_t) 1
+.hStdError reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WIN32_FIND_DATA
-.dwFileAttributes RESD 1
-.ftCreationTime RESB FILETIME_size
-.ftLastAccessTime RESB FILETIME_size
-.ftLastWriteTime RESB FILETIME_size
-.nFileSizeHigh RESD 1
-.nFileSizeLow RESD 1
-.dwReserved0 RESD 1
-.dwReserved1 RESD 1
+.dwFileAttributes reserve(int32_t) 1
+.ftCreationTime reserve(FILETIME)
+.ftLastAccessTime reserve(FILETIME)
+.ftLastWriteTime reserve(FILETIME)
+.nFileSizeHigh reserve(int32_t) 1
+.nFileSizeLow reserve(int32_t) 1
+.dwReserved0 reserve(int32_t) 1
+.dwReserved1 reserve(int32_t) 1
 .cFileName RESB MAX_PATH
 .cAlternate RESB 14 
 ENDSTRUC
 
 STRUC CPINFO
-.MaxCharSize RESD 1
+.MaxCharSize reserve(int32_t) 1
 .DefaultChar RESB 1
 .LeadByte RESB 1
 ENDSTRUC
 
 STRUC NUMBERFMT
-.NumDigits RESD 1
-.LeadingZero RESD 1
-.Grouping RESD 1
-.lpDecimalSep RESD 1
-.lpThousandSep RESD 1
-.NegativeOrder RESD 1
+.NumDigits reserve(int32_t) 1
+.LeadingZero reserve(int32_t) 1
+.Grouping reserve(int32_t) 1
+.lpDecimalSep reserve(int32_t) 1
+.lpThousandSep reserve(int32_t) 1
+.NegativeOrder reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CURRENCYFMT
-.NumDigits RESD 1
-.LeadingZero RESD 1
-.Grouping RESD 1
-.lpDecimalSep RESD 1
-.lpThousandSep RESD 1
-.NegativeOrder RESD 1
-.PositiveOrder RESD 1
-.lpCurrencySymbol RESD 1
+.NumDigits reserve(int32_t) 1
+.LeadingZero reserve(int32_t) 1
+.Grouping reserve(int32_t) 1
+.lpDecimalSep reserve(int32_t) 1
+.lpThousandSep reserve(int32_t) 1
+.NegativeOrder reserve(int32_t) 1
+.PositiveOrder reserve(int32_t) 1
+.lpCurrencySymbol reserve(int32_t) 1
 ENDSTRUC
 
 STRUC COORD
-.x RESW 1
-.y RESW 1
+.x reserve(short_t) 1
+.y reserve(short_t) 1
 ENDSTRUC
 
 STRUC SMALL_RECT
-.left RESW 1
-.top RESW 1
-.right RESW 1
-.bottom RESW 1
+.left reserve(short_t) 1
+.top reserve(short_t) 1
+.right reserve(short_t) 1
+.bottom reserve(short_t) 1
 ENDSTRUC
 
 STRUC KEY_EVENT_RECORD
-.bKeyDown RESD 1
-.wRepeatCount RESW 1
-.wVirtualKeyCode RESW 1
-.wVirtualScanCode RESW 1
-.uChar RESW 1
-.dwControlKeyState RESD 1
+.bKeyDown reserve(int32_t) 1
+.wRepeatCount reserve(short_t) 1
+.wVirtualKeyCode reserve(short_t) 1
+.wVirtualScanCode reserve(short_t) 1
+.uChar reserve(short_t) 1
+.dwControlKeyState reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MOUSE_EVENT_RECORD
-.dwMousePosition RESD 1
-.dwButtonState RESD 1
-.dwControlKeyState RESD 1
-.dwEventFlags RESD 1
+.dwMousePosition reserve(int32_t) 1
+.dwButtonState reserve(int32_t) 1
+.dwControlKeyState reserve(int32_t) 1
+.dwEventFlags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WINDOW_BUFFER_SIZE_RECORD
-.dwSize RESD 1
+.dwSize reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MENU_EVENT_RECORD
-.dwCommandId RESD 1
+.dwCommandId reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FOCUS_EVENT_RECORD
-.bSetFocus RESD 1
+.bSetFocus reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CHAR_INFO
-.Char RESW 1
-.Attributes RESW 1
+.Char reserve(short_t) 1
+.Attributes reserve(short_t) 1
 ENDSTRUC
 
 STRUC CONSOLE_SCREEN_BUFFER_INFO
-.dwSize RESD 1
-.dwCursorPosition RESD 1
-.wAttributes RESW 1
-.srWindow RESB SMALL_RECT_size
-.dwMaximumWindowSize RESD 1
+.dwSize reserve(int32_t) 1
+.dwCursorPosition reserve(int32_t) 1
+.wAttributes reserve(short_t) 1
+.srWindow reserve(SMALL_RECT)
+.dwMaximumWindowSize reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CONSOLE_CURSOR_INFO
-.dwSize RESD 1
-.bVisible RESD 1
+.dwSize reserve(int32_t) 1
+.bVisible reserve(int32_t) 1
 ENDSTRUC
 
 STRUC XFORM
@@ -8360,13 +8367,13 @@ STRUC XFORM
 ENDSTRUC
 
 STRUC BITMAP
-.bmType RESD 1
-.bmWidth RESD 1
-.bmHeight RESD 1
-.bmWidthBytes RESD 1
-.bmPlanes RESW 1
-.bmBitsPixel RESW 1
-.bmBits RESD 1
+.bmType reserve(int32_t) 1
+.bmWidth reserve(int32_t) 1
+.bmHeight reserve(int32_t) 1
+.bmWidthBytes reserve(int32_t) 1
+.bmPlanes reserve(short_t) 1
+.bmBitsPixel reserve(short_t) 1
+.bmBits reserve(int32_t) 1
 ENDSTRUC
 
 STRUC RGBTRIPLE
@@ -8383,108 +8390,108 @@ STRUC RGBQUAD
 ENDSTRUC
 
 STRUC BITMAPCOREHEADER
-.bcSize RESD 1
-.bcWidth RESW 1
-.bcHeight RESW 1
-.bcPlanes RESW 1
-.bcBitCount RESW 1
+.bcSize reserve(int32_t) 1
+.bcWidth reserve(short_t) 1
+.bcHeight reserve(short_t) 1
+.bcPlanes reserve(short_t) 1
+.bcBitCount reserve(short_t) 1
 ENDSTRUC
 
 STRUC BITMAPINFOHEADER
-.biSize RESD 1
-.biWidth RESD 1
-.biHeight RESD 1
-.biPlanes RESW 1
-.biBitCount RESW 1
-.biCompression RESD 1
-.biSizeImage RESD 1
-.biXPelsPerMeter RESD 1
-.biYPelsPerMeter RESD 1
-.biClrUsed RESD 1
-.biClrImportant RESD 1
+.biSize reserve(int32_t) 1
+.biWidth reserve(int32_t) 1
+.biHeight reserve(int32_t) 1
+.biPlanes reserve(short_t) 1
+.biBitCount reserve(short_t) 1
+.biCompression reserve(int32_t) 1
+.biSizeImage reserve(int32_t) 1
+.biXPelsPerMeter reserve(int32_t) 1
+.biYPelsPerMeter reserve(int32_t) 1
+.biClrUsed reserve(int32_t) 1
+.biClrImportant reserve(int32_t) 1
 ENDSTRUC
 
 STRUC BITMAPINFO
-.bmiHeader RESD 1
-.bmiColors RESD 1
+.bmiHeader reserve(int32_t) 1
+.bmiColors reserve(int32_t) 1
 ENDSTRUC
 
 STRUC BITMAPCOREINFO
-.bmciHeader RESD 1
-.bmciColors RESD 1
+.bmciHeader reserve(int32_t) 1
+.bmciColors reserve(int32_t) 1
 ENDSTRUC
 
 STRUC BITMAPFILEHEADER
-.bfType RESW 1
-.bfSize RESD 1
-.bfReserved1 RESW 1
-.bfReserved2 RESW 1
-.bfOffBits RESD 1
+.bfType reserve(short_t) 1
+.bfSize reserve(int32_t) 1
+.bfReserved1 reserve(short_t) 1
+.bfReserved2 reserve(short_t) 1
+.bfOffBits reserve(int32_t) 1
 ENDSTRUC
 
 STRUC HANDLETABLE
-.objectHandle RESD 1
+.objectHandle reserve(int32_t) 1
 ENDSTRUC
 
 STRUC METARECORD
-.rdSize RESD 1
-.rdFunction RESW 1
-.rdParm1 RESW 1
+.rdSize reserve(int32_t) 1
+.rdFunction reserve(short_t) 1
+.rdParm1 reserve(short_t) 1
 ENDSTRUC
 
 STRUC METAFILEPICT
-.imm RESD 1
-.xExt RESD 1
-.yExt RESD 1
-.hMF RESD 1
+.imm reserve(int32_t) 1
+.xExt reserve(int32_t) 1
+.yExt reserve(int32_t) 1
+.hMF reserve(int32_t) 1
 ENDSTRUC
 
 STRUC METAHEADER
-.mtType RESW 1
-.mtHeaderSize RESW 1
-.mtVersion RESW 1
-.mtSize RESD 1
-.mtNoObjects RESW 1
-.mtMaxRecord RESD 1
-.mtNoParameters RESW 1
+.mtType reserve(short_t) 1
+.mtHeaderSize reserve(short_t) 1
+.mtVersion reserve(short_t) 1
+.mtSize reserve(int32_t) 1
+.mtNoObjects reserve(short_t) 1
+.mtMaxRecord reserve(int32_t) 1
+.mtNoParameters reserve(short_t) 1
 ENDSTRUC
 
 STRUC ENHMETARECORD
-.iType RESD 1
-.nSize RESD 1
-.dParm1 RESD 1
+.iType reserve(int32_t) 1
+.nSize reserve(int32_t) 1
+.dParm1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ENHMETAHEADER
-.iType RESD 1
-.nSize RESD 1
-.rclBounds RESB RECT_size
-.rclFrame RESB RECT_size
-.dSignature RESD 1
-.nVersion RESD 1
-.nBytes RESD 1
-.nRecords RESD 1
-.nHandles RESW 1
-.sReserved RESW 1
-.nDescription RESD 1
-.offDescription RESD 1
-.nPalEntries RESD 1
-.szlDevice RESD 1
-.szlMillimeters RESD 1
+.iType reserve(int32_t) 1
+.nSize reserve(int32_t) 1
+.rclBounds reserve(RECT)
+.rclFrame reserve(RECT)
+.dSignature reserve(int32_t) 1
+.nVersion reserve(int32_t) 1
+.nBytes reserve(int32_t) 1
+.nRecords reserve(int32_t) 1
+.nHandles reserve(short_t) 1
+.sReserved reserve(short_t) 1
+.nDescription reserve(int32_t) 1
+.offDescription reserve(int32_t) 1
+.nPalEntries reserve(int32_t) 1
+.szlDevice reserve(int32_t) 1
+.szlMillimeters reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TEXTMETRIC
-.tmHeight RESD 1
-.tmAscent RESD 1
-.tmDescent RESD 1
-.tmInternalLeading RESD 1
-.tmExternalLeading RESD 1
-.tmAveCharWidth RESD 1
-.tmMaxCharWidth RESD 1
-.tmWeight RESD 1
-.tmOverhang RESD 1
-.tmDigitizedAspectX RESD 1
-.tmDigitizedAspectY RESD 1
+.tmHeight reserve(int32_t) 1
+.tmAscent reserve(int32_t) 1
+.tmDescent reserve(int32_t) 1
+.tmInternalLeading reserve(int32_t) 1
+.tmExternalLeading reserve(int32_t) 1
+.tmAveCharWidth reserve(int32_t) 1
+.tmMaxCharWidth reserve(int32_t) 1
+.tmWeight reserve(int32_t) 1
+.tmOverhang reserve(int32_t) 1
+.tmDigitizedAspectX reserve(int32_t) 1
+.tmDigitizedAspectY reserve(int32_t) 1
 .tmFirstChar RESB 1
 .tmLastChar RESB 1
 .tmDefaultChar RESB 1
@@ -8497,17 +8504,17 @@ STRUC TEXTMETRIC
 ENDSTRUC
 
 STRUC NEWTEXTMETRIC
-.tmHeight RESD 1
-.tmAscent RESD 1
-.tmDescent RESD 1
-.tmInternalLeading RESD 1
-.tmExternalLeading RESD 1
-.tmAveCharWidth RESD 1
-.tmMaxCharWidth RESD 1
-.tmWeight RESD 1
-.tmOverhang RESD 1
-.tmDigitizedAspectX RESD 1
-.tmDigitizedAspectY RESD 1
+.tmHeight reserve(int32_t) 1
+.tmAscent reserve(int32_t) 1
+.tmDescent reserve(int32_t) 1
+.tmInternalLeading reserve(int32_t) 1
+.tmExternalLeading reserve(int32_t) 1
+.tmAveCharWidth reserve(int32_t) 1
+.tmMaxCharWidth reserve(int32_t) 1
+.tmWeight reserve(int32_t) 1
+.tmOverhang reserve(int32_t) 1
+.tmDigitizedAspectX reserve(int32_t) 1
+.tmDigitizedAspectY reserve(int32_t) 1
 .tmFirstChar RESB 1
 .tmLastChar RESB 1
 .tmDefaultChar RESB 1
@@ -8517,40 +8524,40 @@ STRUC NEWTEXTMETRIC
 .tmStruckOut RESB 1
 .tmPitchAndFamily RESB 1
 .tmCharSet RESB 1
-.ntmFlags RESD 1
-.ntmSizeEM RESD 1
-.ntmCellHeight RESD 1
-.ntmAveWidth RESD 1
+.ntmFlags reserve(int32_t) 1
+.ntmSizeEM reserve(int32_t) 1
+.ntmCellHeight reserve(int32_t) 1
+.ntmAveWidth reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PELARRAY
-.paXCount RESD 1
-.paYCount RESD 1
-.paXExt RESD 1
-.paYExt RESD 1
-.paRGBs RESW 1
+.paXCount reserve(int32_t) 1
+.paYCount reserve(int32_t) 1
+.paXExt reserve(int32_t) 1
+.paYExt reserve(int32_t) 1
+.paRGBs reserve(short_t) 1
 ENDSTRUC
 
 STRUC LOGBRUSH
-.lbStyle RESD 1
-.lbColor RESD 1
-.lbHatch RESD 1
+.lbStyle reserve(int32_t) 1
+.lbColor reserve(int32_t) 1
+.lbHatch reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LOGPEN
-.lopnStyle RESD 1
-.lopnWidth RESD 1
-.lopnColor RESD 1
+.lopnStyle reserve(int32_t) 1
+.lopnWidth reserve(int32_t) 1
+.lopnColor reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EXTLOGPEN
-.elpPenStyle RESD 1
-.elpWidth RESD 1
-.elpBrushStyle RESD 1
-.elpColor RESD 1
-.elpHatch RESD 1
-.elpNumEntries RESD 1
-.elpStyleEntry RESD 1
+.elpPenStyle reserve(int32_t) 1
+.elpWidth reserve(int32_t) 1
+.elpBrushStyle reserve(int32_t) 1
+.elpColor reserve(int32_t) 1
+.elpHatch reserve(int32_t) 1
+.elpNumEntries reserve(int32_t) 1
+.elpStyleEntry reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PALETTEENTRY
@@ -8561,17 +8568,17 @@ STRUC PALETTEENTRY
 ENDSTRUC
 
 STRUC LOGPALETTE
-.palVersion RESW 1
-.palNumEntries RESW 1
-.palPalEntry RESD 1
+.palVersion reserve(short_t) 1
+.palNumEntries reserve(short_t) 1
+.palPalEntry reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LOGFONT
-.lfHeight RESD 1
-.lfWidth RESD 1
-.lfEscapement RESD 1
-.lfOrientation RESD 1
-.lfWeight RESD 1
+.lfHeight reserve(int32_t) 1
+.lfWidth reserve(int32_t) 1
+.lfEscapement reserve(int32_t) 1
+.lfOrientation reserve(int32_t) 1
+.lfWeight reserve(int32_t) 1
 .lfItalic RESB 1
 .lfUnderline RESB 1
 .lfStrikeOut RESB 1
@@ -8584,31 +8591,31 @@ STRUC LOGFONT
 ENDSTRUC
 
 STRUC NONCLIENTMETRICS
-.cbSize RESD 1
-.iBorderWidth RESD 1
-.iScrollWidth RESD 1
-.iScrollHeight RESD 1
-.iCaptionWidth RESD 1
-.iCaptionHeight RESD 1
-.lfCaptionFont RESD 1
-.iSMCaptionWidth RESD 1
-.iSMCaptionHeight RESD 1
-.lfSMCaptionFont RESD 1
-.iMenuWidth RESD 1
-.iMenuHeight RESD 1
-.lfMenuFont RESD 1
-.lfStatusFont RESD 1
-.lfMessageFont RESD 1
+.cbSize reserve(int32_t) 1
+.iBorderWidth reserve(int32_t) 1
+.iScrollWidth reserve(int32_t) 1
+.iScrollHeight reserve(int32_t) 1
+.iCaptionWidth reserve(int32_t) 1
+.iCaptionHeight reserve(int32_t) 1
+.lfCaptionFont reserve(int32_t) 1
+.iSMCaptionWidth reserve(int32_t) 1
+.iSMCaptionHeight reserve(int32_t) 1
+.lfSMCaptionFont reserve(int32_t) 1
+.iMenuWidth reserve(int32_t) 1
+.iMenuHeight reserve(int32_t) 1
+.lfMenuFont reserve(int32_t) 1
+.lfStatusFont reserve(int32_t) 1
+.lfMessageFont reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ENUMLOGFONT
-.elfLogFont RESD 1
+.elfLogFont reserve(int32_t) 1
 .elfFullName RESB 1
 .elfStyle RESB 1
 ENDSTRUC
 
 STRUC PANOSE
-.ulculture RESD 1
+.ulculture reserve(int32_t) 1
 .bFamilyType RESB 1
 .bSerifStyle RESB 1
 .bWeight RESB 1
@@ -8622,64 +8629,64 @@ STRUC PANOSE
 ENDSTRUC
 
 STRUC EXTLOGFONT
-.elfLogFont RESD 1
+.elfLogFont reserve(int32_t) 1
 .elfFullName RESB 1
 .elfStyle RESB 1
-.elfVersion RESD 1
-.elfStyleSize RESD 1
-.elfMatch RESD 1
-.elfReserved RESD 1
+.elfVersion reserve(int32_t) 1
+.elfStyleSize reserve(int32_t) 1
+.elfMatch reserve(int32_t) 1
+.elfReserved reserve(int32_t) 1
 .elfVendorId RESB 1
-.elfCulture RESD 1
-.elfPanose RESD 1
+.elfCulture reserve(int32_t) 1
+.elfPanose reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DEVMODE
 .dmDeviceName RESB 1
-.dmSpecVersion RESW 1
-.dmDriverVersion RESW 1
-.dmSize RESW 1
-.dmDriverExtra RESW 1
-.dmFields RESD 1
-.dmOrientation RESW 1
-.dmPaperSize RESW 1
-.dmPaperiLength RESW 1
-.dmPaperWidth RESW 1
-.dmScale RESW 1
-.dmCopies RESW 1
-.dmDefaultSource RESW 1
-.dmPrintQuality RESW 1
-.dmColor RESW 1
-.dmDuplex RESW 1
-.dmYResolution RESW 1
-.dmTTOption RESW 1
-.dmCollate RESW 1
+.dmSpecVersion reserve(short_t) 1
+.dmDriverVersion reserve(short_t) 1
+.dmSize reserve(short_t) 1
+.dmDriverExtra reserve(short_t) 1
+.dmFields reserve(int32_t) 1
+.dmOrientation reserve(short_t) 1
+.dmPaperSize reserve(short_t) 1
+.dmPaperiLength reserve(short_t) 1
+.dmPaperWidth reserve(short_t) 1
+.dmScale reserve(short_t) 1
+.dmCopies reserve(short_t) 1
+.dmDefaultSource reserve(short_t) 1
+.dmPrintQuality reserve(short_t) 1
+.dmColor reserve(short_t) 1
+.dmDuplex reserve(short_t) 1
+.dmYResolution reserve(short_t) 1
+.dmTTOption reserve(short_t) 1
+.dmCollate reserve(short_t) 1
 .dmFormName RESB CCHFORMNAME
-.dmUnusedPadding RESW 1
-.dmBitsPerPel RESW 1
-.dmPelsWidth RESD 1
-.dmPelsHeight RESD 1
-.dmDisplayFlags RESD 1
-.dmDisplayFrequency RESD 1
+.dmUnusedPadding reserve(short_t) 1
+.dmBitsPerPel reserve(short_t) 1
+.dmPelsWidth reserve(int32_t) 1
+.dmPelsHeight reserve(int32_t) 1
+.dmDisplayFlags reserve(int32_t) 1
+.dmDisplayFrequency reserve(int32_t) 1
 ENDSTRUC
 
 STRUC RGNDATAHEADER
-.dwSize RESD 1
-.iType RESD 1
-.nCount RESD 1
-.nRgnSize RESD 1
-.rcBound RESB RECT_size
+.dwSize reserve(int32_t) 1
+.iType reserve(int32_t) 1
+.nCount reserve(int32_t) 1
+.nRgnSize reserve(int32_t) 1
+.rcBound reserve(RECT)
 ENDSTRUC
 
 STRUC RGNDATA
-.rdh RESD 1
+.rdh reserve(int32_t) 1
 .Buffer RESB 1
 ENDSTRUC
 
 STRUC ABC
-.abcA RESD 1
-.abcB RESD 1
-.abcC RESD 1
+.abcA reserve(int32_t) 1
+.abcB reserve(int32_t) 1
+.abcC reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ABCFLOAT
@@ -8689,1272 +8696,1272 @@ STRUC ABCFLOAT
 ENDSTRUC
 
 STRUC OUTLINETEXTMETRIC
-.otmSize RESD 1
-.otmTextMetrics RESD 1
+.otmSize reserve(int32_t) 1
+.otmTextMetrics reserve(int32_t) 1
 .otmFiller RESB 1
-.otmPanoseNumber RESD 1
-.otmfsSelection RESD 1
-.otmfsType RESD 1
-.otmsCharSlopeRise RESD 1
-.otmsCharSlopeRun RESD 1
-.otmItalicAngle RESD 1
-.otmEMSquare RESD 1
-.otmAscent RESD 1
-.otmDescent RESD 1
-.otmLineGap RESD 1
-.otmsCapEmHeight RESD 1
-.otmsXHeight RESD 1
-.otmrcFontBox RESB RECT_size
-.otmMacAscent RESD 1
-.otmMacDescent RESD 1
-.otmMacLineGap RESD 1
-.otmusMinimumPPEM RESD 1
-.otmptSubscriptSize RESD 1
-.otmptSubscriptOffset RESD 1
-.otmptSuperscriptSize RESD 1
-.otmptSuperscriptOffset RESD 1
-.otmsStrikeoutSize RESD 1
-.otmsStrikeoutPosition RESD 1
-.otmsUnderscorePosition RESD 1
-.otmsUnderscoreSize RESD 1
-.otmpFamilyName RESD 1
-.otmpFaceName RESD 1
-.otmpStyleName RESD 1
-.otmpFullName RESD 1
+.otmPanoseNumber reserve(int32_t) 1
+.otmfsSelection reserve(int32_t) 1
+.otmfsType reserve(int32_t) 1
+.otmsCharSlopeRise reserve(int32_t) 1
+.otmsCharSlopeRun reserve(int32_t) 1
+.otmItalicAngle reserve(int32_t) 1
+.otmEMSquare reserve(int32_t) 1
+.otmAscent reserve(int32_t) 1
+.otmDescent reserve(int32_t) 1
+.otmLineGap reserve(int32_t) 1
+.otmsCapEmHeight reserve(int32_t) 1
+.otmsXHeight reserve(int32_t) 1
+.otmrcFontBox reserve(RECT)
+.otmMacAscent reserve(int32_t) 1
+.otmMacDescent reserve(int32_t) 1
+.otmMacLineGap reserve(int32_t) 1
+.otmusMinimumPPEM reserve(int32_t) 1
+.otmptSubscriptSize reserve(int32_t) 1
+.otmptSubscriptOffset reserve(int32_t) 1
+.otmptSuperscriptSize reserve(int32_t) 1
+.otmptSuperscriptOffset reserve(int32_t) 1
+.otmsStrikeoutSize reserve(int32_t) 1
+.otmsStrikeoutPosition reserve(int32_t) 1
+.otmsUnderscorePosition reserve(int32_t) 1
+.otmsUnderscoreSize reserve(int32_t) 1
+.otmpFamilyName reserve(int32_t) 1
+.otmpFaceName reserve(int32_t) 1
+.otmpStyleName reserve(int32_t) 1
+.otmpFullName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC POLYTEXT
-.x RESD 1
-.y RESD 1
-.n RESD 1
-.lpStr RESD 1
-.uiFlags RESD 1
-.rcl RESB RECT_size
-.pdx RESD 1
+.x reserve(int32_t) 1
+.y reserve(int32_t) 1
+.n reserve(int32_t) 1
+.lpStr reserve(int32_t) 1
+.uiFlags reserve(int32_t) 1
+.rcl reserve(RECT)
+.pdx reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FIXED
-.fract RESW 1
-.Value RESW 1
+.fract reserve(short_t) 1
+.Value reserve(short_t) 1
 ENDSTRUC
 
 STRUC MAT2
-.eM11 RESD 1
-.eM12 RESD 1
-.eM21 RESD 1
-.eM22 RESD 1
+.eM11 reserve(int32_t) 1
+.eM12 reserve(int32_t) 1
+.eM21 reserve(int32_t) 1
+.eM22 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC GLYPHMETRICS
-.gmBlackBoxX RESD 1
-.gmBlackBoxY RESD 1
-.gmptGlyphOrigin RESD 1
-.gmCellIncX RESW 1
-.gmCellIncY RESW 1
+.gmBlackBoxX reserve(int32_t) 1
+.gmBlackBoxY reserve(int32_t) 1
+.gmptGlyphOrigin reserve(int32_t) 1
+.gmCellIncX reserve(short_t) 1
+.gmCellIncY reserve(short_t) 1
 ENDSTRUC
 
 STRUC POINTFX
-.x RESD 1
-.y RESD 1
+.x reserve(int32_t) 1
+.y reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TTPOLYCURVE
-.wType RESW 1
-.cpfx RESW 1
-.apfx RESD 1
+.wType reserve(short_t) 1
+.cpfx reserve(short_t) 1
+.apfx reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TTPOLYGONHEADER
-.cb RESD 1
-.dwType RESD 1
-.pfxStart RESD 1
+.cb reserve(int32_t) 1
+.dwType reserve(int32_t) 1
+.pfxStart reserve(int32_t) 1
 ENDSTRUC
 
 STRUC RASTERIZER_STATUS
-.nSize RESW 1
-.wFlags RESW 1
-.nLanguageID RESW 1
+.nSize reserve(short_t) 1
+.wFlags reserve(short_t) 1
+.nLanguageID reserve(short_t) 1
 ENDSTRUC
 
 STRUC COLORADJUSTMENT
-.caSize RESW 1
-.caFlags RESW 1
-.caIlluminantIndex RESW 1
-.caRedGamma RESW 1
-.caGreenGamma RESW 1
-.caBlueGamma RESW 1
-.caReferenceBlack RESW 1
-.caReferenceWhite RESW 1
-.caContrast RESW 1
-.caBrightness RESW 1
-.caColorfulness RESW 1
-.caRedGreenTint RESW 1
+.caSize reserve(short_t) 1
+.caFlags reserve(short_t) 1
+.caIlluminantIndex reserve(short_t) 1
+.caRedGamma reserve(short_t) 1
+.caGreenGamma reserve(short_t) 1
+.caBlueGamma reserve(short_t) 1
+.caReferenceBlack reserve(short_t) 1
+.caReferenceWhite reserve(short_t) 1
+.caContrast reserve(short_t) 1
+.caBrightness reserve(short_t) 1
+.caColorfulness reserve(short_t) 1
+.caRedGreenTint reserve(short_t) 1
 ENDSTRUC
 
 STRUC DOCINFO
-.cbSize RESD 1
-.lpszDocName RESD 1
-.lpszOutput RESD 1
+.cbSize reserve(int32_t) 1
+.lpszDocName reserve(int32_t) 1
+.lpszOutput reserve(int32_t) 1
 ENDSTRUC
 
 STRUC KERNINGPAIR
-.wFirst RESW 1
-.wSecond RESW 1
-.iKernAmount RESD 1
+.wFirst reserve(short_t) 1
+.wSecond reserve(short_t) 1
+.iKernAmount reserve(int32_t) 1
 ENDSTRUC
 
 STRUC emr
-.iType RESD 1
-.nSize RESD 1
+.iType reserve(int32_t) 1
+.nSize reserve(int32_t) 1
 ENDSTRUC
 
 STRUC emrtext
-.ptlReference RESB POINT_size
-.nchars RESD 1
-.offString RESD 1
-.fOptions RESD 1
-.ircl RESD 1
-.offDx RESD 1
+.ptlReference reserve(POINT)
+.nchars reserve(int32_t) 1
+.offString reserve(int32_t) 1
+.fOptions reserve(int32_t) 1
+.ircl reserve(int32_t) 1
+.offDx reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMR
-.iType RESD 1
-.nSize RESD 1
+.iType reserve(int32_t) 1
+.nSize reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRABORTPATH
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRBEGINPATH
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRENDPATH
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRCLOSEFIGURE
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRFLATTENPATH
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRWIDENPATH
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRSETMETARGN
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMREMRSAVEDC
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRREALIZEPALETTE
-.emr RESB EMR_size
+.emr reserve(EMR)
 ENDSTRUC
 
 STRUC EMRSELECTCLIPPATH
-.emr RESB EMR_size
-.iMode RESD 1
+.emr reserve(EMR)
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETBKMODE
-.emr RESB EMR_size
-.iMode RESD 1
+.emr reserve(EMR)
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETMAPMODE
-.emr RESB EMR_size
-.iMode RESD 1
+.emr reserve(EMR)
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETPOLYFILLMODE
-.emr RESB EMR_size
-.iMode RESD 1
+.emr reserve(EMR)
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETROP2
-.emr RESB EMR_size
-.iMode RESD 1
+.emr reserve(EMR)
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETSTRETCHBLTMODE
-.emr RESB EMR_size
-.iMode RESD 1
+.emr reserve(EMR)
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETTEXTALIGN
-.emr RESB EMR_size
-.iMode RESD 1
+.emr reserve(EMR)
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETMITERLIMIT
-.emr RESB EMR_size
+.emr reserve(EMR)
 .eMiterLimit RESQ 1
 ENDSTRUC
 
 STRUC EMRRESTOREDC
-.emr RESB EMR_size
-.iRelative RESD 1
+.emr reserve(EMR)
+.iRelative reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETARCDIRECTION
-.emr RESB EMR_size
-.iArcDirection RESD 1
+.emr reserve(EMR)
+.iArcDirection reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETMAPPERFLAGS
-.emr RESB EMR_size
-.dwFlags RESD 1
+.emr reserve(EMR)
+.dwFlags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETTEXTCOLOR
-.emr RESB EMR_size
-.crColor RESD 1
+.emr reserve(EMR)
+.crColor reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETBKCOLOR
-.emr RESB EMR_size
-.crColor RESD 1
+.emr reserve(EMR)
+.crColor reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSELECTOBJECT
-.emr RESB EMR_size
-.ihObject RESD 1
+.emr reserve(EMR)
+.ihObject reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRDELETEOBJECT
-.emr RESB EMR_size
-.ihObject RESD 1
+.emr reserve(EMR)
+.ihObject reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSELECTPALETTE
-.emr RESB EMR_size
-.ihPal RESD 1
+.emr reserve(EMR)
+.ihPal reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRRESIZEPALETTE
-.emr RESB EMR_size
-.ihPal RESD 1
-.cEntries RESD 1
+.emr reserve(EMR)
+.ihPal reserve(int32_t) 1
+.cEntries reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETPALETTEENTRIES
-.emr RESB EMR_size
-.ihPal RESD 1
-.iStart RESD 1
-.cEntries RESD 1
-.aPalEntries RESD 1
+.emr reserve(EMR)
+.ihPal reserve(int32_t) 1
+.iStart reserve(int32_t) 1
+.cEntries reserve(int32_t) 1
+.aPalEntries reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETCOLORADJUSTMENT
-.emr RESB EMR_size
-.ColorAdjustment RESD 1
+.emr reserve(EMR)
+.ColorAdjustment reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRGDICOMMENT
-.emr RESB EMR_size
-.cbData RESD 1
-.xData1 RESW 1
+.emr reserve(EMR)
+.cbData reserve(int32_t) 1
+.xData1 reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMREOF
-.emr RESB EMR_size
-.nPalEntries RESD 1
-.offPalEntries RESD 1
-.nSizeLast RESD 1
+.emr reserve(EMR)
+.nPalEntries reserve(int32_t) 1
+.offPalEntries reserve(int32_t) 1
+.nSizeLast reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRLINETO
-.emr RESB EMR_size
-.ptl RESB POINT_size
+.emr reserve(EMR)
+.ptl reserve(POINT)
 ENDSTRUC
 
 STRUC EMRMOVETOEX
-.emr RESB EMR_size
-.ptl RESB POINT_size
+.emr reserve(EMR)
+.ptl reserve(POINT)
 ENDSTRUC
 
 STRUC EMROFFSETCLIPRGN
-.emr RESB EMR_size
-.ptlOffset RESB POINT_size
+.emr reserve(EMR)
+.ptlOffset reserve(POINT)
 ENDSTRUC
 
 STRUC EMRFILLPATH
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
 ENDSTRUC
 
 STRUC EMRSTROKEANDFILLPATH
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
 ENDSTRUC
 
 STRUC EMRSTROKEPATH
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
 ENDSTRUC
 
 STRUC EMREXCLUDECLIPRECT
-.emr RESB EMR_size
-.rclClip RESB RECT_size
+.emr reserve(EMR)
+.rclClip reserve(RECT)
 ENDSTRUC
 
 STRUC EMRINTERSECTCLIPRECT
-.emr RESB EMR_size
-.rclClip RESB RECT_size
+.emr reserve(EMR)
+.rclClip reserve(RECT)
 ENDSTRUC
 
 STRUC EMRSETVIEWPORTORGEX
-.emr RESB EMR_size
-.ptlOrigin RESB POINT_size
+.emr reserve(EMR)
+.ptlOrigin reserve(POINT)
 ENDSTRUC
 
 STRUC EMRSETWINDOWORGEX
-.emr RESB EMR_size
-.ptlOrigin RESB POINT_size
+.emr reserve(EMR)
+.ptlOrigin reserve(POINT)
 ENDSTRUC
 
 STRUC EMRSETBRUSHORGEX
-.emr RESB EMR_size
-.ptlOrigin RESB POINT_size
+.emr reserve(EMR)
+.ptlOrigin reserve(POINT)
 ENDSTRUC
 
 STRUC EMRSETVIEWPORTEXTEX
-.emr RESB EMR_size
-.szlExtent RESD 1
+.emr reserve(EMR)
+.szlExtent reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETWINDOWEXTEX
-.emr RESB EMR_size
-.szlExtent RESD 1
+.emr reserve(EMR)
+.szlExtent reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSCALEVIEWPORTEXTEX
-.emr RESB EMR_size
-.xNum RESD 1
-.xDenom RESD 1
-.yNum RESD 1
-.yDemon RESD 1
+.emr reserve(EMR)
+.xNum reserve(int32_t) 1
+.xDenom reserve(int32_t) 1
+.yNum reserve(int32_t) 1
+.yDemon reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSCALEWINDOWEXTEX
-.emr RESB EMR_size
-.xNum RESD 1
-.xDenom RESD 1
-.yNum RESD 1
-.yDemon RESD 1
+.emr reserve(EMR)
+.xNum reserve(int32_t) 1
+.xDenom reserve(int32_t) 1
+.yNum reserve(int32_t) 1
+.yDemon reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETWORLDTRANSFORM
-.emr RESB EMR_size
-.xform RESD 1
+.emr reserve(EMR)
+.xform reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRMODIFYWORLDTRANSFORM
-.emr RESB EMR_size
-.xform RESD 1
-.iMode RESD 1
+.emr reserve(EMR)
+.xform reserve(int32_t) 1
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETPIXELV
-.emr RESB EMR_size
-.ptlPixel RESB POINT_size
-.crColor RESD 1
+.emr reserve(EMR)
+.ptlPixel reserve(POINT)
+.crColor reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMREXTFLOODFILL
-.emr RESB EMR_size
-.ptlStart RESB POINT_size
-.crColor RESD 1
-.iMode RESD 1
+.emr reserve(EMR)
+.ptlStart reserve(POINT)
+.crColor reserve(int32_t) 1
+.iMode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRELLIPSE
-.emr RESB EMR_size
-.rclBox RESB RECT_size
+.emr reserve(EMR)
+.rclBox reserve(RECT)
 ENDSTRUC
 
 STRUC EMRRECTANGLE
-.emr RESB EMR_size
-.rclBox RESB RECT_size
+.emr reserve(EMR)
+.rclBox reserve(RECT)
 ENDSTRUC
 
 STRUC EMRROUNDRECT
-.emr RESB EMR_size
-.rclBox RESB RECT_size
-.szlCorner RESD 1
+.emr reserve(EMR)
+.rclBox reserve(RECT)
+.szlCorner reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRARC
-.emr RESB EMR_size
-.rclBox RESB RECT_size
-.ptlStart RESB POINT_size
-.ptlEnd RESB POINT_size
+.emr reserve(EMR)
+.rclBox reserve(RECT)
+.ptlStart reserve(POINT)
+.ptlEnd reserve(POINT)
 ENDSTRUC
 
 STRUC EMRARCTO
-.emr RESB EMR_size
-.rclBox RESB RECT_size
-.ptlStart RESB POINT_size
-.ptlEnd RESB POINT_size
+.emr reserve(EMR)
+.rclBox reserve(RECT)
+.ptlStart reserve(POINT)
+.ptlEnd reserve(POINT)
 ENDSTRUC
 
 STRUC EMRCHORD
-.emr RESB EMR_size
-.rclBox RESB RECT_size
-.ptlStart RESB POINT_size
-.ptlEnd RESB POINT_size
+.emr reserve(EMR)
+.rclBox reserve(RECT)
+.ptlStart reserve(POINT)
+.ptlEnd reserve(POINT)
 ENDSTRUC
 
 STRUC EMRPIE
-.emr RESB EMR_size
-.rclBox RESB RECT_size
-.ptlStart RESB POINT_size
-.ptlEnd RESB POINT_size
+.emr reserve(EMR)
+.rclBox reserve(RECT)
+.ptlStart reserve(POINT)
+.ptlEnd reserve(POINT)
 ENDSTRUC
 
 STRUC EMRANGLEARC
-.emr RESB EMR_size
-.ptlCenter RESB POINT_size
-.nRadius RESD 1
+.emr reserve(EMR)
+.ptlCenter reserve(POINT)
+.nRadius reserve(int32_t) 1
 .eStartAngle RESQ 1
 .eSweepAngle RESQ 1
 ENDSTRUC
 
 STRUC EMRPOLYLINE
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cptl RESD 1
-.aptl1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cptl reserve(int32_t) 1
+.aptl1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYBEZIER
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cptl RESD 1
-.aptl1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cptl reserve(int32_t) 1
+.aptl1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYGON
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cptl RESD 1
-.aptl1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cptl reserve(int32_t) 1
+.aptl1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYBEZIERTO
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cptl RESD 1
-.aptl1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cptl reserve(int32_t) 1
+.aptl1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYLINE16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cpts RESD 1
-.apts1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cpts reserve(int32_t) 1
+.apts1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYBEZIER16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cpts RESD 1
-.apts1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cpts reserve(int32_t) 1
+.apts1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYGON16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cpts RESD 1
-.apts1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cpts reserve(int32_t) 1
+.apts1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPLOYBEZIERTO16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cpts RESD 1
-.apts1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cpts reserve(int32_t) 1
+.apts1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYLINETO16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cpts RESD 1
-.apts1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cpts reserve(int32_t) 1
+.apts1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYDRAW
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cptl RESD 1
-.aptl1 RESD 1
-.abTypes1 RESW 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cptl reserve(int32_t) 1
+.aptl1 reserve(int32_t) 1
+.abTypes1 reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYDRAW16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cpts RESD 1
-.apts RESD 1
-.abTypes RESW 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cpts reserve(int32_t) 1
+.apts reserve(int32_t) 1
+.abTypes reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYPOLYLINE
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.nPolys RESD 1
-.cptl RESD 1
-.aPolyCounts RESD 1
-.aptl RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.nPolys reserve(int32_t) 1
+.cptl reserve(int32_t) 1
+.aPolyCounts reserve(int32_t) 1
+.aptl reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYPOLYGON
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.nPolys RESD 1
-.cptl RESD 1
-.aPolyCounts RESD 1
-.aptl1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.nPolys reserve(int32_t) 1
+.cptl reserve(int32_t) 1
+.aPolyCounts reserve(int32_t) 1
+.aptl1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYPOLYLINE16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.nPolys RESD 1
-.cpts RESD 1
-.aPolyCounts RESD 1
-.apts1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.nPolys reserve(int32_t) 1
+.cpts reserve(int32_t) 1
+.aPolyCounts reserve(int32_t) 1
+.apts1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPOLYPOLYGON16
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.nPolys RESD 1
-.cpts RESD 1
-.aPolyCounts RESD 1
-.apts1 RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.nPolys reserve(int32_t) 1
+.cpts reserve(int32_t) 1
+.aPolyCounts reserve(int32_t) 1
+.apts1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRINVERTRGN
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cbRgnData RESD 1
-.RgnData1 RESW 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cbRgnData reserve(int32_t) 1
+.RgnData1 reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMRPAINTRGN
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cbRgnData RESD 1
-.RgnData1 RESW 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cbRgnData reserve(int32_t) 1
+.RgnData1 reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMRFILLRGN
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cbRgnData RESD 1
-.ihBrush RESD 1
-.RgnData RESW 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cbRgnData reserve(int32_t) 1
+.ihBrush reserve(int32_t) 1
+.RgnData reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMRFRAMERGN
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.cbRgnData RESD 1
-.ihBrush RESD 1
-.szlStroke RESD 1
-.RgnData1 RESW 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.cbRgnData reserve(int32_t) 1
+.ihBrush reserve(int32_t) 1
+.szlStroke reserve(int32_t) 1
+.RgnData1 reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMREXTSELECTCLIPRGN
-.emr RESB EMR_size
-.cbRgnData RESD 1
-.iMode RESD 1
-.RgnData RESW 1
+.emr reserve(EMR)
+.cbRgnData reserve(int32_t) 1
+.iMode reserve(int32_t) 1
+.RgnData reserve(short_t) 1
 ENDSTRUC
 
 STRUC EMREXTTEXTOUT
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.iGraphicsMode RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.iGraphicsMode reserve(int32_t) 1
 .exScale RESQ 1
 .eyScale RESQ 1
-.emrtext RESD 1
+.emrtext reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRBITBLT
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.xDest RESD 1
-.yDest RESD 1
-.cxDest RESD 1
-.cyDest RESD 1
-.dwRop RESD 1
-.xSrc RESD 1
-.ySrc RESD 1
-.xformSrc RESD 1
-.crBkColorSrc RESD 1
-.iUsageSrc RESD 1
-.offBmiSrc RESD 1
-.cbBmiSrc RESD 1
-.offBitsSrc RESD 1
-.cbBitsSrc RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.xDest reserve(int32_t) 1
+.yDest reserve(int32_t) 1
+.cxDest reserve(int32_t) 1
+.cyDest reserve(int32_t) 1
+.dwRop reserve(int32_t) 1
+.xSrc reserve(int32_t) 1
+.ySrc reserve(int32_t) 1
+.xformSrc reserve(int32_t) 1
+.crBkColorSrc reserve(int32_t) 1
+.iUsageSrc reserve(int32_t) 1
+.offBmiSrc reserve(int32_t) 1
+.cbBmiSrc reserve(int32_t) 1
+.offBitsSrc reserve(int32_t) 1
+.cbBitsSrc reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSTRETCHBLT
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.xDest RESD 1
-.yDest RESD 1
-.cxDest RESD 1
-.cyDest RESD 1
-.dwRop RESD 1
-.xSrc RESD 1
-.ySrc RESD 1
-.xformSrc RESD 1
-.crBkColorSrc RESD 1
-.iUsageSrc RESD 1
-.offBmiSrc RESD 1
-.cbBmiSrc RESD 1
-.offBitsSrc RESD 1
-.cbBitsSrc RESD 1
-.cxSrc RESD 1
-.cySrc RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.xDest reserve(int32_t) 1
+.yDest reserve(int32_t) 1
+.cxDest reserve(int32_t) 1
+.cyDest reserve(int32_t) 1
+.dwRop reserve(int32_t) 1
+.xSrc reserve(int32_t) 1
+.ySrc reserve(int32_t) 1
+.xformSrc reserve(int32_t) 1
+.crBkColorSrc reserve(int32_t) 1
+.iUsageSrc reserve(int32_t) 1
+.offBmiSrc reserve(int32_t) 1
+.cbBmiSrc reserve(int32_t) 1
+.offBitsSrc reserve(int32_t) 1
+.cbBitsSrc reserve(int32_t) 1
+.cxSrc reserve(int32_t) 1
+.cySrc reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRMASKBLT
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.xDest RESD 1
-.yDest RESD 1
-.cxDest RESD 1
-.cyDest RESD 1
-.dwRop RESD 1
-.xSrc2 RESD 1
-.cyDest2 RESD 1
-.dwRop2 RESD 1
-.xSrc RESD 1
-.ySrc RESD 1
-.xformSrc RESD 1
-.crBkColorSrc RESD 1
-.iUsageSrc RESD 1
-.offBmiSrc RESD 1
-.cbBmiSrc RESD 1
-.offBitsSrc RESD 1
-.cbBitsSrc RESD 1
-.xMask RESD 1
-.yMask RESD 1
-.iUsageMask RESD 1
-.offBmiMask RESD 1
-.cbBmiMask RESD 1
-.offBitsMask RESD 1
-.cbBitsMask RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.xDest reserve(int32_t) 1
+.yDest reserve(int32_t) 1
+.cxDest reserve(int32_t) 1
+.cyDest reserve(int32_t) 1
+.dwRop reserve(int32_t) 1
+.xSrc2 reserve(int32_t) 1
+.cyDest2 reserve(int32_t) 1
+.dwRop2 reserve(int32_t) 1
+.xSrc reserve(int32_t) 1
+.ySrc reserve(int32_t) 1
+.xformSrc reserve(int32_t) 1
+.crBkColorSrc reserve(int32_t) 1
+.iUsageSrc reserve(int32_t) 1
+.offBmiSrc reserve(int32_t) 1
+.cbBmiSrc reserve(int32_t) 1
+.offBitsSrc reserve(int32_t) 1
+.cbBitsSrc reserve(int32_t) 1
+.xMask reserve(int32_t) 1
+.yMask reserve(int32_t) 1
+.iUsageMask reserve(int32_t) 1
+.offBmiMask reserve(int32_t) 1
+.cbBmiMask reserve(int32_t) 1
+.offBitsMask reserve(int32_t) 1
+.cbBitsMask reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRPLGBLT
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.aptlDest3 RESD 1
-.xSrc RESD 1
-.ySrc RESD 1
-.cxSrc RESD 1
-.cySrc RESD 1
-.xformSrc RESD 1
-.crBkColorSrc RESD 1
-.iUsageSrc RESD 1
-.offBmiSrc RESD 1
-.cbBmiSrc RESD 1
-.offBitsSrc RESD 1
-.cbBitsSrc RESD 1
-.xMask RESD 1
-.yMask RESD 1
-.iUsageMask RESD 1
-.offBmiMask RESD 1
-.cbBmiMask RESD 1
-.offBitsMask RESD 1
-.cbBitsMask RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.aptlDest3 reserve(int32_t) 1
+.xSrc reserve(int32_t) 1
+.ySrc reserve(int32_t) 1
+.cxSrc reserve(int32_t) 1
+.cySrc reserve(int32_t) 1
+.xformSrc reserve(int32_t) 1
+.crBkColorSrc reserve(int32_t) 1
+.iUsageSrc reserve(int32_t) 1
+.offBmiSrc reserve(int32_t) 1
+.cbBmiSrc reserve(int32_t) 1
+.offBitsSrc reserve(int32_t) 1
+.cbBitsSrc reserve(int32_t) 1
+.xMask reserve(int32_t) 1
+.yMask reserve(int32_t) 1
+.iUsageMask reserve(int32_t) 1
+.offBmiMask reserve(int32_t) 1
+.cbBmiMask reserve(int32_t) 1
+.offBitsMask reserve(int32_t) 1
+.cbBitsMask reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSETDIBITSTODEVICE
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.xDest RESD 1
-.yDest RESD 1
-.xSrc RESD 1
-.ySrc RESD 1
-.cxSrc RESD 1
-.cySrc RESD 1
-.offBmiSrc RESD 1
-.cbBmiSrc RESD 1
-.offBitsSrc RESD 1
-.cbBitsSrc RESD 1
-.iUsageSrc RESD 1
-.iStartScan RESD 1
-.cScans RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.xDest reserve(int32_t) 1
+.yDest reserve(int32_t) 1
+.xSrc reserve(int32_t) 1
+.ySrc reserve(int32_t) 1
+.cxSrc reserve(int32_t) 1
+.cySrc reserve(int32_t) 1
+.offBmiSrc reserve(int32_t) 1
+.cbBmiSrc reserve(int32_t) 1
+.offBitsSrc reserve(int32_t) 1
+.cbBitsSrc reserve(int32_t) 1
+.iUsageSrc reserve(int32_t) 1
+.iStartScan reserve(int32_t) 1
+.cScans reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRSTRETCHDIBITS
-.emr RESB EMR_size
-.rclBounds RESB RECT_size
-.xDest RESD 1
-.yDest RESD 1
-.xSrc RESD 1
-.ySrc RESD 1
-.cxSrc RESD 1
-.cySrc RESD 1
-.offBmiSrc RESD 1
-.cbBmiSrc RESD 1
-.offBitsSrc RESD 1
-.cbBitsSrc RESD 1
-.iUsageSrc RESD 1
-.dwRop RESD 1
-.cxDest RESD 1
-.cyDest RESD 1
+.emr reserve(EMR)
+.rclBounds reserve(RECT)
+.xDest reserve(int32_t) 1
+.yDest reserve(int32_t) 1
+.xSrc reserve(int32_t) 1
+.ySrc reserve(int32_t) 1
+.cxSrc reserve(int32_t) 1
+.cySrc reserve(int32_t) 1
+.offBmiSrc reserve(int32_t) 1
+.cbBmiSrc reserve(int32_t) 1
+.offBitsSrc reserve(int32_t) 1
+.cbBitsSrc reserve(int32_t) 1
+.iUsageSrc reserve(int32_t) 1
+.dwRop reserve(int32_t) 1
+.cxDest reserve(int32_t) 1
+.cyDest reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMREXTCREATEFONTINDIRECT
-.emr RESB EMR_size
-.ihFont RESD 1
-.elfw RESD 1
+.emr reserve(EMR)
+.ihFont reserve(int32_t) 1
+.elfw reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRCREATEPALETTE
-.emr RESB EMR_size
-.ihPal RESD 1
-.lgpl RESD 1
+.emr reserve(EMR)
+.ihPal reserve(int32_t) 1
+.lgpl reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRCREATEPEN
-.emr RESB EMR_size
-.ihPen RESD 1
-.lopn RESD 1
+.emr reserve(EMR)
+.ihPen reserve(int32_t) 1
+.lopn reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMREXTCREATEPEN
-.emr RESB EMR_size
-.ihPen RESD 1
-.offBmi RESD 1
-.cbBmi RESD 1
-.offBits RESD 1
-.cbBits RESD 1
-.elp RESD 1
+.emr reserve(EMR)
+.ihPen reserve(int32_t) 1
+.offBmi reserve(int32_t) 1
+.cbBmi reserve(int32_t) 1
+.offBits reserve(int32_t) 1
+.cbBits reserve(int32_t) 1
+.elp reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRCREATEBRUSHINDIRECT
-.emr RESB EMR_size
-.ihBrush RESD 1
-.lb RESD 1
+.emr reserve(EMR)
+.ihBrush reserve(int32_t) 1
+.lb reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRCREATEMONOBRUSH
-.emr RESB EMR_size
-.ihBrush RESD 1
-.iUsage RESD 1
-.offBmi RESD 1
-.cbBmi RESD 1
-.offBits RESD 1
-.cbBits RESD 1
+.emr reserve(EMR)
+.ihBrush reserve(int32_t) 1
+.iUsage reserve(int32_t) 1
+.offBmi reserve(int32_t) 1
+.cbBmi reserve(int32_t) 1
+.offBits reserve(int32_t) 1
+.cbBits reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRCREATEDIBPATTERNBRUSHPT
-.emr RESB EMR_size
-.ihBursh RESD 1
-.iUsage RESD 1
-.offBmi RESD 1
-.cbBmi RESD 1
-.offBits RESD 1
-.cbBits RESD 1
+.emr reserve(EMR)
+.ihBursh reserve(int32_t) 1
+.iUsage reserve(int32_t) 1
+.offBmi reserve(int32_t) 1
+.cbBmi reserve(int32_t) 1
+.offBits reserve(int32_t) 1
+.cbBits reserve(int32_t) 1
 ENDSTRUC
 
 STRUC BITMAPV4HEADER
-.bV4Size RESD 1
-.bV4Width RESD 1
-.bV4Height RESD 1
-.bV4Planes RESW 1
-.bV4BitCount RESW 1
-.bV4V4Compression RESD 1
-.bV4SizeImage RESD 1
-.bV4XPelsPerMeter RESD 1
-.bV4YPelsPerMeter RESD 1
-.bV4ClrUsed RESD 1
-.bV4ClrImportant RESD 1
-.bV4RedMask RESD 1
-.bV4GreenMask RESD 1
-.bV4BlueMask RESD 1
-.bV4AlphaMask RESD 1
-.bV4CSType RESD 1
-.bV4Endpoints RESD 1
-.bV4GammaRed RESD 1
-.bV4GammaGreen RESD 1
-.bV4GammaBlue RESD 1
+.bV4Size reserve(int32_t) 1
+.bV4Width reserve(int32_t) 1
+.bV4Height reserve(int32_t) 1
+.bV4Planes reserve(short_t) 1
+.bV4BitCount reserve(short_t) 1
+.bV4V4Compression reserve(int32_t) 1
+.bV4SizeImage reserve(int32_t) 1
+.bV4XPelsPerMeter reserve(int32_t) 1
+.bV4YPelsPerMeter reserve(int32_t) 1
+.bV4ClrUsed reserve(int32_t) 1
+.bV4ClrImportant reserve(int32_t) 1
+.bV4RedMask reserve(int32_t) 1
+.bV4GreenMask reserve(int32_t) 1
+.bV4BlueMask reserve(int32_t) 1
+.bV4AlphaMask reserve(int32_t) 1
+.bV4CSType reserve(int32_t) 1
+.bV4Endpoints reserve(int32_t) 1
+.bV4GammaRed reserve(int32_t) 1
+.bV4GammaGreen reserve(int32_t) 1
+.bV4GammaBlue reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FONTSIGNATURE
-.fsUsb4 RESD 1
-.fsCsb2 RESD 1
+.fsUsb4 reserve(int32_t) 1
+.fsCsb2 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CHARSETINFO
-.ciCharset RESD 1
-.ciACP RESD 1
-.xlfs RESD 1
+.ciCharset reserve(int32_t) 1
+.ciACP reserve(int32_t) 1
+.xlfs reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LOCALESIGNATURE
-.lsUsb4 RESD 1
-.lsCsbDefault RESD 1
-.lsCsbSupported RESD 1
+.lsUsb4 reserve(int32_t) 1
+.lsCsbDefault reserve(int32_t) 1
+.lsCsbSupported reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NEWTEXTMETRICEX
-.ntmTm RESD 1
-.ntmFontSig RESD 1
+.ntmTm reserve(int32_t) 1
+.ntmFontSig reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ENUMLOGFONTEX
-.elfLogFont RESD 1
+.elfLogFont reserve(int32_t) 1
 .elfFullName RESB 1
 .elfStyle RESB 1
 .elfScript RESB 1
 ENDSTRUC
 
 STRUC GCP_RESULTS
-.lStructSize RESD 1
-.lpOutString RESD 1
-.lpOrder RESD 1
-.lpDX RESD 1
-.lpCaretPos RESD 1
-.lpClass RESD 1
-.lpGlyphs RESD 1
-.nGlyphs RESD 1
-.nMaxFit RESD 1
+.lStructSize reserve(int32_t) 1
+.lpOutString reserve(int32_t) 1
+.lpOrder reserve(int32_t) 1
+.lpDX reserve(int32_t) 1
+.lpCaretPos reserve(int32_t) 1
+.lpClass reserve(int32_t) 1
+.lpGlyphs reserve(int32_t) 1
+.nGlyphs reserve(int32_t) 1
+.nMaxFit reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CIEXYZ
-.ciexyzX RESD 1
-.ciexyzY RESD 1
-.ciexyzZ RESD 1
+.ciexyzX reserve(int32_t) 1
+.ciexyzY reserve(int32_t) 1
+.ciexyzZ reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CIEXYZTRIPLE
-.ciexyzRed RESD 1
-.ciexyzGreen RESD 1
-.ciexyBlue RESD 1
+.ciexyzRed reserve(int32_t) 1
+.ciexyzGreen reserve(int32_t) 1
+.ciexyBlue reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LOGCOLORSPACE
-.lcsSignature RESD 1
-.lcsVersion RESD 1
-.lcsSize RESD 1
-.lcsCSType RESD 1
-.lcsIntent RESD 1
-.lcsEndPoints RESD 1
-.lcsGammaRed RESD 1
-.lcsGammaGreen RESD 1
-.lcsGammaBlue RESD 1
+.lcsSignature reserve(int32_t) 1
+.lcsVersion reserve(int32_t) 1
+.lcsSize reserve(int32_t) 1
+.lcsCSType reserve(int32_t) 1
+.lcsIntent reserve(int32_t) 1
+.lcsEndPoints reserve(int32_t) 1
+.lcsGammaRed reserve(int32_t) 1
+.lcsGammaGreen reserve(int32_t) 1
+.lcsGammaBlue reserve(int32_t) 1
 .lcsFileName RESB MAX_PATH
 ENDSTRUC
 
 STRUC EMRSELECTCOLORSPACE
-.emr RESB EMR_size
-.ihCS RESD 1
+.emr reserve(EMR)
+.ihCS reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EMRCREATECOLORSPACE
-.emr RESB EMR_size
-.ihCS RESD 1
-.lcs RESD 1
+.emr reserve(EMR)
+.ihCS reserve(int32_t) 1
+.lcs reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CBTACTIVATESTRUCT
-.fMouse RESD 1
-.hWndActive RESD 1
+.fMouse reserve(int32_t) 1
+.hWndActive reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EVENTMSG
-.message RESD 1
-.paramL RESD 1
-.paramH RESD 1
-.time RESD 1
-.hwnd RESD 1
+.message reserve(int32_t) 1
+.paramL reserve(int32_t) 1
+.paramH reserve(int32_t) 1
+.time reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CWPSTRUCT
-.lParam RESD 1
-.wParam RESD 1
-.message RESD 1
-.hwnd RESD 1
+.lParam reserve(int32_t) 1
+.wParam reserve(int32_t) 1
+.message reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DEBUGHOOKINFO
-.hModuleHook RESD 1
-.Reserved RESD 1
-.lParam RESD 1
-.wParam RESD 1
-.code RESD 1
+.hModuleHook reserve(int32_t) 1
+.Reserved reserve(int32_t) 1
+.lParam reserve(int32_t) 1
+.wParam reserve(int32_t) 1
+.code reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MOUSEHOOKSTRUCT
-.pt RESB POINT_size
-.hwnd RESD 1
-.wHitTestCode RESD 1
-.dwExtraInfo RESD 1
+.pt reserve(POINT)
+.hwnd reserve(int32_t) 1
+.wHitTestCode reserve(int32_t) 1
+.dwExtraInfo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MINMAXINFO
-.ptReserved RESB POINT_size
-.ptMaxSize RESB POINT_size
-.ptMaxPosition RESB POINT_size
-.ptMinTrackSize RESB POINT_size
-.ptMaxTrackSize RESB POINT_size
+.ptReserved reserve(POINT)
+.ptMaxSize reserve(POINT)
+.ptMaxPosition reserve(POINT)
+.ptMinTrackSize reserve(POINT)
+.ptMaxTrackSize reserve(POINT)
 ENDSTRUC
 
 STRUC COPYDATASTRUCT
-.dwData RESD 1
-.cbData RESD 1
-.lpData RESD 1
+.dwData reserve(int32_t) 1
+.cbData reserve(int32_t) 1
+.lpData reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WINDOWPOS
-.hwnd RESD 1
-.hWndInsertAfter RESD 1
-.x RESD 1
-.y RESD 1
-.lx RESD 1
-.ly RESD 1
-.flags RESD 1
+.hwnd reserve(int32_t) 1
+.hWndInsertAfter reserve(int32_t) 1
+.x reserve(int32_t) 1
+.y reserve(int32_t) 1
+.lx reserve(int32_t) 1
+.ly reserve(int32_t) 1
+.flags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ACCEL
 .fVirt RESB 1
-.key RESW 1
-.cmd RESW 1
+.key reserve(short_t) 1
+.cmd reserve(short_t) 1
 ENDSTRUC
 
 STRUC PAINTSTRUCT
-.hdc RESD 1
-.fErase RESD 1
-.rcPaint RESB RECT_size
-.fRestore RESD 1
-.fIncUpdate RESD 1
+.hdc reserve(int32_t) 1
+.fErase reserve(int32_t) 1
+.rcPaint reserve(RECT)
+.fRestore reserve(int32_t) 1
+.fIncUpdate reserve(int32_t) 1
 .rgbReserved RESB 32 
 ENDSTRUC
 
 STRUC CREATESTRUCT
-.lpCreateParams RESD 1
-.hInstance RESD 1
-.hMenu RESD 1
-.hWndParent RESD 1
-.ly RESD 1
-.lx RESD 1
-.y RESD 1
-.x RESD 1
-.style RESD 1
-.lpszName RESD 1
-.lpszClass RESD 1
-.ExStyle RESD 1
+.lpCreateParams reserve(int32_t) 1
+.hInstance reserve(int32_t) 1
+.hMenu reserve(int32_t) 1
+.hWndParent reserve(int32_t) 1
+.ly reserve(int32_t) 1
+.lx reserve(int32_t) 1
+.y reserve(int32_t) 1
+.x reserve(int32_t) 1
+.style reserve(int32_t) 1
+.lpszName reserve(int32_t) 1
+.lpszClass reserve(int32_t) 1
+.ExStyle reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CBT_CREATEWND
-.lpcs RESD 1
-.hWndInsertAfter RESD 1
+.lpcs reserve(int32_t) 1
+.hWndInsertAfter reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WINDOWPLACEMENT
-.iLength RESD 1
-.flags RESD 1
-.showCmd RESD 1
-.ptMinPosition RESB POINT_size
-.ptMaxPosition RESB POINT_size
-.rcNormalPosition RESB RECT_size
+.iLength reserve(int32_t) 1
+.flags reserve(int32_t) 1
+.showCmd reserve(int32_t) 1
+.ptMinPosition reserve(POINT)
+.ptMaxPosition reserve(POINT)
+.rcNormalPosition reserve(RECT)
 ENDSTRUC
 
 STRUC MEASUREITEMSTRUCT
-.CtlType RESD 1
-.CtlID RESD 1
-.itemID RESD 1
-.itemWidth RESD 1
-.itemHeight RESD 1
-.itemData RESD 1
+.CtlType reserve(int32_t) 1
+.CtlID reserve(int32_t) 1
+.itemID reserve(int32_t) 1
+.itemWidth reserve(int32_t) 1
+.itemHeight reserve(int32_t) 1
+.itemData reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DRAWITEMSTRUCT
-.CtlType RESD 1
-.CtlID RESD 1
-.itemID RESD 1
-.itemAction RESD 1
-.itemState RESD 1
-.hwndItem RESD 1
-.hDC RESD 1
-.rcItem RESB RECT_size
-.itemData RESD 1
+.CtlType reserve(int32_t) 1
+.CtlID reserve(int32_t) 1
+.itemID reserve(int32_t) 1
+.itemAction reserve(int32_t) 1
+.itemState reserve(int32_t) 1
+.hwndItem reserve(int32_t) 1
+.hDC reserve(int32_t) 1
+.rcItem reserve(RECT)
+.itemData reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DELETEITEMSTRUCT
-.CtlType RESD 1
-.CtlID RESD 1
-.itemID RESD 1
-.hwndItem RESD 1
-.itemData RESD 1
+.CtlType reserve(int32_t) 1
+.CtlID reserve(int32_t) 1
+.itemID reserve(int32_t) 1
+.hwndItem reserve(int32_t) 1
+.itemData reserve(int32_t) 1
 ENDSTRUC
 
 STRUC COMPAREITEMSTRUCT
-.CtlType RESD 1
-.CtlID RESD 1
-.hwndItem RESD 1
-.itemID1 RESD 1
-.itemData1 RESD 1
-.itemID2 RESD 1
-.itemData2 RESD 1
+.CtlType reserve(int32_t) 1
+.CtlID reserve(int32_t) 1
+.hwndItem reserve(int32_t) 1
+.itemID1 reserve(int32_t) 1
+.itemData1 reserve(int32_t) 1
+.itemID2 reserve(int32_t) 1
+.itemData2 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DLGTEMPLATE
-.style RESD 1
-.dwExtendedStyle RESD 1
-.cdit RESW 1
-.x RESW 1
-.y RESW 1
-.lx RESW 1
-.ly RESW 1
+.style reserve(int32_t) 1
+.dwExtendedStyle reserve(int32_t) 1
+.cdit reserve(short_t) 1
+.x reserve(short_t) 1
+.y reserve(short_t) 1
+.lx reserve(short_t) 1
+.ly reserve(short_t) 1
 ENDSTRUC
 
 STRUC DLGITEMTEMPLATE
-.style RESD 1
-.dwExtendedStyle RESD 1
-.x RESW 1
-.y RESW 1
-.lx RESW 1
-.ly RESW 1
-.id RESW 1
+.style reserve(int32_t) 1
+.dwExtendedStyle reserve(int32_t) 1
+.x reserve(short_t) 1
+.y reserve(short_t) 1
+.lx reserve(short_t) 1
+.ly reserve(short_t) 1
+.id reserve(short_t) 1
 ENDSTRUC
 
 STRUC MENUITEMTEMPLATEHEADER
-.versionNumber RESW 1
-.loffset RESW 1
+.versionNumber reserve(short_t) 1
+.loffset reserve(short_t) 1
 ENDSTRUC
 
 STRUC MENUITEMTEMPLATE
 
-.mtOption RESW 1
-.mtID RESW 1
+.mtOption reserve(short_t) 1
+.mtID reserve(short_t) 1
 .mtString RESB 1
 ENDSTRUC
 
 STRUC ICONINFO
-.fIcon RESD 1
-.xHotspot RESD 1
-.yHotspot RESD 1
-.hbmMask RESD 1
-.hbmColor RESD 1
+.fIcon reserve(int32_t) 1
+.xHotspot reserve(int32_t) 1
+.yHotspot reserve(int32_t) 1
+.hbmMask reserve(int32_t) 1
+.hbmColor reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MDICREATESTRUCT
-.szClass RESD 1
-.szTitle RESD 1
-.hOwner RESD 1
-.x RESD 1
-.y RESD 1
-.lx RESD 1
-.ly RESD 1
-.style RESD 1
-.lParam RESD 1
+.szClass reserve(int32_t) 1
+.szTitle reserve(int32_t) 1
+.hOwner reserve(int32_t) 1
+.x reserve(int32_t) 1
+.y reserve(int32_t) 1
+.lx reserve(int32_t) 1
+.ly reserve(int32_t) 1
+.style reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CLIENTCREATESTRUCT
-.hWindowMenu RESD 1
-.idFirstChild RESD 1
+.hWindowMenu reserve(int32_t) 1
+.idFirstChild reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MULTIKEYHELP
-.mkSize RESD 1
+.mkSize reserve(int32_t) 1
 .mkKeylist RESB 1
 .szKeyphrase RESB 253
 ENDSTRUC
 
 STRUC HELPWININFO
-.wStructSize RESD 1
-.x RESD 1
-.y RESD 1
-.lx RESD 1
-.ly RESD 1
-.wMax RESD 1
+.wStructSize reserve(int32_t) 1
+.x reserve(int32_t) 1
+.y reserve(int32_t) 1
+.lx reserve(int32_t) 1
+.ly reserve(int32_t) 1
+.wMax reserve(int32_t) 1
 .rgchMember RESB 2
 ENDSTRUC
 
 STRUC DDEACK
-.bAppReturnCode RESW 1
-.Reserved RESW 1
-.fbusy RESW 1
-.fack RESW 1
+.bAppReturnCode reserve(short_t) 1
+.Reserved reserve(short_t) 1
+.fbusy reserve(short_t) 1
+.fack reserve(short_t) 1
 ENDSTRUC
 
 STRUC DDEADVISE
-.Reserved RESW 1
-.fDeferUpd RESW 1
-.fAckReq RESW 1
-.cfFormat RESW 1
+.Reserved reserve(short_t) 1
+.fDeferUpd reserve(short_t) 1
+.fAckReq reserve(short_t) 1
+.cfFormat reserve(short_t) 1
 ENDSTRUC
 
 STRUC DDEDATA
-.unused RESW 1
-.fresponse RESW 1
-.fRelease RESW 1
-.Reserved RESW 1
-.fAckReq RESW 1
-.cfFormat RESW 1
+.unused reserve(short_t) 1
+.fresponse reserve(short_t) 1
+.fRelease reserve(short_t) 1
+.Reserved reserve(short_t) 1
+.fAckReq reserve(short_t) 1
+.cfFormat reserve(short_t) 1
 .Value1 RESB 1
 ENDSTRUC
 
 STRUC DDEPOKE
-.unused RESW 1
-.fRelease RESW 1
-.fReserved RESW 1
-.cfFormat RESW 1
+.unused reserve(short_t) 1
+.fRelease reserve(short_t) 1
+.fReserved reserve(short_t) 1
+.cfFormat reserve(short_t) 1
 .Value1 RESB 1
 ENDSTRUC
 
 STRUC DDELN
-.unused RESW 1
-.fRelease RESW 1
-.fDeferUpd RESW 1
-.fAckReq RESW 1
-.cfFormat RESW 1
+.unused reserve(short_t) 1
+.fRelease reserve(short_t) 1
+.fDeferUpd reserve(short_t) 1
+.fAckReq reserve(short_t) 1
+.cfFormat reserve(short_t) 1
 ENDSTRUC
 
 STRUC DDEUP
-.unused RESW 1
-.fAck RESW 1
-.fRelease RESW 1
-.fReserved RESW 1
-.fAckReq RESW 1
-.cfFormat RESW 1
+.unused reserve(short_t) 1
+.fAck reserve(short_t) 1
+.fRelease reserve(short_t) 1
+.fReserved reserve(short_t) 1
+.fAckReq reserve(short_t) 1
+.cfFormat reserve(short_t) 1
 .xRGB1 RESB 1
 ENDSTRUC
 
 STRUC HSZPAIR
-.hszSvc RESD 1
-.hszTopic RESD 1
+.hszSvc reserve(int32_t) 1
+.hszTopic reserve(int32_t) 1
 ENDSTRUC
 
 STRUC SECURITY_QUALITY_OF_SERVICE
-.iLength RESD 1
-.Impersonationlevel RESW 1
-.ContextTrackingMode RESW 1
-.EffectiveOnly RESD 1
+.iLength reserve(int32_t) 1
+.Impersonationlevel reserve(short_t) 1
+.ContextTrackingMode reserve(short_t) 1
+.EffectiveOnly reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CONVCONTEXT
-.cb RESD 1
-.wFlags RESD 1
-.wCountryID RESD 1
-.iCodePage RESD 1
-.dwLangID RESD 1
-.dwSecurity RESD 1
-.qos RESD 1
+.cb reserve(int32_t) 1
+.wFlags reserve(int32_t) 1
+.wCountryID reserve(int32_t) 1
+.iCodePage reserve(int32_t) 1
+.dwLangID reserve(int32_t) 1
+.dwSecurity reserve(int32_t) 1
+.qos reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CONVINFO
-.cb RESD 1
-.hUser RESD 1
-.hConvPartner RESD 1
-.hszSvcPartner RESD 1
-.hszServiceReq RESD 1
-.hszTopic RESD 1
-.hszItem RESD 1
-.wFmt RESD 1
-.wType RESD 1
-.wStatus RESD 1
-.wConvst RESD 1
-.wLastError RESD 1
-.hConvList RESD 1
-.ConvCtxt RESD 1
-.hwnd RESD 1
-.hwndPartner RESD 1
+.cb reserve(int32_t) 1
+.hUser reserve(int32_t) 1
+.hConvPartner reserve(int32_t) 1
+.hszSvcPartner reserve(int32_t) 1
+.hszServiceReq reserve(int32_t) 1
+.hszTopic reserve(int32_t) 1
+.hszItem reserve(int32_t) 1
+.wFmt reserve(int32_t) 1
+.wType reserve(int32_t) 1
+.wStatus reserve(int32_t) 1
+.wConvst reserve(int32_t) 1
+.wLastError reserve(int32_t) 1
+.hConvList reserve(int32_t) 1
+.ConvCtxt reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
+.hwndPartner reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DDEML_MSG_HOOK_DATA
-.uiLo RESD 1
-.uiHi RESD 1
-.cbData RESD 1
-.xData RESD 1
+.uiLo reserve(int32_t) 1
+.uiHi reserve(int32_t) 1
+.cbData reserve(int32_t) 1
+.xData reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MONMSGSTRUCT
-.cb RESD 1
-.hwndTo RESD 1
-.dwTime RESD 1
-.htask RESD 1
-.wMsg RESD 1
-.wParam RESD 1
-.lParam RESD 1
-.dmhd RESD 1
+.cb reserve(int32_t) 1
+.hwndTo reserve(int32_t) 1
+.dwTime reserve(int32_t) 1
+.htask reserve(int32_t) 1
+.wMsg reserve(int32_t) 1
+.wParam reserve(int32_t) 1
+.lParam reserve(int32_t) 1
+.dmhd reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MONCBSTRUCT
-.cb RESD 1
-.dwTime RESD 1
-.htask RESD 1
-.dwRet RESD 1
-.wType RESD 1
-.wFmt RESD 1
-.hConv RESD 1
-.hsz1 RESD 1
-.hsz2 RESD 1
-.hData RESD 1
-.dwData1 RESD 1
-.dwData2 RESD 1
-.cc RESD 1
-.cbData RESD 1
-.xData8 RESD 1
+.cb reserve(int32_t) 1
+.dwTime reserve(int32_t) 1
+.htask reserve(int32_t) 1
+.dwRet reserve(int32_t) 1
+.wType reserve(int32_t) 1
+.wFmt reserve(int32_t) 1
+.hConv reserve(int32_t) 1
+.hsz1 reserve(int32_t) 1
+.hsz2 reserve(int32_t) 1
+.hData reserve(int32_t) 1
+.dwData1 reserve(int32_t) 1
+.dwData2 reserve(int32_t) 1
+.cc reserve(int32_t) 1
+.cbData reserve(int32_t) 1
+.xData8 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MONHSZSTRUCT
-.cb RESD 1
-.fsAction RESD 1
-.dwTime RESD 1
-.hsz RESD 1
-.htask RESD 1
+.cb reserve(int32_t) 1
+.fsAction reserve(int32_t) 1
+.dwTime reserve(int32_t) 1
+.hsz reserve(int32_t) 1
+.htask reserve(int32_t) 1
 .xstr RESB 1
 ENDSTRUC
 
 STRUC MONERRSTRUCT
-.cb RESD 1
-.wLastError RESD 1
-.dwTime RESD 1
-.htask RESD 1
+.cb reserve(int32_t) 1
+.wLastError reserve(int32_t) 1
+.dwTime reserve(int32_t) 1
+.htask reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MONLINKSTRUCT
-.cb RESD 1
-.dwTime RESD 1
-.htask RESD 1
-.fEstablished RESD 1
-.fNoData RESD 1
-.hszSvc RESD 1
-.hszTopic RESD 1
-.hszItem RESD 1
-.wFmt RESD 1
-.fServer RESD 1
-.hConvServer RESD 1
-.hConvClient RESD 1
+.cb reserve(int32_t) 1
+.dwTime reserve(int32_t) 1
+.htask reserve(int32_t) 1
+.fEstablished reserve(int32_t) 1
+.fNoData reserve(int32_t) 1
+.hszSvc reserve(int32_t) 1
+.hszTopic reserve(int32_t) 1
+.hszItem reserve(int32_t) 1
+.wFmt reserve(int32_t) 1
+.fServer reserve(int32_t) 1
+.hConvServer reserve(int32_t) 1
+.hConvClient reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MONCONVSTRUCT
-.cb RESD 1
-.fConnect RESD 1
-.dwTime RESD 1
-.htask RESD 1
-.hszSvc RESD 1
-.hszTopic RESD 1
-.hConvClient RESD 1
-.hConvServer RESD 1
+.cb reserve(int32_t) 1
+.fConnect reserve(int32_t) 1
+.dwTime reserve(int32_t) 1
+.htask reserve(int32_t) 1
+.hszSvc reserve(int32_t) 1
+.hszTopic reserve(int32_t) 1
+.hConvClient reserve(int32_t) 1
+.hConvServer reserve(int32_t) 1
 ENDSTRUC
 
 STRUC smpte
@@ -9968,750 +9975,750 @@ STRUC smpte
 ENDSTRUC
 
 STRUC midi
-.songptrpos RESD 1
+.songptrpos reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MMTIME
-.wType RESD 1
-.u RESD 1
+.wType reserve(int32_t) 1
+.u reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIDIEVENT
-.dwDeltaTime RESD 1
-.dwStreamID RESD 1
-.dwEvent RESD 1
-.dwParms RESD 1
+.dwDeltaTime reserve(int32_t) 1
+.dwStreamID reserve(int32_t) 1
+.dwEvent reserve(int32_t) 1
+.dwParms reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIDISTRMBUFFVER
-.dwVersion RESD 1
-.dwMid RESD 1
-.dwOEMVersion RESD 1
+.dwVersion reserve(int32_t) 1
+.dwMid reserve(int32_t) 1
+.dwOEMVersion reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIDIPROPTIMEDIV
-.cbStruct RESD 1
-.dwTimeDiv RESD 1
+.cbStruct reserve(int32_t) 1
+.dwTimeDiv reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIDIPROPTEMPO
-.cbStruct RESD 1
-.dwTempo RESD 1
+.cbStruct reserve(int32_t) 1
+.dwTempo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIXERCAPS
-.wMid RESW 1
-.wPid RESW 1
-.vDriverVersion RESD 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
+.vDriverVersion reserve(int32_t) 1
 .szPname RESB MAXPNAMELEN
-.fdwSupport RESD 1
-.cDestinations RESD 1
+.fdwSupport reserve(int32_t) 1
+.cDestinations reserve(int32_t) 1
 ENDSTRUC
 
 STRUC Target
-.dwType RESD 1
-.dwDeviceID RESD 1
-.wMid RESW 1
-.wPid RESW 1
-.vDriverVersion RESD 1
+.dwType reserve(int32_t) 1
+.dwDeviceID reserve(int32_t) 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
+.vDriverVersion reserve(int32_t) 1
 .szPname RESB MAXPNAMELEN
 ENDSTRUC
 
 STRUC MIXERLINECONTROLS
-.cbStruct RESD 1
-.dwLineID RESD 1
-.dwControl RESD 1
-.cControls RESD 1
-.cbmxctrl RESD 1
-.pamxctrl RESD 1
+.cbStruct reserve(int32_t) 1
+.dwLineID reserve(int32_t) 1
+.dwControl reserve(int32_t) 1
+.cControls reserve(int32_t) 1
+.cbmxctrl reserve(int32_t) 1
+.pamxctrl reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIXERCONTROLDETAILS
-.cbStruct RESD 1
-.dwControlID RESD 1
-.cChannels RESD 1
-.item RESD 1
-.cbDetails RESD 1
-.paDetails RESD 1
+.cbStruct reserve(int32_t) 1
+.dwControlID reserve(int32_t) 1
+.cChannels reserve(int32_t) 1
+.item reserve(int32_t) 1
+.cbDetails reserve(int32_t) 1
+.paDetails reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIXERCONTROLDETAILS_BOOLEAN
-.fValue RESD 1
+.fValue reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIXERCONTROLDETAILS_SIGNED
-.lValue RESD 1
+.lValue reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIXERCONTROLDETAILS_UNSIGNED
-.dwValue RESD 1
+.dwValue reserve(int32_t) 1
 ENDSTRUC
 
 STRUC JOYINFOEX
-.dwSize RESD 1
-.dwFlags RESD 1
-.dwXpos RESD 1
-.dwYpos RESD 1
-.dwZpos RESD 1
-.dwRpos RESD 1
-.dwUpos RESD 1
-.dwVpos RESD 1
-.dwButtons RESD 1
-.dwButtonNumber RESD 1
-.dwPOV RESD 1
-.dwReserved1 RESD 1
-.dwReserved2 RESD 1
+.dwSize reserve(int32_t) 1
+.dwFlags reserve(int32_t) 1
+.dwXpos reserve(int32_t) 1
+.dwYpos reserve(int32_t) 1
+.dwZpos reserve(int32_t) 1
+.dwRpos reserve(int32_t) 1
+.dwUpos reserve(int32_t) 1
+.dwVpos reserve(int32_t) 1
+.dwButtons reserve(int32_t) 1
+.dwButtonNumber reserve(int32_t) 1
+.dwPOV reserve(int32_t) 1
+.dwReserved1 reserve(int32_t) 1
+.dwReserved2 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DRVCONFIGINFO
-.dwDCISize RESD 1
-.lpszDCISectionName RESD 1
-.lpszDCIAliasName RESD 1
-.dnDevNode RESD 1
+.dwDCISize reserve(int32_t) 1
+.lpszDCISectionName reserve(int32_t) 1
+.lpszDCIAliasName reserve(int32_t) 1
+.dnDevNode reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WAVEHDR
-.lpData RESD 1
-.dwBufferiLength RESD 1
-.dwBytesRecorded RESD 1
-.dwUser RESD 1
-.dwFlags RESD 1
-.dwLoops RESD 1
-.lpNext RESD 1
-.Reserved RESD 1
+.lpData reserve(int32_t) 1
+.dwBufferiLength reserve(int32_t) 1
+.dwBytesRecorded reserve(int32_t) 1
+.dwUser reserve(int32_t) 1
+.dwFlags reserve(int32_t) 1
+.dwLoops reserve(int32_t) 1
+.lpNext reserve(int32_t) 1
+.Reserved reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WAVEOUTCAPS
-.wMid RESW 1
-.wPid RESW 1
-.vDriverVersion RESD 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
+.vDriverVersion reserve(int32_t) 1
 .szPname RESB MAXPNAMELEN
-.dwFormats RESD 1
-.wChannels RESW 1
-.dwSupport RESD 1
+.dwFormats reserve(int32_t) 1
+.wChannels reserve(short_t) 1
+.dwSupport reserve(int32_t) 1
 ENDSTRUC
 
 STRUC WAVEINCAPS
-.wMid RESW 1
-.wPid RESW 1
-.vDriverVersion RESD 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
+.vDriverVersion reserve(int32_t) 1
 .szPname RESB MAXPNAMELEN
-.dwFormats RESD 1
-.wChannels RESW 1
+.dwFormats reserve(int32_t) 1
+.wChannels reserve(short_t) 1
 ENDSTRUC
 
 STRUC WAVEFORMAT
-.wFormatTag RESW 1
-.nChannels RESW 1
-.nSamplesPerSec RESD 1
-.nAvgBytesPerSec RESD 1
-.nBlockAlign RESW 1
+.wFormatTag reserve(short_t) 1
+.nChannels reserve(short_t) 1
+.nSamplesPerSec reserve(int32_t) 1
+.nAvgBytesPerSec reserve(int32_t) 1
+.nBlockAlign reserve(short_t) 1
 ENDSTRUC
 
 STRUC PCMWAVEFORMAT
-.wf RESD 1
-.wBitsPerSample RESW 1
+.wf reserve(int32_t) 1
+.wBitsPerSample reserve(short_t) 1
 ENDSTRUC
 
 STRUC MIDIOUTCAPS
-.wMid RESW 1
-.wPid RESW 1
-.vDriverVersion RESD 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
+.vDriverVersion reserve(int32_t) 1
 .szPname RESB MAXPNAMELEN
-.wTechnology RESW 1
-.wVoices RESW 1
-.wNotes RESW 1
-.wChannelMask RESW 1
-.dwSupport RESD 1
+.wTechnology reserve(short_t) 1
+.wVoices reserve(short_t) 1
+.wNotes reserve(short_t) 1
+.wChannelMask reserve(short_t) 1
+.dwSupport reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MIDIINCAPS
-.wMid RESW 1
-.wPid RESW 1
-.vDriverVersion RESD 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
+.vDriverVersion reserve(int32_t) 1
 .szPname RESB MAXPNAMELEN
 ENDSTRUC
 
 STRUC MIDIHDR
-.lpData RESD 1
-.dwBufferiLength RESD 1
-.dwBytesRecorded RESD 1
-.dwUser RESD 1
-.dwFlags RESD 1
-.lpNext RESD 1
-.Reserved RESD 1
+.lpData reserve(int32_t) 1
+.dwBufferiLength reserve(int32_t) 1
+.dwBytesRecorded reserve(int32_t) 1
+.dwUser reserve(int32_t) 1
+.dwFlags reserve(int32_t) 1
+.lpNext reserve(int32_t) 1
+.Reserved reserve(int32_t) 1
 ENDSTRUC
 
 STRUC AUXCAPS
-.wMid RESW 1
-.wPid RESW 1
-.vDriverVersion RESD 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
+.vDriverVersion reserve(int32_t) 1
 .szPname RESB MAXPNAMELEN
-.wTechnology RESW 1
-.dwSupport RESD 1
+.wTechnology reserve(short_t) 1
+.dwSupport reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TIMECAPS
-.wPeriodMin RESD 1
-.wPeriodMax RESD 1
+.wPeriodMin reserve(int32_t) 1
+.wPeriodMax reserve(int32_t) 1
 ENDSTRUC
 
 STRUC JOYCAPS
-.wMid RESW 1
-.wPid RESW 1
+.wMid reserve(short_t) 1
+.wPid reserve(short_t) 1
 .szPname RESB MAXPNAMELEN
-.wXmin RESW 1
-.wXmax RESW 1
-.wYmin RESW 1
-.wYmax RESW 1
-.wZmin RESW 1
-.wZmax RESW 1
-.wNumButtons RESW 1
-.wPeriodMin RESW 1
-.wPeriodMax RESW 1
+.wXmin reserve(short_t) 1
+.wXmax reserve(short_t) 1
+.wYmin reserve(short_t) 1
+.wYmax reserve(short_t) 1
+.wZmin reserve(short_t) 1
+.wZmax reserve(short_t) 1
+.wNumButtons reserve(short_t) 1
+.wPeriodMin reserve(short_t) 1
+.wPeriodMax reserve(short_t) 1
 ENDSTRUC
 
 STRUC JOYINFO
-.wXpos RESW 1
-.wYpos RESW 1
-.wZpos RESW 1
-.wButtons RESW 1
+.wXpos reserve(short_t) 1
+.wYpos reserve(short_t) 1
+.wZpos reserve(short_t) 1
+.wButtons reserve(short_t) 1
 ENDSTRUC
 
 STRUC MMIOINFO
-.dwFlags RESD 1
-.fccIOProc RESD 1
-.pIOProc RESD 1
-.wErrorRet RESD 1
-.htask RESD 1
-.cchBuffer RESD 1
-.pchBuffer RESD 1
-.pchNext RESD 1
-.pchEndRead RESD 1
-.pchEndWrite RESD 1
-.lBufOffset RESD 1
-.lDiskOffset RESD 1
-.adwInfo4 RESD 1
-.dwReserved1 RESD 1
-.dwReserved2 RESD 1
-.hmmio RESD 1
+.dwFlags reserve(int32_t) 1
+.fccIOProc reserve(int32_t) 1
+.pIOProc reserve(int32_t) 1
+.wErrorRet reserve(int32_t) 1
+.htask reserve(int32_t) 1
+.cchBuffer reserve(int32_t) 1
+.pchBuffer reserve(int32_t) 1
+.pchNext reserve(int32_t) 1
+.pchEndRead reserve(int32_t) 1
+.pchEndWrite reserve(int32_t) 1
+.lBufOffset reserve(int32_t) 1
+.lDiskOffset reserve(int32_t) 1
+.adwInfo4 reserve(int32_t) 1
+.dwReserved1 reserve(int32_t) 1
+.dwReserved2 reserve(int32_t) 1
+.hmmio reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MMCKINFO
-.ckid RESD 1
-.ckSize RESD 1
-.fccType RESD 1
-.dwDataOffset RESD 1
-.dwFlags RESD 1
+.ckid reserve(int32_t) 1
+.ckSize reserve(int32_t) 1
+.fccType reserve(int32_t) 1
+.dwDataOffset reserve(int32_t) 1
+.dwFlags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_GENERIC_PARMS
-.dwCallback RESD 1
+.dwCallback reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_OPEN_PARMS
-.dwCallback RESD 1
-.wDeviceID RESD 1
-.lpstrDeviceType RESD 1
-.lpstrElementName RESD 1
-.lpstrAlias RESD 1
+.dwCallback reserve(int32_t) 1
+.wDeviceID reserve(int32_t) 1
+.lpstrDeviceType reserve(int32_t) 1
+.lpstrElementName reserve(int32_t) 1
+.lpstrAlias reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_PLAY_PARMS
-.dwCallback RESD 1
-.dwFrom RESD 1
-.dwTo RESD 1
+.dwCallback reserve(int32_t) 1
+.dwFrom reserve(int32_t) 1
+.dwTo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_SEEK_PARMS
-.dwCallback RESD 1
-.dwTo RESD 1
+.dwCallback reserve(int32_t) 1
+.dwTo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_STATUS_PARMS
-.dwCallback RESD 1
-.dwReturn RESD 1
-.dwItem RESD 1
-.dwTrack RESW 1
+.dwCallback reserve(int32_t) 1
+.dwReturn reserve(int32_t) 1
+.dwItem reserve(int32_t) 1
+.dwTrack reserve(short_t) 1
 ENDSTRUC
 
 STRUC MCI_INFO_PARMS
-.dwCallback RESD 1
-.lpstrReturn RESD 1
-.dwRetSize RESD 1
+.dwCallback reserve(int32_t) 1
+.lpstrReturn reserve(int32_t) 1
+.dwRetSize reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_GETDEVCAPS_PARMS
-.dwCallback RESD 1
-.dwReturn RESD 1
-.dwIten RESD 1
+.dwCallback reserve(int32_t) 1
+.dwReturn reserve(int32_t) 1
+.dwIten reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_SYSINFO_PARMS
-.dwCallback RESD 1
-.lpstrReturn RESD 1
-.dwRetSize RESD 1
-.dwNumber RESD 1
-.wDeviceType RESD 1
+.dwCallback reserve(int32_t) 1
+.lpstrReturn reserve(int32_t) 1
+.dwRetSize reserve(int32_t) 1
+.dwNumber reserve(int32_t) 1
+.wDeviceType reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_SET_PARMS
-.dwCallback RESD 1
-.dwTimeFormat RESD 1
-.dwAudio RESD 1
+.dwCallback reserve(int32_t) 1
+.dwTimeFormat reserve(int32_t) 1
+.dwAudio reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_BREAK_PARMS
-.dwCallback RESD 1
-.nVirtKey RESD 1
-.hwndBreak RESD 1
+.dwCallback reserve(int32_t) 1
+.nVirtKey reserve(int32_t) 1
+.hwndBreak reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_SOUND_PARMS
-.dwCallback RESD 1
-.lpstrSoundName RESD 1
+.dwCallback reserve(int32_t) 1
+.lpstrSoundName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_SAVE_PARMS
-.dwCallback RESD 1
-.lpFileName RESD 1
+.dwCallback reserve(int32_t) 1
+.lpFileName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_LOAD_PARMS
-.dwCallback RESD 1
-.lpFileName RESD 1
+.dwCallback reserve(int32_t) 1
+.lpFileName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_RECORD_PARMS
-.dwCallback RESD 1
-.dwFrom RESD 1
-.dwTo RESD 1
+.dwCallback reserve(int32_t) 1
+.dwFrom reserve(int32_t) 1
+.dwTo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_VD_PLAY_PARMS
-.dwCallback RESD 1
-.dwFrom RESD 1
-.dwTo RESD 1
-.dwSpeed RESD 1
+.dwCallback reserve(int32_t) 1
+.dwFrom reserve(int32_t) 1
+.dwTo reserve(int32_t) 1
+.dwSpeed reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_VD_STEP_PARMS
-.dwCallback RESD 1
-.dwFrames RESD 1
+.dwCallback reserve(int32_t) 1
+.dwFrames reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_VD_ESCAPE_PARMS
-.dwCallback RESD 1
-.lpstrCommand RESD 1
+.dwCallback reserve(int32_t) 1
+.lpstrCommand reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_WAVE_OPEN_PARMS
-.dwCallback RESD 1
-.wDeviceID RESD 1
-.lpstrDeviceType RESD 1
-.lpstrElementName RESD 1
-.lpstrAlias RESD 1
-.dwBufferSeconds RESD 1
+.dwCallback reserve(int32_t) 1
+.wDeviceID reserve(int32_t) 1
+.lpstrDeviceType reserve(int32_t) 1
+.lpstrElementName reserve(int32_t) 1
+.lpstrAlias reserve(int32_t) 1
+.dwBufferSeconds reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_WAVE_DELETE_PARMS
-.dwCallback RESD 1
-.dwFrom RESD 1
-.dwTo RESD 1
+.dwCallback reserve(int32_t) 1
+.dwFrom reserve(int32_t) 1
+.dwTo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_WAVE_SET_PARMS
-.dwCallback RESD 1
-.dwTimeFormat RESD 1
-.dwAudio RESD 1
-.wInput RESD 1
-.wOutput RESD 1
-.wFormatTag RESW 1
-.wReserved2 RESW 1
-.nChannels RESW 1
-.wReserved3 RESW 1
-.nSamplesPerSec RESD 1
-.nAvgBytesPerSec RESD 1
-.nBlockAlign RESW 1
-.wReserved4 RESW 1
-.wBitsPerSample RESW 1
-.wReserved5 RESW 1
+.dwCallback reserve(int32_t) 1
+.dwTimeFormat reserve(int32_t) 1
+.dwAudio reserve(int32_t) 1
+.wInput reserve(int32_t) 1
+.wOutput reserve(int32_t) 1
+.wFormatTag reserve(short_t) 1
+.wReserved2 reserve(short_t) 1
+.nChannels reserve(short_t) 1
+.wReserved3 reserve(short_t) 1
+.nSamplesPerSec reserve(int32_t) 1
+.nAvgBytesPerSec reserve(int32_t) 1
+.nBlockAlign reserve(short_t) 1
+.wReserved4 reserve(short_t) 1
+.wBitsPerSample reserve(short_t) 1
+.wReserved5 reserve(short_t) 1
 ENDSTRUC
 
 STRUC MCI_SEQ_SET_PARMS
-.dwCallback RESD 1
-.dwTimeFormat RESD 1
-.dwAudio RESD 1
-.dwTempo RESD 1
-.dwPort RESD 1
-.dwSlave RESD 1
-.dwMaster RESD 1
-.dwOffset RESD 1
+.dwCallback reserve(int32_t) 1
+.dwTimeFormat reserve(int32_t) 1
+.dwAudio reserve(int32_t) 1
+.dwTempo reserve(int32_t) 1
+.dwPort reserve(int32_t) 1
+.dwSlave reserve(int32_t) 1
+.dwMaster reserve(int32_t) 1
+.dwOffset reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_ANIM_OPEN_PARMS
-.dwCallback RESD 1
-.wDeviceID RESD 1
-.lpstrDeviceType RESD 1
-.lpstrElementName RESD 1
-.lpstrAlias RESD 1
-.dwStyle RESD 1
-.hWndParent RESD 1
+.dwCallback reserve(int32_t) 1
+.wDeviceID reserve(int32_t) 1
+.lpstrDeviceType reserve(int32_t) 1
+.lpstrElementName reserve(int32_t) 1
+.lpstrAlias reserve(int32_t) 1
+.dwStyle reserve(int32_t) 1
+.hWndParent reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_ANIM_PLAY_PARMS
-.dwCallback RESD 1
-.dwFrom RESD 1
-.dwTo RESD 1
-.dwSpeed RESD 1
+.dwCallback reserve(int32_t) 1
+.dwFrom reserve(int32_t) 1
+.dwTo reserve(int32_t) 1
+.dwSpeed reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_ANIM_STEP_PARMS
-.dwCallback RESD 1
-.dwFrames RESD 1
+.dwCallback reserve(int32_t) 1
+.dwFrames reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_ANIM_WINDOW_PARMS
-.dwCallback RESD 1
-.hwnd RESD 1
-.nCmdShow RESD 1
-.lpstrText RESD 1
+.dwCallback reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
+.nCmdShow reserve(int32_t) 1
+.lpstrText reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_ANIM_RECT_PARMS
-.dwCallback RESD 1
-.rc RESB RECT_size
+.dwCallback reserve(int32_t) 1
+.rc reserve(RECT)
 ENDSTRUC
 
 STRUC MCI_ANIM_UPDATE_PARMS
-.dwCallback RESD 1
-.rc RESB RECT_size
-.hDC RESD 1
+.dwCallback reserve(int32_t) 1
+.rc reserve(RECT)
+.hDC reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_OVLY_OPEN_PARMS
-.dwCallback RESD 1
-.wDeviceID RESD 1
-.lpstrDeviceType RESD 1
-.lpstrElementName RESD 1
-.lpstrAlias RESD 1
-.dwStyle RESD 1
-.hWndParent RESD 1
+.dwCallback reserve(int32_t) 1
+.wDeviceID reserve(int32_t) 1
+.lpstrDeviceType reserve(int32_t) 1
+.lpstrElementName reserve(int32_t) 1
+.lpstrAlias reserve(int32_t) 1
+.dwStyle reserve(int32_t) 1
+.hWndParent reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_OVLY_WINDOW_PARMS
-.dwCallback RESD 1
-.hwnd RESD 1
-.nCmdShow RESD 1
-.lpstrText RESD 1
+.dwCallback reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
+.nCmdShow reserve(int32_t) 1
+.lpstrText reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MCI_OVLY_RECT_PARMS
-.dwCallback RESD 1
-.rc RESB RECT_size
+.dwCallback reserve(int32_t) 1
+.rc reserve(RECT)
 ENDSTRUC
 
 STRUC MCI_OVLY_SAVE_PARMS
-.dwCallback RESD 1
-.lpFileName RESD 1
-.rc RESB RECT_size
+.dwCallback reserve(int32_t) 1
+.lpFileName reserve(int32_t) 1
+.rc reserve(RECT)
 ENDSTRUC
 
 STRUC MCI_OVLY_LOAD_PARMS
-.dwCallback RESD 1
-.lpFileName RESD 1
-.rc RESB RECT_size
+.dwCallback reserve(int32_t) 1
+.lpFileName reserve(int32_t) 1
+.rc reserve(RECT)
 ENDSTRUC
 
 STRUC PRINTER_INFO_1
-.flags RESD 1
-.pDescription RESD 1
-.pName RESD 1
-.pComment RESD 1
+.flags reserve(int32_t) 1
+.pDescription reserve(int32_t) 1
+.pName reserve(int32_t) 1
+.pComment reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PRINTER_INFO_2
-.pServerName RESD 1
-.pPrinterName RESD 1
-.pShareName RESD 1
-.pPortName RESD 1
-.pDriverName RESD 1
-.pComment RESD 1
-.pLocation RESD 1
-.pDevMode RESD 1
-.pSepFile RESD 1
-.pPrintProcessor RESD 1
-.pDatatype RESD 1
-.pParameters RESD 1
-.pSecurityDescriptor RESD 1
-.Attributes RESD 1
-.Priority RESD 1
-.DefaultPriority RESD 1
-.StartTime RESD 1
-.UntilTime RESD 1
-.Status RESD 1
-.cJobs RESD 1
-.AveragePPM RESD 1
+.pServerName reserve(int32_t) 1
+.pPrinterName reserve(int32_t) 1
+.pShareName reserve(int32_t) 1
+.pPortName reserve(int32_t) 1
+.pDriverName reserve(int32_t) 1
+.pComment reserve(int32_t) 1
+.pLocation reserve(int32_t) 1
+.pDevMode reserve(int32_t) 1
+.pSepFile reserve(int32_t) 1
+.pPrintProcessor reserve(int32_t) 1
+.pDatatype reserve(int32_t) 1
+.pParameters reserve(int32_t) 1
+.pSecurityDescriptor reserve(int32_t) 1
+.Attributes reserve(int32_t) 1
+.Priority reserve(int32_t) 1
+.DefaultPriority reserve(int32_t) 1
+.StartTime reserve(int32_t) 1
+.UntilTime reserve(int32_t) 1
+.Status reserve(int32_t) 1
+.cJobs reserve(int32_t) 1
+.AveragePPM reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PRINTER_INFO_3
-.pSecurityDescriptor RESD 1
+.pSecurityDescriptor reserve(int32_t) 1
 ENDSTRUC
 
 STRUC JOB_INFO_1
-.JobId RESD 1
-.pPrinterName RESD 1
-.pMachineName RESD 1
-.pUserName RESD 1
-.pDocument RESD 1
-.pDatatype RESD 1
-.pStatus RESD 1
-.Status RESD 1
-.Priority RESD 1
-.Position RESD 1
-.TotalPages RESD 1
-.PagesPrinted RESD 1
-.Submitted RESD 1
+.JobId reserve(int32_t) 1
+.pPrinterName reserve(int32_t) 1
+.pMachineName reserve(int32_t) 1
+.pUserName reserve(int32_t) 1
+.pDocument reserve(int32_t) 1
+.pDatatype reserve(int32_t) 1
+.pStatus reserve(int32_t) 1
+.Status reserve(int32_t) 1
+.Priority reserve(int32_t) 1
+.Position reserve(int32_t) 1
+.TotalPages reserve(int32_t) 1
+.PagesPrinted reserve(int32_t) 1
+.Submitted reserve(int32_t) 1
 ENDSTRUC
 
 STRUC JOB_INFO_2
-.JobId RESD 1
-.pPrinterName RESD 1
-.pMachineName RESD 1
-.pUserName RESD 1
-.pDocument RESD 1
-.pNotifyName RESD 1
-.pDatatype RESD 1
-.pPrintProcessor RESD 1
-.pParameters RESD 1
-.pDriverName RESD 1
-.pDevMode RESD 1
-.pStatus RESD 1
-.pSecurityDescriptor RESD 1
-.Status RESD 1
-.Priority RESD 1
-.Position RESD 1
-.StartTime RESD 1
-.UntilTime RESD 1
-.TotalPages RESD 1
-.isize RESD 1
-.Submitted RESD 1
-.time RESD 1
-.PagesPrinted RESD 1
+.JobId reserve(int32_t) 1
+.pPrinterName reserve(int32_t) 1
+.pMachineName reserve(int32_t) 1
+.pUserName reserve(int32_t) 1
+.pDocument reserve(int32_t) 1
+.pNotifyName reserve(int32_t) 1
+.pDatatype reserve(int32_t) 1
+.pPrintProcessor reserve(int32_t) 1
+.pParameters reserve(int32_t) 1
+.pDriverName reserve(int32_t) 1
+.pDevMode reserve(int32_t) 1
+.pStatus reserve(int32_t) 1
+.pSecurityDescriptor reserve(int32_t) 1
+.Status reserve(int32_t) 1
+.Priority reserve(int32_t) 1
+.Position reserve(int32_t) 1
+.StartTime reserve(int32_t) 1
+.UntilTime reserve(int32_t) 1
+.TotalPages reserve(int32_t) 1
+.isize reserve(int32_t) 1
+.Submitted reserve(int32_t) 1
+.time reserve(int32_t) 1
+.PagesPrinted reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ADDJOB_INFO_1
-.Path RESD 1
-.JobId RESD 1
+.Path reserve(int32_t) 1
+.JobId reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DRIVER_INFO_1
-.pName RESD 1
+.pName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DRIVER_INFO_2
-.cVersion RESD 1
-.pName RESD 1
-.pEnvironment RESD 1
-.pDriverPath RESD 1
-.pDataFile RESD 1
-.pConfigFile RESD 1
+.cVersion reserve(int32_t) 1
+.pName reserve(int32_t) 1
+.pEnvironment reserve(int32_t) 1
+.pDriverPath reserve(int32_t) 1
+.pDataFile reserve(int32_t) 1
+.pConfigFile reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DOC_INFO_1
-.pDocName RESD 1
-.pOutputFile RESD 1
-.pDatatype RESD 1
+.pDocName reserve(int32_t) 1
+.pOutputFile reserve(int32_t) 1
+.pDatatype reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FORM_INFO_1
-.pName RESD 1
-.isize RESD 1
-.ImageableArea RESD 1
+.pName reserve(int32_t) 1
+.isize reserve(int32_t) 1
+.ImageableArea reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PRINTPROCESSOR_INFO_1
-.pName RESD 1
+.pName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PORT_INFO_1
-.pName RESD 1
+.pName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MONITOR_INFO_1
-.pName RESD 1
+.pName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MONITOR_INFO_2
-.pName RESD 1
-.pEnvironment RESD 1
-.pDLLName RESD 1
+.pName reserve(int32_t) 1
+.pEnvironment reserve(int32_t) 1
+.pDLLName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DATATYPES_INFO_1
-.pName RESD 1
+.pName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PRINTER_DEFAULTS
-.pDatatype RESD 1
-.pDevMode RESD 1
-.DesiredAccess RESD 1
+.pDatatype reserve(int32_t) 1
+.pDevMode reserve(int32_t) 1
+.DesiredAccess reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PRINTER_INFO_4
-.pPrinterName RESD 1
-.pServerName RESD 1
-.Attributes RESD 1
+.pPrinterName reserve(int32_t) 1
+.pServerName reserve(int32_t) 1
+.Attributes reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PRINTER_INFO_5
-.pPrinterName RESD 1
-.pPortName RESD 1
-.Attributes RESD 1
-.DeviceNotSelectedTimeout RESD 1
-.TransmissionRetryTimeout RESD 1
+.pPrinterName reserve(int32_t) 1
+.pPortName reserve(int32_t) 1
+.Attributes reserve(int32_t) 1
+.DeviceNotSelectedTimeout reserve(int32_t) 1
+.TransmissionRetryTimeout reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DRIVER_INFO_3
-.cVersion RESD 1
-.pName RESD 1
-.pEnvironment RESD 1
-.pDriverPath RESD 1
-.pDataFile RESD 1
-.pConfigFile RESD 1
-.pHelpFile RESD 1
-.pDependentFiles RESD 1
-.pMonitorName RESD 1
-.pDefaultDataType RESD 1
+.cVersion reserve(int32_t) 1
+.pName reserve(int32_t) 1
+.pEnvironment reserve(int32_t) 1
+.pDriverPath reserve(int32_t) 1
+.pDataFile reserve(int32_t) 1
+.pConfigFile reserve(int32_t) 1
+.pHelpFile reserve(int32_t) 1
+.pDependentFiles reserve(int32_t) 1
+.pMonitorName reserve(int32_t) 1
+.pDefaultDataType reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DOC_INFO_2
-.pDocName RESD 1
-.pOutputFile RESD 1
-.pDatatype RESD 1
-.dwMode RESD 1
-.JobId RESD 1
+.pDocName reserve(int32_t) 1
+.pOutputFile reserve(int32_t) 1
+.pDatatype reserve(int32_t) 1
+.dwMode reserve(int32_t) 1
+.JobId reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PORT_INFO_2
-.pPortName RESD 1
-.pMonitorName RESD 1
-.pDescription RESD 1
-.fPortType RESD 1
-.Reserved RESD 1
+.pPortName reserve(int32_t) 1
+.pMonitorName reserve(int32_t) 1
+.pDescription reserve(int32_t) 1
+.fPortType reserve(int32_t) 1
+.Reserved reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PROVIDOR_INFO_1
-.pName RESD 1
-.pEnvironment RESD 1
-.pDLLName RESD 1
+.pName reserve(int32_t) 1
+.pEnvironment reserve(int32_t) 1
+.pDLLName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NETRESOURCE
-.dwScope RESD 1
-.dwType RESD 1
-.dwDisplayType RESD 1
-.dwUsage RESD 1
-.lpLocalName RESD 1
-.lpRemoteName RESD 1
-.lpComment RESD 1
-.lpProvider RESD 1
+.dwScope reserve(int32_t) 1
+.dwType reserve(int32_t) 1
+.dwDisplayType reserve(int32_t) 1
+.dwUsage reserve(int32_t) 1
+.lpLocalName reserve(int32_t) 1
+.lpRemoteName reserve(int32_t) 1
+.lpComment reserve(int32_t) 1
+.lpProvider reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NCB
-.ncb_command RESW 1
-.ncb_retcode RESW 1
-.ncb_lsn RESW 1
-.ncb_num RESW 1
-.ncb_buffer RESD 1
-.ncb_length RESW 1
+.ncb_command reserve(short_t) 1
+.ncb_retcode reserve(short_t) 1
+.ncb_lsn reserve(short_t) 1
+.ncb_num reserve(short_t) 1
+.ncb_buffer reserve(int32_t) 1
+.ncb_length reserve(short_t) 1
 .ncb_callname RESB NCBNAMSZ
 .ncb_name RESB NCBNAMSZ
-.ncb_rto RESW 1
-.ncb_sto RESW 1
-.ncb_post RESD 1
-.ncb_lana_num RESW 1
-.ncb_cmd_cplt RESW 1
+.ncb_rto reserve(short_t) 1
+.ncb_sto reserve(short_t) 1
+.ncb_post reserve(int32_t) 1
+.ncb_lana_num reserve(short_t) 1
+.ncb_cmd_cplt reserve(short_t) 1
 .ncb_reserve10 RESB 1
-.ncb_event RESD 1
+.ncb_event reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ADAPTER_STATUS
 .adapter_address RESB 6
-.rev_major RESW 1
-.reserved0 RESW 1
-.adapter_type RESW 1
-.rev_minor RESW 1
-.duration RESW 1
-.frmr_recv RESW 1
-.frmr_xmit RESW 1
-.iframe_recv_err RESW 1
-.xmit_aborts RESW 1
-.xmit_success RESD 1
-.recv_success RESD 1
-.iframe_xmit_err RESW 1
-.recv_buff_unavail RESW 1
-.t1_timeouts RESW 1
-.ti_timeouts RESW 1
-.Reserved1 RESD 1
-.free_ncbs RESW 1
-.max_cfg_ncbs RESW 1
-.max_ncbs RESW 1
-.xmit_buf_unavail RESW 1
-.max_dgram_isize RESW 1
-.pending_sess RESW 1
-.max_cfg_sess RESW 1
-.max_sess RESW 1
-.max_sess_pkt_isize RESW 1
-.name_count RESW 1
+.rev_major reserve(short_t) 1
+.reserved0 reserve(short_t) 1
+.adapter_type reserve(short_t) 1
+.rev_minor reserve(short_t) 1
+.duration reserve(short_t) 1
+.frmr_recv reserve(short_t) 1
+.frmr_xmit reserve(short_t) 1
+.iframe_recv_err reserve(short_t) 1
+.xmit_aborts reserve(short_t) 1
+.xmit_success reserve(int32_t) 1
+.recv_success reserve(int32_t) 1
+.iframe_xmit_err reserve(short_t) 1
+.recv_buff_unavail reserve(short_t) 1
+.t1_timeouts reserve(short_t) 1
+.ti_timeouts reserve(short_t) 1
+.Reserved1 reserve(int32_t) 1
+.free_ncbs reserve(short_t) 1
+.max_cfg_ncbs reserve(short_t) 1
+.max_ncbs reserve(short_t) 1
+.xmit_buf_unavail reserve(short_t) 1
+.max_dgram_isize reserve(short_t) 1
+.pending_sess reserve(short_t) 1
+.max_cfg_sess reserve(short_t) 1
+.max_sess reserve(short_t) 1
+.max_sess_pkt_isize reserve(short_t) 1
+.name_count reserve(short_t) 1
 ENDSTRUC
 
 STRUC NAME_BUFFER
 .xname RESB NCBNAMSZ
-.name_num RESW 1
-.name_flags RESW 1
+.name_num reserve(short_t) 1
+.name_flags reserve(short_t) 1
 ENDSTRUC
 
 STRUC SESSION_HEADER
-.sess_name RESW 1
-.num_sess RESW 1
-.rcv_dg_outstanding RESW 1
-.rcv_any_outstanding RESW 1
+.sess_name reserve(short_t) 1
+.num_sess reserve(short_t) 1
+.rcv_dg_outstanding reserve(short_t) 1
+.rcv_any_outstanding reserve(short_t) 1
 ENDSTRUC
 
 STRUC SESSION_BUFFER
-.lsn RESW 1
-.State RESW 1
+.lsn reserve(short_t) 1
+.State reserve(short_t) 1
 .local_name RESB NCBNAMSZ
 .remote_name RESB NCBNAMSZ
-.rcvs_outstanding RESW 1
-.sends_outstanding RESW 1
+.rcvs_outstanding reserve(short_t) 1
+.sends_outstanding reserve(short_t) 1
 ENDSTRUC
 
 STRUC LANA_ENUM
-.iLength RESW 1
-.lana RESW 1
+.iLength reserve(short_t) 1
+.lana reserve(short_t) 1
 ENDSTRUC
 
 STRUC FIND_NAME_HEADER
-.node_count RESW 1
-.Reserved RESW 1
-.unique_group RESW 1
+.node_count reserve(short_t) 1
+.Reserved reserve(short_t) 1
+.unique_group reserve(short_t) 1
 ENDSTRUC
 
 STRUC FIND_NAME_BUFFER
-.iLength RESW 1
-.access_control RESW 1
-.frame_control RESW 1
-.destination_addr RESW 1
-.source_addr RESW 1
-.routing_info RESW 1
+.iLength reserve(short_t) 1
+.access_control reserve(short_t) 1
+.frame_control reserve(short_t) 1
+.destination_addr reserve(short_t) 1
+.source_addr reserve(short_t) 1
+.routing_info reserve(short_t) 1
 ENDSTRUC
 
 STRUC ACTION_HEADER
-.transport_id RESD 1
-.action_code RESW 1
-.Reserved RESW 1
+.transport_id reserve(int32_t) 1
+.action_code reserve(short_t) 1
+.Reserved reserve(short_t) 1
 ENDSTRUC
 
 STRUC CRGB
@@ -10722,299 +10729,299 @@ STRUC CRGB
 ENDSTRUC
 
 STRUC SERVICE_STATUS
-.dwServiceType RESD 1
-.dwCurrentState RESD 1
-.dwControlsAccepted RESD 1
-.dwWin32ExitCode RESD 1
-.dwServiceSpecificExitCode RESD 1
-.dwCheckPoint RESD 1
-.dwWaitHint RESD 1
+.dwServiceType reserve(int32_t) 1
+.dwCurrentState reserve(int32_t) 1
+.dwControlsAccepted reserve(int32_t) 1
+.dwWin32ExitCode reserve(int32_t) 1
+.dwServiceSpecificExitCode reserve(int32_t) 1
+.dwCheckPoint reserve(int32_t) 1
+.dwWaitHint reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ENUM_SERVICE_STATUS
-.lpServiceName RESD 1
-.lpDisplayName RESD 1
-.ServiceStatus RESD 1
+.lpServiceName reserve(int32_t) 1
+.lpDisplayName reserve(int32_t) 1
+.ServiceStatus reserve(int32_t) 1
 ENDSTRUC
 
 STRUC QUERY_SERVICE_LOCK_STATUS
-.fIsLocked RESD 1
-.lpLockOwner RESD 1
-.dwLockDuration RESD 1
+.fIsLocked reserve(int32_t) 1
+.lpLockOwner reserve(int32_t) 1
+.dwLockDuration reserve(int32_t) 1
 ENDSTRUC
 
 STRUC QUERY_SERVICE_CONFIG
-.dwServiceType RESD 1
-.dwStartType RESD 1
-.dwErrorControl RESD 1
-.lpBinaryPathName RESD 1
-.lpLoadOrderGroup RESD 1
-.dwTagId RESD 1
-.lpDependencies RESD 1
-.lpServiceStartName RESD 1
-.lpDisplayName RESD 1
+.dwServiceType reserve(int32_t) 1
+.dwStartType reserve(int32_t) 1
+.dwErrorControl reserve(int32_t) 1
+.lpBinaryPathName reserve(int32_t) 1
+.lpLoadOrderGroup reserve(int32_t) 1
+.dwTagId reserve(int32_t) 1
+.lpDependencies reserve(int32_t) 1
+.lpServiceStartName reserve(int32_t) 1
+.lpDisplayName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC SERVICE_TABLE_ENTRY
-.lpServiceName RESD 1
-.lpServiceProc RESD 1
+.lpServiceName reserve(int32_t) 1
+.lpServiceProc reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LARGE_INTEGER
-.lowpart RESD 1
-.highpart RESD 1
+.lowpart reserve(int32_t) 1
+.highpart reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PERF_DATA_BLOCK
 .Signature RESB 4
-.LittleEndian RESD 1
-.Version RESD 1
-.Revision RESD 1
-.TotalByteiLength RESD 1
-.HeaderiLength RESD 1
-.NumObjectTypes RESD 1
-.DefaultObject RESD 1
-.SystemTime RESD 1
-.PerfTime RESD 1
-.PerfFreq RESD 1
-.PerTime100nSec RESD 1
-.SystemNameiLength RESD 1
-.SystemNameOffset RESD 1
+.LittleEndian reserve(int32_t) 1
+.Version reserve(int32_t) 1
+.Revision reserve(int32_t) 1
+.TotalByteiLength reserve(int32_t) 1
+.HeaderiLength reserve(int32_t) 1
+.NumObjectTypes reserve(int32_t) 1
+.DefaultObject reserve(int32_t) 1
+.SystemTime reserve(int32_t) 1
+.PerfTime reserve(int32_t) 1
+.PerfFreq reserve(int32_t) 1
+.PerTime100nSec reserve(int32_t) 1
+.SystemNameiLength reserve(int32_t) 1
+.SystemNameOffset reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PERF_OBJECT_TYPE
-.TotalByteiLength RESD 1
-.DefinitioniLength RESD 1
-.HeaderiLength RESD 1
-.ObjectNameTitleIndex RESD 1
-.ObjectNameTitle RESD 1
-.ObjectHelpTitleIndex RESD 1
-.ObjectHelpTitle RESD 1
-.DetailLevel RESD 1
-.NumCounters RESD 1
-.DefaultCounter RESD 1
-.NumInstances RESD 1
-.CodePage RESD 1
-.PerfTime RESD 1
-.PerfFreq RESD 1
+.TotalByteiLength reserve(int32_t) 1
+.DefinitioniLength reserve(int32_t) 1
+.HeaderiLength reserve(int32_t) 1
+.ObjectNameTitleIndex reserve(int32_t) 1
+.ObjectNameTitle reserve(int32_t) 1
+.ObjectHelpTitleIndex reserve(int32_t) 1
+.ObjectHelpTitle reserve(int32_t) 1
+.DetailLevel reserve(int32_t) 1
+.NumCounters reserve(int32_t) 1
+.DefaultCounter reserve(int32_t) 1
+.NumInstances reserve(int32_t) 1
+.CodePage reserve(int32_t) 1
+.PerfTime reserve(int32_t) 1
+.PerfFreq reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PERF_COUNTER_DEFINITION
-.ByteiLength RESD 1
-.CounterNameTitleIndex RESD 1
-.CounterNameTitle RESD 1
-.CounterHelpTitleIndex RESD 1
-.CounterHelpTitle RESD 1
-.DefaultScale RESD 1
-.DetailLevel RESD 1
-.CounterType RESD 1
-.CounterSize RESD 1
-.CounterOffset RESD 1
+.ByteiLength reserve(int32_t) 1
+.CounterNameTitleIndex reserve(int32_t) 1
+.CounterNameTitle reserve(int32_t) 1
+.CounterHelpTitleIndex reserve(int32_t) 1
+.CounterHelpTitle reserve(int32_t) 1
+.DefaultScale reserve(int32_t) 1
+.DetailLevel reserve(int32_t) 1
+.CounterType reserve(int32_t) 1
+.CounterSize reserve(int32_t) 1
+.CounterOffset reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PERF_INSTANCE_DEFINITION
-.ByteiLength RESD 1
-.ParentObjectTitleIndex RESD 1
-.ParentObjectInstance RESD 1
-.UniqueID RESD 1
-.NameOffset RESD 1
-.NameiLength RESD 1
+.ByteiLength reserve(int32_t) 1
+.ParentObjectTitleIndex reserve(int32_t) 1
+.ParentObjectInstance reserve(int32_t) 1
+.UniqueID reserve(int32_t) 1
+.NameOffset reserve(int32_t) 1
+.NameiLength reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PERF_COUNTER_BLOCK
-.ByteiLength RESD 1
+.ByteiLength reserve(int32_t) 1
 ENDSTRUC
 
 STRUC COMPOSITIONFORM
-.dwStyle RESD 1
-.ptCurrentPos RESB POINT_size
-.rcArea RESB RECT_size
+.dwStyle reserve(int32_t) 1
+.ptCurrentPos reserve(POINT)
+.rcArea reserve(RECT)
 ENDSTRUC
 
 STRUC CANDIDATEFORM
-.dwIndex RESD 1
-.dwStyle RESD 1
-.ptCurrentPos RESB POINT_size
-.rcArea RESB RECT_size
+.dwIndex reserve(int32_t) 1
+.dwStyle reserve(int32_t) 1
+.ptCurrentPos reserve(POINT)
+.rcArea reserve(RECT)
 ENDSTRUC
 
 STRUC CANDIDATELIST
-.dwSize RESD 1
-.dwStyle RESD 1
-.dwCount RESD 1
-.dwSelection RESD 1
-.dwPageStart RESD 1
-.dwPageSize RESD 1
-.dwOffset1 RESD 1
+.dwSize reserve(int32_t) 1
+.dwStyle reserve(int32_t) 1
+.dwCount reserve(int32_t) 1
+.dwSelection reserve(int32_t) 1
+.dwPageStart reserve(int32_t) 1
+.dwPageSize reserve(int32_t) 1
+.dwOffset1 reserve(int32_t) 1
 ENDSTRUC
 
 STRUC STYLEBUF
-.dwStyle RESD 1
+.dwStyle reserve(int32_t) 1
 .szDescription RESB STYLE_DESCRIPTION_SIZE
 ENDSTRUC
 
 STRUC MODEMDEVCAPS
-.dwActualSize RESD 1
-.dwRequiredSize RESD 1
-.dwDevSpecificOffset RESD 1
-.dwDevSpecificSize RESD 1
-.dwModemProviderVersion RESD 1
-.dwModemManufacturerOffset RESD 1
-.dwModemManufacturerSize RESD 1
-.dwModemModelOffset RESD 1
-.dwModemModelSize RESD 1
-.dwModemVersionOffset RESD 1
-.dwModemVersionSize RESD 1
-.dwDialOptions RESD 1
-.dwCallSetupFailTimer RESD 1
-.dwInactivityTimeout RESD 1
-.dwSpeakerVolume RESD 1
-.dwSpeakerMode RESD 1
-.dwModemOptions RESD 1
-.dwMaxDTERate RESD 1
-.dwMaxDCERate RESD 1
+.dwActualSize reserve(int32_t) 1
+.dwRequiredSize reserve(int32_t) 1
+.dwDevSpecificOffset reserve(int32_t) 1
+.dwDevSpecificSize reserve(int32_t) 1
+.dwModemProviderVersion reserve(int32_t) 1
+.dwModemManufacturerOffset reserve(int32_t) 1
+.dwModemManufacturerSize reserve(int32_t) 1
+.dwModemModelOffset reserve(int32_t) 1
+.dwModemModelSize reserve(int32_t) 1
+.dwModemVersionOffset reserve(int32_t) 1
+.dwModemVersionSize reserve(int32_t) 1
+.dwDialOptions reserve(int32_t) 1
+.dwCallSetupFailTimer reserve(int32_t) 1
+.dwInactivityTimeout reserve(int32_t) 1
+.dwSpeakerVolume reserve(int32_t) 1
+.dwSpeakerMode reserve(int32_t) 1
+.dwModemOptions reserve(int32_t) 1
+.dwMaxDTERate reserve(int32_t) 1
+.dwMaxDCERate reserve(int32_t) 1
 .abVariablePortion RESB 1
 ENDSTRUC
 
 STRUC MODEMSETTINGS
-.dwActualSize RESD 1
-.dwRequiredSize RESD 1
-.dwDevSpecificOffset RESD 1
-.dwDevSpecificSize RESD 1
-.dwCallSetupFailTimer RESD 1
-.dwInactivityTimeout RESD 1
-.dwSpeakerVolume RESD 1
-.dwSpeakerMode RESD 1
-.dwPreferredModemOptions RESD 1
-.dwNegotiatedModemOptions RESD 1
-.dwNegotiatedDCERate RESD 1
+.dwActualSize reserve(int32_t) 1
+.dwRequiredSize reserve(int32_t) 1
+.dwDevSpecificOffset reserve(int32_t) 1
+.dwDevSpecificSize reserve(int32_t) 1
+.dwCallSetupFailTimer reserve(int32_t) 1
+.dwInactivityTimeout reserve(int32_t) 1
+.dwSpeakerVolume reserve(int32_t) 1
+.dwSpeakerMode reserve(int32_t) 1
+.dwPreferredModemOptions reserve(int32_t) 1
+.dwNegotiatedModemOptions reserve(int32_t) 1
+.dwNegotiatedDCERate reserve(int32_t) 1
 .abVariablePortion RESB 1
 ENDSTRUC
 
 STRUC DRAGINFO
-.uSize RESD 1
-.pt RESB POINT_size
-.fNC RESD 1
-.lpFileList RESD 1
-.grfKeyState RESD 1
+.uSize reserve(int32_t) 1
+.pt reserve(POINT)
+.fNC reserve(int32_t) 1
+.lpFileList reserve(int32_t) 1
+.grfKeyState reserve(int32_t) 1
 ENDSTRUC
 
 STRUC APPBARDATA
-.cbSize RESD 1
-.hwnd RESD 1
-.uCallbackMessage RESD 1
-.uEdge RESD 1
-.rc RESB RECT_size
-.lParam RESD 1
+.cbSize reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
+.uCallbackMessage reserve(int32_t) 1
+.uEdge reserve(int32_t) 1
+.rc reserve(RECT)
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC SHFILEOPSTRUCT
-.hwnd RESD 1
-.wFunc RESD 1
-.pFrom RESD 1
-.pTo RESD 1
-.fFlags RESW 1
-.fAnyOperationsAborted RESD 1
-.hNameMappings RESD 1
-.lpszProgressTitle RESD 1
+.hwnd reserve(int32_t) 1
+.wFunc reserve(int32_t) 1
+.pFrom reserve(int32_t) 1
+.pTo reserve(int32_t) 1
+.fFlags reserve(short_t) 1
+.fAnyOperationsAborted reserve(int32_t) 1
+.hNameMappings reserve(int32_t) 1
+.lpszProgressTitle reserve(int32_t) 1
 ENDSTRUC
 
 STRUC SHNAMEMAPPING
-.pszOldPath RESD 1
-.pszNewPath RESD 1
-.cchOldPath RESD 1
-.cchNewPath RESD 1
+.pszOldPath reserve(int32_t) 1
+.pszNewPath reserve(int32_t) 1
+.cchOldPath reserve(int32_t) 1
+.cchNewPath reserve(int32_t) 1
 ENDSTRUC
 
 STRUC SHELLEXECUTEINFO
-.cbSize RESD 1
-.fMask RESD 1
-.hwnd RESD 1
-.lpVerb RESD 1
-.lpFile RESD 1
-.lpParameters RESD 1
-.lpDirectory RESD 1
-.nShow RESD 1
-.hInstApp RESD 1
-.lpIDList RESD 1
-.lpClass RESD 1
-.hkeyClass RESD 1
-.dwHotKey RESD 1
-.hIcon RESD 1
-.hProcess RESD 1
+.cbSize reserve(int32_t) 1
+.fMask reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
+.lpVerb reserve(int32_t) 1
+.lpFile reserve(int32_t) 1
+.lpParameters reserve(int32_t) 1
+.lpDirectory reserve(int32_t) 1
+.nShow reserve(int32_t) 1
+.hInstApp reserve(int32_t) 1
+.lpIDList reserve(int32_t) 1
+.lpClass reserve(int32_t) 1
+.hkeyClass reserve(int32_t) 1
+.dwHotKey reserve(int32_t) 1
+.hIcon reserve(int32_t) 1
+.hProcess reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NOTIFYICONDATA
-.cbSize RESD 1
-.hwnd RESD 1
-.uID RESD 1
-.uFlags RESD 1
-.uCallbackMessage RESD 1
-.hIcon RESD 1
+.cbSize reserve(int32_t) 1
+.hwnd reserve(int32_t) 1
+.uID reserve(int32_t) 1
+.uFlags reserve(int32_t) 1
+.uCallbackMessage reserve(int32_t) 1
+.hIcon reserve(int32_t) 1
 .szTip RESB 64
 ENDSTRUC
 
 STRUC SHFILEINFO
-.hIcon RESD 1
-.iIcon RESD 1
-.dwAttributes RESD 1
+.hIcon reserve(int32_t) 1
+.iIcon reserve(int32_t) 1
+.dwAttributes reserve(int32_t) 1
 .szDisplayName RESB 1
 .szTypeName RESB 80 
 ENDSTRUC
 
 STRUC VS_FIXEDFILEINFO
-.dwSignature RESD 1
-.dwStrucVersion RESD 1
-.dwFileVersionMS RESD 1
-.dwFileVersionLS RESD 1
-.dwProductVersionMS RESD 1
-.dwProductVersionLS RESD 1
-.dwFileFlagsMask RESD 1
-.dwFileFlags RESD 1
-.dwFileOS RESD 1
-.dwFileType RESD 1
-.dwFileSubtype RESD 1
-.dwFileDateMS RESD 1
-.dwFileDateLS RESD 1
+.dwSignature reserve(int32_t) 1
+.dwStrucVersion reserve(int32_t) 1
+.dwFileVersionMS reserve(int32_t) 1
+.dwFileVersionLS reserve(int32_t) 1
+.dwProductVersionMS reserve(int32_t) 1
+.dwProductVersionLS reserve(int32_t) 1
+.dwFileFlagsMask reserve(int32_t) 1
+.dwFileFlags reserve(int32_t) 1
+.dwFileOS reserve(int32_t) 1
+.dwFileType reserve(int32_t) 1
+.dwFileSubtype reserve(int32_t) 1
+.dwFileDateMS reserve(int32_t) 1
+.dwFileDateLS reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ICONMETRICS
-.cbSize RESD 1
-.iHorzSpacing RESD 1
-.iVertSpacing RESD 1
-.iTitleWrap RESD 1
-.lfFont RESD 1
+.cbSize reserve(int32_t) 1
+.iHorzSpacing reserve(int32_t) 1
+.iVertSpacing reserve(int32_t) 1
+.iTitleWrap reserve(int32_t) 1
+.lfFont reserve(int32_t) 1
 ENDSTRUC
 
 STRUC HELPINFO
-.cbSize RESD 1
-.iContextType RESD 1
-.iCtrlId RESD 1
-.hItemHandle RESD 1
-.dwContextId RESD 1
-.MousePos RESD 1
+.cbSize reserve(int32_t) 1
+.iContextType reserve(int32_t) 1
+.iCtrlId reserve(int32_t) 1
+.hItemHandle reserve(int32_t) 1
+.dwContextId reserve(int32_t) 1
+.MousePos reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ANIMATIONINFO
-.cbSize RESD 1
-.iMinAnimate RESD 1
+.cbSize reserve(int32_t) 1
+.iMinAnimate reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MINIMIZEDMETRICS
-.cbSize RESD 1
-.iWidth RESD 1
-.iHorzGap RESD 1
-.iVertGap RESD 1
-.iArrange RESD 1
-.lfFont RESD 1
+.cbSize reserve(int32_t) 1
+.iWidth reserve(int32_t) 1
+.iHorzGap reserve(int32_t) 1
+.iVertGap reserve(int32_t) 1
+.iArrange reserve(int32_t) 1
+.lfFont reserve(int32_t) 1
 ENDSTRUC
 
 STRUC OSVERSIONINFO
-.dwOSVersionInfoSize RESD 1
-.dwMajorVersion RESD 1
-.dwMinorVersion RESD 1
-.dwBuildNumber RESD 1
-.dwPlatformId RESD 1
+.dwOSVersionInfoSize reserve(int32_t) 1
+.dwMajorVersion reserve(int32_t) 1
+.dwMinorVersion reserve(int32_t) 1
+.dwBuildNumber reserve(int32_t) 1
+.dwPlatformId reserve(int32_t) 1
 .szCSDVersion RESB 128
 ENDSTRUC
 
@@ -11023,55 +11030,55 @@ STRUC SYSTEM_POWER_STATUS
 .BatteryFlag RESB 1
 .BatteryLifePercent RESB 1
 .Reserved1 RESB 1
-.BatteryLifeTime RESD 1
-.BatteryFullLifeTime RESD 1
+.BatteryLifeTime reserve(int32_t) 1
+.BatteryFullLifeTime reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NMHDR
-.hwndFrom RESD 1
-.idfrom RESD 1
-.code RESD 1
+.hwndFrom reserve(int32_t) 1
+.idfrom reserve(int32_t) 1
+.code reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DEVNAMES
-.wDriverOffset RESW 1
-.wDeviceOffset RESW 1
-.wOutputOffset RESW 1
-.wDefault RESW 1
+.wDriverOffset reserve(short_t) 1
+.wDeviceOffset reserve(short_t) 1
+.wOutputOffset reserve(short_t) 1
+.wDefault reserve(short_t) 1
 ENDSTRUC
 
 STRUC PAGESETUPDLGAPI
-.lStructSize RESD 1
-.hwndOwner RESD 1
-.hDevMode RESD 1
-.hDevNames RESD 1
-.flags RESD 1
-.ptPaperSize RESB POINT_size
-.rtMinMargin RESD 1
-.rtMargin RESD 1
-.hInstance RESD 1
-.lCustData RESD 1
-.lpfnPageSetupHook RESD 1
-.lpfnPagePaintHook RESD 1
-.lpPageSetupTemplateName RESD 1
-.hPageSetupTemplate RESD 1
+.lStructSize reserve(int32_t) 1
+.hwndOwner reserve(int32_t) 1
+.hDevMode reserve(int32_t) 1
+.hDevNames reserve(int32_t) 1
+.flags reserve(int32_t) 1
+.ptPaperSize reserve(POINT)
+.rtMinMargin reserve(int32_t) 1
+.rtMargin reserve(int32_t) 1
+.hInstance reserve(int32_t) 1
+.lCustData reserve(int32_t) 1
+.lpfnPageSetupHook reserve(int32_t) 1
+.lpfnPagePaintHook reserve(int32_t) 1
+.lpPageSetupTemplateName reserve(int32_t) 1
+.hPageSetupTemplate reserve(int32_t) 1
 ENDSTRUC
 
 STRUC COMMCONFIG
-.dwSize RESD 1
-.wVersion RESW 1
-.wReserved RESW 1
-.dcbx RESD 1
-.dwProviderSubType RESD 1
-.dwProviderOffset RESD 1
-.dwProviderSize RESD 1
+.dwSize reserve(int32_t) 1
+.wVersion reserve(short_t) 1
+.wReserved reserve(short_t) 1
+.dcbx reserve(int32_t) 1
+.dwProviderSubType reserve(int32_t) 1
+.dwProviderOffset reserve(int32_t) 1
+.dwProviderSize reserve(int32_t) 1
 .wcProviderData RESB 1
 ENDSTRUC
 
 STRUC PIXELFORMATDESCRIPTOR
-.nSize RESW 1
-.nVersion RESW 1
-.dwFlags RESD 1
+.nSize reserve(short_t) 1
+.nVersion reserve(short_t) 1
+.dwFlags reserve(int32_t) 1
 .iPixelType RESB 1
 .cColorBits RESB 1
 .cRedBits RESB 1
@@ -11092,845 +11099,845 @@ STRUC PIXELFORMATDESCRIPTOR
 .cAuxBuffers RESB 1
 .iLayerType RESB 1
 .bReserved RESB 1
-.dwLayerMask RESD 1
-.dwVisibleMask RESD 1
-.dwDamageMask RESD 1
+.dwLayerMask reserve(int32_t) 1
+.dwVisibleMask reserve(int32_t) 1
+.dwDamageMask reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DRAWTEXTPARAMS
-.cbSize RESD 1
-.iTabiLength RESD 1
-.iLeftMargin RESD 1
-.iRightMargin RESD 1
-.uiiLengthDrawn RESD 1
+.cbSize reserve(int32_t) 1
+.iTabiLength reserve(int32_t) 1
+.iLeftMargin reserve(int32_t) 1
+.iRightMargin reserve(int32_t) 1
+.uiiLengthDrawn reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MENUITEMINFO
-.cbSize RESD 1
-.fMask RESD 1
-.fType RESD 1
-.fState RESD 1
-.wID RESD 1
-.hSubMenu RESD 1
-.hbmpChecked RESD 1
-.hbmpUnchecked RESD 1
-.dwItemData RESD 1
-.dwTypeData RESD 1
-.cch RESD 1
+.cbSize reserve(int32_t) 1
+.fMask reserve(int32_t) 1
+.fType reserve(int32_t) 1
+.fState reserve(int32_t) 1
+.wID reserve(int32_t) 1
+.hSubMenu reserve(int32_t) 1
+.hbmpChecked reserve(int32_t) 1
+.hbmpUnchecked reserve(int32_t) 1
+.dwItemData reserve(int32_t) 1
+.dwTypeData reserve(int32_t) 1
+.cch reserve(int32_t) 1
 ENDSTRUC
 
 STRUC SCROLLINFO
-.cbSize RESD 1
-.fMask RESD 1
-.nMin RESD 1
-.nMax RESD 1
-.nPage RESD 1
-.nPos RESD 1
-.nTrackPos RESD 1
+.cbSize reserve(int32_t) 1
+.fMask reserve(int32_t) 1
+.nMin reserve(int32_t) 1
+.nMax reserve(int32_t) 1
+.nPage reserve(int32_t) 1
+.nPos reserve(int32_t) 1
+.nTrackPos reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MSGBOXPARAMS
-.cbSize RESD 1
-.hwndOwner RESD 1
-.hInstance RESD 1
-.lpszText RESD 1
-.lpszCaption RESD 1
-.dwStyle RESD 1
-.lpszIcon RESD 1
-.dwContextHelpId RESD 1
-.lpfnMsgBoxCallback RESD 1
-.dwLanguageId RESD 1
+.cbSize reserve(int32_t) 1
+.hwndOwner reserve(int32_t) 1
+.hInstance reserve(int32_t) 1
+.lpszText reserve(int32_t) 1
+.lpszCaption reserve(int32_t) 1
+.dwStyle reserve(int32_t) 1
+.lpszIcon reserve(int32_t) 1
+.dwContextHelpId reserve(int32_t) 1
+.lpfnMsgBoxCallback reserve(int32_t) 1
+.dwLanguageId reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DEBUG_EVENT
-.dwDebugEventCode RESD 1
-.dwProcessId RESD 1
-.dwThreadId RESD 1
-.u RESD 1
+.dwDebugEventCode reserve(int32_t) 1
+.dwProcessId reserve(int32_t) 1
+.dwThreadId reserve(int32_t) 1
+.u reserve(int32_t) 1
 ENDSTRUC
 
 STRUC COLORMAP
-.cmFrom RESD 1
-.cmTo RESD 1
+.cmFrom reserve(int32_t) 1
+.cmTo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC AuxVol
-.vLow RESW 1
-.vHigh RESW 1
+.vLow reserve(short_t) 1
+.vHigh reserve(short_t) 1
 ENDSTRUC
 
 STRUC DBGTHREAD
-.hThread RESD 1
-.lpStartAddress RESD 1
-.bfState RESD 1
+.hThread reserve(int32_t) 1
+.lpStartAddress reserve(int32_t) 1
+.bfState reserve(int32_t) 1
 .nNext RESQ 1
 ENDSTRUC
 
 STRUC DbgProcess
-.hDbgHeap RESD 1
-.dwProcessID RESD 1
-.dwThreadID RESD 1
-.hProcess RESD 1
-.hFile RESD 1
-.lpImage RESD 1
+.hDbgHeap reserve(int32_t) 1
+.dwProcessID reserve(int32_t) 1
+.dwThreadID reserve(int32_t) 1
+.hProcess reserve(int32_t) 1
+.hFile reserve(int32_t) 1
+.lpImage reserve(int32_t) 1
 ENDSTRUC
 
 STRUC IMAGE_DATA_DIRECTORY
-.VirtualAddress RESD 1
-.isize RESD 1
+.VirtualAddress reserve(int32_t) 1
+.isize reserve(int32_t) 1
 ENDSTRUC
 
 STRUC IMAGE_OPTIONAL_HEADER
-.Magic RESW 1
+.Magic reserve(short_t) 1
 .MajorLinkerVersion RESB 1
 .MinorLinkerVersion RESB 1
-.SizeOfCode RESD 1
-.SizeOfInitializedData RESD 1
-.SizeOfUninitializedData RESD 1
-.AddressOfEntryPoint RESD 1
-.BaseOfCode RESD 1
-.BaseOfData RESD 1
-.ImageBase RESD 1
-.SectionAlignment RESD 1
-.FileAlignment RESD 1
-.MajorOperatingSystemVersion RESW 1
-.MinorOperatingSystemVersion RESW 1
-.MajorImageVersion RESW 1
-.MinorImageVersion RESW 1
-.MajorSubsystemVersion RESW 1
-.MinorSubsystemVersion RESW 1
-.Reserved1 RESD 1
-.SizeOfImage RESD 1
-.SizeOfHeaders RESD 1
-.CheckSum RESD 1
-.Subsystem RESW 1
-.DllCharacteristics RESW 1
-.SizeOfStackReserve RESD 1
-.SizeOfStackCommit RESD 1
-.SizeOfHeapReserve RESD 1
-.SizeOfHeapCommit RESD 1
-.LoaderFlags RESD 1
-.NumberOfRvaAndSizes RESD 1
+.SizeOfCode reserve(int32_t) 1
+.SizeOfInitializedData reserve(int32_t) 1
+.SizeOfUninitializedData reserve(int32_t) 1
+.AddressOfEntryPoint reserve(int32_t) 1
+.BaseOfCode reserve(int32_t) 1
+.BaseOfData reserve(int32_t) 1
+.ImageBase reserve(int32_t) 1
+.SectionAlignment reserve(int32_t) 1
+.FileAlignment reserve(int32_t) 1
+.MajorOperatingSystemVersion reserve(short_t) 1
+.MinorOperatingSystemVersion reserve(short_t) 1
+.MajorImageVersion reserve(short_t) 1
+.MinorImageVersion reserve(short_t) 1
+.MajorSubsystemVersion reserve(short_t) 1
+.MinorSubsystemVersion reserve(short_t) 1
+.Reserved1 reserve(int32_t) 1
+.SizeOfImage reserve(int32_t) 1
+.SizeOfHeaders reserve(int32_t) 1
+.CheckSum reserve(int32_t) 1
+.Subsystem reserve(short_t) 1
+.DllCharacteristics reserve(short_t) 1
+.SizeOfStackReserve reserve(int32_t) 1
+.SizeOfStackCommit reserve(int32_t) 1
+.SizeOfHeapReserve reserve(int32_t) 1
+.SizeOfHeapCommit reserve(int32_t) 1
+.LoaderFlags reserve(int32_t) 1
+.NumberOfRvaAndSizes reserve(int32_t) 1
 .DataDirectory RESQ 1
 ENDSTRUC
 
 STRUC IMAGE_FILE_HEADER
-.Machine RESW 1
-.NumberOfSections RESW 1
-.TimeDateStamp RESD 1
-.PointerToSymbolTable RESD 1
-.NumberOfSymbols RESD 1
-.SizeOfOptionalHeader RESW 1
-.Characteristics RESW 1
+.Machine reserve(short_t) 1
+.NumberOfSections reserve(short_t) 1
+.TimeDateStamp reserve(int32_t) 1
+.PointerToSymbolTable reserve(int32_t) 1
+.NumberOfSymbols reserve(int32_t) 1
+.SizeOfOptionalHeader reserve(short_t) 1
+.Characteristics reserve(short_t) 1
 ENDSTRUC
 
 STRUC IMAGE_NT_HEADERS
-.Signature RESD 1
-.FileHeader RESD 1
-.OptionalHeader RESD 1
+.Signature reserve(int32_t) 1
+.FileHeader reserve(int32_t) 1
+.OptionalHeader reserve(int32_t) 1
 ENDSTRUC
 
 STRUC IMAGE_EXPORT_DIRECTORY
-.Characteristics RESD 1
-.TimeDateStamp RESD 1
-.MajorVersion RESW 1
-.MinorVersion RESW 1
-.nName RESD 1
-.nBase RESD 1
-.NumberOfFunctions RESD 1
-.NumberOfNames RESD 1
-.AddressOfFunctions RESD 1
-.AddressOfNames RESD 1
-.AddressOfNameOrdinals RESW 1
+.Characteristics reserve(int32_t) 1
+.TimeDateStamp reserve(int32_t) 1
+.MajorVersion reserve(short_t) 1
+.MinorVersion reserve(short_t) 1
+.nName reserve(int32_t) 1
+.nBase reserve(int32_t) 1
+.NumberOfFunctions reserve(int32_t) 1
+.NumberOfNames reserve(int32_t) 1
+.AddressOfFunctions reserve(int32_t) 1
+.AddressOfNames reserve(int32_t) 1
+.AddressOfNameOrdinals reserve(short_t) 1
 ENDSTRUC
 
 STRUC IMAGE_DOS_HEADER
-.e_magic RESW 1
-.e_cblp RESW 1
-.e_cp RESW 1
-.e_crlc RESW 1
-.e_cparhdr RESW 1
-.e_minalloc RESW 1
-.e_maxalloc RESW 1
-.e_ss RESW 1
-.e_sp RESW 1
-.e_csum RESW 1
-.e_ip RESW 1
-.e_cs RESW 1
-.e_lfarlc RESW 1
-.e_ovno RESW 1
-.e_res4 RESW 1
-.e_oemid RESW 1
-.e_oeminfo RESW 1
-.e_res2 RESW 1
-.e_lfanew RESD 1
+.e_magic reserve(short_t) 1
+.e_cblp reserve(short_t) 1
+.e_cp reserve(short_t) 1
+.e_crlc reserve(short_t) 1
+.e_cparhdr reserve(short_t) 1
+.e_minalloc reserve(short_t) 1
+.e_maxalloc reserve(short_t) 1
+.e_ss reserve(short_t) 1
+.e_sp reserve(short_t) 1
+.e_csum reserve(short_t) 1
+.e_ip reserve(short_t) 1
+.e_cs reserve(short_t) 1
+.e_lfarlc reserve(short_t) 1
+.e_ovno reserve(short_t) 1
+.e_res4 reserve(short_t) 1
+.e_oemid reserve(short_t) 1
+.e_oeminfo reserve(short_t) 1
+.e_res2 reserve(short_t) 1
+.e_lfanew reserve(int32_t) 1
 ENDSTRUC
 
 STRUC USER_INFO_3
-.uName RESD 1
-.Password RESD 1
-.PasswordAge RESD 1
-.Privilege RESD 1
-.HomeDir RESD 1
-.Comment RESD 1
-.Flags RESD 1
-.ScriptPath RESD 1
-.AuthFlags RESD 1
-.FullName RESD 1
-.UserComment RESD 1
-.Parms RESD 1
-.Workstations RESD 1
-.LastLogon RESD 1
-.LastLogoff RESD 1
-.AcctExpires RESD 1
-.MaxStorage RESD 1
-.UnitsPerWeek RESD 1
-.LogonHours RESD 1
-.BadPwCount RESD 1
-.NumLogons RESD 1
-.LogonServer RESD 1
-.CountryCode RESD 1
-.CodePage RESD 1
-.UserID RESD 1
-.PrimaryGroupID RESD 1
-.Profile RESD 1
-.HomeDirDrive RESD 1
-.PasswordExpired RESD 1
+.uName reserve(int32_t) 1
+.Password reserve(int32_t) 1
+.PasswordAge reserve(int32_t) 1
+.Privilege reserve(int32_t) 1
+.HomeDir reserve(int32_t) 1
+.Comment reserve(int32_t) 1
+.Flags reserve(int32_t) 1
+.ScriptPath reserve(int32_t) 1
+.AuthFlags reserve(int32_t) 1
+.FullName reserve(int32_t) 1
+.UserComment reserve(int32_t) 1
+.Parms reserve(int32_t) 1
+.Workstations reserve(int32_t) 1
+.LastLogon reserve(int32_t) 1
+.LastLogoff reserve(int32_t) 1
+.AcctExpires reserve(int32_t) 1
+.MaxStorage reserve(int32_t) 1
+.UnitsPerWeek reserve(int32_t) 1
+.LogonHours reserve(int32_t) 1
+.BadPwCount reserve(int32_t) 1
+.NumLogons reserve(int32_t) 1
+.LogonServer reserve(int32_t) 1
+.CountryCode reserve(int32_t) 1
+.CodePage reserve(int32_t) 1
+.UserID reserve(int32_t) 1
+.PrimaryGroupID reserve(int32_t) 1
+.Profile reserve(int32_t) 1
+.HomeDirDrive reserve(int32_t) 1
+.PasswordExpired reserve(int32_t) 1
 ENDSTRUC
 
 STRUC GROUP_INFO_2
-.uName RESD 1
-.Comment RESD 1
-.GroupID RESD 1
-.Attributes RESD 1
+.uName reserve(int32_t) 1
+.Comment reserve(int32_t) 1
+.GroupID reserve(int32_t) 1
+.Attributes reserve(int32_t) 1
 ENDSTRUC
 
 STRUC INIT_COMMON_CONTROLSEX
-.dwSize RESD 1
-.dwICC RESD 1
+.dwSize reserve(int32_t) 1
+.dwICC reserve(int32_t) 1
 ENDSTRUC
 
 STRUC REBARINFO
-.cbSize RESD 1
-.fMask RESD 1
-.himl RESD 1
+.cbSize reserve(int32_t) 1
+.fMask reserve(int32_t) 1
+.himl reserve(int32_t) 1
 ENDSTRUC
 
 STRUC REBARBANDINFO
-.cbSize RESD 1
-.fMask RESD 1
-.fStyle RESD 1
-.clrFore RESD 1
-.clrBack RESD 1
-.lpText RESD 1
-.cch RESD 1
-.iImage RESD 1
-.hwndChild RESD 1
-.cxMinChild RESD 1
-.cyMinChild RESD 1
-.lx RESD 1
-.hbmBack RESD 1
-.wID RESD 1
-.cyChild RESD 1
-.cyMaxChild RESD 1
-.cyIntegral RESD 1
-.cxIdeal RESD 1
-.lParam RESD 1
-.cxHeader RESD 1
+.cbSize reserve(int32_t) 1
+.fMask reserve(int32_t) 1
+.fStyle reserve(int32_t) 1
+.clrFore reserve(int32_t) 1
+.clrBack reserve(int32_t) 1
+.lpText reserve(int32_t) 1
+.cch reserve(int32_t) 1
+.iImage reserve(int32_t) 1
+.hwndChild reserve(int32_t) 1
+.cxMinChild reserve(int32_t) 1
+.cyMinChild reserve(int32_t) 1
+.lx reserve(int32_t) 1
+.hbmBack reserve(int32_t) 1
+.wID reserve(int32_t) 1
+.cyChild reserve(int32_t) 1
+.cyMaxChild reserve(int32_t) 1
+.cyIntegral reserve(int32_t) 1
+.cxIdeal reserve(int32_t) 1
+.lParam reserve(int32_t) 1
+.cxHeader reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NMREBARCHILDSIZE
-.hdr RESB NMHDR_size
-.uBand RESD 1
-.wID RESD 1
-.rcChild RESB RECT_size
-.rcBand RESB RECT_size
+.hdr reserve(NMHDR)
+.uBand reserve(int32_t) 1
+.wID reserve(int32_t) 1
+.rcChild reserve(RECT)
+.rcBand reserve(RECT)
 ENDSTRUC
 
 STRUC NMREBAR
-.hdr RESB NMHDR_size
-.dwMask RESD 1
-.uBand RESD 1
-.fStyle RESD 1
-.wID RESD 1
-.lParam RESD 1
+.hdr reserve(NMHDR)
+.dwMask reserve(int32_t) 1
+.uBand reserve(int32_t) 1
+.fStyle reserve(int32_t) 1
+.wID reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NMRBAUTOSIZE
-.hdr RESB NMHDR_size
-.fChanged RESD 1
-.rcTarget RESB RECT_size
-.rcActual RESB RECT_size
+.hdr reserve(NMHDR)
+.fChanged reserve(int32_t) 1
+.rcTarget reserve(RECT)
+.rcActual reserve(RECT)
 ENDSTRUC
 
 STRUC RB_HITTESTINFO
-.pt RESB POINT_size
-.flags RESD 1
-.iBand RESW 1
+.pt reserve(POINT)
+.flags reserve(int32_t) 1
+.iBand reserve(short_t) 1
 ENDSTRUC
 
 STRUC IMAGEINFO
-.hbmImage RESD 1
-.hbmMask RESD 1
-.Unused1 RESD 1
-.Unused2 RESD 1
-.rcImage RESB RECT_size
+.hbmImage reserve(int32_t) 1
+.hbmMask reserve(int32_t) 1
+.Unused1 reserve(int32_t) 1
+.Unused2 reserve(int32_t) 1
+.rcImage reserve(RECT)
 ENDSTRUC
 
 STRUC HD_ITEM
-.imask RESD 1
-.lxy RESD 1
-.pszText RESD 1
-.hbm RESD 1
-.cchTextMax RESD 1
-.fmt RESD 1
-.lParam RESD 1
+.imask reserve(int32_t) 1
+.lxy reserve(int32_t) 1
+.pszText reserve(int32_t) 1
+.hbm reserve(int32_t) 1
+.cchTextMax reserve(int32_t) 1
+.fmt reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC HD_LAYOUT
-.prc RESD 1
-.pwpos RESD 1
+.prc reserve(int32_t) 1
+.pwpos reserve(int32_t) 1
 ENDSTRUC
 
 STRUC HD_HITTESTINFO
-.pt RESB POINT_size
-.flags RESD 1
-.iItem RESD 1
+.pt reserve(POINT)
+.flags reserve(int32_t) 1
+.iItem reserve(int32_t) 1
 ENDSTRUC
 
 STRUC HD_NOTIFY
-.hdr RESB NMHDR_size
-.iItem RESD 1
-.iButton RESD 1
-.pitem RESD 1
+.hdr reserve(NMHDR)
+.iItem reserve(int32_t) 1
+.iButton reserve(int32_t) 1
+.pitem reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TBBUTTON
-.iBitmap RESD 1
-.idCommand RESD 1
+.iBitmap reserve(int32_t) 1
+.idCommand reserve(int32_t) 1
 .fsState RESB 1
 .fsStyle RESB 1
-.dwData RESD 1
-.iString RESD 1
+.dwData reserve(int32_t) 1
+.iString reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ColorMap
-.cmFrom RESD 1
-.cmTo RESD 1
+.cmFrom reserve(int32_t) 1
+.cmTo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TBADDBITMAP
-.hInst RESD 1
-.nId RESD 1
+.hInst reserve(int32_t) 1
+.nId reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TBSAVEPARAMS
-.hkr RESD 1
-.pszSubKey RESD 1
-.pszValueName RESD 1
+.hkr reserve(int32_t) 1
+.pszSubKey reserve(int32_t) 1
+.pszValueName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TBREPLACEBITMAP
-.hInstOld RESD 1
-.nIdOld RESD 1
-.hInstNew RESD 1
-.nIdNew RESD 1
-.nButtons RESD 1
+.hInstOld reserve(int32_t) 1
+.nIdOld reserve(int32_t) 1
+.hInstNew reserve(int32_t) 1
+.nIdNew reserve(int32_t) 1
+.nButtons reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TBNOTIFY
-.hdr RESB NMHDR_size
-.iItem RESD 1
+.hdr reserve(NMHDR)
+.iItem reserve(int32_t) 1
 .tbButton RESB TBBUTTON_size
-.cchText RESD 1
-.pszText RESD 1
+.cchText reserve(int32_t) 1
+.pszText reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TOOLINFO
-.cbSize RESD 1
-.uFlags RESD 1
-.hWnd RESD 1
-.uId RESD 1
-.rect RESB RECT_size
-.hInst RESD 1
-.lpszText RESD 1
-.lParam RESD 1
+.cbSize reserve(int32_t) 1
+.uFlags reserve(int32_t) 1
+.hWnd reserve(int32_t) 1
+.uId reserve(int32_t) 1
+.rect reserve(RECT)
+.hInst reserve(int32_t) 1
+.lpszText reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TT_HITTESTINFO
-.hWnd RESD 1
-.pt RESB POINT_size
+.hWnd reserve(int32_t) 1
+.pt reserve(POINT)
 .ti RESB TOOLINFO_size
 ENDSTRUC
 
 STRUC TOOLTIPTEXT
-.hdr RESB NMHDR_size
-.lpszText RESD 1
+.hdr reserve(NMHDR)
+.lpszText reserve(int32_t) 1
 .szText RESB 80
-.hInst RESD 1
-.uFlags RESD 1
+.hInst reserve(int32_t) 1
+.uFlags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC DRAGLISTINFO
-.uNotification RESD 1
-.hWnd RESD 1
-.ptCursor RESB POINT_size
+.uNotification reserve(int32_t) 1
+.hWnd reserve(int32_t) 1
+.ptCursor reserve(POINT)
 ENDSTRUC
 
 STRUC UDACCEL
-.nSec RESD 1
-.nInc RESD 1
+.nSec reserve(int32_t) 1
+.nInc reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NM_UPDOWN
-.hdr RESB NMHDR_size
-.iPos RESD 1
-.iDelta RESD 1
+.hdr reserve(NMHDR)
+.iPos reserve(int32_t) 1
+.iDelta reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LV_ITEM
-.imask RESD 1
-.iItem RESD 1
-.iSubItem RESD 1
-.state RESD 1
-.stateMask RESD 1
-.pszText RESD 1
-.cchTextMax RESD 1
-.iImage RESD 1
-.lParam RESD 1
+.imask reserve(int32_t) 1
+.iItem reserve(int32_t) 1
+.iSubItem reserve(int32_t) 1
+.state reserve(int32_t) 1
+.stateMask reserve(int32_t) 1
+.pszText reserve(int32_t) 1
+.cchTextMax reserve(int32_t) 1
+.iImage reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LV_FINDINFO
-.flags RESD 1
-.psz RESD 1
-.lParam RESD 1
-.pt RESB POINT_size
-.vkDirection RESD 1
+.flags reserve(int32_t) 1
+.psz reserve(int32_t) 1
+.lParam reserve(int32_t) 1
+.pt reserve(POINT)
+.vkDirection reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LV_HITTESTINFO
-.pt RESB POINT_size
-.flags RESD 1
-.iItem RESD 1
+.pt reserve(POINT)
+.flags reserve(int32_t) 1
+.iItem reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LV_COLUMN
-.imask RESD 1
-.fmt RESD 1
-.lx RESD 1
-.pszText RESD 1
-.cchTextMax RESD 1
-.iSubItem RESD 1
+.imask reserve(int32_t) 1
+.fmt reserve(int32_t) 1
+.lx reserve(int32_t) 1
+.pszText reserve(int32_t) 1
+.cchTextMax reserve(int32_t) 1
+.iSubItem reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NM_LISTVIEW
-.hdr RESB NMHDR_size
-.iItem RESD 1
-.iSubItem RESD 1
-.uNewState RESD 1
-.uOldState RESD 1
-.uChanged RESD 1
-.ptAction RESB POINT_size
-.lParam RESD 1
+.hdr reserve(NMHDR)
+.iItem reserve(int32_t) 1
+.iSubItem reserve(int32_t) 1
+.uNewState reserve(int32_t) 1
+.uOldState reserve(int32_t) 1
+.uChanged reserve(int32_t) 1
+.ptAction reserve(POINT)
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LV_DISPINFO
-.hdr RESB NMHDR_size
-.item RESD 1
+.hdr reserve(NMHDR)
+.item reserve(int32_t) 1
 ENDSTRUC
 
 STRUC LV_KEYDOWN
-.hdr RESB NMHDR_size
-.wVKey RESW 1
-.flags RESD 1
+.hdr reserve(NMHDR)
+.wVKey reserve(short_t) 1
+.flags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TREEITEM
-.dummy RESD 1
+.dummy reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TV_ITEM
-.imask RESD 1
-.hItem RESD 1
-.state RESD 1
-.stateMask RESD 1
-.pszText RESD 1
-.cchTextMax RESD 1
-.iImage RESD 1
-.iSelectedImage RESD 1
-.cChildren RESD 1
-.lParam RESD 1
+.imask reserve(int32_t) 1
+.hItem reserve(int32_t) 1
+.state reserve(int32_t) 1
+.stateMask reserve(int32_t) 1
+.pszText reserve(int32_t) 1
+.cchTextMax reserve(int32_t) 1
+.iImage reserve(int32_t) 1
+.iSelectedImage reserve(int32_t) 1
+.cChildren reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TV_INSERTSTRUCT
-.hParent RESD 1
-.hInsertAfter RESD 1
-.item RESD 1
+.hParent reserve(int32_t) 1
+.hInsertAfter reserve(int32_t) 1
+.item reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TV_HITTESTINFO
-.pt RESB POINT_size
-.flags RESD 1
-.hItem RESD 1
+.pt reserve(POINT)
+.flags reserve(int32_t) 1
+.hItem reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TV_SORTCB
-.hParent RESD 1
-.lpfnCompare RESD 1
-.lParam RESD 1
+.hParent reserve(int32_t) 1
+.lpfnCompare reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC NM_TREEVIEW
-.hdr RESB NMHDR_size
-.action RESD 1
-.itemOld RESD 1
-.itemNew RESD 1
-.ptDrag RESB POINT_size
+.hdr reserve(NMHDR)
+.action reserve(int32_t) 1
+.itemOld reserve(int32_t) 1
+.itemNew reserve(int32_t) 1
+.ptDrag reserve(POINT)
 ENDSTRUC
 
 STRUC TV_DISPINFO
-.hdr RESB NMHDR_size
-.item RESD 1
+.hdr reserve(NMHDR)
+.item reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TV_KEYDOWN
-.hdr RESB NMHDR_size
-.wVKey RESW 1
-.flags RESD 1
+.hdr reserve(NMHDR)
+.wVKey reserve(short_t) 1
+.flags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TC_ITEMHEADER
-.imask RESD 1
-.lpReserved1 RESD 1
-.lpReserved2 RESD 1
-.pszText RESD 1
-.cchTextMax RESD 1
-.iImage RESD 1
+.imask reserve(int32_t) 1
+.lpReserved1 reserve(int32_t) 1
+.lpReserved2 reserve(int32_t) 1
+.pszText reserve(int32_t) 1
+.cchTextMax reserve(int32_t) 1
+.iImage reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TC_ITEM
-.imask RESD 1
-.lpReserved1 RESD 1
-.lpReserved2 RESD 1
-.pszText RESD 1
-.cchTextMax RESD 1
-.iImage RESD 1
-.lParam RESD 1
+.imask reserve(int32_t) 1
+.lpReserved1 reserve(int32_t) 1
+.lpReserved2 reserve(int32_t) 1
+.pszText reserve(int32_t) 1
+.cchTextMax reserve(int32_t) 1
+.iImage reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TC_HITTESTINFO
-.pt RESB POINT_size
-.flags RESD 1
+.pt reserve(POINT)
+.flags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TC_KEYDOWN
-.hdr RESB NMHDR_size
-.wVKey RESW 1
-.flags RESD 1
+.hdr reserve(NMHDR)
+.wVKey reserve(short_t) 1
+.flags reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CHOOSECOLORAPI
-.lStructSize RESD 1
-.hwndOwner RESD 1
-.hInstance RESD 1
-.rgbResult RESD 1
-.lpCustColors RESD 1
-.Flags RESD 1
-.lCustData RESD 1
-.lpfnHook RESD 1
-.lpTemplateName RESD 1
+.lStructSize reserve(int32_t) 1
+.hwndOwner reserve(int32_t) 1
+.hInstance reserve(int32_t) 1
+.rgbResult reserve(int32_t) 1
+.lpCustColors reserve(int32_t) 1
+.Flags reserve(int32_t) 1
+.lCustData reserve(int32_t) 1
+.lpfnHook reserve(int32_t) 1
+.lpTemplateName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FINDREPLACE
-.lStructSize RESD 1
-.hWndOwner RESD 1
-.hInstance RESD 1
-.Flags RESD 1
-.lpstrFindWhat RESD 1
-.lpstrReplaceWith RESD 1
-.wFindWhatLen RESW 1
-.wReplaceWithLen RESW 1
-.lCustData RESD 1
-.lpfnHook RESD 1
-.lpTemplateName RESD 1
+.lStructSize reserve(int32_t) 1
+.hWndOwner reserve(int32_t) 1
+.hInstance reserve(int32_t) 1
+.Flags reserve(int32_t) 1
+.lpstrFindWhat reserve(int32_t) 1
+.lpstrReplaceWith reserve(int32_t) 1
+.wFindWhatLen reserve(short_t) 1
+.wReplaceWithLen reserve(short_t) 1
+.lCustData reserve(int32_t) 1
+.lpfnHook reserve(int32_t) 1
+.lpTemplateName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CHOOSEFONTAPI
-.lStructSize RESD 1
-.hWndOwner RESD 1
-.hDC RESD 1
-.lpLogFont RESD 1
-.iPointSize RESD 1
-.Flags RESD 1
-.rgbColors RESD 1
-.lCustData RESD 1
-.lpfnHook RESD 1
-.lpTemplateName RESD 1
-.hInstance RESD 1
-.lpszStyle RESD 1
-.nFontType RESW 1
-.Alignment RESW 1
-.nSizeMin RESD 1
-.nSizeMax RESD 1
+.lStructSize reserve(int32_t) 1
+.hWndOwner reserve(int32_t) 1
+.hDC reserve(int32_t) 1
+.lpLogFont reserve(int32_t) 1
+.iPointSize reserve(int32_t) 1
+.Flags reserve(int32_t) 1
+.rgbColors reserve(int32_t) 1
+.lCustData reserve(int32_t) 1
+.lpfnHook reserve(int32_t) 1
+.lpTemplateName reserve(int32_t) 1
+.hInstance reserve(int32_t) 1
+.lpszStyle reserve(int32_t) 1
+.nFontType reserve(short_t) 1
+.Alignment reserve(short_t) 1
+.nSizeMin reserve(int32_t) 1
+.nSizeMax reserve(int32_t) 1
 ENDSTRUC
 
 STRUC PRINTDLGAPI
-.lStructSize RESD 1
-.hWndOwner RESD 1
-.hDevMode RESD 1
-.hDevNames RESD 1
-.hDC RESD 1
-.Flags RESD 1
-.nFromPage RESW 1
-.nToPage RESW 1
-.nMinPage RESW 1
-.nMaxPage RESW 1
-.nCopies RESW 1
-.hInstance RESD 1
-.lCustData RESD 1
-.lpfnPrintHook RESD 1
-.lpfnSetupHook RESD 1
-.lpPrintTemplateName RESD 1
-.lpPrintSetupTemplateName RESD 1
-.hPrintTemplate RESD 1
-.hSetupTemplate RESD 1
+.lStructSize reserve(int32_t) 1
+.hWndOwner reserve(int32_t) 1
+.hDevMode reserve(int32_t) 1
+.hDevNames reserve(int32_t) 1
+.hDC reserve(int32_t) 1
+.Flags reserve(int32_t) 1
+.nFromPage reserve(short_t) 1
+.nToPage reserve(short_t) 1
+.nMinPage reserve(short_t) 1
+.nMaxPage reserve(short_t) 1
+.nCopies reserve(short_t) 1
+.hInstance reserve(int32_t) 1
+.lCustData reserve(int32_t) 1
+.lpfnPrintHook reserve(int32_t) 1
+.lpfnSetupHook reserve(int32_t) 1
+.lpPrintTemplateName reserve(int32_t) 1
+.lpPrintSetupTemplateName reserve(int32_t) 1
+.hPrintTemplate reserve(int32_t) 1
+.hSetupTemplate reserve(int32_t) 1
 ENDSTRUC
 
 STRUC OPENFILENAME
-.lStructSize RESD 1
-.hWndOwner RESD 1
-.hInstance RESD 1
-.lpstrFilter RESD 1
-.lpstrCustomFilter RESD 1
-.nMaxCustFilter RESD 1
-.nFilterIndex RESD 1
-.lpstrFile RESD 1
-.nMaxFile RESD 1
-.lpstrFileTitle RESD 1
-.nMaxFileTitle RESD 1
-.lpstrInitialDir RESD 1
-.lpstrTitle RESD 1
-.Flags RESD 1
-.nFileOffset RESW 1
-.nFileExtension RESW 1
-.lpstrDefExt RESD 1
-.lCustData RESD 1
-.lpfnHook RESD 1
-.lpTemplateName RESD 1
+.lStructSize reserve(int32_t) 1
+.hWndOwner reserve(int32_t) 1
+.hInstance reserve(int32_t) 1
+.lpstrFilter reserve(int32_t) 1
+.lpstrCustomFilter reserve(int32_t) 1
+.nMaxCustFilter reserve(int32_t) 1
+.nFilterIndex reserve(int32_t) 1
+.lpstrFile reserve(int32_t) 1
+.nMaxFile reserve(int32_t) 1
+.lpstrFileTitle reserve(int32_t) 1
+.nMaxFileTitle reserve(int32_t) 1
+.lpstrInitialDir reserve(int32_t) 1
+.lpstrTitle reserve(int32_t) 1
+.Flags reserve(int32_t) 1
+.nFileOffset reserve(short_t) 1
+.nFileExtension reserve(short_t) 1
+.lpstrDefExt reserve(int32_t) 1
+.lCustData reserve(int32_t) 1
+.lpfnHook reserve(int32_t) 1
+.lpTemplateName reserve(int32_t) 1
 ENDSTRUC
 
 STRUC CHARFORMAT
-.cbSize RESD 1
-.dwMask RESD 1
-.dwEffects RESD 1
-.yHeight RESD 1
-.yOffset RESD 1
-.crTextColor RESD 1
+.cbSize reserve(int32_t) 1
+.dwMask reserve(int32_t) 1
+.dwEffects reserve(int32_t) 1
+.yHeight reserve(int32_t) 1
+.yOffset reserve(int32_t) 1
+.crTextColor reserve(int32_t) 1
 .bCharSet RESB 1
 .bPitchAndFamily RESB 1
 .szFaceName RESB 1
 ENDSTRUC
 
 STRUC CHARRANGE
-.cpMin RESD 1
-.cpMax RESD 1
+.cpMin reserve(int32_t) 1
+.cpMax reserve(int32_t) 1
 ENDSTRUC
 
 STRUC TEXTRANGE
-.chrg RESB CHARRANGE_size
-.lpstrText RESD 1
+.chrg reserve(CHARRANGE)
+.lpstrText reserve(int32_t) 1
 ENDSTRUC
 
 STRUC EDITSTREAM
-.dwCookie RESD 1
-.dwError RESD 1
-.pfnCallback RESD 1
+.dwCookie reserve(int32_t) 1
+.dwError reserve(int32_t) 1
+.pfnCallback reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FINDTEXT
-.chrg RESB CHARRANGE_size
-.lpstrText RESD 1
+.chrg reserve(CHARRANGE)
+.lpstrText reserve(int32_t) 1
 ENDSTRUC
 
 STRUC FINDTEXTEX
-.chrg RESB CHARRANGE_size
-.lpstrText RESD 1
-.chrgText RESB CHARRANGE_size
+.chrg reserve(CHARRANGE)
+.lpstrText reserve(int32_t) 1
+.chrgText reserve(CHARRANGE)
 ENDSTRUC
 
 STRUC FORMATRANGE
-.hdc RESD 1
-.hdcTarget RESD 1
-.rc RESB RECT_size
-.rcPage RESB RECT_size
-.chrg RESB CHARRANGE_size
+.hdc reserve(int32_t) 1
+.hdcTarget reserve(int32_t) 1
+.rc reserve(RECT)
+.rcPage reserve(RECT)
+.chrg reserve(CHARRANGE)
 ENDSTRUC
 
 STRUC PARAFORMAT
-.cbSize RESD 1
-.dwMask RESD 1
-.wNumbering RESW 1
-.wReserved RESW 1
-.dxStartIndent RESD 1
-.dxRightIndent RESD 1
-.dxOffset RESD 1
-.wAlignment RESW 1
-.cTabCount RESW 1
-.rgxTabs RESD 1
+.cbSize reserve(int32_t) 1
+.dwMask reserve(int32_t) 1
+.wNumbering reserve(short_t) 1
+.wReserved reserve(short_t) 1
+.dxStartIndent reserve(int32_t) 1
+.dxRightIndent reserve(int32_t) 1
+.dxOffset reserve(int32_t) 1
+.wAlignment reserve(short_t) 1
+.cTabCount reserve(short_t) 1
+.rgxTabs reserve(int32_t) 1
 ENDSTRUC
 
 STRUC MSGFILTER
-.nmhdr RESB NMHDR_size
-.msg RESD 1
-.wParam RESD 1
-.lParam RESD 1
+.nmhdr reserve(NMHDR)
+.msg reserve(int32_t) 1
+.wParam reserve(int32_t) 1
+.lParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC REQRESIZE
-.nmhdr RESB NMHDR_size
-.rc RESB RECT_size
+.nmhdr reserve(NMHDR)
+.rc reserve(RECT)
 ENDSTRUC
 
 STRUC SELCHANGE
-.nmhdr RESB NMHDR_size
-.chrg RESB CHARRANGE_size
-.seltyp RESW 1
+.nmhdr reserve(NMHDR)
+.chrg reserve(CHARRANGE)
+.seltyp reserve(short_t) 1
 ENDSTRUC
 
 STRUC ENDROPFILES
-.nmhdr RESB NMHDR_size
-.hDrop RESD 1
-.cp RESD 1
-.fProtected RESD 1
+.nmhdr reserve(NMHDR)
+.hDrop reserve(int32_t) 1
+.cp reserve(int32_t) 1
+.fProtected reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ENPROTECTED
-.nmhdr RESB NMHDR_size
-.msg RESD 1
-.wParam RESD 1
-.lParam RESD 1
-.chrg RESB CHARRANGE_size
+.nmhdr reserve(NMHDR)
+.msg reserve(int32_t) 1
+.wParam reserve(int32_t) 1
+.lParam reserve(int32_t) 1
+.chrg reserve(CHARRANGE)
 ENDSTRUC
 
 STRUC ENSAVECLIPBOARD
-.nmhdr RESB NMHDR_size
-.cObjectCount RESD 1
-.cch RESD 1
+.nmhdr reserve(NMHDR)
+.cObjectCount reserve(int32_t) 1
+.cch reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ENOLEOPFAILED
-.nmhdr RESB NMHDR_size
-.iob RESD 1
-.lOper RESD 1
-.hr RESD 1
+.nmhdr reserve(NMHDR)
+.iob reserve(int32_t) 1
+.lOper reserve(int32_t) 1
+.hr reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ENCORRECTTEXT
-.nmhdr RESB NMHDR_size
-.chrg RESB CHARRANGE_size
-.seltyp RESW 1
+.nmhdr reserve(NMHDR)
+.chrg reserve(CHARRANGE)
+.seltyp reserve(short_t) 1
 ENDSTRUC
 
 STRUC PUNCTUATION
-.iSize RESD 1
-.szPunctuation RESD 1
+.iSize reserve(int32_t) 1
+.szPunctuation reserve(int32_t) 1
 ENDSTRUC
 
 STRUC COMPCOLOR
-.crText RESD 1
-.crBackground RESD 1
-.dwEffects RESD 1
+.crText reserve(int32_t) 1
+.crBackground reserve(int32_t) 1
+.dwEffects reserve(int32_t) 1
 ENDSTRUC
 
 STRUC REPASTESPECIAL
-.dwAspect RESD 1
-.dwParam RESD 1
+.dwAspect reserve(int32_t) 1
+.dwParam reserve(int32_t) 1
 ENDSTRUC
 
 STRUC fd_setstruc
-.fd_count RESD 1
-.fd_array RESD 1
+.fd_count reserve(int32_t) 1
+.fd_array reserve(int32_t) 1
 ENDSTRUC
 
 STRUC timeval
-.tv_sec RESD 1
-.tv_usec RESD 1
+.tv_sec reserve(int32_t) 1
+.tv_usec reserve(int32_t) 1
 ENDSTRUC
 
 STRUC sockaddr_in
-.sin_family RESW 1
-.sin_port RESW 1
-.sin_addr RESD 1
+.sin_family reserve(short_t) 1
+.sin_port reserve(short_t) 1
+.sin_addr reserve(int32_t) 1
 .sin_zero RESB 8
 ENDSTRUC
 
 STRUC sockaddr
-.sa_family RESW 1
-.sa_data RESW 1
+.sa_family reserve(short_t) 1
+.sa_data reserve(short_t) 1
 ENDSTRUC
 
 STRUC WSAdata
-.wVersion RESW 1
-.wHighVersion RESW 1
+.wVersion reserve(short_t) 1
+.wHighVersion reserve(short_t) 1
 .szDescription RESB WSADESCRIPTION_LEN+1
 .szSystemStatus RESB WSASYS_STATUS_LEN+1
-.iMaxSockets RESW 1
-.iMaxUdpDg RESW 1
-.lpVendorInfo RESD 1
+.iMaxSockets reserve(short_t) 1
+.iMaxUdpDg reserve(short_t) 1
+.lpVendorInfo reserve(int32_t) 1
 ENDSTRUC
 
 STRUC sockproto
-.sp_family RESW 1
-.sp_protocol RESW 1
+.sp_family reserve(short_t) 1
+.sp_protocol reserve(short_t) 1
 ENDSTRUC
 
 STRUC linger
-.l_onoff RESW 1
-.l_linger RESW 1
+.l_onoff reserve(short_t) 1
+.l_linger reserve(short_t) 1
 ENDSTRUC
 
 STRUC hostentStru
-.h_name RESD 1
-.h_alias RESD 1
-.h_addr RESW 1
-.h_len RESW 1
-.h_list RESD 1
+.h_name reserve(int32_t) 1
+.h_alias reserve(int32_t) 1
+.h_addr reserve(short_t) 1
+.h_len reserve(short_t) 1
+.h_list reserve(int32_t) 1
 ENDSTRUC
 
 STRUC netent
-.n_name RESD 1
-.n_aliases RESD 1
-.n_addrtype RESW 1
-.n_net RESD 1
+.n_name reserve(int32_t) 1
+.n_aliases reserve(int32_t) 1
+.n_addrtype reserve(short_t) 1
+.n_net reserve(int32_t) 1
 ENDSTRUC
 
 STRUC servent
-.s_name RESD 1
-.s_aliases RESD 1
-.s_port RESW 1
-.s_proto RESD 1
+.s_name reserve(int32_t) 1
+.s_aliases reserve(int32_t) 1
+.s_port reserve(short_t) 1
+.s_proto reserve(int32_t) 1
 ENDSTRUC
 
 STRUC icmp_hdr
 .icmp_type RESB 1
 .icmp_code RESB 1
-.icmp_cksum RESW 1
-.icmp_id RESW 1
-.icmp_seq RESW 1
+.icmp_cksum reserve(short_t) 1
+.icmp_id reserve(short_t) 1
+.icmp_seq reserve(short_t) 1
 .icmp_data RESB 1
 ENDSTRUC
 
 STRUC ip_hdr
 .ip_hlv RESB 1
 .ip_tos RESB 1
-.ip_len RESW 1
-.ip_id RESW 1
-.ip_off RESW 1
+.ip_len reserve(short_t) 1
+.ip_id reserve(short_t) 1
+.ip_off reserve(short_t) 1
 .ip_ttl RESB 1
 .ip_p RESB 1
-.ip_cksum RESW 1
-.ip_src RESD 1
-.ip_dest RESD 1
+.ip_cksum reserve(short_t) 1
+.ip_src reserve(int32_t) 1
+.ip_dest reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ICMP_OPTIONS
@@ -11938,17 +11945,17 @@ STRUC ICMP_OPTIONS
 .Tos RESB 1
 .Flags RESB 1
 .OptionsSize RESB 1
-.OptionsData RESD 1
+.OptionsData reserve(int32_t) 1
 ENDSTRUC
 
 STRUC ICMP_ECHO_REPLY
-.Address RESD 1
-.Status RESD 1
-.RoundTripTime RESD 1
-.DataSize RESW 1
-.Reserved RESW 1
-.DataPointer RESD 1
-.Options RESD 1
+.Address reserve(int32_t) 1
+.Status reserve(int32_t) 1
+.RoundTripTime reserve(int32_t) 1
+.DataSize reserve(short_t) 1
+.Reserved reserve(short_t) 1
+.DataPointer reserve(int32_t) 1
+.Options reserve(int32_t) 1
 .zData RESB 250
 ENDSTRUC
 

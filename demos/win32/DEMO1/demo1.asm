@@ -3,6 +3,8 @@
 %include '..\..\..\inc\win32\kernel32.inc'
 %include '..\..\..\inc\win32\user32.inc'
 
+CPU 586
+
 entry    demo1
 
 [section .text]
