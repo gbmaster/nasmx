@@ -3,19 +3,21 @@
 %include '..\..\..\inc\win32\kernel32.inc'
 %include '..\..\..\inc\win32\user32.inc'
 
-CPU 586
+;CPU 586
 
 entry    demo1
 
 [section .text]
 proc     demo1
-    invoke    my_p, dword szContentTwo, dword szTitleTwo
-    invoke    MessageBoxA, dword NULL, dword szContent, dword szTitle, dword MB_OK
-    invoke    ExitProcess, dword NULL
+;    invoke    my_p, dword szContentTwo, dword szTitleTwo
+;    invoke    MessageBoxA, dword NULL, dword szContent, dword szTitle, dword MB_OK
+    invoke    MessageBoxA, NX_PTR NULL, NX_PTR szContent, NX_PTR szTitle, dword MB_OK
+    invoke    ExitProcess, NX_PTR NULL
     ret
 
 endproc
 
+%ifidn __BITS__,32
 proc     my_p
 sz_Content    argd
 sz_Title      argd
@@ -24,6 +26,7 @@ sz_Title      argd
     ret
 
 endproc
+%endif
 
 _data
     szTitle:       db   'Demo1', 0x0
