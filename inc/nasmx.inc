@@ -190,12 +190,12 @@ typedef dword, utf32_t
 
 %imacro endstruc 0
 %{$name}_size equ ($-%{$name})
-%define %{$name}_res RESB %{$name}_size
+%define %{$name}_res RESB
 %pop
 %endm
 
 %imacro NX_RESERVE 3
-%define %{$name}_%{1} %{1} %{2} %+ _res %{3}
+%xdefine %{$name}_%{1} %{1} %{2} %+ _res %{3}
 %{$name}_%{1}
 %endmacro
 
