@@ -106,7 +106,6 @@ NASMX_DEFINE VERSION,"20100801"
 %idefine sizeof(x) x %+ _size
 %idefine reserve(x) x %+ _res
 
-
 ;//////////////////////////////////////////////////////////////
 ;//
 ;// NASMX typedef macro
@@ -194,6 +193,11 @@ typedef dword, utf32_t
 %define %{$name}_res RESB %{$name}_size
 %pop
 %endm
+
+%imacro NX_RESERVE 3
+%define %{$name}_%{1} %{1} %{2} %+ _res %{3}
+%{$name}_%{1}
+%endmacro
 
 %ifidn	 __OUTPUT_FORMAT__,elf
 	NASMX_DEFINE UNDERSCORE
