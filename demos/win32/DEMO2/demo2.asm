@@ -94,35 +94,35 @@ endproc
     szClass:    db    "Demo2Class", 0x0
 
     wc:
-    istruc WNDCLASSEX
-        at WNDCLASSEX.cbSize,          dd    WNDCLASSEX_size
-        at WNDCLASSEX.style,           dd    CS_VREDRAW + CS_HREDRAW
-        at WNDCLASSEX.lpfnWndProc,     dd    NULL
-        at WNDCLASSEX.cbClsExtra,      dd    NULL
-        at WNDCLASSEX.cbWndExtra,      dd    NULL
-        at WNDCLASSEX.hInstance,       dd    NULL
-        at WNDCLASSEX.hIcon,           dd    NULL
-        at WNDCLASSEX.hCursor,         dd    NULL
-        at WNDCLASSEX.hbrBackground,   dd    COLOR_BTNFACE + 1
-        at WNDCLASSEX.lpszMenuName,    dd    NULL
-        at WNDCLASSEX.lpszClassName,   dd    NULL
-        at WNDCLASSEX.hIconSm,         dd    NULL
-    iend
-
+    NX_ISTRUC WNDCLASSEX
+		NX_AT .style, CS_VREDRAW + CS_HREDRAW
+		NX_AT .cbSize, WNDCLASSEX_size
+		NX_AT .lpfnWndProc,   NULL
+		NX_AT .cbClsExtra,    NULL
+		NX_AT .cbWndExtra,    NULL
+		NX_AT .hInstance,     NULL
+		NX_AT .hIcon,         NULL
+		NX_AT .hCursor,       NULL
+		NX_AT .hbrBackground, COLOR_BTNFACE + 1
+		NX_AT .lpszMenuName,  NULL
+		NX_AT .lpszClassName, NULL
+		NX_AT .hIconSm,       NULL
+    NX_IENDSTRUC WNDCLASSEX
+	
     message:
-    istruc MSG
-        at MSG.hwnd,                   dd    NULL
-        at MSG.message,                dd    NULL
-        at MSG.wParam,                 dd    NULL
-        at MSG.lParam,                 dd    NULL
-        at MSG.time,                   dd    NULL
-        at MSG.pt,                     dd    NULL
-    iend
-
+    NX_ISTRUC MSG
+        NX_AT .hwnd,        NULL
+        NX_AT .message,     NULL
+        NX_AT .wParam,      NULL
+        NX_AT .lParam,      NULL
+        NX_AT .time,        NULL
+        NX_AT .pt,          NULL
+    NX_IENDSTRUC MSG
+	
     rct:
-    istruc RECT
-        at RECT.left,                  dd    NULL
-        at RECT.top,                   dd    NULL
-        at RECT.right,                 dd    NULL
-        at RECT.bottom,                dd    NULL
-    iend
+    NX_ISTRUC RECT
+        NX_AT .left,        NULL
+        NX_AT .top,         NULL
+        NX_AT .right,       NULL
+        NX_AT .bottom,      NULL
+    NX_IENDSTRUC RECT

@@ -32,6 +32,7 @@
 	%endif
 %endmacro
 
+
 ;//////////////////////////////////////////////////////////////
 ;//
 ;// Get a NASMX Definition
@@ -84,27 +85,52 @@ NASMX_DEFINE VERSION,"20100801"
 ;//
 ;// native sizes
 ;//
-%idefine byte_size 1
-%idefine word_size 2
-%idefine dword_size 4
-%idefine qword_size 8
-%idefine tword_size 10
-%idefine oword_size 16
+%define byte__nx_tag_size 1
+%define word__nx_tag_size 2
+%define dword__nx_tag_size 4
+%define qword__nx_tag_size 8
+%define tword__nx_tag_size 10
+%define oword__nx_tag_size 16
 
 
 ;//////////////////////////////////////////////////////////////
 ;//
 ;// nasm reserves
 ;//
-%idefine byte_res RESB
-%idefine word_res RESW
-%idefine dword_res RESD
-%idefine qword_res RESQ
-%idefine tword_res REST
-%idefine oword_res RESO
+%define byte__nx_tag_reserve RESB
+%define word__nx_tag_reserve RESW
+%define dword__nx_tag_reserve RESD
+%define qword__nx_tag_reserve RESQ
+%define tword__nx_tag_reserve REST
+%define oword__nx_tag_reserve RESO
 
-%idefine sizeof(x) x %+ _size
-%idefine reserve(x) x %+ _res
+;//////////////////////////////////////////////////////////////
+;//
+;// nasm storage types
+;//
+%define byte__nx_tag_storage DB
+%define word__nx_tag_storage DW
+%define dword__nx_tag_storage DD
+%define qword__nx_tag_storage DQ
+%define tword__nx_tag_storage DT
+%define oword__nx_tag_storage DO
+
+;//////////////////////////////////////////////////////////////
+;//
+;// nasmx classifcation of types
+;//
+%define byte__nx_tag_type BYTE
+%define word__nx_tag_type WORD
+%define dword__nx_tag_type DWORD
+%define qword__nx_tag_type QWORD
+%define tword__nx_tag_type TWORD
+%define oword__nx_tag_type OWORD
+
+
+%define sizeof(x) x %+ _size
+%define _nx_sizeof(x) x %+ __nx_tag_size
+%define _nx_reserve(x) x %+ __nx_tag_reserve
+%define _nx_typeof(x) x %+ __nx_tag_type
 
 ;//////////////////////////////////////////////////////////////
 ;//
@@ -112,9 +138,14 @@ NASMX_DEFINE VERSION,"20100801"
 ;//
 ;// usage:
 ;//   typedef dword, int32_t
-%imacro typedef 2
-   %xdefine %{2}_size %{1}_size
-   %xdefine %{2}_res %{1}_res
+%imacro typedef 2.nolist
+	%ifndef %{1}__nx_tag_size
+			%fatal unknown tag size for %1
+	%endif
+;   %xdefine %{2}__nx_tag_size %{1}__nx_tag_size
+;   %xdefine %{2}__nx_tag_type %{1}__nx_tag_type
+;   %xdefine %{2}__nx_tag_reserve %{1}__nx_tag_reserve
+;   %xdefine %{2}__nx_tag_storage %{1}__nx_tag_storage
    %xdefine %{2} %{1}
 %endm
 
@@ -144,13 +175,17 @@ typedef oword, ulong128_t
 
 ;//////////////////////////////////////////////////////////////
 ;//
-;// NASMX pointer types
+;// NASMX ABI size and pointer types
 ;//
 typedef dword, ptr32_t
 typedef qword, ptr64_t
 ;// use for 32->64 bit expansion of either int or ptr
 %ixdefine NX_PTR ptr%[__BITS__]_t
-
+typedef NX_PTR, size_t
+%assign __NASMX_ABI_BITS__ _nx_sizeof(size_t) * 8
+%ifnidn __BITS__,__NASMX_ABI_BITS__
+	%fatal unknown size_t: __BITS__
+%endif
 
 ;//////////////////////////////////////////////////////////////
 ;//
@@ -179,24 +214,128 @@ typedef dword, utf32_t
 
 ;//////////////////////////////////////////////////////////////
 ;//
-;// NASMX struc overload
+;// NX_STRUC
 ;//
-%imacro struc 1-2 0
-%push
-%define %{$name} %{1}
-[ABSOLUTE %{2}]
-%{$name}:
-%endm
+%imacro NX_STRUC 1-2.nolist 0
+	struc %{1}
 
-%imacro endstruc 0
-%{$name}_size equ ($-%{$name})
-%define %{$name}_res RESB
-%pop
-%endm
+	%assign %$_nx_size 0
 
-%imacro NX_RESERVE 3
-%xdefine %{$name}_%{1} %{1} %{2} %+ _res %{3}
-%{$name}_%{1}
+	;// do not define __nx_tag_type for structs
+	%xdefine %{1}__nx_tag_name %{1}
+	%xdefine %{1}__nx_tag_reserve RESB
+	%xdefine %{1}__nx_tag_storage DB
+
+%endmacro
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Set a NASMX field tag
+;//
+;// This macro creates a global define for structure fields
+;//
+;// usage:
+;//    NX_DEFINE_FIELD_TAG struc_name, field_name, tag_name, tag args
+;//
+%imacro NX_DEFINE_FIELD_TAG 4.nolist
+	%xdefine %{1}_field_%{2}__nx_tag_%{3} %{4}
+;	%fatal tag %{3}: %{1}_field_%{2}__nx_tag_%{3} %{4}
+%endmacro
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Set a NASMX field storage tag
+;//
+;// usage:
+;//    NX_DEFINE_FIELD_STORAGE struc_name, var_name, storage_equivalent
+%imacro NX_DEFINE_FIELD_STORAGE 3.nolist
+	%ifndef %{3}__nx_tag_storage
+		%fatal unknown storage tag for %{1}{%2}
+	%endif
+	NX_DEFINE_FIELD_TAG %{1}, %{2}, storage, %{3}__nx_tag_storage
+%endmacro
+
+;//////////////////////////////////////////////////////////////
+;//
+;// Set a NASMX field offset tag
+;//
+;// usage:
+;//    NX_DEF_OFFSET struc_name, var_name, offset
+%imacro NX_DEFINE_FIELD_OFFSET 3.nolist
+	NX_DEFINE_FIELD_TAG %{1}, %{2}, offset, %{3}
+%endmacro
+
+%imacro NX_DEFINE_FIELD_NAME 2.nolist
+	NX_DEFINE_FIELD_TAG %{1}, %{2}, name, %{2}
+%endmacro
+
+;// usage:
+;//   NX_RESERVE .hWnd, NX_PTR, 1
+;//   NX_RESERVE .pt, POINT, 1
+%imacro NX_RESERVE 2-3.nolist 1
+; struc creates it's own ctx!
+;	%ifnctx __CTX_NX_STRUC
+;		%fatal corrupt context
+;	%endif
+	%ifndef %{2}__nx_tag_reserve
+		%fatal unknown reserve tag in %{$name} definition: %{2}
+	%endif
+	%ifndef %{2}__nx_tag_size
+		%fatal unknown size tag in %{$name} definition: %{2}
+	%endif
+
+	NX_DEFINE_FIELD_NAME %{$name}, %{1}
+	NX_DEFINE_FIELD_OFFSET %{$name}, %{1}, %{$size}
+	NX_DEFINE_FIELD_STORAGE %{$name}, %{1}, %{2}
+
+	%ifndef %{2}__nx_tag_type
+		;// this is a struct param
+		%assign %%_argsize %{2}_size
+		%assign %%_qty %{3}
+		%assign %%_amt (%%_argsize * %%_qty)
+	%else
+		%assign %%_argsize %{2}__nx_tag_size
+		%assign %%_amt %{3}
+	%endif
+	;// calc running struct size
+	%assign %$_nx_size (%$_nx_size + %%_argsize)
+
+	%if %%_amt < 0
+		%fatal negative quanity
+	%endif
+	%xdefine %$resline %{1}: %{2}__nx_tag_reserve %%_amt
+	;%fatal resline = %{$resline}
+%{1}: %{2}__nx_tag_reserve %%_amt
+%endmacro
+
+%imacro NX_ENDSTRUC 1.nolist
+	%xdefine %{1}__nx_tag_size %$_nx_size
+
+	endstruc
+%endmacro
+
+%imacro NX_ISTRUC 1-2.nolist 0
+	%ifndef %{1}__nx_tag_name
+		%fatal unknown name tag: %1
+	%endif
+	istruc %{1}
+
+	%xdefine %$name %{1}
+%endmacro
+
+%imacro NX_DECLARE_STORAGE 3
+	%xdefine %$atline at %{1}%{2}, %{1}_field_%{2}__nx_tag_storage %{3}
+	%fatal atline: %$atline
+%endmacro
+
+%imacro NX_AT 2
+	NX_DECLARE_STORAGE %{$name}, %{1}, %{2}
+%endmacro
+
+%imacro NX_IENDSTRUC 1.nolist
+%undef %$name
+iend
 %endmacro
 
 %ifidn	 __OUTPUT_FORMAT__,elf
@@ -238,7 +377,7 @@ typedef dword, utf32_t
 	%idefine NX_CHAR char_t
 %endif
 
-%imacro IMPORT 1-2
+%imacro IMPORT 1-2.nolist
 ;	%warning 'DEBUG MACRO ENTRY(import):' %0 %1 %2
 	%ifndef __imp_defined_%1
 		%if %0 = 1
@@ -263,7 +402,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro INVOKE 1-100
+%imacro INVOKE 1-100.nolist
 ;	%warning 'DEBUG MACRO ENTRY(invoke):' %0 %1 %2
 %push invoke
 	%assign %$args 0
@@ -443,7 +582,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro PROC 1-100
+%imacro PROC 1-100.nolist
 ;	%warning 'DEBUG MACRO ENTRY(PROC):' %0 %1 %2
 %push proc
 	%ifidn __BITS__,64
@@ -489,12 +628,12 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro LOCALS 0
+%imacro LOCALS 0.nolist
 	%assign %$locnt 0
 %endmacro
 
 
-%imacro LOCAL 1-2
+%imacro LOCAL 1-2.nolist
 	%ifidni %2, qword
 		%assign %$locnt 8+%$locnt
 	%elifidni %2, dword
@@ -507,7 +646,7 @@ typedef dword, utf32_t
 	%1 EQU %$locnt
 %endmacro
 
-%imacro ENDLOCALS 0
+%imacro ENDLOCALS 0.nolist
 	%ifidn __BITS__,64
 		sub rsp, %$locnt
 	%else
@@ -516,7 +655,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro ARGD 0-1
+%imacro ARGD 0-1.nolist
 	%ifdef __PROCEDURE__
 		%00 equ %$arg
 		%if %0 = 1
@@ -546,7 +685,7 @@ typedef dword, utf32_t
 %idefine OFFSET
 
 
-%imacro ENDPROC 0
+%imacro ENDPROC 0.nolist
 ;	%warning 'DEBUG MACRO ENTRY(ENDPROC):'
 	%ifdef __PROCEDURE__
 		__PROCEDURE__:
@@ -563,7 +702,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro LEAVE 0
+%imacro LEAVE 0.nolist
 	%ifndef __leave_present__
 		%define __leave_present__
 	%endif
@@ -577,7 +716,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro RET 0-1
+%imacro RET 0-1.nolist
 	%ifdef __PROCEDURE__
 		%ifndef __leave_present__
 			%ifctx proc
@@ -597,7 +736,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro PROTO 1-2
+%imacro PROTO 1-2.nolist
 	%if %0 = 1
 		%ifdef __NASMX_CDECL_UNDERSCORE__
 			global _%1
@@ -613,7 +752,7 @@ typedef dword, utf32_t
 	%endif
 %endmacro
 
-%imacro ENTRY 1
+%imacro ENTRY 1.nolist
 	%ifdef __NASMX_UNDERSCORE__
 		%define __entry_%1 _main
 	%else
@@ -622,7 +761,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro RJMP 2
+%imacro RJMP 2.nolist
 ; This macro preforms the opposite conditional jump
 ; than what the value suggests, it's used internally
 ; by other macros
@@ -670,7 +809,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro SJMP 2
+%imacro SJMP 2.nolist
 	%ifidni %1, ==
 		je %2
 	%elifidni %1, >
@@ -715,12 +854,12 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro BREAK 0
+%imacro BREAK 0.nolist
 	jmp %$break
 %endmacro
 
 
-%imacro IF 3
+%imacro IF 3.nolist
 %push IF
 	%assign %$next 1
 	cmp %1, %3
@@ -728,7 +867,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro ELSIF 3
+%imacro ELSIF 3.nolist
 	%ifctx IF
 		jmp %$endif
 		%$local_%$next:
@@ -741,7 +880,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro ELSE 0
+%imacro ELSE 0.nolist
 	%ifndef _else_
 		%ifctx IF
 			jmp %$endif
@@ -757,7 +896,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro ENDIF 0
+%imacro ENDIF 0.nolist
 	%ifctx IF
 		%ifndef _else_
 			%$local_%$next:
@@ -772,14 +911,14 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro SWITCH 1
+%imacro SWITCH 1.nolist
 %push SWITCH
 	mov EDX, %1
 	%assign %$next 1
 %endmacro
 
 
-%imacro CASE 1
+%imacro CASE 1.nolist
 	%ifctx SWITCH
 		%$local_%$next:
 		%assign %$next 1+%$next
@@ -795,7 +934,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro DEFAULT 0
+%imacro DEFAULT 0.nolist
 	%ifctx SWITCH
 		%define _default_
 		%$local_%$next:
@@ -805,7 +944,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro ENDSWITCH 0
+%imacro ENDSWITCH 0.nolist
 	%ifndef _default_
 		%$local_%$next:
 	%else
@@ -815,13 +954,13 @@ typedef dword, utf32_t
 %pop
 %endmacro
 
-%imacro DO 0
+%imacro DO 0.nolist
 %push DO
 	%$begin:
 %endmacro
 
 
-%imacro UNTIL 3
+%imacro UNTIL 3.nolist
 	%ifctx DO
 		cmp %1, %3
 		RJMP %2, %$begin
@@ -833,7 +972,7 @@ typedef dword, utf32_t
 %endmacro
 
 
-%imacro WHILE 3
+%imacro WHILE 3.nolist
 	%ifctx DO
 		cmp %1, %3
 		SJMP %2, %$begin
@@ -845,4 +984,3 @@ typedef dword, utf32_t
 %endmacro
 
 %endif	;NASMX_INC
-

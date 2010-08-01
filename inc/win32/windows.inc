@@ -1,10 +1,19 @@
-; Windows.Inc
-; created by Bryant Keller
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX Preprocessor
+;// Copyright (c) 2005-2010, The NASMX Project
+;//
+;// Windows.Inc
+;// created by Bryant Keller
+;// modified by Rob Neff
+;//
+;// 1 Aug 2010 - Rob Neff
+;//   - Now using new typedef system
 
 %ifndef __WINDOWS_INC__
 %define __WINDOWS_INC__
 
-; constants
+;// constants
 %define TRUE 1
 %define FALSE 0
 %define NULL FALSE
@@ -7751,4211 +7760,4213 @@
 %define ACN_START 1
 %define ACN_STOP 2
 
-; structures
-STRUC RECT
-NX_RESERVE .left, int32_t, 1
-NX_RESERVE .top, int32_t, 1
-NX_RESERVE .right, int32_t, 1
-NX_RESERVE .bottom, int32_t, 1
-ENDSTRUC
-
-STRUC POINT
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-ENDSTRUC
-
-STRUC SIZEL
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-ENDSTRUC
-
-STRUC MSG
-NX_RESERVE .hwnd, NX_PTR, 1
-NX_RESERVE .message, uint32_t, 1
-NX_RESERVE .wParam, NX_PTR, 1
-NX_RESERVE .lParam, NX_PTR, 1
-NX_RESERVE .time, uint32_t, 1
-NX_RESERVE .pt, POINT, POINT_size
-%ifidn __OUTPUT_FORMAT__,macho
-	NX_RESERVE .lPrivate, int32_t, 1
-%elifidn __OUTPUT_FORMAT__,macho32
-	NX_RESERVE .lPrivate, int32_t, 1
-%elifidn __OUTPUT_FORMAT__,macho64
-	NX_RESERVE .lPrivate, int64_t, 1
-%endif
-ENDSTRUC
-
-STRUC SID_AND_ATTRIBUTES
-NX_RESERVE .Sid, NX_PTR, 1
-NX_RESERVE .Attributes, uint32_t, 1
-ENDSTRUC
-
-STRUC SID_IDENTIFIER_AUTHORITY
-NX_RESERVE .Value, int8_t, 6
-ENDSTRUC
-
-STRUC OVERLAPPED
-NX_RESERVE .Internal, NX_PTR, 1
-NX_RESERVE .InternalHigh, NX_PTR, 1
-NX_RESERVE .loffset, uint32_t, 1
-NX_RESERVE .OffsetHigh, uint32_t, 1
-NX_RESERVE .hEvent, NX_PTR, 1
-ENDSTRUC
-
-STRUC SECURITY_ATTRIBUTES
-NX_RESERVE .niLength, uint32_t, 1
-NX_RESERVE .lpSecurityDescriptor, NX_PTR, 1
-NX_RESERVE .bInheritHandle, int32_t, 1
-ENDSTRUC
-
-STRUC PROCESS_INFORMATION
-NX_RESERVE .hProcess, NX_PTR, 1
-NX_RESERVE .hThread, NX_PTR, 1
-NX_RESERVE .dwProcessId, uint32_t, 1
-NX_RESERVE .dwThreadId, uint32_t, 1
-ENDSTRUC
-
-STRUC FILETIME
-NX_RESERVE .dwLowDateTime, uint32_t, 1
-NX_RESERVE .dwHighDateTime, uint32_t, 1
-ENDSTRUC
-
-STRUC SYSTEMTIME
-NX_RESERVE .wYear, ushort_t, 1
-NX_RESERVE .wMonth, ushort_t, 1
-NX_RESERVE .wDayOfWeek, ushort_t, 1
-NX_RESERVE .wDay, ushort_t, 1
-NX_RESERVE .wHour, ushort_t, 1
-NX_RESERVE .wMinute, ushort_t, 1
-NX_RESERVE .wSecond, ushort_t, 1
-NX_RESERVE .wMilliseconds, ushort_t, 1
-ENDSTRUC
-
-STRUC COMMPROP
-NX_RESERVE .wPacketiLength, ushort_t, 1
-NX_RESERVE .wPacketVersion, ushort_t, 1
-NX_RESERVE .dwServiceMask, uint32_t, 1
-NX_RESERVE .dwReserved1, uint32_t, 1
-NX_RESERVE .dwMaxTxQueue, uint32_t, 1
-NX_RESERVE .dwMaxRxQueue, uint32_t, 1
-NX_RESERVE .dwMaxBaud, uint32_t, 1
-NX_RESERVE .dwProvSubType, uint32_t, 1
-NX_RESERVE .dwProvCapabilities, uint32_t, 1
-NX_RESERVE .dwSettableParams, uint32_t, 1
-NX_RESERVE .dwSettableBaud, uint32_t, 1
-NX_RESERVE .wSettableData, ushort_t, 1
-NX_RESERVE .wSettableStopParity, ushort_t, 1
-NX_RESERVE .dwCurrentTxQueue, uint32_t, 1
-NX_RESERVE .dwCurrentRxQueue, uint32_t, 1
-NX_RESERVE .dwProvSpec1, uint32_t, 1
-NX_RESERVE .dwProvSpec2, uint32_t, 1
-NX_RESERVE .wcProvChar, wchar_t, 1
-ENDSTRUC
-
-STRUC COMSTAT
-NX_RESERVE .fCtsHold, uint32_t, 1
-NX_RESERVE .fDsrHold, uint32_t, 1
-NX_RESERVE .fRlsdHold, uint32_t, 1
-NX_RESERVE .fXoffHold, uint32_t, 1
-NX_RESERVE .fXoffSent, uint32_t, 1
-NX_RESERVE .fEof, uint32_t, 1
-NX_RESERVE .fTxim, uint32_t, 1
-NX_RESERVE .fReserved, uint32_t, 1
-NX_RESERVE .cbInQue, uint32_t, 1
-NX_RESERVE .cbOutQue, uint32_t, 1
-ENDSTRUC
-
-STRUC DCB
-NX_RESERVE .DCBlength, int32_t, 1
-NX_RESERVE .BaudRate, int32_t, 1
-NX_RESERVE .fbits, int32_t, 1
-NX_RESERVE .wReserved, short_t, 1
-NX_RESERVE .XonLim, short_t, 1
-NX_RESERVE .XoffLim, short_t, 1
-NX_RESERVE .ByteSize, int8_t, 1
-NX_RESERVE .Parity, int8_t, 1
-NX_RESERVE .StopBits, int8_t, 1
-NX_RESERVE .XonChar, int8_t, 1
-NX_RESERVE .XoffChar, int8_t, 1
-NX_RESERVE .ErrorChar, int8_t, 1
-NX_RESERVE .EofChar, int8_t, 1
-NX_RESERVE .EvtChar, int8_t, 1
-ENDSTRUC
-
-STRUC COMMTIMEOUTS
-NX_RESERVE .ReadIntervalTimeout, uint32_t, 1
-NX_RESERVE .ReadTotalTimeoutMultiplier, uint32_t, 1
-NX_RESERVE .ReadTotalTimeoutConstant, uint32_t, 1
-NX_RESERVE .WriteTotalTimeoutMultiplier, uint32_t, 1
-NX_RESERVE .WriteTotalTimeoutConstant, uint32_t, 1
-ENDSTRUC
-
-STRUC SYSTEM_INFO
-NX_RESERVE .dwOemID, uint32_t, 1
-NX_RESERVE .dwPageSize, uint32_t, 1
-NX_RESERVE .lpMinimumApplicationAddress, NX_PTR, 1
-NX_RESERVE .lpMaximumApplicationAddress, NX_PTR, 1
-NX_RESERVE .dwActiveProcessorMask, NX_PTR, 1
-NX_RESERVE .dwNumberOrfProcessors, uint32_t, 1
-NX_RESERVE .dwProcessorType, uint32_t, 1
-NX_RESERVE .dwAllocationGranularity, uint32_t, 1
-NX_RESERVE .wProcessorLevel, ushort_t, 1
-NX_RESERVE .wProcessorRevision, ushort_t, 1
-ENDSTRUC
-
-STRUC MEMORYSTATUS
-NX_RESERVE .dwiLength, uint32_t, 1
-NX_RESERVE .dwMemoryLoad, uint32_t, 1
-NX_RESERVE .dwTotalPhys, NX_PTR, 1
-NX_RESERVE .dwAvailPhys, NX_PTR, 1
-NX_RESERVE .dwTotalPageFile, NX_PTR, 1
-NX_RESERVE .dwAvailPageFile, NX_PTR, 1
-NX_RESERVE .dwTotalVirtual, NX_PTR, 1
-NX_RESERVE .dwAvailVirtual, NX_PTR, 1
-ENDSTRUC
-
-STRUC TPMPARAMS
-NX_RESERVE .cbSize, uint32_t, 1
-NX_RESERVE .rcExclude, RECT, RECT_size
-ENDSTRUC
-
-STRUC GENERIC_MAPPING
-NX_RESERVE .GenericRead, uint32_t, 1
-NX_RESERVE .GenericWrite, uint32_t, 1
-NX_RESERVE .GenericExecute, uint32_t, 1
-NX_RESERVE .GenericAll, uint32_t, 1
-ENDSTRUC
-
-STRUC LUID
-NX_RESERVE .LowPart, uint32_t, 1
-NX_RESERVE .HighPart, int32_t, 1
-ENDSTRUC
-
-STRUC LUID_AND_ATTRIBUTES
-NX_RESERVE .pLuid, NX_PTR, 1
-NX_RESERVE .Attributes, uint32_t, 1
-ENDSTRUC
-
-STRUC ACL
-NX_RESERVE .AclRevision, int8_t, 1
-NX_RESERVE .Sbz1, int8_t, 1
-NX_RESERVE .AclSize, uint16_t, 1
-NX_RESERVE .AceCount, uint16_t, 1
-NX_RESERVE .Sbz2, uint16_t, 1
-ENDSTRUC
-
-STRUC ACE_HEADER
-NX_RESERVE .AceType, int8_t, 1
-NX_RESERVE .AceFlags, int8_t, 1
-NX_RESERVE .AceSize, uint16_t, 1
-ENDSTRUC
-
-STRUC ACCESS_ALLOWED_ACE
-NX_RESERVE .Header, ACE_HEADER, ACE_HEADER_size
-NX_RESERVE .imask, uint32_t, 1
-NX_RESERVE .SidStart, uint32_t, 1
-ENDSTRUC
-
-STRUC ACCESS_DENIED_ACE
-NX_RESERVE .Header, ACE_HEADER, ACE_HEADER_size
-NX_RESERVE .imask, uint32_t, 1
-NX_RESERVE .SidStart, uint32_t, 1
-ENDSTRUC
-
-STRUC SYSTEM_AUDIT_ACE
-NX_RESERVE .Header, ACE_HEADER, ACE_HEADER_size
-NX_RESERVE .imask, uint32_t, 1
-NX_RESERVE .SidStart, uint32_t, 1
-ENDSTRUC
-
-STRUC SYSTEM_ALARM_ACE
-NX_RESERVE .Header, ACE_HEADER, ACE_HEADER_size
-NX_RESERVE .imask, uint32_t, 1
-NX_RESERVE .SidStart, uint32_t, 1
-ENDSTRUC
-
-STRUC ACL_REVISION_INFORMATION
-NX_RESERVE .AclRevision, uint32_t, 1
-ENDSTRUC
-
-STRUC ACL_SIZE_INFORMATION
-NX_RESERVE .AceCount, uint32_t, 1
-NX_RESERVE .AclBytesInUse, uint32_t, 1
-NX_RESERVE .AclBytesFree, uint32_t, 1
-ENDSTRUC
-
-STRUC SECURITY_DESCRIPTOR
-NX_RESERVE .Revision, int8_t, 1
-NX_RESERVE .Sbz1, int8_t, 1
-NX_RESERVE .Control, uint16_t, 1
-NX_RESERVE .Owner, NX_PTR, 1
-NX_RESERVE .lGroup, NX_PTR, 1
-NX_RESERVE .Sacl, NX_PTR, 1
-NX_RESERVE .Dacl, NX_PTR, 1
-ENDSTRUC
-
-STRUC PRIVILEGE_SET
-NX_RESERVE .PrivilegeCount, uint32_t, 1
-NX_RESERVE .Control, uint32_t, 1
-NX_RESERVE .Privilege, LUID_AND_ATTRIBUTES, LUID_AND_ATTRIBUTES_size
-ENDSTRUC
-
-STRUC EXCEPTION_RECORD
-NX_RESERVE .ExceptionCode, uint32_t, 1
-NX_RESERVE .ExceptionFlags, uint32_t, 1
-NX_RESERVE .pExceptionRecord, NX_PTR, 1
-NX_RESERVE .ExceptionAddress, NX_PTR, 1
-NX_RESERVE .NumberParameters, uint32_t, 1
-NX_RESERVE .ExceptionInformation, NX_PTR, 1
-ENDSTRUC
-
-STRUC EXCEPTION_DEBUG_INFO
-NX_RESERVE .pExceptionRecord, EXCEPTION_RECORD, EXCEPTION_RECORD_size
-NX_RESERVE .dwFirstChance, uint32_t, 1
-ENDSTRUC
-
-STRUC CREATE_THREAD_DEBUG_INFO
-NX_RESERVE .hThread, NX_PTR, 1
-NX_RESERVE .lpThreadLocalBase, NX_PTR, 1
-NX_RESERVE .lpStartAddress, NX_PTR, 1
-ENDSTRUC
-
-STRUC CREATE_PROCESS_DEBUG_INFO
-NX_RESERVE .hFile, NX_PTR, 1
-NX_RESERVE .hProcess, NX_PTR, 1
-NX_RESERVE .hThread, NX_PTR, 1
-NX_RESERVE .lpBaseOfImage, NX_PTR, 1
-NX_RESERVE .dwDebugInfoFileOffset, uint32_t, 1
-NX_RESERVE .nDebugInfoSize, uint32_t, 1
-NX_RESERVE .lpThreadLocalBase, NX_PTR, 1
-NX_RESERVE .lpStartAddress, NX_PTR, 1
-NX_RESERVE .lpImageName, NX_PTR, 1
-NX_RESERVE .fUnicode, uint16_t, 1
-ENDSTRUC
-
-STRUC EXIT_THREAD_DEBUG_INFO
-NX_RESERVE .dwExitCode, uint32_t, 1
-ENDSTRUC
-
-STRUC EXIT_PROCESS_DEBUG_INFO
-NX_RESERVE .dwExitCode, uint32_t, 1
-ENDSTRUC
-
-STRUC LOAD_DLL_DEBUG_INFO
-NX_RESERVE .hFile, NX_PTR, 1
-NX_RESERVE .lpBaseOfDll, NX_PTR, 1
-NX_RESERVE .dwDebugInfoFileOffset, uint32_t, 1
-NX_RESERVE .nDebugInfoSize, uint32_t, 1
-NX_RESERVE .lpImageName, NX_PTR, 1
-NX_RESERVE .fUnicode, uint16_t, 1
-ENDSTRUC
-
-STRUC UNLOAD_DLL_DEBUG_INFO
-NX_RESERVE .lpBaseOfDll, NX_PTR, 1
-ENDSTRUC
-
-STRUC OUTPUT_DEBUG_STRING_INFO
-NX_RESERVE .lpDebugStringData, NX_PTR, 1
-NX_RESERVE .fUnicode, uint16_t, 1
-NX_RESERVE .nDebugStringiLength, uint16_t, 1
-ENDSTRUC
-
-STRUC RIP_INFO
-NX_RESERVE .dwError, uint32_t, 1
-NX_RESERVE .dwType, uint32_t, 1
-ENDSTRUC
-
-STRUC OFSTRUCT
-NX_RESERVE .cBytes, int8_t, 1
-NX_RESERVE .fFixedDisk, int8_t, 1
-NX_RESERVE .nErrCode, uint16_t, 1
-NX_RESERVE .Reserved1, uint16_t, 1
-NX_RESERVE .Reserved2, uint16_t, 1
-NX_RESERVE .szPathName, char_t, 128
-ENDSTRUC
-
-STRUC WNDCLASSEX
-NX_RESERVE .cbSize, uint32_t, 1
-NX_RESERVE .style, uint32_t, 1
-NX_RESERVE .lpfnWndProc, NX_PTR, 1
-NX_RESERVE .cbClsExtra, int32_t, 1
-NX_RESERVE .cbWndExtra, int32_t, 1
-NX_RESERVE .hInstance, NX_PTR, 1
-NX_RESERVE .hIcon, NX_PTR, 1
-NX_RESERVE .hCursor, NX_PTR, 1
-NX_RESERVE .hbrBackground, NX_PTR, 1
-NX_RESERVE .lpszMenuName, NX_PTR, 1
-NX_RESERVE .lpszClassName, NX_PTR, 1
-NX_RESERVE .hIconSm, NX_PTR, 1
-ENDSTRUC
-
-STRUC WNDCLASS
-NX_RESERVE .style, uint32_t, 1
-NX_RESERVE .lpfnWndProc, NX_PTR, 1
-NX_RESERVE .cbClsExtra, int32_t, 1
-NX_RESERVE .cbWndExtra, int32_t, 1
-NX_RESERVE .hInstance, NX_PTR, 1
-NX_RESERVE .hIcon, NX_PTR, 1
-NX_RESERVE .hCursor, NX_PTR, 1
-NX_RESERVE .hbrBackground, NX_PTR, 1
-NX_RESERVE .lpszMenuName, NX_PTR, 1
-NX_RESERVE .lpszClassName, NX_PTR, 1
-ENDSTRUC
-
-STRUC CRITICAL_SECTION
-NX_RESERVE .Par1, int32_t, 1
-NX_RESERVE .Par2, int32_t, 1
-NX_RESERVE .Par3, int32_t, 1
-NX_RESERVE .Par4, int32_t, 1
-NX_RESERVE .Par5, int32_t, 1
-NX_RESERVE .Par6, int32_t, 1
-ENDSTRUC
-
-STRUC BY_HANDLE_FILE_INFORMATION
-NX_RESERVE .dwFileAttributes, int32_t, 1
-NX_RESERVE .ftCreationTime, FILETIME, FILETIME_size
-NX_RESERVE .ftLastAccessTime, FILETIME, FILETIME_size
-NX_RESERVE .ftLastWriteTime, FILETIME, FILETIME_size
-NX_RESERVE .dwVolumeSerialNumber, int32_t, 1
-NX_RESERVE .nFileSizeHigh, int32_t, 1
-NX_RESERVE .nFileSizeLow, int32_t, 1
-NX_RESERVE .nNumberOfLinks, int32_t, 1
-NX_RESERVE .nFileIndexHigh, int32_t, 1
-NX_RESERVE .nFileIndexLow, int32_t, 1
-ENDSTRUC
-
-STRUC MEMORY_BASIC_INFORMATION
-NX_RESERVE .BaseAddress, int32_t, 1
-NX_RESERVE .AllocationBase, int32_t, 1
-NX_RESERVE .AllocationProtect, int32_t, 1
-NX_RESERVE .RegionSize, int32_t, 1
-NX_RESERVE .State, int32_t, 1
-NX_RESERVE .Protect, int32_t, 1
-NX_RESERVE .lType, int32_t, 1
-ENDSTRUC
-
-STRUC EVENTLOGRECORD
-NX_RESERVE .iLength, int32_t, 1
-NX_RESERVE .Reserved, int32_t, 1
-NX_RESERVE .RecordNumber, int32_t, 1
-NX_RESERVE .TimeGenerated, int32_t, 1
-NX_RESERVE .TimeWritten, int32_t, 1
-NX_RESERVE .EventID, int32_t, 1
-NX_RESERVE .EventType, short_t, 1
-NX_RESERVE .NumStrings, short_t, 1
-NX_RESERVE .EventCategory, short_t, 1
-NX_RESERVE .ReservedFlags, short_t, 1
-NX_RESERVE .ClosingRecordNumber, int32_t, 1
-NX_RESERVE .StringOffset, int32_t, 1
-NX_RESERVE .UserSidiLength, int32_t, 1
-NX_RESERVE .UserSidOffset, int32_t, 1
-NX_RESERVE .DataiLength, int32_t, 1
-NX_RESERVE .DataOffset, int32_t, 1
-ENDSTRUC
-
-STRUC TOKEN_GROUPS
-NX_RESERVE .GroupCount, int32_t, 1
-NX_RESERVE .Groups, int32_t, 1
-ENDSTRUC
-
-STRUC TOKEN_PRIVILEGES
-NX_RESERVE .PrivilegeCount, int32_t, 1
-NX_RESERVE .Privileges, int32_t, 1
-ENDSTRUC
-
-STRUC FLOATING_SAVE_AREA
-NX_RESERVE .ControlWord, int32_t, 1
-NX_RESERVE .StatusWord, int32_t, 1
-NX_RESERVE .TagWord, int32_t, 1
-NX_RESERVE .ErrorOffset, int32_t, 1
-NX_RESERVE .ErrorSelector, int32_t, 1
-NX_RESERVE .DataOffset, int32_t, 1
-NX_RESERVE .DataSelector, int32_t, 1
-NX_RESERVE .RegisterArea, int8_t, 1
-NX_RESERVE .Cr0NpxState, int32_t, 1
-ENDSTRUC
-
-STRUC CONTEXT
-NX_RESERVE .ContextFlags, int32_t, 1
-NX_RESERVE .iDr0, int32_t, 1
-NX_RESERVE .iDr1, int32_t, 1
-NX_RESERVE .iDr2, int32_t, 1
-NX_RESERVE .iDr3, int32_t, 1
-NX_RESERVE .iDr6, int32_t, 1
-NX_RESERVE .iDr7, int32_t, 1
-NX_RESERVE .FloatSave, int32_t, 1
-NX_RESERVE .regGs, int32_t, 1
-NX_RESERVE .regFs, int32_t, 1
-NX_RESERVE .regEs, int32_t, 1
-NX_RESERVE .regDs, int32_t, 1
-NX_RESERVE .regEdi, int32_t, 1
-NX_RESERVE .regEsi, int32_t, 1
-NX_RESERVE .regEbx, int32_t, 1
-NX_RESERVE .regEdx, int32_t, 1
-NX_RESERVE .regEcx, int32_t, 1
-NX_RESERVE .regEax, int32_t, 1
-NX_RESERVE .regEbp, int32_t, 1
-NX_RESERVE .regEip, int32_t, 1
-NX_RESERVE .regCs, int32_t, 1
-NX_RESERVE .regFlag, int32_t, 1
-NX_RESERVE .regEsp, int32_t, 1
-NX_RESERVE .regSs, int32_t, 1
-ENDSTRUC
-
-STRUC EXCEPTION_POINTERS
-NX_RESERVE .pExceptionRecord, int32_t, 1
-NX_RESERVE .ContextRecord, int32_t, 1
-ENDSTRUC
-
-STRUC LDT_BYTES
-NX_RESERVE .BaseMid, int8_t, 1
-NX_RESERVE .Flags1, int8_t, 1
-NX_RESERVE .Flags2, int8_t, 1
-NX_RESERVE .BaseHi, int8_t, 1
-ENDSTRUC
-
-STRUC LDT_ENTRY
-NX_RESERVE .LimitLow, short_t, 1
-NX_RESERVE .BaseLow, short_t, 1
-NX_RESERVE .HiWord, int32_t, 1
-ENDSTRUC
-
-STRUC TIME_ZONE_INFORMATION
-NX_RESERVE .Bias, int32_t, 1
-NX_RESERVE .StandardName, short_t, 1
-NX_RESERVE .StandardDate, int32_t, 1
-NX_RESERVE .StandardBias, int32_t, 1
-NX_RESERVE .DaylightName, short_t, 1
-NX_RESERVE .DaylightDate, int32_t, 1
-NX_RESERVE .DaylightBias, int32_t, 1
-ENDSTRUC
-
-STRUC WIN32_STREAM_ID
-NX_RESERVE .dwStreamID, int32_t, 1
-NX_RESERVE .dwStreamAttributes, int32_t, 1
-NX_RESERVE .dwStreamSizeLow, int32_t, 1
-NX_RESERVE .dwStreamSizeHigh, int32_t, 1
-NX_RESERVE .dwStreamNameSize, int32_t, 1
-NX_RESERVE .cStreamName, int8_t, 1
-ENDSTRUC
-
-STRUC STARTUPINFO
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .lpReserved, int32_t, 1
-NX_RESERVE .lpDesktop, int32_t, 1
-NX_RESERVE .lpTitle, int32_t, 1
-NX_RESERVE .dwX, int32_t, 1
-NX_RESERVE .dwY, int32_t, 1
-NX_RESERVE .dwXSize, int32_t, 1
-NX_RESERVE .dwYSize, int32_t, 1
-NX_RESERVE .dwXCountChars, int32_t, 1
-NX_RESERVE .dwYCountChars, int32_t, 1
-NX_RESERVE .dwFillAttribute, int32_t, 1
-NX_RESERVE .dwFlags, int32_t, 1
-NX_RESERVE .wShowWindow, short_t, 1
-NX_RESERVE .cbReserved2, short_t, 1
-NX_RESERVE .lpReserved2, int8_t, 1
-NX_RESERVE .hStdInput, int32_t, 1
-NX_RESERVE .hStdOutput, int32_t, 1
-NX_RESERVE .hStdError, int32_t, 1
-ENDSTRUC
-
-STRUC WIN32_FIND_DATA
-NX_RESERVE .dwFileAttributes, int32_t, 1
-NX_RESERVE .ftCreationTime, FILETIME, FILETIME_size
-NX_RESERVE .ftLastAccessTime, FILETIME, FILETIME_size
-NX_RESERVE .ftLastWriteTime, FILETIME, FILETIME_size
-NX_RESERVE .nFileSizeHigh, int32_t, 1
-NX_RESERVE .nFileSizeLow, int32_t, 1
-NX_RESERVE .dwReserved0, int32_t, 1
-NX_RESERVE .dwReserved1, int32_t, 1
-NX_RESERVE .cFileName, int8_t, MAX_PATH
-NX_RESERVE .cAlternate, int8_t, 14 
-ENDSTRUC
-
-STRUC CPINFO
-NX_RESERVE .MaxCharSize, int32_t, 1
-NX_RESERVE .DefaultChar, int8_t, 1
-NX_RESERVE .LeadByte, int8_t, 1
-ENDSTRUC
-
-STRUC NUMBERFMT
-NX_RESERVE .NumDigits, int32_t, 1
-NX_RESERVE .LeadingZero, int32_t, 1
-NX_RESERVE .Grouping, int32_t, 1
-NX_RESERVE .lpDecimalSep, int32_t, 1
-NX_RESERVE .lpThousandSep, int32_t, 1
-NX_RESERVE .NegativeOrder, int32_t, 1
-ENDSTRUC
-
-STRUC CURRENCYFMT
-NX_RESERVE .NumDigits, int32_t, 1
-NX_RESERVE .LeadingZero, int32_t, 1
-NX_RESERVE .Grouping, int32_t, 1
-NX_RESERVE .lpDecimalSep, int32_t, 1
-NX_RESERVE .lpThousandSep, int32_t, 1
-NX_RESERVE .NegativeOrder, int32_t, 1
-NX_RESERVE .PositiveOrder, int32_t, 1
-NX_RESERVE .lpCurrencySymbol, int32_t, 1
-ENDSTRUC
-
-STRUC COORD
-NX_RESERVE .x, short_t, 1
-NX_RESERVE .y, short_t, 1
-ENDSTRUC
-
-STRUC SMALL_RECT
-NX_RESERVE .left, short_t, 1
-NX_RESERVE .top, short_t, 1
-NX_RESERVE .right, short_t, 1
-NX_RESERVE .bottom, short_t, 1
-ENDSTRUC
-
-STRUC KEY_EVENT_RECORD
-NX_RESERVE .bKeyDown, int32_t, 1
-NX_RESERVE .wRepeatCount, short_t, 1
-NX_RESERVE .wVirtualKeyCode, short_t, 1
-NX_RESERVE .wVirtualScanCode, short_t, 1
-NX_RESERVE .uChar, short_t, 1
-NX_RESERVE .dwControlKeyState, int32_t, 1
-ENDSTRUC
-
-STRUC MOUSE_EVENT_RECORD
-NX_RESERVE .dwMousePosition, int32_t, 1
-NX_RESERVE .dwButtonState, int32_t, 1
-NX_RESERVE .dwControlKeyState, int32_t, 1
-NX_RESERVE .dwEventFlags, int32_t, 1
-ENDSTRUC
-
-STRUC WINDOW_BUFFER_SIZE_RECORD
-NX_RESERVE .dwSize, int32_t, 1
-ENDSTRUC
-
-STRUC MENU_EVENT_RECORD
-NX_RESERVE .dwCommandId, int32_t, 1
-ENDSTRUC
-
-STRUC FOCUS_EVENT_RECORD
-NX_RESERVE .bSetFocus, int32_t, 1
-ENDSTRUC
-
-STRUC CHAR_INFO
-NX_RESERVE .Char, short_t, 1
-NX_RESERVE .Attributes, short_t, 1
-ENDSTRUC
-
-STRUC CONSOLE_SCREEN_BUFFER_INFO
-NX_RESERVE .dwSize, int32_t, 1
-NX_RESERVE .dwCursorPosition, int32_t, 1
-NX_RESERVE .wAttributes, short_t, 1
-NX_RESERVE .srWindow, SMALL_RECT, SMALL_RECT_size
-NX_RESERVE .dwMaximumWindowSize, int32_t, 1
-ENDSTRUC
-
-STRUC CONSOLE_CURSOR_INFO
-NX_RESERVE .dwSize, int32_t, 1
-NX_RESERVE .bVisible, int32_t, 1
-ENDSTRUC
-
-STRUC XFORM
-NX_RESERVE .eM11, int64_t,1
-NX_RESERVE .eM12, int64_t, 1
-NX_RESERVE .eM21, int64_t, 1
-NX_RESERVE .eM22, int64_t, 1
-NX_RESERVE .ex, int64_t, 1
-NX_RESERVE .ey, int64_t, 1
-ENDSTRUC
-
-STRUC BITMAP
-NX_RESERVE .bmType, int32_t, 1
-NX_RESERVE .bmWidth, int32_t, 1
-NX_RESERVE .bmHeight, int32_t, 1
-NX_RESERVE .bmWidthBytes, int32_t, 1
-NX_RESERVE .bmPlanes, short_t, 1
-NX_RESERVE .bmBitsPixel, short_t, 1
-NX_RESERVE .bmBits, int32_t, 1
-ENDSTRUC
-
-STRUC RGBTRIPLE
-NX_RESERVE .rgbtBlue, int8_t, 1
-NX_RESERVE .rgbtGreen, int8_t, 1
-NX_RESERVE .rgbtRed, int8_t, 1
-ENDSTRUC
-
-STRUC RGBQUAD
-NX_RESERVE .rgbBlue, int8_t, 1
-NX_RESERVE .rgbGreen, int8_t, 1
-NX_RESERVE .rgbRed, int8_t, 1
-NX_RESERVE .rgbReserved, int8_t, 1
-ENDSTRUC
-
-STRUC BITMAPCOREHEADER
-NX_RESERVE .bcSize, int32_t, 1
-NX_RESERVE .bcWidth, short_t, 1
-NX_RESERVE .bcHeight, short_t, 1
-NX_RESERVE .bcPlanes, short_t, 1
-NX_RESERVE .bcBitCount, short_t, 1
-ENDSTRUC
-
-STRUC BITMAPINFOHEADER
-NX_RESERVE .biSize, int32_t, 1
-NX_RESERVE .biWidth, int32_t, 1
-NX_RESERVE .biHeight, int32_t, 1
-NX_RESERVE .biPlanes, short_t, 1
-NX_RESERVE .biBitCount, short_t, 1
-NX_RESERVE .biCompression, int32_t, 1
-NX_RESERVE .biSizeImage, int32_t, 1
-NX_RESERVE .biXPelsPerMeter, int32_t, 1
-NX_RESERVE .biYPelsPerMeter, int32_t, 1
-NX_RESERVE .biClrUsed, int32_t, 1
-NX_RESERVE .biClrImportant, int32_t, 1
-ENDSTRUC
-
-STRUC BITMAPINFO
-NX_RESERVE .bmiHeader, int32_t, 1
-NX_RESERVE .bmiColors, int32_t, 1
-ENDSTRUC
-
-STRUC BITMAPCOREINFO
-NX_RESERVE .bmciHeader, int32_t, 1
-NX_RESERVE .bmciColors, int32_t, 1
-ENDSTRUC
-
-STRUC BITMAPFILEHEADER
-NX_RESERVE .bfType, short_t, 1
-NX_RESERVE .bfSize, int32_t, 1
-NX_RESERVE .bfReserved1, short_t, 1
-NX_RESERVE .bfReserved2, short_t, 1
-NX_RESERVE .bfOffBits, int32_t, 1
-ENDSTRUC
-
-STRUC HANDLETABLE
-NX_RESERVE .objectHandle, int32_t, 1
-ENDSTRUC
-
-STRUC METARECORD
-NX_RESERVE .rdSize, int32_t, 1
-NX_RESERVE .rdFunction, short_t, 1
-NX_RESERVE .rdParm1, short_t, 1
-ENDSTRUC
-
-STRUC METAFILEPICT
-NX_RESERVE .imm, int32_t, 1
-NX_RESERVE .xExt, int32_t, 1
-NX_RESERVE .yExt, int32_t, 1
-NX_RESERVE .hMF, int32_t, 1
-ENDSTRUC
-
-STRUC METAHEADER
-NX_RESERVE .mtType, short_t, 1
-NX_RESERVE .mtHeaderSize, short_t, 1
-NX_RESERVE .mtVersion, short_t, 1
-NX_RESERVE .mtSize, int32_t, 1
-NX_RESERVE .mtNoObjects, short_t, 1
-NX_RESERVE .mtMaxRecord, int32_t, 1
-NX_RESERVE .mtNoParameters, short_t, 1
-ENDSTRUC
-
-STRUC ENHMETARECORD
-NX_RESERVE .iType, int32_t, 1
-NX_RESERVE .nSize, int32_t, 1
-NX_RESERVE .dParm1, int32_t, 1
-ENDSTRUC
-
-STRUC ENHMETAHEADER
-NX_RESERVE .iType, int32_t, 1
-NX_RESERVE .nSize, int32_t, 1
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .rclFrame, RECT, RECT_size
-NX_RESERVE .dSignature, int32_t, 1
-NX_RESERVE .nVersion, int32_t, 1
-NX_RESERVE .nBytes, int32_t, 1
-NX_RESERVE .nRecords, int32_t, 1
-NX_RESERVE .nHandles, short_t, 1
-NX_RESERVE .sReserved, short_t, 1
-NX_RESERVE .nDescription, int32_t, 1
-NX_RESERVE .offDescription, int32_t, 1
-NX_RESERVE .nPalEntries, int32_t, 1
-NX_RESERVE .szlDevice, int32_t, 1
-NX_RESERVE .szlMillimeters, int32_t, 1
-ENDSTRUC
-
-STRUC TEXTMETRIC
-NX_RESERVE .tmHeight, int32_t, 1
-NX_RESERVE .tmAscent, int32_t, 1
-NX_RESERVE .tmDescent, int32_t, 1
-NX_RESERVE .tmInternalLeading, int32_t, 1
-NX_RESERVE .tmExternalLeading, int32_t, 1
-NX_RESERVE .tmAveCharWidth, int32_t, 1
-NX_RESERVE .tmMaxCharWidth, int32_t, 1
-NX_RESERVE .tmWeight, int32_t, 1
-NX_RESERVE .tmOverhang, int32_t, 1
-NX_RESERVE .tmDigitizedAspectX, int32_t, 1
-NX_RESERVE .tmDigitizedAspectY, int32_t, 1
-NX_RESERVE .tmFirstChar, int8_t, 1
-NX_RESERVE .tmLastChar, int8_t, 1
-NX_RESERVE .tmDefaultChar, int8_t, 1
-NX_RESERVE .tmBreakChar, int8_t, 1
-NX_RESERVE .tmItalic, int8_t, 1
-NX_RESERVE .tmUnderlined, int8_t, 1
-NX_RESERVE .tmStruckOut, int8_t, 1
-NX_RESERVE .tmPitchAndFamily, int8_t, 1
-NX_RESERVE .tmCharSet, int8_t, 1
-ENDSTRUC
-
-STRUC NEWTEXTMETRIC
-NX_RESERVE .tmHeight, int32_t, 1
-NX_RESERVE .tmAscent, int32_t, 1
-NX_RESERVE .tmDescent, int32_t, 1
-NX_RESERVE .tmInternalLeading, int32_t, 1
-NX_RESERVE .tmExternalLeading, int32_t, 1
-NX_RESERVE .tmAveCharWidth, int32_t, 1
-NX_RESERVE .tmMaxCharWidth, int32_t, 1
-NX_RESERVE .tmWeight, int32_t, 1
-NX_RESERVE .tmOverhang, int32_t, 1
-NX_RESERVE .tmDigitizedAspectX, int32_t, 1
-NX_RESERVE .tmDigitizedAspectY, int32_t, 1
-NX_RESERVE .tmFirstChar, int8_t, 1
-NX_RESERVE .tmLastChar, int8_t, 1
-NX_RESERVE .tmDefaultChar, int8_t, 1
-NX_RESERVE .tmBreakChar, int8_t, 1
-NX_RESERVE .tmItalic, int8_t, 1
-NX_RESERVE .tmUnderlined, int8_t, 1
-NX_RESERVE .tmStruckOut, int8_t, 1
-NX_RESERVE .tmPitchAndFamily, int8_t, 1
-NX_RESERVE .tmCharSet, int8_t, 1
-NX_RESERVE .ntmFlags, int32_t, 1
-NX_RESERVE .ntmSizeEM, int32_t, 1
-NX_RESERVE .ntmCellHeight, int32_t, 1
-NX_RESERVE .ntmAveWidth, int32_t, 1
-ENDSTRUC
-
-STRUC PELARRAY
-NX_RESERVE .paXCount, int32_t, 1
-NX_RESERVE .paYCount, int32_t, 1
-NX_RESERVE .paXExt, int32_t, 1
-NX_RESERVE .paYExt, int32_t, 1
-NX_RESERVE .paRGBs, short_t, 1
-ENDSTRUC
-
-STRUC LOGBRUSH
-NX_RESERVE .lbStyle, int32_t, 1
-NX_RESERVE .lbColor, int32_t, 1
-NX_RESERVE .lbHatch, int32_t, 1
-ENDSTRUC
-
-STRUC LOGPEN
-NX_RESERVE .lopnStyle, int32_t, 1
-NX_RESERVE .lopnWidth, int32_t, 1
-NX_RESERVE .lopnColor, int32_t, 1
-ENDSTRUC
-
-STRUC EXTLOGPEN
-NX_RESERVE .elpPenStyle, int32_t, 1
-NX_RESERVE .elpWidth, int32_t, 1
-NX_RESERVE .elpBrushStyle, int32_t, 1
-NX_RESERVE .elpColor, int32_t, 1
-NX_RESERVE .elpHatch, int32_t, 1
-NX_RESERVE .elpNumEntries, int32_t, 1
-NX_RESERVE .elpStyleEntry, int32_t, 1
-ENDSTRUC
-
-STRUC PALETTEENTRY
-NX_RESERVE .peRed, int8_t, 1
-NX_RESERVE .peGreen, int8_t, 1
-NX_RESERVE .peBlue, int8_t, 1
-NX_RESERVE .peFlags, int8_t, 1
-ENDSTRUC
-
-STRUC LOGPALETTE
-NX_RESERVE .palVersion, short_t, 1
-NX_RESERVE .palNumEntries, short_t, 1
-NX_RESERVE .palPalEntry, int32_t, 1
-ENDSTRUC
-
-STRUC LOGFONT
-NX_RESERVE .lfHeight, int32_t, 1
-NX_RESERVE .lfWidth, int32_t, 1
-NX_RESERVE .lfEscapement, int32_t, 1
-NX_RESERVE .lfOrientation, int32_t, 1
-NX_RESERVE .lfWeight, int32_t, 1
-NX_RESERVE .lfItalic, int8_t, 1
-NX_RESERVE .lfUnderline, int8_t, 1
-NX_RESERVE .lfStrikeOut, int8_t, 1
-NX_RESERVE .lfCharSet, int8_t, 1
-NX_RESERVE .lfOutPrecision, int8_t, 1
-NX_RESERVE .lfClipPrecision, int8_t, 1
-NX_RESERVE .lfQuality, int8_t, 1
-NX_RESERVE .lfPitchAndFamily, int8_t, 1
-NX_RESERVE .lfFaceName, int8_t, LF_FACESIZE
-ENDSTRUC
-
-STRUC NONCLIENTMETRICS
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .iBorderWidth, int32_t, 1
-NX_RESERVE .iScrollWidth, int32_t, 1
-NX_RESERVE .iScrollHeight, int32_t, 1
-NX_RESERVE .iCaptionWidth, int32_t, 1
-NX_RESERVE .iCaptionHeight, int32_t, 1
-NX_RESERVE .lfCaptionFont, int32_t, 1
-NX_RESERVE .iSMCaptionWidth, int32_t, 1
-NX_RESERVE .iSMCaptionHeight, int32_t, 1
-NX_RESERVE .lfSMCaptionFont, int32_t, 1
-NX_RESERVE .iMenuWidth, int32_t, 1
-NX_RESERVE .iMenuHeight, int32_t, 1
-NX_RESERVE .lfMenuFont, int32_t, 1
-NX_RESERVE .lfStatusFont, int32_t, 1
-NX_RESERVE .lfMessageFont, int32_t, 1
-ENDSTRUC
-
-STRUC ENUMLOGFONT
-NX_RESERVE .elfLogFont, int32_t, 1
-NX_RESERVE .elfFullName, int8_t, 1
-NX_RESERVE .elfStyle, int8_t, 1
-ENDSTRUC
-
-STRUC PANOSE
-NX_RESERVE .ulculture, int32_t, 1
-NX_RESERVE .bFamilyType, int8_t, 1
-NX_RESERVE .bSerifStyle, int8_t, 1
-NX_RESERVE .bWeight, int8_t, 1
-NX_RESERVE .bProportion, int8_t, 1
-NX_RESERVE .bContrast, int8_t, 1
-NX_RESERVE .bStrokeVariation, int8_t, 1
-NX_RESERVE .bArmStyle, int8_t, 1
-NX_RESERVE .bLetterform, int8_t, 1
-NX_RESERVE .bMidline, int8_t, 1
-NX_RESERVE .bXHeight, int8_t, 1
-ENDSTRUC
-
-STRUC EXTLOGFONT
-NX_RESERVE .elfLogFont, int32_t, 1
-NX_RESERVE .elfFullName, int8_t, 1
-NX_RESERVE .elfStyle, int8_t, 1
-NX_RESERVE .elfVersion, int32_t, 1
-NX_RESERVE .elfStyleSize, int32_t, 1
-NX_RESERVE .elfMatch, int32_t, 1
-NX_RESERVE .elfReserved, int32_t, 1
-NX_RESERVE .elfVendorId, int8_t, 1
-NX_RESERVE .elfCulture, int32_t, 1
-NX_RESERVE .elfPanose, int32_t, 1
-ENDSTRUC
-
-STRUC DEVMODE
-NX_RESERVE .dmDeviceName, int8_t, 1
-NX_RESERVE .dmSpecVersion, short_t, 1
-NX_RESERVE .dmDriverVersion, short_t, 1
-NX_RESERVE .dmSize, short_t, 1
-NX_RESERVE .dmDriverExtra, short_t, 1
-NX_RESERVE .dmFields, int32_t, 1
-NX_RESERVE .dmOrientation, short_t, 1
-NX_RESERVE .dmPaperSize, short_t, 1
-NX_RESERVE .dmPaperiLength, short_t, 1
-NX_RESERVE .dmPaperWidth, short_t, 1
-NX_RESERVE .dmScale, short_t, 1
-NX_RESERVE .dmCopies, short_t, 1
-NX_RESERVE .dmDefaultSource, short_t, 1
-NX_RESERVE .dmPrintQuality, short_t, 1
-NX_RESERVE .dmColor, short_t, 1
-NX_RESERVE .dmDuplex, short_t, 1
-NX_RESERVE .dmYResolution, short_t, 1
-NX_RESERVE .dmTTOption, short_t, 1
-NX_RESERVE .dmCollate, short_t, 1
-NX_RESERVE .dmFormName, int8_t, CCHFORMNAME
-NX_RESERVE .dmUnusedPadding, short_t, 1
-NX_RESERVE .dmBitsPerPel, short_t, 1
-NX_RESERVE .dmPelsWidth, int32_t, 1
-NX_RESERVE .dmPelsHeight, int32_t, 1
-NX_RESERVE .dmDisplayFlags, int32_t, 1
-NX_RESERVE .dmDisplayFrequency, int32_t, 1
-ENDSTRUC
-
-STRUC RGNDATAHEADER
-NX_RESERVE .dwSize, int32_t, 1
-NX_RESERVE .iType, int32_t, 1
-NX_RESERVE .nCount, int32_t, 1
-NX_RESERVE .nRgnSize, int32_t, 1
-NX_RESERVE .rcBound, RECT, RECT_size
-ENDSTRUC
-
-STRUC RGNDATA
-NX_RESERVE .rdh, int32_t, 1
-NX_RESERVE .Buffer, int8_t, 1
-ENDSTRUC
-
-STRUC ABC
-NX_RESERVE .abcA, int32_t, 1
-NX_RESERVE .abcB, int32_t, 1
-NX_RESERVE .abcC, int32_t, 1
-ENDSTRUC
-
-STRUC ABCFLOAT
-NX_RESERVE .abcfA, int64_t, 1
-NX_RESERVE .abcfB, int64_t, 1
-NX_RESERVE .abcfC, int64_t, 1
-ENDSTRUC
-
-STRUC OUTLINETEXTMETRIC
-NX_RESERVE .otmSize, int32_t, 1
-NX_RESERVE .otmTextMetrics, int32_t, 1
-NX_RESERVE .otmFiller, int8_t, 1
-NX_RESERVE .otmPanoseNumber, int32_t, 1
-NX_RESERVE .otmfsSelection, int32_t, 1
-NX_RESERVE .otmfsType, int32_t, 1
-NX_RESERVE .otmsCharSlopeRise, int32_t, 1
-NX_RESERVE .otmsCharSlopeRun, int32_t, 1
-NX_RESERVE .otmItalicAngle, int32_t, 1
-NX_RESERVE .otmEMSquare, int32_t, 1
-NX_RESERVE .otmAscent, int32_t, 1
-NX_RESERVE .otmDescent, int32_t, 1
-NX_RESERVE .otmLineGap, int32_t, 1
-NX_RESERVE .otmsCapEmHeight, int32_t, 1
-NX_RESERVE .otmsXHeight, int32_t, 1
-NX_RESERVE .otmrcFontBox, RECT, RECT_size
-NX_RESERVE .otmMacAscent, int32_t, 1
-NX_RESERVE .otmMacDescent, int32_t, 1
-NX_RESERVE .otmMacLineGap, int32_t, 1
-NX_RESERVE .otmusMinimumPPEM, int32_t, 1
-NX_RESERVE .otmptSubscriptSize, int32_t, 1
-NX_RESERVE .otmptSubscriptOffset, int32_t, 1
-NX_RESERVE .otmptSuperscriptSize, int32_t, 1
-NX_RESERVE .otmptSuperscriptOffset, int32_t, 1
-NX_RESERVE .otmsStrikeoutSize, int32_t, 1
-NX_RESERVE .otmsStrikeoutPosition, int32_t, 1
-NX_RESERVE .otmsUnderscorePosition, int32_t, 1
-NX_RESERVE .otmsUnderscoreSize, int32_t, 1
-NX_RESERVE .otmpFamilyName, int32_t, 1
-NX_RESERVE .otmpFaceName, int32_t, 1
-NX_RESERVE .otmpStyleName, int32_t, 1
-NX_RESERVE .otmpFullName, int32_t, 1
-ENDSTRUC
-
-STRUC POLYTEXT
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-NX_RESERVE .n, int32_t, 1
-NX_RESERVE .lpStr, int32_t, 1
-NX_RESERVE .uiFlags, int32_t, 1
-NX_RESERVE .rcl, RECT, RECT_size
-NX_RESERVE .pdx, int32_t, 1
-ENDSTRUC
-
-STRUC FIXED
-NX_RESERVE .fract, short_t, 1
-NX_RESERVE .Value, short_t, 1
-ENDSTRUC
-
-STRUC MAT2
-NX_RESERVE .eM11, int32_t, 1
-NX_RESERVE .eM12, int32_t, 1
-NX_RESERVE .eM21, int32_t, 1
-NX_RESERVE .eM22, int32_t, 1
-ENDSTRUC
-
-STRUC GLYPHMETRICS
-NX_RESERVE .gmBlackBoxX, int32_t, 1
-NX_RESERVE .gmBlackBoxY, int32_t, 1
-NX_RESERVE .gmptGlyphOrigin, int32_t, 1
-NX_RESERVE .gmCellIncX, short_t, 1
-NX_RESERVE .gmCellIncY, short_t, 1
-ENDSTRUC
-
-STRUC POINTFX
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-ENDSTRUC
-
-STRUC TTPOLYCURVE
-NX_RESERVE .wType, short_t, 1
-NX_RESERVE .cpfx, short_t, 1
-NX_RESERVE .apfx, int32_t, 1
-ENDSTRUC
-
-STRUC TTPOLYGONHEADER
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .dwType, int32_t, 1
-NX_RESERVE .pfxStart, int32_t, 1
-ENDSTRUC
-
-STRUC RASTERIZER_STATUS
-NX_RESERVE .nSize, short_t, 1
-NX_RESERVE .wFlags, short_t, 1
-NX_RESERVE .nLanguageID, short_t, 1
-ENDSTRUC
-
-STRUC COLORADJUSTMENT
-NX_RESERVE .caSize, short_t, 1
-NX_RESERVE .caFlags, short_t, 1
-NX_RESERVE .caIlluminantIndex, short_t, 1
-NX_RESERVE .caRedGamma, short_t, 1
-NX_RESERVE .caGreenGamma, short_t, 1
-NX_RESERVE .caBlueGamma, short_t, 1
-NX_RESERVE .caReferenceBlack, short_t, 1
-NX_RESERVE .caReferenceWhite, short_t, 1
-NX_RESERVE .caContrast, short_t, 1
-NX_RESERVE .caBrightness, short_t, 1
-NX_RESERVE .caColorfulness, short_t, 1
-NX_RESERVE .caRedGreenTint, short_t, 1
-ENDSTRUC
-
-STRUC DOCINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .lpszDocName, int32_t, 1
-NX_RESERVE .lpszOutput, int32_t, 1
-ENDSTRUC
-
-STRUC KERNINGPAIR
-NX_RESERVE .wFirst, short_t, 1
-NX_RESERVE .wSecond, short_t, 1
-NX_RESERVE .iKernAmount, int32_t, 1
-ENDSTRUC
-
-STRUC emr
-NX_RESERVE .iType, int32_t, 1
-NX_RESERVE .nSize, int32_t, 1
-ENDSTRUC
-
-STRUC emrtext
-NX_RESERVE .ptlReference, POINT, POINT_size
-NX_RESERVE .nchars, int32_t, 1
-NX_RESERVE .offString, int32_t, 1
-NX_RESERVE .fOptions, int32_t, 1
-NX_RESERVE .ircl, int32_t, 1
-NX_RESERVE .offDx, int32_t, 1
-ENDSTRUC
-
-STRUC EMR
-NX_RESERVE .iType, int32_t, 1
-NX_RESERVE .nSize, int32_t, 1
-ENDSTRUC
-
-STRUC EMRABORTPATH
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRBEGINPATH
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRENDPATH
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRCLOSEFIGURE
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRFLATTENPATH
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRWIDENPATH
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRSETMETARGN
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMREMRSAVEDC
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRREALIZEPALETTE
-NX_RESERVE .emr, EMR, EMR_size
-ENDSTRUC
-
-STRUC EMRSELECTCLIPPATH
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETBKMODE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETMAPMODE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETPOLYFILLMODE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETROP2
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETSTRETCHBLTMODE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETTEXTALIGN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETMITERLIMIT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .eMiterLimit, int64_t, 1
-ENDSTRUC
-
-STRUC EMRRESTOREDC
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iRelative, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETARCDIRECTION
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .iArcDirection, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETMAPPERFLAGS
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .dwFlags, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETTEXTCOLOR
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .crColor, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETBKCOLOR
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .crColor, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSELECTOBJECT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihObject, int32_t, 1
-ENDSTRUC
-
-STRUC EMRDELETEOBJECT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihObject, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSELECTPALETTE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihPal, int32_t, 1
-ENDSTRUC
-
-STRUC EMRRESIZEPALETTE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihPal, int32_t, 1
-NX_RESERVE .cEntries, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETPALETTEENTRIES
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihPal, int32_t, 1
-NX_RESERVE .iStart, int32_t, 1
-NX_RESERVE .cEntries, int32_t, 1
-NX_RESERVE .aPalEntries, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETCOLORADJUSTMENT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ColorAdjustment, int32_t, 1
-ENDSTRUC
-
-STRUC EMRGDICOMMENT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .cbData, int32_t, 1
-NX_RESERVE .xData1, short_t, 1
-ENDSTRUC
-
-STRUC EMREOF
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .nPalEntries, int32_t, 1
-NX_RESERVE .offPalEntries, int32_t, 1
-NX_RESERVE .nSizeLast, int32_t, 1
-ENDSTRUC
-
-STRUC EMRLINETO
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptl, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRMOVETOEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptl, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMROFFSETCLIPRGN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptlOffset, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRFILLPATH
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-ENDSTRUC
-
-STRUC EMRSTROKEANDFILLPATH
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-ENDSTRUC
-
-STRUC EMRSTROKEPATH
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-ENDSTRUC
-
-STRUC EMREXCLUDECLIPRECT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclClip, RECT, RECT_size
-ENDSTRUC
-
-STRUC EMRINTERSECTCLIPRECT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclClip, RECT, RECT_size
-ENDSTRUC
-
-STRUC EMRSETVIEWPORTORGEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptlOrigin, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRSETWINDOWORGEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptlOrigin, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRSETBRUSHORGEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptlOrigin, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRSETVIEWPORTEXTEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .szlExtent, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETWINDOWEXTEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .szlExtent, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSCALEVIEWPORTEXTEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .xNum, int32_t, 1
-NX_RESERVE .xDenom, int32_t, 1
-NX_RESERVE .yNum, int32_t, 1
-NX_RESERVE .yDemon, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSCALEWINDOWEXTEX
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .xNum, int32_t, 1
-NX_RESERVE .xDenom, int32_t, 1
-NX_RESERVE .yNum, int32_t, 1
-NX_RESERVE .yDemon, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETWORLDTRANSFORM
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .xform, int32_t, 1
-ENDSTRUC
-
-STRUC EMRMODIFYWORLDTRANSFORM
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .xform, int32_t, 1
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETPIXELV
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptlPixel, POINT, POINT_size
-NX_RESERVE .crColor, int32_t, 1
-ENDSTRUC
-
-STRUC EMREXTFLOODFILL
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptlStart, POINT, POINT_size
-NX_RESERVE .crColor, int32_t, 1
-NX_RESERVE .iMode, int32_t, 1
-ENDSTRUC
-
-STRUC EMRELLIPSE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBox, RECT, RECT_size
-ENDSTRUC
-
-STRUC EMRRECTANGLE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBox, RECT, RECT_size
-ENDSTRUC
-
-STRUC EMRROUNDRECT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBox, RECT, RECT_size
-NX_RESERVE .szlCorner, int32_t, 1
-ENDSTRUC
-
-STRUC EMRARC
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBox, RECT, RECT_size
-NX_RESERVE .ptlStart, POINT, POINT_size
-NX_RESERVE .ptlEnd, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRARCTO
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBox, RECT, RECT_size
-NX_RESERVE .ptlStart, POINT, POINT_size
-NX_RESERVE .ptlEnd, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRCHORD
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBox, RECT, RECT_size
-NX_RESERVE .ptlStart, POINT, POINT_size
-NX_RESERVE .ptlEnd, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRPIE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBox, RECT, RECT_size
-NX_RESERVE .ptlStart, POINT, POINT_size
-NX_RESERVE .ptlEnd, POINT, POINT_size
-ENDSTRUC
-
-STRUC EMRANGLEARC
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ptlCenter, POINT, POINT_size
-NX_RESERVE .nRadius, int32_t, 1
-NX_RESERVE .eStartAngle, int64_t, 1
-NX_RESERVE .eSweepAngle, int64_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYLINE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cptl, int32_t, 1
-NX_RESERVE .aptl1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYBEZIER
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cptl, int32_t, 1
-NX_RESERVE .aptl1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYGON
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cptl, int32_t, 1
-NX_RESERVE .aptl1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYBEZIERTO
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cptl, int32_t, 1
-NX_RESERVE .aptl1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYLINE16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .apts1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYBEZIER16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .apts1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYGON16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .apts1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPLOYBEZIERTO16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .apts1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYLINETO16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .apts1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYDRAW
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cptl, int32_t, 1
-NX_RESERVE .aptl1, int32_t, 1
-NX_RESERVE .abTypes1, short_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYDRAW16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .apts, int32_t, 1
-NX_RESERVE .abTypes, short_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYPOLYLINE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .nPolys, int32_t, 1
-NX_RESERVE .cptl, int32_t, 1
-NX_RESERVE .aPolyCounts, int32_t, 1
-NX_RESERVE .aptl, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYPOLYGON
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .nPolys, int32_t, 1
-NX_RESERVE .cptl, int32_t, 1
-NX_RESERVE .aPolyCounts, int32_t, 1
-NX_RESERVE .aptl1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYPOLYLINE16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .nPolys, int32_t, 1
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .aPolyCounts, int32_t, 1
-NX_RESERVE .apts1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPOLYPOLYGON16
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .nPolys, int32_t, 1
-NX_RESERVE .cpts, int32_t, 1
-NX_RESERVE .aPolyCounts, int32_t, 1
-NX_RESERVE .apts1, int32_t, 1
-ENDSTRUC
-
-STRUC EMRINVERTRGN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cbRgnData, int32_t, 1
-NX_RESERVE .RgnData1, short_t, 1
-ENDSTRUC
-
-STRUC EMRPAINTRGN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cbRgnData, int32_t, 1
-NX_RESERVE .RgnData1, short_t, 1
-ENDSTRUC
-
-STRUC EMRFILLRGN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cbRgnData, int32_t, 1
-NX_RESERVE .ihBrush, int32_t, 1
-NX_RESERVE .RgnData, short_t, 1
-ENDSTRUC
-
-STRUC EMRFRAMERGN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .cbRgnData, int32_t, 1
-NX_RESERVE .ihBrush, int32_t, 1
-NX_RESERVE .szlStroke, int32_t, 1
-NX_RESERVE .RgnData1, short_t, 1
-ENDSTRUC
-
-STRUC EMREXTSELECTCLIPRGN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .cbRgnData, int32_t, 1
-NX_RESERVE .iMode, int32_t, 1
-NX_RESERVE .RgnData, short_t, 1
-ENDSTRUC
-
-STRUC EMREXTTEXTOUT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .iGraphicsMode, int32_t, 1
-NX_RESERVE .exScale, int64_t, 1
-NX_RESERVE .eyScale, int64_t, 1
-NX_RESERVE .emrtext, int32_t, 1
-ENDSTRUC
-
-STRUC EMRBITBLT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .xDest, int32_t, 1
-NX_RESERVE .yDest, int32_t, 1
-NX_RESERVE .cxDest, int32_t, 1
-NX_RESERVE .cyDest, int32_t, 1
-NX_RESERVE .dwRop, int32_t, 1
-NX_RESERVE .xSrc, int32_t, 1
-NX_RESERVE .ySrc, int32_t, 1
-NX_RESERVE .xformSrc, int32_t, 1
-NX_RESERVE .crBkColorSrc, int32_t, 1
-NX_RESERVE .iUsageSrc, int32_t, 1
-NX_RESERVE .offBmiSrc, int32_t, 1
-NX_RESERVE .cbBmiSrc, int32_t, 1
-NX_RESERVE .offBitsSrc, int32_t, 1
-NX_RESERVE .cbBitsSrc, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSTRETCHBLT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .xDest, int32_t, 1
-NX_RESERVE .yDest, int32_t, 1
-NX_RESERVE .cxDest, int32_t, 1
-NX_RESERVE .cyDest, int32_t, 1
-NX_RESERVE .dwRop, int32_t, 1
-NX_RESERVE .xSrc, int32_t, 1
-NX_RESERVE .ySrc, int32_t, 1
-NX_RESERVE .xformSrc, int32_t, 1
-NX_RESERVE .crBkColorSrc, int32_t, 1
-NX_RESERVE .iUsageSrc, int32_t, 1
-NX_RESERVE .offBmiSrc, int32_t, 1
-NX_RESERVE .cbBmiSrc, int32_t, 1
-NX_RESERVE .offBitsSrc, int32_t, 1
-NX_RESERVE .cbBitsSrc, int32_t, 1
-NX_RESERVE .cxSrc, int32_t, 1
-NX_RESERVE .cySrc, int32_t, 1
-ENDSTRUC
-
-STRUC EMRMASKBLT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .xDest, int32_t, 1
-NX_RESERVE .yDest, int32_t, 1
-NX_RESERVE .cxDest, int32_t, 1
-NX_RESERVE .cyDest, int32_t, 1
-NX_RESERVE .dwRop, int32_t, 1
-NX_RESERVE .xSrc2, int32_t, 1
-NX_RESERVE .cyDest2, int32_t, 1
-NX_RESERVE .dwRop2, int32_t, 1
-NX_RESERVE .xSrc, int32_t, 1
-NX_RESERVE .ySrc, int32_t, 1
-NX_RESERVE .xformSrc, int32_t, 1
-NX_RESERVE .crBkColorSrc, int32_t, 1
-NX_RESERVE .iUsageSrc, int32_t, 1
-NX_RESERVE .offBmiSrc, int32_t, 1
-NX_RESERVE .cbBmiSrc, int32_t, 1
-NX_RESERVE .offBitsSrc, int32_t, 1
-NX_RESERVE .cbBitsSrc, int32_t, 1
-NX_RESERVE .xMask, int32_t, 1
-NX_RESERVE .yMask, int32_t, 1
-NX_RESERVE .iUsageMask, int32_t, 1
-NX_RESERVE .offBmiMask, int32_t, 1
-NX_RESERVE .cbBmiMask, int32_t, 1
-NX_RESERVE .offBitsMask, int32_t, 1
-NX_RESERVE .cbBitsMask, int32_t, 1
-ENDSTRUC
-
-STRUC EMRPLGBLT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .aptlDest3, int32_t, 1
-NX_RESERVE .xSrc, int32_t, 1
-NX_RESERVE .ySrc, int32_t, 1
-NX_RESERVE .cxSrc, int32_t, 1
-NX_RESERVE .cySrc, int32_t, 1
-NX_RESERVE .xformSrc, int32_t, 1
-NX_RESERVE .crBkColorSrc, int32_t, 1
-NX_RESERVE .iUsageSrc, int32_t, 1
-NX_RESERVE .offBmiSrc, int32_t, 1
-NX_RESERVE .cbBmiSrc, int32_t, 1
-NX_RESERVE .offBitsSrc, int32_t, 1
-NX_RESERVE .cbBitsSrc, int32_t, 1
-NX_RESERVE .xMask, int32_t, 1
-NX_RESERVE .yMask, int32_t, 1
-NX_RESERVE .iUsageMask, int32_t, 1
-NX_RESERVE .offBmiMask, int32_t, 1
-NX_RESERVE .cbBmiMask, int32_t, 1
-NX_RESERVE .offBitsMask, int32_t, 1
-NX_RESERVE .cbBitsMask, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSETDIBITSTODEVICE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .xDest, int32_t, 1
-NX_RESERVE .yDest, int32_t, 1
-NX_RESERVE .xSrc, int32_t, 1
-NX_RESERVE .ySrc, int32_t, 1
-NX_RESERVE .cxSrc, int32_t, 1
-NX_RESERVE .cySrc, int32_t, 1
-NX_RESERVE .offBmiSrc, int32_t, 1
-NX_RESERVE .cbBmiSrc, int32_t, 1
-NX_RESERVE .offBitsSrc, int32_t, 1
-NX_RESERVE .cbBitsSrc, int32_t, 1
-NX_RESERVE .iUsageSrc, int32_t, 1
-NX_RESERVE .iStartScan, int32_t, 1
-NX_RESERVE .cScans, int32_t, 1
-ENDSTRUC
-
-STRUC EMRSTRETCHDIBITS
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .rclBounds, RECT, RECT_size
-NX_RESERVE .xDest, int32_t, 1
-NX_RESERVE .yDest, int32_t, 1
-NX_RESERVE .xSrc, int32_t, 1
-NX_RESERVE .ySrc, int32_t, 1
-NX_RESERVE .cxSrc, int32_t, 1
-NX_RESERVE .cySrc, int32_t, 1
-NX_RESERVE .offBmiSrc, int32_t, 1
-NX_RESERVE .cbBmiSrc, int32_t, 1
-NX_RESERVE .offBitsSrc, int32_t, 1
-NX_RESERVE .cbBitsSrc, int32_t, 1
-NX_RESERVE .iUsageSrc, int32_t, 1
-NX_RESERVE .dwRop, int32_t, 1
-NX_RESERVE .cxDest, int32_t, 1
-NX_RESERVE .cyDest, int32_t, 1
-ENDSTRUC
-
-STRUC EMREXTCREATEFONTINDIRECT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihFont, int32_t, 1
-NX_RESERVE .elfw, int32_t, 1
-ENDSTRUC
-
-STRUC EMRCREATEPALETTE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihPal, int32_t, 1
-NX_RESERVE .lgpl, int32_t, 1
-ENDSTRUC
-
-STRUC EMRCREATEPEN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihPen, int32_t, 1
-NX_RESERVE .lopn, int32_t, 1
-ENDSTRUC
-
-STRUC EMREXTCREATEPEN
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihPen, int32_t, 1
-NX_RESERVE .offBmi, int32_t, 1
-NX_RESERVE .cbBmi, int32_t, 1
-NX_RESERVE .offBits, int32_t, 1
-NX_RESERVE .cbBits, int32_t, 1
-NX_RESERVE .elp, int32_t, 1
-ENDSTRUC
-
-STRUC EMRCREATEBRUSHINDIRECT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihBrush, int32_t, 1
-NX_RESERVE .lb, int32_t, 1
-ENDSTRUC
-
-STRUC EMRCREATEMONOBRUSH
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihBrush, int32_t, 1
-NX_RESERVE .iUsage, int32_t, 1
-NX_RESERVE .offBmi, int32_t, 1
-NX_RESERVE .cbBmi, int32_t, 1
-NX_RESERVE .offBits, int32_t, 1
-NX_RESERVE .cbBits, int32_t, 1
-ENDSTRUC
-
-STRUC EMRCREATEDIBPATTERNBRUSHPT
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihBursh, int32_t, 1
-NX_RESERVE .iUsage, int32_t, 1
-NX_RESERVE .offBmi, int32_t, 1
-NX_RESERVE .cbBmi, int32_t, 1
-NX_RESERVE .offBits, int32_t, 1
-NX_RESERVE .cbBits, int32_t, 1
-ENDSTRUC
-
-STRUC BITMAPV4HEADER
-NX_RESERVE .bV4Size, int32_t, 1
-NX_RESERVE .bV4Width, int32_t, 1
-NX_RESERVE .bV4Height, int32_t, 1
-NX_RESERVE .bV4Planes, short_t, 1
-NX_RESERVE .bV4BitCount, short_t, 1
-NX_RESERVE .bV4V4Compression, int32_t, 1
-NX_RESERVE .bV4SizeImage, int32_t, 1
-NX_RESERVE .bV4XPelsPerMeter, int32_t, 1
-NX_RESERVE .bV4YPelsPerMeter, int32_t, 1
-NX_RESERVE .bV4ClrUsed, int32_t, 1
-NX_RESERVE .bV4ClrImportant, int32_t, 1
-NX_RESERVE .bV4RedMask, int32_t, 1
-NX_RESERVE .bV4GreenMask, int32_t, 1
-NX_RESERVE .bV4BlueMask, int32_t, 1
-NX_RESERVE .bV4AlphaMask, int32_t, 1
-NX_RESERVE .bV4CSType, int32_t, 1
-NX_RESERVE .bV4Endpoints, int32_t, 1
-NX_RESERVE .bV4GammaRed, int32_t, 1
-NX_RESERVE .bV4GammaGreen, int32_t, 1
-NX_RESERVE .bV4GammaBlue, int32_t, 1
-ENDSTRUC
-
-STRUC FONTSIGNATURE
-NX_RESERVE .fsUsb4, int32_t, 1
-NX_RESERVE .fsCsb2, int32_t, 1
-ENDSTRUC
-
-STRUC CHARSETINFO
-NX_RESERVE .ciCharset, int32_t, 1
-NX_RESERVE .ciACP, int32_t, 1
-NX_RESERVE .xlfs, int32_t, 1
-ENDSTRUC
-
-STRUC LOCALESIGNATURE
-NX_RESERVE .lsUsb4, int32_t, 1
-NX_RESERVE .lsCsbDefault, int32_t, 1
-NX_RESERVE .lsCsbSupported, int32_t, 1
-ENDSTRUC
-
-STRUC NEWTEXTMETRICEX
-NX_RESERVE .ntmTm, int32_t, 1
-NX_RESERVE .ntmFontSig, int32_t, 1
-ENDSTRUC
-
-STRUC ENUMLOGFONTEX
-NX_RESERVE .elfLogFont, int32_t, 1
-NX_RESERVE .elfFullName, int8_t, 1
-NX_RESERVE .elfStyle, int8_t, 1
-NX_RESERVE .elfScript, int8_t, 1
-ENDSTRUC
-
-STRUC GCP_RESULTS
-NX_RESERVE .lStructSize, int32_t, 1
-NX_RESERVE .lpOutString, int32_t, 1
-NX_RESERVE .lpOrder, int32_t, 1
-NX_RESERVE .lpDX, int32_t, 1
-NX_RESERVE .lpCaretPos, int32_t, 1
-NX_RESERVE .lpClass, int32_t, 1
-NX_RESERVE .lpGlyphs, int32_t, 1
-NX_RESERVE .nGlyphs, int32_t, 1
-NX_RESERVE .nMaxFit, int32_t, 1
-ENDSTRUC
-
-STRUC CIEXYZ
-NX_RESERVE .ciexyzX, int32_t, 1
-NX_RESERVE .ciexyzY, int32_t, 1
-NX_RESERVE .ciexyzZ, int32_t, 1
-ENDSTRUC
-
-STRUC CIEXYZTRIPLE
-NX_RESERVE .ciexyzRed, int32_t, 1
-NX_RESERVE .ciexyzGreen, int32_t, 1
-NX_RESERVE .ciexyBlue, int32_t, 1
-ENDSTRUC
-
-STRUC LOGCOLORSPACE
-NX_RESERVE .lcsSignature, int32_t, 1
-NX_RESERVE .lcsVersion, int32_t, 1
-NX_RESERVE .lcsSize, int32_t, 1
-NX_RESERVE .lcsCSType, int32_t, 1
-NX_RESERVE .lcsIntent, int32_t, 1
-NX_RESERVE .lcsEndPoints, int32_t, 1
-NX_RESERVE .lcsGammaRed, int32_t, 1
-NX_RESERVE .lcsGammaGreen, int32_t, 1
-NX_RESERVE .lcsGammaBlue, int32_t, 1
-NX_RESERVE .lcsFileName, int8_t, MAX_PATH
-ENDSTRUC
-
-STRUC EMRSELECTCOLORSPACE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihCS, int32_t, 1
-ENDSTRUC
-
-STRUC EMRCREATECOLORSPACE
-NX_RESERVE .emr, EMR, EMR_size
-NX_RESERVE .ihCS, int32_t, 1
-NX_RESERVE .lcs, int32_t, 1
-ENDSTRUC
-
-STRUC CBTACTIVATESTRUCT
-NX_RESERVE .fMouse, int32_t, 1
-NX_RESERVE .hWndActive, int32_t, 1
-ENDSTRUC
-
-STRUC EVENTMSG
-NX_RESERVE .message, int32_t, 1
-NX_RESERVE .paramL, int32_t, 1
-NX_RESERVE .paramH, int32_t, 1
-NX_RESERVE .time, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-ENDSTRUC
-
-STRUC CWPSTRUCT
-NX_RESERVE .lParam, int32_t, 1
-NX_RESERVE .wParam, int32_t, 1
-NX_RESERVE .message, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-ENDSTRUC
-
-STRUC DEBUGHOOKINFO
-NX_RESERVE .hModuleHook, int32_t, 1
-NX_RESERVE .Reserved, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-NX_RESERVE .wParam, int32_t, 1
-NX_RESERVE .code, int32_t, 1
-ENDSTRUC
-
-STRUC MOUSEHOOKSTRUCT
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .wHitTestCode, int32_t, 1
-NX_RESERVE .dwExtraInfo, int32_t, 1
-ENDSTRUC
-
-STRUC MINMAXINFO
-NX_RESERVE .ptReserved, POINT, POINT_size
-NX_RESERVE .ptMaxSize, POINT, POINT_size
-NX_RESERVE .ptMaxPosition, POINT, POINT_size
-NX_RESERVE .ptMinTrackSize, POINT, POINT_size
-NX_RESERVE .ptMaxTrackSize, POINT, POINT_size
-ENDSTRUC
-
-STRUC COPYDATASTRUCT
-NX_RESERVE .dwData, int32_t, 1
-NX_RESERVE .cbData, int32_t, 1
-NX_RESERVE .lpData, int32_t, 1
-ENDSTRUC
-
-STRUC WINDOWPOS
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .hWndInsertAfter, int32_t, 1
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-NX_RESERVE .lx, int32_t, 1
-NX_RESERVE .ly, int32_t, 1
-NX_RESERVE .flags, int32_t, 1
-ENDSTRUC
-
-STRUC ACCEL
-NX_RESERVE .fVirt, int8_t, 1
-NX_RESERVE .key, short_t, 1
-NX_RESERVE .cmd, short_t, 1
-ENDSTRUC
-
-STRUC PAINTSTRUCT
-NX_RESERVE .hdc, int32_t, 1
-NX_RESERVE .fErase, int32_t, 1
-NX_RESERVE .rcPaint, RECT, RECT_size
-NX_RESERVE .fRestore, int32_t, 1
-NX_RESERVE .fIncUpdate, int32_t, 1
-NX_RESERVE .rgbReserved, int8_t, 32 
-ENDSTRUC
-
-STRUC CREATESTRUCT
-NX_RESERVE .lpCreateParams, int32_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .hMenu, int32_t, 1
-NX_RESERVE .hWndParent, int32_t, 1
-NX_RESERVE .ly, int32_t, 1
-NX_RESERVE .lx, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .style, int32_t, 1
-NX_RESERVE .lpszName, int32_t, 1
-NX_RESERVE .lpszClass, int32_t, 1
-NX_RESERVE .ExStyle, int32_t, 1
-ENDSTRUC
-
-STRUC CBT_CREATEWND
-NX_RESERVE .lpcs, int32_t, 1
-NX_RESERVE .hWndInsertAfter, int32_t, 1
-ENDSTRUC
-
-STRUC WINDOWPLACEMENT
-NX_RESERVE .iLength, int32_t, 1
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .showCmd, int32_t, 1
-NX_RESERVE .ptMinPosition, POINT, POINT_size
-NX_RESERVE .ptMaxPosition, POINT, POINT_size
-NX_RESERVE .rcNormalPosition, RECT, RECT_size
-ENDSTRUC
-
-STRUC MEASUREITEMSTRUCT
-NX_RESERVE .CtlType, int32_t, 1
-NX_RESERVE .CtlID, int32_t, 1
-NX_RESERVE .itemID, int32_t, 1
-NX_RESERVE .itemWidth, int32_t, 1
-NX_RESERVE .itemHeight, int32_t, 1
-NX_RESERVE .itemData, int32_t, 1
-ENDSTRUC
-
-STRUC DRAWITEMSTRUCT
-NX_RESERVE .CtlType, int32_t, 1
-NX_RESERVE .CtlID, int32_t, 1
-NX_RESERVE .itemID, int32_t, 1
-NX_RESERVE .itemAction, int32_t, 1
-NX_RESERVE .itemState, int32_t, 1
-NX_RESERVE .hwndItem, int32_t, 1
-NX_RESERVE .hDC, int32_t, 1
-NX_RESERVE .rcItem, RECT, RECT_size
-NX_RESERVE .itemData, int32_t, 1
-ENDSTRUC
-
-STRUC DELETEITEMSTRUCT
-NX_RESERVE .CtlType, int32_t, 1
-NX_RESERVE .CtlID, int32_t, 1
-NX_RESERVE .itemID, int32_t, 1
-NX_RESERVE .hwndItem, int32_t, 1
-NX_RESERVE .itemData, int32_t, 1
-ENDSTRUC
-
-STRUC COMPAREITEMSTRUCT
-NX_RESERVE .CtlType, int32_t, 1
-NX_RESERVE .CtlID, int32_t, 1
-NX_RESERVE .hwndItem, int32_t, 1
-NX_RESERVE .itemID1, int32_t, 1
-NX_RESERVE .itemData1, int32_t, 1
-NX_RESERVE .itemID2, int32_t, 1
-NX_RESERVE .itemData2, int32_t, 1
-ENDSTRUC
-
-STRUC DLGTEMPLATE
-NX_RESERVE .style, int32_t, 1
-NX_RESERVE .dwExtendedStyle, int32_t, 1
-NX_RESERVE .cdit, short_t, 1
-NX_RESERVE .x, short_t, 1
-NX_RESERVE .y, short_t, 1
-NX_RESERVE .lx, short_t, 1
-NX_RESERVE .ly, short_t, 1
-ENDSTRUC
-
-STRUC DLGITEMTEMPLATE
-NX_RESERVE .style, int32_t, 1
-NX_RESERVE .dwExtendedStyle, int32_t, 1
-NX_RESERVE .x, short_t, 1
-NX_RESERVE .y, short_t, 1
-NX_RESERVE .lx, short_t, 1
-NX_RESERVE .ly, short_t, 1
-NX_RESERVE .id, short_t, 1
-ENDSTRUC
-
-STRUC MENUITEMTEMPLATEHEADER
-NX_RESERVE .versionNumber, short_t, 1
-NX_RESERVE .loffset, short_t, 1
-ENDSTRUC
-
-STRUC MENUITEMTEMPLATE
-NX_RESERVE .mtOption, short_t, 1
-NX_RESERVE .mtID, short_t, 1
-NX_RESERVE .mtString, int8_t, 1
-ENDSTRUC
-
-STRUC ICONINFO
-NX_RESERVE .fIcon, int32_t, 1
-NX_RESERVE .xHotspot, int32_t, 1
-NX_RESERVE .yHotspot, int32_t, 1
-NX_RESERVE .hbmMask, int32_t, 1
-NX_RESERVE .hbmColor, int32_t, 1
-ENDSTRUC
-
-STRUC MDICREATESTRUCT
-NX_RESERVE .szClass, int32_t, 1
-NX_RESERVE .szTitle, int32_t, 1
-NX_RESERVE .hOwner, int32_t, 1
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-NX_RESERVE .lx, int32_t, 1
-NX_RESERVE .ly, int32_t, 1
-NX_RESERVE .style, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC CLIENTCREATESTRUCT
-NX_RESERVE .hWindowMenu, int32_t, 1
-NX_RESERVE .idFirstChild, int32_t, 1
-ENDSTRUC
-
-STRUC MULTIKEYHELP
-NX_RESERVE .mkSize, int32_t, 1
-NX_RESERVE .mkKeylist, int8_t, 1
-NX_RESERVE .szKeyphrase, int8_t, 253
-ENDSTRUC
-
-STRUC HELPWININFO
-NX_RESERVE .wStructSize, int32_t, 1
-NX_RESERVE .x, int32_t, 1
-NX_RESERVE .y, int32_t, 1
-NX_RESERVE .lx, int32_t, 1
-NX_RESERVE .ly, int32_t, 1
-NX_RESERVE .wMax, int32_t, 1
-NX_RESERVE .rgchMember, int8_t, 2
-ENDSTRUC
-
-STRUC DDEACK
-NX_RESERVE .bAppReturnCode, short_t, 1
-NX_RESERVE .Reserved, short_t, 1
-NX_RESERVE .fbusy, short_t, 1
-NX_RESERVE .fack, short_t, 1
-ENDSTRUC
-
-STRUC DDEADVISE
-NX_RESERVE .Reserved, short_t, 1
-NX_RESERVE .fDeferUpd, short_t, 1
-NX_RESERVE .fAckReq, short_t, 1
-NX_RESERVE .cfFormat, short_t, 1
-ENDSTRUC
-
-STRUC DDEDATA
-NX_RESERVE .unused, short_t, 1
-NX_RESERVE .fresponse, short_t, 1
-NX_RESERVE .fRelease, short_t, 1
-NX_RESERVE .Reserved, short_t, 1
-NX_RESERVE .fAckReq, short_t, 1
-NX_RESERVE .cfFormat, short_t, 1
-NX_RESERVE .Value1, int8_t, 1
-ENDSTRUC
-
-STRUC DDEPOKE
-NX_RESERVE .unused, short_t, 1
-NX_RESERVE .fRelease, short_t, 1
-NX_RESERVE .fReserved, short_t, 1
-NX_RESERVE .cfFormat, short_t, 1
-NX_RESERVE .Value1, int8_t, 1
-ENDSTRUC
-
-STRUC DDELN
-NX_RESERVE .unused, short_t, 1
-NX_RESERVE .fRelease, short_t, 1
-NX_RESERVE .fDeferUpd, short_t, 1
-NX_RESERVE .fAckReq, short_t, 1
-NX_RESERVE .cfFormat, short_t, 1
-ENDSTRUC
-
-STRUC DDEUP
-NX_RESERVE .unused, short_t, 1
-NX_RESERVE .fAck, short_t, 1
-NX_RESERVE .fRelease, short_t, 1
-NX_RESERVE .fReserved, short_t, 1
-NX_RESERVE .fAckReq, short_t, 1
-NX_RESERVE .cfFormat, short_t, 1
-NX_RESERVE .xRGB1, int8_t, 1
-ENDSTRUC
-
-STRUC HSZPAIR
-NX_RESERVE .hszSvc, int32_t, 1
-NX_RESERVE .hszTopic, int32_t, 1
-ENDSTRUC
-
-STRUC SECURITY_QUALITY_OF_SERVICE
-NX_RESERVE .iLength, int32_t, 1
-NX_RESERVE .Impersonationlevel, short_t, 1
-NX_RESERVE .ContextTrackingMode, short_t, 1
-NX_RESERVE .EffectiveOnly, int32_t, 1
-ENDSTRUC
-
-STRUC CONVCONTEXT
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .wFlags, int32_t, 1
-NX_RESERVE .wCountryID, int32_t, 1
-NX_RESERVE .iCodePage, int32_t, 1
-NX_RESERVE .dwLangID, int32_t, 1
-NX_RESERVE .dwSecurity, int32_t, 1
-NX_RESERVE .qos, int32_t, 1
-ENDSTRUC
-
-STRUC CONVINFO
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .hUser, int32_t, 1
-NX_RESERVE .hConvPartner, int32_t, 1
-NX_RESERVE .hszSvcPartner, int32_t, 1
-NX_RESERVE .hszServiceReq, int32_t, 1
-NX_RESERVE .hszTopic, int32_t, 1
-NX_RESERVE .hszItem, int32_t, 1
-NX_RESERVE .wFmt, int32_t, 1
-NX_RESERVE .wType, int32_t, 1
-NX_RESERVE .wStatus, int32_t, 1
-NX_RESERVE .wConvst, int32_t, 1
-NX_RESERVE .wLastError, int32_t, 1
-NX_RESERVE .hConvList, int32_t, 1
-NX_RESERVE .ConvCtxt, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .hwndPartner, int32_t, 1
-ENDSTRUC
-
-STRUC DDEML_MSG_HOOK_DATA
-NX_RESERVE .uiLo, int32_t, 1
-NX_RESERVE .uiHi, int32_t, 1
-NX_RESERVE .cbData, int32_t, 1
-NX_RESERVE .xData, int32_t, 1
-ENDSTRUC
-
-STRUC MONMSGSTRUCT
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .hwndTo, int32_t, 1
-NX_RESERVE .dwTime, int32_t, 1
-NX_RESERVE .htask, int32_t, 1
-NX_RESERVE .wMsg, int32_t, 1
-NX_RESERVE .wParam, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-NX_RESERVE .dmhd, int32_t, 1
-ENDSTRUC
-
-STRUC MONCBSTRUCT
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .dwTime, int32_t, 1
-NX_RESERVE .htask, int32_t, 1
-NX_RESERVE .dwRet, int32_t, 1
-NX_RESERVE .wType, int32_t, 1
-NX_RESERVE .wFmt, int32_t, 1
-NX_RESERVE .hConv, int32_t, 1
-NX_RESERVE .hsz1, int32_t, 1
-NX_RESERVE .hsz2, int32_t, 1
-NX_RESERVE .hData, int32_t, 1
-NX_RESERVE .dwData1, int32_t, 1
-NX_RESERVE .dwData2, int32_t, 1
-NX_RESERVE .cc, int32_t, 1
-NX_RESERVE .cbData, int32_t, 1
-NX_RESERVE .xData8, int32_t, 1
-ENDSTRUC
-
-STRUC MONHSZSTRUCT
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .fsAction, int32_t, 1
-NX_RESERVE .dwTime, int32_t, 1
-NX_RESERVE .hsz, int32_t, 1
-NX_RESERVE .htask, int32_t, 1
-NX_RESERVE .xstr, int8_t, 1
-ENDSTRUC
-
-STRUC MONERRSTRUCT
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .wLastError, int32_t, 1
-NX_RESERVE .dwTime, int32_t, 1
-NX_RESERVE .htask, int32_t, 1
-ENDSTRUC
-
-STRUC MONLINKSTRUCT
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .dwTime, int32_t, 1
-NX_RESERVE .htask, int32_t, 1
-NX_RESERVE .fEstablished, int32_t, 1
-NX_RESERVE .fNoData, int32_t, 1
-NX_RESERVE .hszSvc, int32_t, 1
-NX_RESERVE .hszTopic, int32_t, 1
-NX_RESERVE .hszItem, int32_t, 1
-NX_RESERVE .wFmt, int32_t, 1
-NX_RESERVE .fServer, int32_t, 1
-NX_RESERVE .hConvServer, int32_t, 1
-NX_RESERVE .hConvClient, int32_t, 1
-ENDSTRUC
-
-STRUC MONCONVSTRUCT
-NX_RESERVE .cb, int32_t, 1
-NX_RESERVE .fConnect, int32_t, 1
-NX_RESERVE .dwTime, int32_t, 1
-NX_RESERVE .htask, int32_t, 1
-NX_RESERVE .hszSvc, int32_t, 1
-NX_RESERVE .hszTopic, int32_t, 1
-NX_RESERVE .hConvClient, int32_t, 1
-NX_RESERVE .hConvServer, int32_t, 1
-ENDSTRUC
-
-STRUC smpte
-NX_RESERVE .hour, int8_t, 1
-NX_RESERVE .minute, int8_t, 1
-NX_RESERVE .sec, int8_t, 1
-NX_RESERVE .frame, int8_t, 1
-NX_RESERVE .fps, int8_t, 1
-NX_RESERVE .dummy, int8_t, 1
-NX_RESERVE .pad, int8_t, 1
-ENDSTRUC
-
-STRUC midi
-NX_RESERVE .songptrpos, int32_t, 1
-ENDSTRUC
-
-STRUC MMTIME
-NX_RESERVE .wType, int32_t, 1
-NX_RESERVE .u, int32_t, 1
-ENDSTRUC
-
-STRUC MIDIEVENT
-NX_RESERVE .dwDeltaTime, int32_t, 1
-NX_RESERVE .dwStreamID, int32_t, 1
-NX_RESERVE .dwEvent, int32_t, 1
-NX_RESERVE .dwParms, int32_t, 1
-ENDSTRUC
-
-STRUC MIDISTRMBUFFVER
-NX_RESERVE .dwVersion, int32_t, 1
-NX_RESERVE .dwMid, int32_t, 1
-NX_RESERVE .dwOEMVersion, int32_t, 1
-ENDSTRUC
-
-STRUC MIDIPROPTIMEDIV
-NX_RESERVE .cbStruct, int32_t, 1
-NX_RESERVE .dwTimeDiv, int32_t, 1
-ENDSTRUC
-
-STRUC MIDIPROPTEMPO
-NX_RESERVE .cbStruct, int32_t, 1
-NX_RESERVE .dwTempo, int32_t, 1
-ENDSTRUC
-
-STRUC MIXERCAPS
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .vDriverVersion, int32_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-NX_RESERVE .fdwSupport, int32_t, 1
-NX_RESERVE .cDestinations, int32_t, 1
-ENDSTRUC
-
-STRUC Target
-NX_RESERVE .dwType, int32_t, 1
-NX_RESERVE .dwDeviceID, int32_t, 1
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .vDriverVersion, int32_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-ENDSTRUC
-
-STRUC MIXERLINECONTROLS
-NX_RESERVE .cbStruct, int32_t, 1
-NX_RESERVE .dwLineID, int32_t, 1
-NX_RESERVE .dwControl, int32_t, 1
-NX_RESERVE .cControls, int32_t, 1
-NX_RESERVE .cbmxctrl, int32_t, 1
-NX_RESERVE .pamxctrl, int32_t, 1
-ENDSTRUC
-
-STRUC MIXERCONTROLDETAILS
-NX_RESERVE .cbStruct, int32_t, 1
-NX_RESERVE .dwControlID, int32_t, 1
-NX_RESERVE .cChannels, int32_t, 1
-NX_RESERVE .item, int32_t, 1
-NX_RESERVE .cbDetails, int32_t, 1
-NX_RESERVE .paDetails, int32_t, 1
-ENDSTRUC
-
-STRUC MIXERCONTROLDETAILS_BOOLEAN
-NX_RESERVE .fValue, int32_t, 1
-ENDSTRUC
-
-STRUC MIXERCONTROLDETAILS_SIGNED
-NX_RESERVE .lValue, int32_t, 1
-ENDSTRUC
-
-STRUC MIXERCONTROLDETAILS_UNSIGNED
-NX_RESERVE .dwValue, int32_t, 1
-ENDSTRUC
-
-STRUC JOYINFOEX
-NX_RESERVE .dwSize, int32_t, 1
-NX_RESERVE .dwFlags, int32_t, 1
-NX_RESERVE .dwXpos, int32_t, 1
-NX_RESERVE .dwYpos, int32_t, 1
-NX_RESERVE .dwZpos, int32_t, 1
-NX_RESERVE .dwRpos, int32_t, 1
-NX_RESERVE .dwUpos, int32_t, 1
-NX_RESERVE .dwVpos, int32_t, 1
-NX_RESERVE .dwButtons, int32_t, 1
-NX_RESERVE .dwButtonNumber, int32_t, 1
-NX_RESERVE .dwPOV, int32_t, 1
-NX_RESERVE .dwReserved1, int32_t, 1
-NX_RESERVE .dwReserved2, int32_t, 1
-ENDSTRUC
-
-STRUC DRVCONFIGINFO
-NX_RESERVE .dwDCISize, int32_t, 1
-NX_RESERVE .lpszDCISectionName, int32_t, 1
-NX_RESERVE .lpszDCIAliasName, int32_t, 1
-NX_RESERVE .dnDevNode, int32_t, 1
-ENDSTRUC
-
-STRUC WAVEHDR
-NX_RESERVE .lpData, int32_t, 1
-NX_RESERVE .dwBufferiLength, int32_t, 1
-NX_RESERVE .dwBytesRecorded, int32_t, 1
-NX_RESERVE .dwUser, int32_t, 1
-NX_RESERVE .dwFlags, int32_t, 1
-NX_RESERVE .dwLoops, int32_t, 1
-NX_RESERVE .lpNext, int32_t, 1
-NX_RESERVE .Reserved, int32_t, 1
-ENDSTRUC
-
-STRUC WAVEOUTCAPS
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .vDriverVersion, int32_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-NX_RESERVE .dwFormats, int32_t, 1
-NX_RESERVE .wChannels, short_t, 1
-NX_RESERVE .dwSupport, int32_t, 1
-ENDSTRUC
-
-STRUC WAVEINCAPS
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .vDriverVersion, int32_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-NX_RESERVE .dwFormats, int32_t, 1
-NX_RESERVE .wChannels, short_t, 1
-ENDSTRUC
-
-STRUC WAVEFORMAT
-NX_RESERVE .wFormatTag, short_t, 1
-NX_RESERVE .nChannels, short_t, 1
-NX_RESERVE .nSamplesPerSec, int32_t, 1
-NX_RESERVE .nAvgBytesPerSec, int32_t, 1
-NX_RESERVE .nBlockAlign, short_t, 1
-ENDSTRUC
-
-STRUC PCMWAVEFORMAT
-NX_RESERVE .wf, int32_t, 1
-NX_RESERVE .wBitsPerSample, short_t, 1
-ENDSTRUC
-
-STRUC MIDIOUTCAPS
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .vDriverVersion, int32_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-NX_RESERVE .wTechnology, short_t, 1
-NX_RESERVE .wVoices, short_t, 1
-NX_RESERVE .wNotes, short_t, 1
-NX_RESERVE .wChannelMask, short_t, 1
-NX_RESERVE .dwSupport, int32_t, 1
-ENDSTRUC
-
-STRUC MIDIINCAPS
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .vDriverVersion, int32_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-ENDSTRUC
-
-STRUC MIDIHDR
-NX_RESERVE .lpData, int32_t, 1
-NX_RESERVE .dwBufferiLength, int32_t, 1
-NX_RESERVE .dwBytesRecorded, int32_t, 1
-NX_RESERVE .dwUser, int32_t, 1
-NX_RESERVE .dwFlags, int32_t, 1
-NX_RESERVE .lpNext, int32_t, 1
-NX_RESERVE .Reserved, int32_t, 1
-ENDSTRUC
-
-STRUC AUXCAPS
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .vDriverVersion, int32_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-NX_RESERVE .wTechnology, short_t, 1
-NX_RESERVE .dwSupport, int32_t, 1
-ENDSTRUC
-
-STRUC TIMECAPS
-NX_RESERVE .wPeriodMin, int32_t, 1
-NX_RESERVE .wPeriodMax, int32_t, 1
-ENDSTRUC
-
-STRUC JOYCAPS
-NX_RESERVE .wMid, short_t, 1
-NX_RESERVE .wPid, short_t, 1
-NX_RESERVE .szPname, int8_t, MAXPNAMELEN
-NX_RESERVE .wXmin, short_t, 1
-NX_RESERVE .wXmax, short_t, 1
-NX_RESERVE .wYmin, short_t, 1
-NX_RESERVE .wYmax, short_t, 1
-NX_RESERVE .wZmin, short_t, 1
-NX_RESERVE .wZmax, short_t, 1
-NX_RESERVE .wNumButtons, short_t, 1
-NX_RESERVE .wPeriodMin, short_t, 1
-NX_RESERVE .wPeriodMax, short_t, 1
-ENDSTRUC
-
-STRUC JOYINFO
-NX_RESERVE .wXpos, short_t, 1
-NX_RESERVE .wYpos, short_t, 1
-NX_RESERVE .wZpos, short_t, 1
-NX_RESERVE .wButtons, short_t, 1
-ENDSTRUC
-
-STRUC MMIOINFO
-NX_RESERVE .dwFlags, int32_t, 1
-NX_RESERVE .fccIOProc, int32_t, 1
-NX_RESERVE .pIOProc, int32_t, 1
-NX_RESERVE .wErrorRet, int32_t, 1
-NX_RESERVE .htask, int32_t, 1
-NX_RESERVE .cchBuffer, int32_t, 1
-NX_RESERVE .pchBuffer, int32_t, 1
-NX_RESERVE .pchNext, int32_t, 1
-NX_RESERVE .pchEndRead, int32_t, 1
-NX_RESERVE .pchEndWrite, int32_t, 1
-NX_RESERVE .lBufOffset, int32_t, 1
-NX_RESERVE .lDiskOffset, int32_t, 1
-NX_RESERVE .adwInfo4, int32_t, 1
-NX_RESERVE .dwReserved1, int32_t, 1
-NX_RESERVE .dwReserved2, int32_t, 1
-NX_RESERVE .hmmio, int32_t, 1
-ENDSTRUC
-
-STRUC MMCKINFO
-NX_RESERVE .ckid, int32_t, 1
-NX_RESERVE .ckSize, int32_t, 1
-NX_RESERVE .fccType, int32_t, 1
-NX_RESERVE .dwDataOffset, int32_t, 1
-NX_RESERVE .dwFlags, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_GENERIC_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_OPEN_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .wDeviceID, int32_t, 1
-NX_RESERVE .lpstrDeviceType, int32_t, 1
-NX_RESERVE .lpstrElementName, int32_t, 1
-NX_RESERVE .lpstrAlias, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_PLAY_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwFrom, int32_t, 1
-NX_RESERVE .dwTo, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_SEEK_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwTo, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_STATUS_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwReturn, int32_t, 1
-NX_RESERVE .dwItem, int32_t, 1
-NX_RESERVE .dwTrack, short_t, 1
-ENDSTRUC
-
-STRUC MCI_INFO_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpstrReturn, int32_t, 1
-NX_RESERVE .dwRetSize, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_GETDEVCAPS_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwReturn, int32_t, 1
-NX_RESERVE .dwIten, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_SYSINFO_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpstrReturn, int32_t, 1
-NX_RESERVE .dwRetSize, int32_t, 1
-NX_RESERVE .dwNumber, int32_t, 1
-NX_RESERVE .wDeviceType, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_SET_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwTimeFormat, int32_t, 1
-NX_RESERVE .dwAudio, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_BREAK_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .nVirtKey, int32_t, 1
-NX_RESERVE .hwndBreak, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_SOUND_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpstrSoundName, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_SAVE_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpFileName, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_LOAD_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpFileName, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_RECORD_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwFrom, int32_t, 1
-NX_RESERVE .dwTo, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_VD_PLAY_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwFrom, int32_t, 1
-NX_RESERVE .dwTo, int32_t, 1
-NX_RESERVE .dwSpeed, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_VD_STEP_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwFrames, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_VD_ESCAPE_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpstrCommand, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_WAVE_OPEN_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .wDeviceID, int32_t, 1
-NX_RESERVE .lpstrDeviceType, int32_t, 1
-NX_RESERVE .lpstrElementName, int32_t, 1
-NX_RESERVE .lpstrAlias, int32_t, 1
-NX_RESERVE .dwBufferSeconds, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_WAVE_DELETE_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwFrom, int32_t, 1
-NX_RESERVE .dwTo, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_WAVE_SET_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwTimeFormat, int32_t, 1
-NX_RESERVE .dwAudio, int32_t, 1
-NX_RESERVE .wInput, int32_t, 1
-NX_RESERVE .wOutput, int32_t, 1
-NX_RESERVE .wFormatTag, short_t, 1
-NX_RESERVE .wReserved2, short_t, 1
-NX_RESERVE .nChannels, short_t, 1
-NX_RESERVE .wReserved3, short_t, 1
-NX_RESERVE .nSamplesPerSec, int32_t, 1
-NX_RESERVE .nAvgBytesPerSec, int32_t, 1
-NX_RESERVE .nBlockAlign, short_t, 1
-NX_RESERVE .wReserved4, short_t, 1
-NX_RESERVE .wBitsPerSample, short_t, 1
-NX_RESERVE .wReserved5, short_t, 1
-ENDSTRUC
-
-STRUC MCI_SEQ_SET_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwTimeFormat, int32_t, 1
-NX_RESERVE .dwAudio, int32_t, 1
-NX_RESERVE .dwTempo, int32_t, 1
-NX_RESERVE .dwPort, int32_t, 1
-NX_RESERVE .dwSlave, int32_t, 1
-NX_RESERVE .dwMaster, int32_t, 1
-NX_RESERVE .dwOffset, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_ANIM_OPEN_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .wDeviceID, int32_t, 1
-NX_RESERVE .lpstrDeviceType, int32_t, 1
-NX_RESERVE .lpstrElementName, int32_t, 1
-NX_RESERVE .lpstrAlias, int32_t, 1
-NX_RESERVE .dwStyle, int32_t, 1
-NX_RESERVE .hWndParent, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_ANIM_PLAY_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwFrom, int32_t, 1
-NX_RESERVE .dwTo, int32_t, 1
-NX_RESERVE .dwSpeed, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_ANIM_STEP_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .dwFrames, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_ANIM_WINDOW_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .nCmdShow, int32_t, 1
-NX_RESERVE .lpstrText, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_ANIM_RECT_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .rc, RECT, RECT_size
-ENDSTRUC
-
-STRUC MCI_ANIM_UPDATE_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .rc, RECT, RECT_size
-NX_RESERVE .hDC, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_OVLY_OPEN_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .wDeviceID, int32_t, 1
-NX_RESERVE .lpstrDeviceType, int32_t, 1
-NX_RESERVE .lpstrElementName, int32_t, 1
-NX_RESERVE .lpstrAlias, int32_t, 1
-NX_RESERVE .dwStyle, int32_t, 1
-NX_RESERVE .hWndParent, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_OVLY_WINDOW_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .nCmdShow, int32_t, 1
-NX_RESERVE .lpstrText, int32_t, 1
-ENDSTRUC
-
-STRUC MCI_OVLY_RECT_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .rc, RECT, RECT_size
-ENDSTRUC
-
-STRUC MCI_OVLY_SAVE_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpFileName, int32_t, 1
-NX_RESERVE .rc, RECT, RECT_size
-ENDSTRUC
-
-STRUC MCI_OVLY_LOAD_PARMS
-NX_RESERVE .dwCallback, int32_t, 1
-NX_RESERVE .lpFileName, int32_t, 1
-NX_RESERVE .rc, RECT, RECT_size
-ENDSTRUC
-
-STRUC PRINTER_INFO_1
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .pDescription, int32_t, 1
-NX_RESERVE .pName, int32_t, 1
-NX_RESERVE .pComment, int32_t, 1
-ENDSTRUC
-
-STRUC PRINTER_INFO_2
-NX_RESERVE .pServerName, int32_t, 1
-NX_RESERVE .pPrinterName, int32_t, 1
-NX_RESERVE .pShareName, int32_t, 1
-NX_RESERVE .pPortName, int32_t, 1
-NX_RESERVE .pDriverName, int32_t, 1
-NX_RESERVE .pComment, int32_t, 1
-NX_RESERVE .pLocation, int32_t, 1
-NX_RESERVE .pDevMode, int32_t, 1
-NX_RESERVE .pSepFile, int32_t, 1
-NX_RESERVE .pPrintProcessor, int32_t, 1
-NX_RESERVE .pDatatype, int32_t, 1
-NX_RESERVE .pParameters, int32_t, 1
-NX_RESERVE .pSecurityDescriptor, int32_t, 1
-NX_RESERVE .Attributes, int32_t, 1
-NX_RESERVE .Priority, int32_t, 1
-NX_RESERVE .DefaultPriority, int32_t, 1
-NX_RESERVE .StartTime, int32_t, 1
-NX_RESERVE .UntilTime, int32_t, 1
-NX_RESERVE .Status, int32_t, 1
-NX_RESERVE .cJobs, int32_t, 1
-NX_RESERVE .AveragePPM, int32_t, 1
-ENDSTRUC
-
-STRUC PRINTER_INFO_3
-NX_RESERVE .pSecurityDescriptor, int32_t, 1
-ENDSTRUC
-
-STRUC JOB_INFO_1
-NX_RESERVE .JobId, int32_t, 1
-NX_RESERVE .pPrinterName, int32_t, 1
-NX_RESERVE .pMachineName, int32_t, 1
-NX_RESERVE .pUserName, int32_t, 1
-NX_RESERVE .pDocument, int32_t, 1
-NX_RESERVE .pDatatype, int32_t, 1
-NX_RESERVE .pStatus, int32_t, 1
-NX_RESERVE .Status, int32_t, 1
-NX_RESERVE .Priority, int32_t, 1
-NX_RESERVE .Position, int32_t, 1
-NX_RESERVE .TotalPages, int32_t, 1
-NX_RESERVE .PagesPrinted, int32_t, 1
-NX_RESERVE .Submitted, int32_t, 1
-ENDSTRUC
-
-STRUC JOB_INFO_2
-NX_RESERVE .JobId, int32_t, 1
-NX_RESERVE .pPrinterName, int32_t, 1
-NX_RESERVE .pMachineName, int32_t, 1
-NX_RESERVE .pUserName, int32_t, 1
-NX_RESERVE .pDocument, int32_t, 1
-NX_RESERVE .pNotifyName, int32_t, 1
-NX_RESERVE .pDatatype, int32_t, 1
-NX_RESERVE .pPrintProcessor, int32_t, 1
-NX_RESERVE .pParameters, int32_t, 1
-NX_RESERVE .pDriverName, int32_t, 1
-NX_RESERVE .pDevMode, int32_t, 1
-NX_RESERVE .pStatus, int32_t, 1
-NX_RESERVE .pSecurityDescriptor, int32_t, 1
-NX_RESERVE .Status, int32_t, 1
-NX_RESERVE .Priority, int32_t, 1
-NX_RESERVE .Position, int32_t, 1
-NX_RESERVE .StartTime, int32_t, 1
-NX_RESERVE .UntilTime, int32_t, 1
-NX_RESERVE .TotalPages, int32_t, 1
-NX_RESERVE .isize, int32_t, 1
-NX_RESERVE .Submitted, int32_t, 1
-NX_RESERVE .time, int32_t, 1
-NX_RESERVE .PagesPrinted, int32_t, 1
-ENDSTRUC
-
-STRUC ADDJOB_INFO_1
-NX_RESERVE .Path, int32_t, 1
-NX_RESERVE .JobId, int32_t, 1
-ENDSTRUC
-
-STRUC DRIVER_INFO_1
-NX_RESERVE .pName, int32_t, 1
-ENDSTRUC
-
-STRUC DRIVER_INFO_2
-NX_RESERVE .cVersion, int32_t, 1
-NX_RESERVE .pName, int32_t, 1
-NX_RESERVE .pEnvironment, int32_t, 1
-NX_RESERVE .pDriverPath, int32_t, 1
-NX_RESERVE .pDataFile, int32_t, 1
-NX_RESERVE .pConfigFile, int32_t, 1
-ENDSTRUC
-
-STRUC DOC_INFO_1
-NX_RESERVE .pDocName, int32_t, 1
-NX_RESERVE .pOutputFile, int32_t, 1
-NX_RESERVE .pDatatype, int32_t, 1
-ENDSTRUC
-
-STRUC FORM_INFO_1
-NX_RESERVE .pName, int32_t, 1
-NX_RESERVE .isize, int32_t, 1
-NX_RESERVE .ImageableArea, int32_t, 1
-ENDSTRUC
-
-STRUC PRINTPROCESSOR_INFO_1
-NX_RESERVE .pName, int32_t, 1
-ENDSTRUC
-
-STRUC PORT_INFO_1
-NX_RESERVE .pName, int32_t, 1
-ENDSTRUC
-
-STRUC MONITOR_INFO_1
-NX_RESERVE .pName, int32_t, 1
-ENDSTRUC
-
-STRUC MONITOR_INFO_2
-NX_RESERVE .pName, int32_t, 1
-NX_RESERVE .pEnvironment, int32_t, 1
-NX_RESERVE .pDLLName, int32_t, 1
-ENDSTRUC
-
-STRUC DATATYPES_INFO_1
-NX_RESERVE .pName, int32_t, 1
-ENDSTRUC
-
-STRUC PRINTER_DEFAULTS
-NX_RESERVE .pDatatype, int32_t, 1
-NX_RESERVE .pDevMode, int32_t, 1
-NX_RESERVE .DesiredAccess, int32_t, 1
-ENDSTRUC
-
-STRUC PRINTER_INFO_4
-NX_RESERVE .pPrinterName, int32_t, 1
-NX_RESERVE .pServerName, int32_t, 1
-NX_RESERVE .Attributes, int32_t, 1
-ENDSTRUC
-
-STRUC PRINTER_INFO_5
-NX_RESERVE .pPrinterName, int32_t, 1
-NX_RESERVE .pPortName, int32_t, 1
-NX_RESERVE .Attributes, int32_t, 1
-NX_RESERVE .DeviceNotSelectedTimeout, int32_t, 1
-NX_RESERVE .TransmissionRetryTimeout, int32_t, 1
-ENDSTRUC
-
-STRUC DRIVER_INFO_3
-NX_RESERVE .cVersion, int32_t, 1
-NX_RESERVE .pName, int32_t, 1
-NX_RESERVE .pEnvironment, int32_t, 1
-NX_RESERVE .pDriverPath, int32_t, 1
-NX_RESERVE .pDataFile, int32_t, 1
-NX_RESERVE .pConfigFile, int32_t, 1
-NX_RESERVE .pHelpFile, int32_t, 1
-NX_RESERVE .pDependentFiles, int32_t, 1
-NX_RESERVE .pMonitorName, int32_t, 1
-NX_RESERVE .pDefaultDataType, int32_t, 1
-ENDSTRUC
-
-STRUC DOC_INFO_2
-NX_RESERVE .pDocName, int32_t, 1
-NX_RESERVE .pOutputFile, int32_t, 1
-NX_RESERVE .pDatatype, int32_t, 1
-NX_RESERVE .dwMode, int32_t, 1
-NX_RESERVE .JobId, int32_t, 1
-ENDSTRUC
-
-STRUC PORT_INFO_2
-NX_RESERVE .pPortName, int32_t, 1
-NX_RESERVE .pMonitorName, int32_t, 1
-NX_RESERVE .pDescription, int32_t, 1
-NX_RESERVE .fPortType, int32_t, 1
-NX_RESERVE .Reserved, int32_t, 1
-ENDSTRUC
-
-STRUC PROVIDOR_INFO_1
-NX_RESERVE .pName, int32_t, 1
-NX_RESERVE .pEnvironment, int32_t, 1
-NX_RESERVE .pDLLName, int32_t, 1
-ENDSTRUC
-
-STRUC NETRESOURCE
-NX_RESERVE .dwScope, int32_t, 1
-NX_RESERVE .dwType, int32_t, 1
-NX_RESERVE .dwDisplayType, int32_t, 1
-NX_RESERVE .dwUsage, int32_t, 1
-NX_RESERVE .lpLocalName, int32_t, 1
-NX_RESERVE .lpRemoteName, int32_t, 1
-NX_RESERVE .lpComment, int32_t, 1
-NX_RESERVE .lpProvider, int32_t, 1
-ENDSTRUC
-
-STRUC NCB
-NX_RESERVE .ncb_command, short_t, 1
-NX_RESERVE .ncb_retcode, short_t, 1
-NX_RESERVE .ncb_lsn, short_t, 1
-NX_RESERVE .ncb_num, short_t, 1
-NX_RESERVE .ncb_buffer, int32_t, 1
-NX_RESERVE .ncb_length, short_t, 1
-NX_RESERVE .ncb_callname, int8_t, NCBNAMSZ
-NX_RESERVE .ncb_name, int8_t, NCBNAMSZ
-NX_RESERVE .ncb_rto, short_t, 1
-NX_RESERVE .ncb_sto, short_t, 1
-NX_RESERVE .ncb_post, int32_t, 1
-NX_RESERVE .ncb_lana_num, short_t, 1
-NX_RESERVE .ncb_cmd_cplt, short_t, 1
-NX_RESERVE .ncb_reserve10, int8_t, 1
-NX_RESERVE .ncb_event, int32_t, 1
-ENDSTRUC
-
-STRUC ADAPTER_STATUS
-NX_RESERVE .adapter_address, int8_t, 6
-NX_RESERVE .rev_major, short_t, 1
-NX_RESERVE .reserved0, short_t, 1
-NX_RESERVE .adapter_type, short_t, 1
-NX_RESERVE .rev_minor, short_t, 1
-NX_RESERVE .duration, short_t, 1
-NX_RESERVE .frmr_recv, short_t, 1
-NX_RESERVE .frmr_xmit, short_t, 1
-NX_RESERVE .iframe_recv_err, short_t, 1
-NX_RESERVE .xmit_aborts, short_t, 1
-NX_RESERVE .xmit_success, int32_t, 1
-NX_RESERVE .recv_success, int32_t, 1
-NX_RESERVE .iframe_xmit_err, short_t, 1
-NX_RESERVE .recv_buff_unavail, short_t, 1
-NX_RESERVE .t1_timeouts, short_t, 1
-NX_RESERVE .ti_timeouts, short_t, 1
-NX_RESERVE .Reserved1, int32_t, 1
-NX_RESERVE .free_ncbs, short_t, 1
-NX_RESERVE .max_cfg_ncbs, short_t, 1
-NX_RESERVE .max_ncbs, short_t, 1
-NX_RESERVE .xmit_buf_unavail, short_t, 1
-NX_RESERVE .max_dgram_isize, short_t, 1
-NX_RESERVE .pending_sess, short_t, 1
-NX_RESERVE .max_cfg_sess, short_t, 1
-NX_RESERVE .max_sess, short_t, 1
-NX_RESERVE .max_sess_pkt_isize, short_t, 1
-NX_RESERVE .name_count, short_t, 1
-ENDSTRUC
-
-STRUC NAME_BUFFER
-NX_RESERVE .xname, int8_t, NCBNAMSZ
-NX_RESERVE .name_num, short_t, 1
-NX_RESERVE .name_flags, short_t, 1
-ENDSTRUC
-
-STRUC SESSION_HEADER
-NX_RESERVE .sess_name, short_t, 1
-NX_RESERVE .num_sess, short_t, 1
-NX_RESERVE .rcv_dg_outstanding, short_t, 1
-NX_RESERVE .rcv_any_outstanding, short_t, 1
-ENDSTRUC
-
-STRUC SESSION_BUFFER
-NX_RESERVE .lsn, short_t, 1
-NX_RESERVE .State, short_t, 1
-NX_RESERVE .local_name, int8_t, NCBNAMSZ
-NX_RESERVE .remote_name, int8_t, NCBNAMSZ
-NX_RESERVE .rcvs_outstanding, short_t, 1
-NX_RESERVE .sends_outstanding, short_t, 1
-ENDSTRUC
-
-STRUC LANA_ENUM
-NX_RESERVE .iLength, short_t, 1
-NX_RESERVE .lana, short_t, 1
-ENDSTRUC
-
-STRUC FIND_NAME_HEADER
-NX_RESERVE .node_count, short_t, 1
-NX_RESERVE .Reserved, short_t, 1
-NX_RESERVE .unique_group, short_t, 1
-ENDSTRUC
-
-STRUC FIND_NAME_BUFFER
-NX_RESERVE .iLength, short_t, 1
-NX_RESERVE .access_control, short_t, 1
-NX_RESERVE .frame_control, short_t, 1
-NX_RESERVE .destination_addr, short_t, 1
-NX_RESERVE .source_addr, short_t, 1
-NX_RESERVE .routing_info, short_t, 1
-ENDSTRUC
-
-STRUC ACTION_HEADER
-NX_RESERVE .transport_id, int32_t, 1
-NX_RESERVE .action_code, short_t, 1
-NX_RESERVE .Reserved, short_t, 1
-ENDSTRUC
-
-STRUC CRGB
-NX_RESERVE .bRed, int8_t, 1
-NX_RESERVE .bGreen, int8_t, 1
-NX_RESERVE .bBlue, int8_t, 1
-NX_RESERVE .bExtra, int8_t, 1
-ENDSTRUC
-
-STRUC SERVICE_STATUS
-NX_RESERVE .dwServiceType, int32_t, 1
-NX_RESERVE .dwCurrentState, int32_t, 1
-NX_RESERVE .dwControlsAccepted, int32_t, 1
-NX_RESERVE .dwWin32ExitCode, int32_t, 1
-NX_RESERVE .dwServiceSpecificExitCode, int32_t, 1
-NX_RESERVE .dwCheckPoint, int32_t, 1
-NX_RESERVE .dwWaitHint, int32_t, 1
-ENDSTRUC
-
-STRUC ENUM_SERVICE_STATUS
-NX_RESERVE .lpServiceName, int32_t, 1
-NX_RESERVE .lpDisplayName, int32_t, 1
-NX_RESERVE .ServiceStatus, int32_t, 1
-ENDSTRUC
-
-STRUC QUERY_SERVICE_LOCK_STATUS
-NX_RESERVE .fIsLocked, int32_t, 1
-NX_RESERVE .lpLockOwner, int32_t, 1
-NX_RESERVE .dwLockDuration, int32_t, 1
-ENDSTRUC
-
-STRUC QUERY_SERVICE_CONFIG
-NX_RESERVE .dwServiceType, int32_t, 1
-NX_RESERVE .dwStartType, int32_t, 1
-NX_RESERVE .dwErrorControl, int32_t, 1
-NX_RESERVE .lpBinaryPathName, int32_t, 1
-NX_RESERVE .lpLoadOrderGroup, int32_t, 1
-NX_RESERVE .dwTagId, int32_t, 1
-NX_RESERVE .lpDependencies, int32_t, 1
-NX_RESERVE .lpServiceStartName, int32_t, 1
-NX_RESERVE .lpDisplayName, int32_t, 1
-ENDSTRUC
-
-STRUC SERVICE_TABLE_ENTRY
-NX_RESERVE .lpServiceName, int32_t, 1
-NX_RESERVE .lpServiceProc, int32_t, 1
-ENDSTRUC
-
-STRUC LARGE_INTEGER
-NX_RESERVE .lowpart, int32_t, 1
-NX_RESERVE .highpart, int32_t, 1
-ENDSTRUC
-
-STRUC PERF_DATA_BLOCK
-NX_RESERVE .Signature, int8_t, 4
-NX_RESERVE .LittleEndian, int32_t, 1
-NX_RESERVE .Version, int32_t, 1
-NX_RESERVE .Revision, int32_t, 1
-NX_RESERVE .TotalByteiLength, int32_t, 1
-NX_RESERVE .HeaderiLength, int32_t, 1
-NX_RESERVE .NumObjectTypes, int32_t, 1
-NX_RESERVE .DefaultObject, int32_t, 1
-NX_RESERVE .SystemTime, int32_t, 1
-NX_RESERVE .PerfTime, int32_t, 1
-NX_RESERVE .PerfFreq, int32_t, 1
-NX_RESERVE .PerTime100nSec, int32_t, 1
-NX_RESERVE .SystemNameiLength, int32_t, 1
-NX_RESERVE .SystemNameOffset, int32_t, 1
-ENDSTRUC
-
-STRUC PERF_OBJECT_TYPE
-NX_RESERVE .TotalByteiLength, int32_t, 1
-NX_RESERVE .DefinitioniLength, int32_t, 1
-NX_RESERVE .HeaderiLength, int32_t, 1
-NX_RESERVE .ObjectNameTitleIndex, int32_t, 1
-NX_RESERVE .ObjectNameTitle, int32_t, 1
-NX_RESERVE .ObjectHelpTitleIndex, int32_t, 1
-NX_RESERVE .ObjectHelpTitle, int32_t, 1
-NX_RESERVE .DetailLevel, int32_t, 1
-NX_RESERVE .NumCounters, int32_t, 1
-NX_RESERVE .DefaultCounter, int32_t, 1
-NX_RESERVE .NumInstances, int32_t, 1
-NX_RESERVE .CodePage, int32_t, 1
-NX_RESERVE .PerfTime, int32_t, 1
-NX_RESERVE .PerfFreq, int32_t, 1
-ENDSTRUC
-
-STRUC PERF_COUNTER_DEFINITION
-NX_RESERVE .ByteiLength, int32_t, 1
-NX_RESERVE .CounterNameTitleIndex, int32_t, 1
-NX_RESERVE .CounterNameTitle, int32_t, 1
-NX_RESERVE .CounterHelpTitleIndex, int32_t, 1
-NX_RESERVE .CounterHelpTitle, int32_t, 1
-NX_RESERVE .DefaultScale, int32_t, 1
-NX_RESERVE .DetailLevel, int32_t, 1
-NX_RESERVE .CounterType, int32_t, 1
-NX_RESERVE .CounterSize, int32_t, 1
-NX_RESERVE .CounterOffset, int32_t, 1
-ENDSTRUC
-
-STRUC PERF_INSTANCE_DEFINITION
-NX_RESERVE .ByteiLength, int32_t, 1
-NX_RESERVE .ParentObjectTitleIndex, int32_t, 1
-NX_RESERVE .ParentObjectInstance, int32_t, 1
-NX_RESERVE .UniqueID, int32_t, 1
-NX_RESERVE .NameOffset, int32_t, 1
-NX_RESERVE .NameiLength, int32_t, 1
-ENDSTRUC
-
-STRUC PERF_COUNTER_BLOCK
-NX_RESERVE .ByteiLength, int32_t, 1
-ENDSTRUC
-
-STRUC COMPOSITIONFORM
-NX_RESERVE .dwStyle, int32_t, 1
-NX_RESERVE .ptCurrentPos, POINT, POINT_size
-NX_RESERVE .rcArea, RECT, RECT_size
-ENDSTRUC
-
-STRUC CANDIDATEFORM
-NX_RESERVE .dwIndex, int32_t, 1
-NX_RESERVE .dwStyle, int32_t, 1
-NX_RESERVE .ptCurrentPos, POINT, POINT_size
-NX_RESERVE .rcArea, RECT, RECT_size
-ENDSTRUC
-
-STRUC CANDIDATELIST
-NX_RESERVE .dwSize, int32_t, 1
-NX_RESERVE .dwStyle, int32_t, 1
-NX_RESERVE .dwCount, int32_t, 1
-NX_RESERVE .dwSelection, int32_t, 1
-NX_RESERVE .dwPageStart, int32_t, 1
-NX_RESERVE .dwPageSize, int32_t, 1
-NX_RESERVE .dwOffset1, int32_t, 1
-ENDSTRUC
-
-STRUC STYLEBUF
-NX_RESERVE .dwStyle, int32_t, 1
-NX_RESERVE .szDescription, int8_t, STYLE_DESCRIPTION_SIZE
-ENDSTRUC
-
-STRUC MODEMDEVCAPS
-NX_RESERVE .dwActualSize, int32_t, 1
-NX_RESERVE .dwRequiredSize, int32_t, 1
-NX_RESERVE .dwDevSpecificOffset, int32_t, 1
-NX_RESERVE .dwDevSpecificSize, int32_t, 1
-NX_RESERVE .dwModemProviderVersion, int32_t, 1
-NX_RESERVE .dwModemManufacturerOffset, int32_t, 1
-NX_RESERVE .dwModemManufacturerSize, int32_t, 1
-NX_RESERVE .dwModemModelOffset, int32_t, 1
-NX_RESERVE .dwModemModelSize, int32_t, 1
-NX_RESERVE .dwModemVersionOffset, int32_t, 1
-NX_RESERVE .dwModemVersionSize, int32_t, 1
-NX_RESERVE .dwDialOptions, int32_t, 1
-NX_RESERVE .dwCallSetupFailTimer, int32_t, 1
-NX_RESERVE .dwInactivityTimeout, int32_t, 1
-NX_RESERVE .dwSpeakerVolume, int32_t, 1
-NX_RESERVE .dwSpeakerMode, int32_t, 1
-NX_RESERVE .dwModemOptions, int32_t, 1
-NX_RESERVE .dwMaxDTERate, int32_t, 1
-NX_RESERVE .dwMaxDCERate, int32_t, 1
-NX_RESERVE .abVariablePortion, int8_t, 1
-ENDSTRUC
-
-STRUC MODEMSETTINGS
-NX_RESERVE .dwActualSize, int32_t, 1
-NX_RESERVE .dwRequiredSize, int32_t, 1
-NX_RESERVE .dwDevSpecificOffset, int32_t, 1
-NX_RESERVE .dwDevSpecificSize, int32_t, 1
-NX_RESERVE .dwCallSetupFailTimer, int32_t, 1
-NX_RESERVE .dwInactivityTimeout, int32_t, 1
-NX_RESERVE .dwSpeakerVolume, int32_t, 1
-NX_RESERVE .dwSpeakerMode, int32_t, 1
-NX_RESERVE .dwPreferredModemOptions, int32_t, 1
-NX_RESERVE .dwNegotiatedModemOptions, int32_t, 1
-NX_RESERVE .dwNegotiatedDCERate, int32_t, 1
-NX_RESERVE .abVariablePortion, int8_t, 1
-ENDSTRUC
-
-STRUC DRAGINFO
-NX_RESERVE .uSize, int32_t, 1
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .fNC, int32_t, 1
-NX_RESERVE .lpFileList, int32_t, 1
-NX_RESERVE .grfKeyState, int32_t, 1
-ENDSTRUC
-
-STRUC APPBARDATA
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .uCallbackMessage, int32_t, 1
-NX_RESERVE .uEdge, int32_t, 1
-NX_RESERVE .rc, RECT, RECT_size
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC SHFILEOPSTRUCT
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .wFunc, int32_t, 1
-NX_RESERVE .pFrom, int32_t, 1
-NX_RESERVE .pTo, int32_t, 1
-NX_RESERVE .fFlags, short_t, 1
-NX_RESERVE .fAnyOperationsAborted, int32_t, 1
-NX_RESERVE .hNameMappings, int32_t, 1
-NX_RESERVE .lpszProgressTitle, int32_t, 1
-ENDSTRUC
-
-STRUC SHNAMEMAPPING
-NX_RESERVE .pszOldPath, int32_t, 1
-NX_RESERVE .pszNewPath, int32_t, 1
-NX_RESERVE .cchOldPath, int32_t, 1
-NX_RESERVE .cchNewPath, int32_t, 1
-ENDSTRUC
-
-STRUC SHELLEXECUTEINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .fMask, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .lpVerb, int32_t, 1
-NX_RESERVE .lpFile, int32_t, 1
-NX_RESERVE .lpParameters, int32_t, 1
-NX_RESERVE .lpDirectory, int32_t, 1
-NX_RESERVE .nShow, int32_t, 1
-NX_RESERVE .hInstApp, int32_t, 1
-NX_RESERVE .lpIDList, int32_t, 1
-NX_RESERVE .lpClass, int32_t, 1
-NX_RESERVE .hkeyClass, int32_t, 1
-NX_RESERVE .dwHotKey, int32_t, 1
-NX_RESERVE .hIcon, int32_t, 1
-NX_RESERVE .hProcess, int32_t, 1
-ENDSTRUC
-
-STRUC NOTIFYICONDATA
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .hwnd, int32_t, 1
-NX_RESERVE .uID, int32_t, 1
-NX_RESERVE .uFlags, int32_t, 1
-NX_RESERVE .uCallbackMessage, int32_t, 1
-NX_RESERVE .hIcon, int32_t, 1
-NX_RESERVE .szTip, int8_t, 64
-ENDSTRUC
-
-STRUC SHFILEINFO
-NX_RESERVE .hIcon, int32_t, 1
-NX_RESERVE .iIcon, int32_t, 1
-NX_RESERVE .dwAttributes, int32_t, 1
-NX_RESERVE .szDisplayName, int8_t, 1
-NX_RESERVE .szTypeName, int8_t, 80 
-ENDSTRUC
-
-STRUC VS_FIXEDFILEINFO
-NX_RESERVE .dwSignature, int32_t, 1
-NX_RESERVE .dwStrucVersion, int32_t, 1
-NX_RESERVE .dwFileVersionMS, int32_t, 1
-NX_RESERVE .dwFileVersionLS, int32_t, 1
-NX_RESERVE .dwProductVersionMS, int32_t, 1
-NX_RESERVE .dwProductVersionLS, int32_t, 1
-NX_RESERVE .dwFileFlagsMask, int32_t, 1
-NX_RESERVE .dwFileFlags, int32_t, 1
-NX_RESERVE .dwFileOS, int32_t, 1
-NX_RESERVE .dwFileType, int32_t, 1
-NX_RESERVE .dwFileSubtype, int32_t, 1
-NX_RESERVE .dwFileDateMS, int32_t, 1
-NX_RESERVE .dwFileDateLS, int32_t, 1
-ENDSTRUC
-
-STRUC ICONMETRICS
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .iHorzSpacing, int32_t, 1
-NX_RESERVE .iVertSpacing, int32_t, 1
-NX_RESERVE .iTitleWrap, int32_t, 1
-NX_RESERVE .lfFont, int32_t, 1
-ENDSTRUC
-
-STRUC HELPINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .iContextType, int32_t, 1
-NX_RESERVE .iCtrlId, int32_t, 1
-NX_RESERVE .hItemHandle, int32_t, 1
-NX_RESERVE .dwContextId, int32_t, 1
-NX_RESERVE .MousePos, int32_t, 1
-ENDSTRUC
-
-STRUC ANIMATIONINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .iMinAnimate, int32_t, 1
-ENDSTRUC
-
-STRUC MINIMIZEDMETRICS
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .iWidth, int32_t, 1
-NX_RESERVE .iHorzGap, int32_t, 1
-NX_RESERVE .iVertGap, int32_t, 1
-NX_RESERVE .iArrange, int32_t, 1
-NX_RESERVE .lfFont, int32_t, 1
-ENDSTRUC
-
-STRUC OSVERSIONINFO
-NX_RESERVE .dwOSVersionInfoSize, int32_t, 1
-NX_RESERVE .dwMajorVersion, int32_t, 1
-NX_RESERVE .dwMinorVersion, int32_t, 1
-NX_RESERVE .dwBuildNumber, int32_t, 1
-NX_RESERVE .dwPlatformId, int32_t, 1
-NX_RESERVE .szCSDVersion, int8_t, 128
-ENDSTRUC
-
-STRUC SYSTEM_POWER_STATUS
-NX_RESERVE .ACLineStatus, int8_t, 1
-NX_RESERVE .BatteryFlag, int8_t, 1
-NX_RESERVE .BatteryLifePercent, int8_t, 1
-NX_RESERVE .Reserved1, int8_t, 1
-NX_RESERVE .BatteryLifeTime, int32_t, 1
-NX_RESERVE .BatteryFullLifeTime, int32_t, 1
-ENDSTRUC
-
-STRUC NMHDR
-NX_RESERVE .hwndFrom, int32_t, 1
-NX_RESERVE .idfrom, int32_t, 1
-NX_RESERVE .code, int32_t, 1
-ENDSTRUC
-
-STRUC DEVNAMES
-NX_RESERVE .wDriverOffset, short_t, 1
-NX_RESERVE .wDeviceOffset, short_t, 1
-NX_RESERVE .wOutputOffset, short_t, 1
-NX_RESERVE .wDefault, short_t, 1
-ENDSTRUC
-
-STRUC PAGESETUPDLGAPI
-NX_RESERVE .lStructSize, int32_t, 1
-NX_RESERVE .hwndOwner, int32_t, 1
-NX_RESERVE .hDevMode, int32_t, 1
-NX_RESERVE .hDevNames, int32_t, 1
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .ptPaperSize, POINT, POINT_size
-NX_RESERVE .rtMinMargin, int32_t, 1
-NX_RESERVE .rtMargin, int32_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .lCustData, int32_t, 1
-NX_RESERVE .lpfnPageSetupHook, int32_t, 1
-NX_RESERVE .lpfnPagePaintHook, int32_t, 1
-NX_RESERVE .lpPageSetupTemplateName, int32_t, 1
-NX_RESERVE .hPageSetupTemplate, int32_t, 1
-ENDSTRUC
-
-STRUC COMMCONFIG
-NX_RESERVE .dwSize, int32_t, 1
-NX_RESERVE .wVersion, short_t, 1
-NX_RESERVE .wReserved, short_t, 1
-NX_RESERVE .dcbx, int32_t, 1
-NX_RESERVE .dwProviderSubType, int32_t, 1
-NX_RESERVE .dwProviderOffset, int32_t, 1
-NX_RESERVE .dwProviderSize, int32_t, 1
-NX_RESERVE .wcProviderData, int8_t, 1
-ENDSTRUC
-
-STRUC PIXELFORMATDESCRIPTOR
-NX_RESERVE .nSize, short_t, 1
-NX_RESERVE .nVersion, short_t, 1
-NX_RESERVE .dwFlags, int32_t, 1
-NX_RESERVE .iPixelType, int8_t, 1
-NX_RESERVE .cColorBits, int8_t, 1
-NX_RESERVE .cRedBits, int8_t, 1
-NX_RESERVE .cRedShift, int8_t, 1
-NX_RESERVE .cGreenBits, int8_t, 1
-NX_RESERVE .cGreenShift, int8_t, 1
-NX_RESERVE .cBlueBits, int8_t, 1
-NX_RESERVE .cBlueShift, int8_t, 1
-NX_RESERVE .cAlphaBits, int8_t, 1
-NX_RESERVE .cAlphaShift, int8_t, 1
-NX_RESERVE .cAccumBits, int8_t, 1
-NX_RESERVE .cAccumRedBits, int8_t, 1
-NX_RESERVE .cAccumGreenBits, int8_t, 1
-NX_RESERVE .cAccumBlueBits, int8_t, 1
-NX_RESERVE .cAccumAlphaBits, int8_t, 1
-NX_RESERVE .cDepthBits, int8_t, 1
-NX_RESERVE .cStencilBits, int8_t, 1
-NX_RESERVE .cAuxBuffers, int8_t, 1
-NX_RESERVE .iLayerType, int8_t, 1
-NX_RESERVE .bReserved, int8_t, 1
-NX_RESERVE .dwLayerMask, int32_t, 1
-NX_RESERVE .dwVisibleMask, int32_t, 1
-NX_RESERVE .dwDamageMask, int32_t, 1
-ENDSTRUC
-
-STRUC DRAWTEXTPARAMS
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .iTabiLength, int32_t, 1
-NX_RESERVE .iLeftMargin, int32_t, 1
-NX_RESERVE .iRightMargin, int32_t, 1
-NX_RESERVE .uiiLengthDrawn, int32_t, 1
-ENDSTRUC
-
-STRUC MENUITEMINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .fMask, int32_t, 1
-NX_RESERVE .fType, int32_t, 1
-NX_RESERVE .fState, int32_t, 1
-NX_RESERVE .wID, int32_t, 1
-NX_RESERVE .hSubMenu, int32_t, 1
-NX_RESERVE .hbmpChecked, int32_t, 1
-NX_RESERVE .hbmpUnchecked, int32_t, 1
-NX_RESERVE .dwItemData, int32_t, 1
-NX_RESERVE .dwTypeData, int32_t, 1
-NX_RESERVE .cch, int32_t, 1
-ENDSTRUC
-
-STRUC SCROLLINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .fMask, int32_t, 1
-NX_RESERVE .nMin, int32_t, 1
-NX_RESERVE .nMax, int32_t, 1
-NX_RESERVE .nPage, int32_t, 1
-NX_RESERVE .nPos, int32_t, 1
-NX_RESERVE .nTrackPos, int32_t, 1
-ENDSTRUC
-
-STRUC MSGBOXPARAMS
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .hwndOwner, int32_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .lpszText, int32_t, 1
-NX_RESERVE .lpszCaption, int32_t, 1
-NX_RESERVE .dwStyle, int32_t, 1
-NX_RESERVE .lpszIcon, int32_t, 1
-NX_RESERVE .dwContextHelpId, int32_t, 1
-NX_RESERVE .lpfnMsgBoxCallback, int32_t, 1
-NX_RESERVE .dwLanguageId, int32_t, 1
-ENDSTRUC
-
-STRUC DEBUG_EVENT
-NX_RESERVE .dwDebugEventCode, int32_t, 1
-NX_RESERVE .dwProcessId, int32_t, 1
-NX_RESERVE .dwThreadId, int32_t, 1
-NX_RESERVE .u, int32_t, 1
-ENDSTRUC
-
-STRUC COLORMAP
-NX_RESERVE .cmFrom, int32_t, 1
-NX_RESERVE .cmTo, int32_t, 1
-ENDSTRUC
-
-STRUC AuxVol
-NX_RESERVE .vLow, short_t, 1
-NX_RESERVE .vHigh, short_t, 1
-ENDSTRUC
-
-STRUC DBGTHREAD
-NX_RESERVE .hThread, int32_t, 1
-NX_RESERVE .lpStartAddress, int32_t, 1
-NX_RESERVE .bfState, int32_t, 1
-NX_RESERVE .nNext, int32_t, 1
-ENDSTRUC
-
-STRUC DbgProcess
-NX_RESERVE .hDbgHeap, int32_t, 1
-NX_RESERVE .dwProcessID, int32_t, 1
-NX_RESERVE .dwThreadID, int32_t, 1
-NX_RESERVE .hProcess, int32_t, 1
-NX_RESERVE .hFile, int32_t, 1
-NX_RESERVE .lpImage, int32_t, 1
-ENDSTRUC
-
-STRUC IMAGE_DATA_DIRECTORY
-NX_RESERVE .VirtualAddress, int32_t, 1
-NX_RESERVE .isize, int32_t, 1
-ENDSTRUC
-
-STRUC IMAGE_OPTIONAL_HEADER
-NX_RESERVE .Magic, short_t, 1
-NX_RESERVE .MajorLinkerVersion, int8_t, 1
-NX_RESERVE .MinorLinkerVersion, int8_t, 1
-NX_RESERVE .SizeOfCode, int32_t, 1
-NX_RESERVE .SizeOfInitializedData, int32_t, 1
-NX_RESERVE .SizeOfUninitializedData, int32_t, 1
-NX_RESERVE .AddressOfEntryPoint, int32_t, 1
-NX_RESERVE .BaseOfCode, int32_t, 1
-NX_RESERVE .BaseOfData, int32_t, 1
-NX_RESERVE .ImageBase, int32_t, 1
-NX_RESERVE .SectionAlignment, int32_t, 1
-NX_RESERVE .FileAlignment, int32_t, 1
-NX_RESERVE .MajorOperatingSystemVersion, short_t, 1
-NX_RESERVE .MinorOperatingSystemVersion, short_t, 1
-NX_RESERVE .MajorImageVersion, short_t, 1
-NX_RESERVE .MinorImageVersion, short_t, 1
-NX_RESERVE .MajorSubsystemVersion, short_t, 1
-NX_RESERVE .MinorSubsystemVersion, short_t, 1
-NX_RESERVE .Reserved1, int32_t, 1
-NX_RESERVE .SizeOfImage, int32_t, 1
-NX_RESERVE .SizeOfHeaders, int32_t, 1
-NX_RESERVE .CheckSum, int32_t, 1
-NX_RESERVE .Subsystem, short_t, 1
-NX_RESERVE .DllCharacteristics, short_t, 1
-NX_RESERVE .SizeOfStackReserve, int32_t, 1
-NX_RESERVE .SizeOfStackCommit, int32_t, 1
-NX_RESERVE .SizeOfHeapReserve, int32_t, 1
-NX_RESERVE .SizeOfHeapCommit, int32_t, 1
-NX_RESERVE .LoaderFlags, int32_t, 1
-NX_RESERVE .NumberOfRvaAndSizes, int32_t, 1
-NX_RESERVE .DataDirectory, int64_t, 1
-ENDSTRUC
-
-STRUC IMAGE_FILE_HEADER
-NX_RESERVE .Machine, short_t, 1
-NX_RESERVE .NumberOfSections, short_t, 1
-NX_RESERVE .TimeDateStamp, int32_t, 1
-NX_RESERVE .PointerToSymbolTable, int32_t, 1
-NX_RESERVE .NumberOfSymbols, int32_t, 1
-NX_RESERVE .SizeOfOptionalHeader, short_t, 1
-NX_RESERVE .Characteristics, short_t, 1
-ENDSTRUC
-
-STRUC IMAGE_NT_HEADERS
-NX_RESERVE .Signature, int32_t, 1
-NX_RESERVE .FileHeader, int32_t, 1
-NX_RESERVE .OptionalHeader, int32_t, 1
-ENDSTRUC
-
-STRUC IMAGE_EXPORT_DIRECTORY
-NX_RESERVE .Characteristics, int32_t, 1
-NX_RESERVE .TimeDateStamp, int32_t, 1
-NX_RESERVE .MajorVersion, short_t, 1
-NX_RESERVE .MinorVersion, short_t, 1
-NX_RESERVE .nName, int32_t, 1
-NX_RESERVE .nBase, int32_t, 1
-NX_RESERVE .NumberOfFunctions, int32_t, 1
-NX_RESERVE .NumberOfNames, int32_t, 1
-NX_RESERVE .AddressOfFunctions, int32_t, 1
-NX_RESERVE .AddressOfNames, int32_t, 1
-NX_RESERVE .AddressOfNameOrdinals, short_t, 1
-ENDSTRUC
-
-STRUC IMAGE_DOS_HEADER
-NX_RESERVE .e_magic, short_t, 1
-NX_RESERVE .e_cblp, short_t, 1
-NX_RESERVE .e_cp, short_t, 1
-NX_RESERVE .e_crlc, short_t, 1
-NX_RESERVE .e_cparhdr, short_t, 1
-NX_RESERVE .e_minalloc, short_t, 1
-NX_RESERVE .e_maxalloc, short_t, 1
-NX_RESERVE .e_ss, short_t, 1
-NX_RESERVE .e_sp, short_t, 1
-NX_RESERVE .e_csum, short_t, 1
-NX_RESERVE .e_ip, short_t, 1
-NX_RESERVE .e_cs, short_t, 1
-NX_RESERVE .e_lfarlc, short_t, 1
-NX_RESERVE .e_ovno, short_t, 1
-NX_RESERVE .e_res4, short_t, 1
-NX_RESERVE .e_oemid, short_t, 1
-NX_RESERVE .e_oeminfo, short_t, 1
-NX_RESERVE .e_res2, short_t, 1
-NX_RESERVE .e_lfanew, int32_t, 1
-ENDSTRUC
-
-STRUC USER_INFO_3
-NX_RESERVE .uName, int32_t, 1
-NX_RESERVE .Password, int32_t, 1
-NX_RESERVE .PasswordAge, int32_t, 1
-NX_RESERVE .Privilege, int32_t, 1
-NX_RESERVE .HomeDir, int32_t, 1
-NX_RESERVE .Comment, int32_t, 1
-NX_RESERVE .Flags, int32_t, 1
-NX_RESERVE .ScriptPath, int32_t, 1
-NX_RESERVE .AuthFlags, int32_t, 1
-NX_RESERVE .FullName, int32_t, 1
-NX_RESERVE .UserComment, int32_t, 1
-NX_RESERVE .Parms, int32_t, 1
-NX_RESERVE .Workstations, int32_t, 1
-NX_RESERVE .LastLogon, int32_t, 1
-NX_RESERVE .LastLogoff, int32_t, 1
-NX_RESERVE .AcctExpires, int32_t, 1
-NX_RESERVE .MaxStorage, int32_t, 1
-NX_RESERVE .UnitsPerWeek, int32_t, 1
-NX_RESERVE .LogonHours, int32_t, 1
-NX_RESERVE .BadPwCount, int32_t, 1
-NX_RESERVE .NumLogons, int32_t, 1
-NX_RESERVE .LogonServer, int32_t, 1
-NX_RESERVE .CountryCode, int32_t, 1
-NX_RESERVE .CodePage, int32_t, 1
-NX_RESERVE .UserID, int32_t, 1
-NX_RESERVE .PrimaryGroupID, int32_t, 1
-NX_RESERVE .Profile, int32_t, 1
-NX_RESERVE .HomeDirDrive, int32_t, 1
-NX_RESERVE .PasswordExpired, int32_t, 1
-ENDSTRUC
-
-STRUC GROUP_INFO_2
-NX_RESERVE .uName, int32_t, 1
-NX_RESERVE .Comment, int32_t, 1
-NX_RESERVE .GroupID, int32_t, 1
-NX_RESERVE .Attributes, int32_t, 1
-ENDSTRUC
-
-STRUC INIT_COMMON_CONTROLSEX
-NX_RESERVE .dwSize, int32_t, 1
-NX_RESERVE .dwICC, int32_t, 1
-ENDSTRUC
-
-STRUC REBARINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .fMask, int32_t, 1
-NX_RESERVE .himl, int32_t, 1
-ENDSTRUC
-
-STRUC REBARBANDINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .fMask, int32_t, 1
-NX_RESERVE .fStyle, int32_t, 1
-NX_RESERVE .clrFore, int32_t, 1
-NX_RESERVE .clrBack, int32_t, 1
-NX_RESERVE .lpText, int32_t, 1
-NX_RESERVE .cch, int32_t, 1
-NX_RESERVE .iImage, int32_t, 1
-NX_RESERVE .hwndChild, int32_t, 1
-NX_RESERVE .cxMinChild, int32_t, 1
-NX_RESERVE .cyMinChild, int32_t, 1
-NX_RESERVE .lx, int32_t, 1
-NX_RESERVE .hbmBack, int32_t, 1
-NX_RESERVE .wID, int32_t, 1
-NX_RESERVE .cyChild, int32_t, 1
-NX_RESERVE .cyMaxChild, int32_t, 1
-NX_RESERVE .cyIntegral, int32_t, 1
-NX_RESERVE .cxIdeal, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-NX_RESERVE .cxHeader, int32_t, 1
-ENDSTRUC
-
-STRUC NMREBARCHILDSIZE
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .uBand, int32_t, 1
-NX_RESERVE .wID, int32_t, 1
-NX_RESERVE .rcChild, RECT, RECT_size
-NX_RESERVE .rcBand, RECT, RECT_size
-ENDSTRUC
-
-STRUC NMREBAR
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .dwMask, int32_t, 1
-NX_RESERVE .uBand, int32_t, 1
-NX_RESERVE .fStyle, int32_t, 1
-NX_RESERVE .wID, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC NMRBAUTOSIZE
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .fChanged, int32_t, 1
-NX_RESERVE .rcTarget, RECT, RECT_size
-NX_RESERVE .rcActual, RECT, RECT_size
-ENDSTRUC
-
-STRUC RB_HITTESTINFO
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .iBand, short_t, 1
-ENDSTRUC
-
-STRUC IMAGEINFO
-NX_RESERVE .hbmImage, int32_t, 1
-NX_RESERVE .hbmMask, int32_t, 1
-NX_RESERVE .Unused1, int32_t, 1
-NX_RESERVE .Unused2, int32_t, 1
-NX_RESERVE .rcImage, RECT, RECT_size
-ENDSTRUC
-
-STRUC HD_ITEM
-NX_RESERVE .imask, int32_t, 1
-NX_RESERVE .lxy, int32_t, 1
-NX_RESERVE .pszText, int32_t, 1
-NX_RESERVE .hbm, int32_t, 1
-NX_RESERVE .cchTextMax, int32_t, 1
-NX_RESERVE .fmt, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC HD_LAYOUT
-NX_RESERVE .prc, int32_t, 1
-NX_RESERVE .pwpos, int32_t, 1
-ENDSTRUC
-
-STRUC HD_HITTESTINFO
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .iItem, int32_t, 1
-ENDSTRUC
-
-STRUC HD_NOTIFY
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .iItem, int32_t, 1
-NX_RESERVE .iButton, int32_t, 1
-NX_RESERVE .pitem, int32_t, 1
-ENDSTRUC
-
-STRUC TBBUTTON
-NX_RESERVE .iBitmap, int32_t, 1
-NX_RESERVE .idCommand, int32_t, 1
-NX_RESERVE .fsState, int8_t, 1
-NX_RESERVE .fsStyle, int8_t, 1
-NX_RESERVE .dwData, int32_t, 1
-NX_RESERVE .iString, int32_t, 1
-ENDSTRUC
-
-STRUC ColorMap
-NX_RESERVE .cmFrom, int32_t, 1
-NX_RESERVE .cmTo, int32_t, 1
-ENDSTRUC
-
-STRUC TBADDBITMAP
-NX_RESERVE .hInst, int32_t, 1
-NX_RESERVE .nId, int32_t, 1
-ENDSTRUC
-
-STRUC TBSAVEPARAMS
-NX_RESERVE .hkr, int32_t, 1
-NX_RESERVE .pszSubKey, int32_t, 1
-NX_RESERVE .pszValueName, int32_t, 1
-ENDSTRUC
-
-STRUC TBREPLACEBITMAP
-NX_RESERVE .hInstOld, int32_t, 1
-NX_RESERVE .nIdOld, int32_t, 1
-NX_RESERVE .hInstNew, int32_t, 1
-NX_RESERVE .nIdNew, int32_t, 1
-NX_RESERVE .nButtons, int32_t, 1
-ENDSTRUC
-
-STRUC TBNOTIFY
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .iItem, int32_t, 1
-NX_RESERVE .tbButton, int8_t, TBBUTTON_size
-NX_RESERVE .cchText, int32_t, 1
-NX_RESERVE .pszText, int32_t, 1
-ENDSTRUC
-
-STRUC TOOLINFO
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .uFlags, int32_t, 1
-NX_RESERVE .hWnd, int32_t, 1
-NX_RESERVE .uId, int32_t, 1
-NX_RESERVE .rect, RECT, RECT_size
-NX_RESERVE .hInst, int32_t, 1
-NX_RESERVE .lpszText, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC TT_HITTESTINFO
-NX_RESERVE .hWnd, int32_t, 1
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .ti, int8_t, TOOLINFO_size
-ENDSTRUC
-
-STRUC TOOLTIPTEXT
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .lpszText, int32_t, 1
-NX_RESERVE .szText, int8_t, 80
-NX_RESERVE .hInst, int32_t, 1
-NX_RESERVE .uFlags, int32_t, 1
-ENDSTRUC
-
-STRUC DRAGLISTINFO
-NX_RESERVE .uNotification, int32_t, 1
-NX_RESERVE .hWnd, int32_t, 1
-NX_RESERVE .ptCursor, POINT, POINT_size
-ENDSTRUC
-
-STRUC UDACCEL
-NX_RESERVE .nSec, int32_t, 1
-NX_RESERVE .nInc, int32_t, 1
-ENDSTRUC
-
-STRUC NM_UPDOWN
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .iPos, int32_t, 1
-NX_RESERVE .iDelta, int32_t, 1
-ENDSTRUC
-
-STRUC LV_ITEM
-NX_RESERVE .imask, int32_t, 1
-NX_RESERVE .iItem, int32_t, 1
-NX_RESERVE .iSubItem, int32_t, 1
-NX_RESERVE .state, int32_t, 1
-NX_RESERVE .stateMask, int32_t, 1
-NX_RESERVE .pszText, int32_t, 1
-NX_RESERVE .cchTextMax, int32_t, 1
-NX_RESERVE .iImage, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC LV_FINDINFO
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .psz, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .vkDirection, int32_t, 1
-ENDSTRUC
-
-STRUC LV_HITTESTINFO
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .iItem, int32_t, 1
-ENDSTRUC
-
-STRUC LV_COLUMN
-NX_RESERVE .imask, int32_t, 1
-NX_RESERVE .fmt, int32_t, 1
-NX_RESERVE .lx, int32_t, 1
-NX_RESERVE .pszText, int32_t, 1
-NX_RESERVE .cchTextMax, int32_t, 1
-NX_RESERVE .iSubItem, int32_t, 1
-ENDSTRUC
-
-STRUC NM_LISTVIEW
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .iItem, int32_t, 1
-NX_RESERVE .iSubItem, int32_t, 1
-NX_RESERVE .uNewState, int32_t, 1
-NX_RESERVE .uOldState, int32_t, 1
-NX_RESERVE .uChanged, int32_t, 1
-NX_RESERVE .ptAction, POINT, POINT_size
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC LV_DISPINFO
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .item, int32_t, 1
-ENDSTRUC
-
-STRUC LV_KEYDOWN
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .wVKey, short_t, 1
-NX_RESERVE .flags, int32_t, 1
-ENDSTRUC
-
-STRUC TREEITEM
-NX_RESERVE .dummy, int32_t, 1
-ENDSTRUC
-
-STRUC TV_ITEM
-NX_RESERVE .imask, int32_t, 1
-NX_RESERVE .hItem, int32_t, 1
-NX_RESERVE .state, int32_t, 1
-NX_RESERVE .stateMask, int32_t, 1
-NX_RESERVE .pszText, int32_t, 1
-NX_RESERVE .cchTextMax, int32_t, 1
-NX_RESERVE .iImage, int32_t, 1
-NX_RESERVE .iSelectedImage, int32_t, 1
-NX_RESERVE .cChildren, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC TV_INSERTSTRUCT
-NX_RESERVE .hParent, int32_t, 1
-NX_RESERVE .hInsertAfter, int32_t, 1
-NX_RESERVE .item, int32_t, 1
-ENDSTRUC
-
-STRUC TV_HITTESTINFO
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .flags, int32_t, 1
-NX_RESERVE .hItem, int32_t, 1
-ENDSTRUC
-
-STRUC TV_SORTCB
-NX_RESERVE .hParent, int32_t, 1
-NX_RESERVE .lpfnCompare, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC NM_TREEVIEW
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .action, int32_t, 1
-NX_RESERVE .itemOld, int32_t, 1
-NX_RESERVE .itemNew, int32_t, 1
-NX_RESERVE .ptDrag, POINT, POINT_size
-ENDSTRUC
-
-STRUC TV_DISPINFO
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .item, int32_t, 1
-ENDSTRUC
-
-STRUC TV_KEYDOWN
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .wVKey, short_t, 1
-NX_RESERVE .flags, int32_t, 1
-ENDSTRUC
-
-STRUC TC_ITEMHEADER
-NX_RESERVE .imask, int32_t, 1
-NX_RESERVE .lpReserved1, int32_t, 1
-NX_RESERVE .lpReserved2, int32_t, 1
-NX_RESERVE .pszText, int32_t, 1
-NX_RESERVE .cchTextMax, int32_t, 1
-NX_RESERVE .iImage, int32_t, 1
-ENDSTRUC
-
-STRUC TC_ITEM
-NX_RESERVE .imask, int32_t, 1
-NX_RESERVE .lpReserved1, int32_t, 1
-NX_RESERVE .lpReserved2, int32_t, 1
-NX_RESERVE .pszText, int32_t, 1
-NX_RESERVE .cchTextMax, int32_t, 1
-NX_RESERVE .iImage, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC TC_HITTESTINFO
-NX_RESERVE .pt, POINT, POINT_size
-NX_RESERVE .flags, int32_t, 1
-ENDSTRUC
-
-STRUC TC_KEYDOWN
-NX_RESERVE .hdr, NMHDR, NMHDR_size
-NX_RESERVE .wVKey, short_t, 1
-NX_RESERVE .flags, int32_t, 1
-ENDSTRUC
-
-STRUC CHOOSECOLORAPI
-NX_RESERVE .lStructSize, int32_t, 1
-NX_RESERVE .hwndOwner, int32_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .rgbResult, int32_t, 1
-NX_RESERVE .lpCustColors, int32_t, 1
-NX_RESERVE .Flags, int32_t, 1
-NX_RESERVE .lCustData, int32_t, 1
-NX_RESERVE .lpfnHook, int32_t, 1
-NX_RESERVE .lpTemplateName, int32_t, 1
-ENDSTRUC
-
-STRUC FINDREPLACE
-NX_RESERVE .lStructSize, int32_t, 1
-NX_RESERVE .hWndOwner, int32_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .Flags, int32_t, 1
-NX_RESERVE .lpstrFindWhat, int32_t, 1
-NX_RESERVE .lpstrReplaceWith, int32_t, 1
-NX_RESERVE .wFindWhatLen, short_t, 1
-NX_RESERVE .wReplaceWithLen, short_t, 1
-NX_RESERVE .lCustData, int32_t, 1
-NX_RESERVE .lpfnHook, int32_t, 1
-NX_RESERVE .lpTemplateName, int32_t, 1
-ENDSTRUC
-
-STRUC CHOOSEFONTAPI
-NX_RESERVE .lStructSize, int32_t, 1
-NX_RESERVE .hWndOwner, int32_t, 1
-NX_RESERVE .hDC, int32_t, 1
-NX_RESERVE .lpLogFont, int32_t, 1
-NX_RESERVE .iPointSize, int32_t, 1
-NX_RESERVE .Flags, int32_t, 1
-NX_RESERVE .rgbColors, int32_t, 1
-NX_RESERVE .lCustData, int32_t, 1
-NX_RESERVE .lpfnHook, int32_t, 1
-NX_RESERVE .lpTemplateName, int32_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .lpszStyle, int32_t, 1
-NX_RESERVE .nFontType, short_t, 1
-NX_RESERVE .Alignment, short_t, 1
-NX_RESERVE .nSizeMin, int32_t, 1
-NX_RESERVE .nSizeMax, int32_t, 1
-ENDSTRUC
-
-STRUC PRINTDLGAPI
-NX_RESERVE .lStructSize, int32_t, 1
-NX_RESERVE .hWndOwner, int32_t, 1
-NX_RESERVE .hDevMode, int32_t, 1
-NX_RESERVE .hDevNames, int32_t, 1
-NX_RESERVE .hDC, int32_t, 1
-NX_RESERVE .Flags, int32_t, 1
-NX_RESERVE .nFromPage, short_t, 1
-NX_RESERVE .nToPage, short_t, 1
-NX_RESERVE .nMinPage, short_t, 1
-NX_RESERVE .nMaxPage, short_t, 1
-NX_RESERVE .nCopies, short_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .lCustData, int32_t, 1
-NX_RESERVE .lpfnPrintHook, int32_t, 1
-NX_RESERVE .lpfnSetupHook, int32_t, 1
-NX_RESERVE .lpPrintTemplateName, int32_t, 1
-NX_RESERVE .lpPrintSetupTemplateName, int32_t, 1
-NX_RESERVE .hPrintTemplate, int32_t, 1
-NX_RESERVE .hSetupTemplate, int32_t, 1
-ENDSTRUC
-
-STRUC OPENFILENAME
-NX_RESERVE .lStructSize, int32_t, 1
-NX_RESERVE .hWndOwner, int32_t, 1
-NX_RESERVE .hInstance, int32_t, 1
-NX_RESERVE .lpstrFilter, int32_t, 1
-NX_RESERVE .lpstrCustomFilter, int32_t, 1
-NX_RESERVE .nMaxCustFilter, int32_t, 1
-NX_RESERVE .nFilterIndex, int32_t, 1
-NX_RESERVE .lpstrFile, int32_t, 1
-NX_RESERVE .nMaxFile, int32_t, 1
-NX_RESERVE .lpstrFileTitle, int32_t, 1
-NX_RESERVE .nMaxFileTitle, int32_t, 1
-NX_RESERVE .lpstrInitialDir, int32_t, 1
-NX_RESERVE .lpstrTitle, int32_t, 1
-NX_RESERVE .Flags, int32_t, 1
-NX_RESERVE .nFileOffset, short_t, 1
-NX_RESERVE .nFileExtension, short_t, 1
-NX_RESERVE .lpstrDefExt, int32_t, 1
-NX_RESERVE .lCustData, int32_t, 1
-NX_RESERVE .lpfnHook, int32_t, 1
-NX_RESERVE .lpTemplateName, int32_t, 1
-ENDSTRUC
-
-STRUC CHARFORMAT
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .dwMask, int32_t, 1
-NX_RESERVE .dwEffects, int32_t, 1
-NX_RESERVE .yHeight, int32_t, 1
-NX_RESERVE .yOffset, int32_t, 1
-NX_RESERVE .crTextColor, int32_t, 1
-NX_RESERVE .bCharSet, int8_t, 1
-NX_RESERVE .bPitchAndFamily, int8_t, 1
-NX_RESERVE .szFaceName, int8_t, 1
-ENDSTRUC
-
-STRUC CHARRANGE
-NX_RESERVE .cpMin, int32_t, 1
-NX_RESERVE .cpMax, int32_t, 1
-ENDSTRUC
-
-STRUC TEXTRANGE
-NX_RESERVE .chrg, CHARRANGE, CHARRANGE_size
-NX_RESERVE .lpstrText, int32_t, 1
-ENDSTRUC
-
-STRUC EDITSTREAM
-NX_RESERVE .dwCookie, int32_t, 1
-NX_RESERVE .dwError, int32_t, 1
-NX_RESERVE .pfnCallback, int32_t, 1
-ENDSTRUC
-
-STRUC FINDTEXT
-NX_RESERVE .chrg, CHARRANGE, CHARRANGE_size
-NX_RESERVE .lpstrText, int32_t, 1
-ENDSTRUC
-
-STRUC FINDTEXTEX
-NX_RESERVE .chrg, CHARRANGE, CHARRANGE_size
-NX_RESERVE .lpstrText, int32_t, 1
-NX_RESERVE .chrgText, CHARRANGE, CHARRANGE_size
-ENDSTRUC
-
-STRUC FORMATRANGE
-NX_RESERVE .hdc, int32_t, 1
-NX_RESERVE .hdcTarget, int32_t, 1
-NX_RESERVE .rc, RECT, RECT_size
-NX_RESERVE .rcPage, RECT, RECT_size
-NX_RESERVE .chrg, CHARRANGE, CHARRANGE_size
-ENDSTRUC
-
-STRUC PARAFORMAT
-NX_RESERVE .cbSize, int32_t, 1
-NX_RESERVE .dwMask, int32_t, 1
-NX_RESERVE .wNumbering, short_t, 1
-NX_RESERVE .wReserved, short_t, 1
-NX_RESERVE .dxStartIndent, int32_t, 1
-NX_RESERVE .dxRightIndent, int32_t, 1
-NX_RESERVE .dxOffset, int32_t, 1
-NX_RESERVE .wAlignment, short_t, 1
-NX_RESERVE .cTabCount, short_t, 1
-NX_RESERVE .rgxTabs, int32_t, 1
-ENDSTRUC
-
-STRUC MSGFILTER
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .msg, int32_t, 1
-NX_RESERVE .wParam, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-ENDSTRUC
-
-STRUC REQRESIZE
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .rc, RECT, RECT_size
-ENDSTRUC
-
-STRUC SELCHANGE
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .chrg, CHARRANGE, CHARRANGE_size
-NX_RESERVE .seltyp, short_t, 1
-ENDSTRUC
-
-STRUC ENDROPFILES
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .hDrop, int32_t, 1
-NX_RESERVE .cp, int32_t, 1
-NX_RESERVE .fProtected, int32_t, 1
-ENDSTRUC
-
-STRUC ENPROTECTED
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .msg, int32_t, 1
-NX_RESERVE .wParam, int32_t, 1
-NX_RESERVE .lParam, int32_t, 1
-NX_RESERVE .chrg, CHARRANGE, CHARRANGE_size
-ENDSTRUC
-
-STRUC ENSAVECLIPBOARD
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .cObjectCount, int32_t, 1
-NX_RESERVE .cch, int32_t, 1
-ENDSTRUC
-
-STRUC ENOLEOPFAILED
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .iob, int32_t, 1
-NX_RESERVE .lOper, int32_t, 1
-NX_RESERVE .hr, int32_t, 1
-ENDSTRUC
-
-STRUC ENCORRECTTEXT
-NX_RESERVE .nmhdr, NMHDR, NMHDR_size
-NX_RESERVE .chrg, CHARRANGE, CHARRANGE_size
-NX_RESERVE .seltyp, short_t, 1
-ENDSTRUC
-
-STRUC PUNCTUATION
-NX_RESERVE .iSize, int32_t, 1
-NX_RESERVE .szPunctuation, int32_t, 1
-ENDSTRUC
-
-STRUC COMPCOLOR
-NX_RESERVE .crText, int32_t, 1
-NX_RESERVE .crBackground, int32_t, 1
-NX_RESERVE .dwEffects, int32_t, 1
-ENDSTRUC
-
-STRUC REPASTESPECIAL
-NX_RESERVE .dwAspect, int32_t, 1
-NX_RESERVE .dwParam, int32_t, 1
-ENDSTRUC
-
-STRUC fd_setstruc
-NX_RESERVE .fd_count, int32_t, 1
-NX_RESERVE .fd_array, int32_t, 1
-ENDSTRUC
-
-STRUC timeval
-NX_RESERVE .tv_sec, int32_t, 1
-NX_RESERVE .tv_usec, int32_t, 1
-ENDSTRUC
-
-STRUC sockaddr_in
-NX_RESERVE .sin_family, short_t, 1
-NX_RESERVE .sin_port, short_t, 1
-NX_RESERVE .sin_addr, int32_t, 1
-NX_RESERVE .sin_zero, int8_t, 8
-ENDSTRUC
-
-STRUC sockaddr
-NX_RESERVE .sa_family, short_t, 1
-NX_RESERVE .sa_data, short_t, 1
-ENDSTRUC
-
-STRUC WSAdata
-NX_RESERVE .wVersion, short_t, 1
-NX_RESERVE .wHighVersion, short_t, 1
-NX_RESERVE .szDescription, int8_t, WSADESCRIPTION_LEN+1
-NX_RESERVE .szSystemStatus, int8_t, WSASYS_STATUS_LEN+1
-NX_RESERVE .iMaxSockets, short_t, 1
-NX_RESERVE .iMaxUdpDg, short_t, 1
-NX_RESERVE .lpVendorInfo, int32_t, 1
-ENDSTRUC
-
-STRUC sockproto
-NX_RESERVE .sp_family, short_t, 1
-NX_RESERVE .sp_protocol, short_t, 1
-ENDSTRUC
-
-STRUC linger
-NX_RESERVE .l_onoff, short_t, 1
-NX_RESERVE .l_linger, short_t, 1
-ENDSTRUC
-
-STRUC hostentStru
-NX_RESERVE .h_name, int32_t, 1
-NX_RESERVE .h_alias, int32_t, 1
-NX_RESERVE .h_addr, short_t, 1
-NX_RESERVE .h_len, short_t, 1
-NX_RESERVE .h_list, int32_t, 1
-ENDSTRUC
-
-STRUC netent
-NX_RESERVE .n_name, int32_t, 1
-NX_RESERVE .n_aliases, int32_t, 1
-NX_RESERVE .n_addrtype, short_t, 1
-NX_RESERVE .n_net, int32_t, 1
-ENDSTRUC
-
-STRUC servent
-NX_RESERVE .s_name, int32_t, 1
-NX_RESERVE .s_aliases, int32_t, 1
-NX_RESERVE .s_port, short_t, 1
-NX_RESERVE .s_proto, int32_t, 1
-ENDSTRUC
-
-STRUC icmp_hdr
-NX_RESERVE .icmp_type, int8_t, 1
-NX_RESERVE .icmp_code, int8_t, 1
-NX_RESERVE .icmp_cksum, short_t, 1
-NX_RESERVE .icmp_id, short_t, 1
-NX_RESERVE .icmp_seq, short_t, 1
-NX_RESERVE .icmp_data, int8_t, 1
-ENDSTRUC
-
-STRUC ip_hdr
-NX_RESERVE .ip_hlv, int8_t, 1
-NX_RESERVE .ip_tos, int8_t, 1
-NX_RESERVE .ip_len, short_t, 1
-NX_RESERVE .ip_id, short_t, 1
-NX_RESERVE .ip_off, short_t, 1
-NX_RESERVE .ip_ttl, int8_t, 1
-NX_RESERVE .ip_p, int8_t, 1
-NX_RESERVE .ip_cksum, short_t, 1
-NX_RESERVE .ip_src, int32_t, 1
-NX_RESERVE .ip_dest, int32_t, 1
-ENDSTRUC
-
-STRUC ICMP_OPTIONS
-NX_RESERVE .Ttl, int8_t, 1
-NX_RESERVE .Tos, int8_t, 1
-NX_RESERVE .Flags, int8_t, 1
-NX_RESERVE .OptionsSize, int8_t, 1
-NX_RESERVE .OptionsData, int32_t, 1
-ENDSTRUC
-
-STRUC ICMP_ECHO_REPLY
-NX_RESERVE .Address, int32_t, 1
-NX_RESERVE .Status, int32_t, 1
-NX_RESERVE .RoundTripTime, int32_t, 1
-NX_RESERVE .DataSize, short_t, 1
-NX_RESERVE .Reserved, short_t, 1
-NX_RESERVE .DataPointer, int32_t, 1
-NX_RESERVE .Options, int32_t, 1
-NX_RESERVE .zData, char_t, 250
-ENDSTRUC
+;// structures
+NX_STRUC RECT
+    NX_RESERVE .left, int32_t, 1
+    NX_RESERVE .top, int32_t, 1
+    NX_RESERVE .right, int32_t, 1
+    NX_RESERVE .bottom, int32_t, 1
+NX_ENDSTRUC RECT
+
+NX_STRUC POINT
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+NX_ENDSTRUC POINT
+
+NX_STRUC SIZEL
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+NX_ENDSTRUC SIZEL
+
+NX_STRUC MSG
+    NX_RESERVE .hwnd, NX_PTR, 1
+    NX_RESERVE .message, uint32_t, 1
+    NX_RESERVE .wParam, size_t, 1
+    NX_RESERVE .lParam, size_t, 1
+    NX_RESERVE .time, uint32_t, 1
+    NX_RESERVE .pt, POINT, 1
+	%ifidn __OUTPUT_FORMAT__,macho
+	    NX_RESERVE .lPrivate, int32_t, 1
+	%elifidn __OUTPUT_FORMAT__,macho32
+	    NX_RESERVE .lPrivate, int32_t, 1
+	%elifidn __OUTPUT_FORMAT__,macho64
+	    NX_RESERVE .lPrivate, int64_t, 1
+	%endif
+NX_ENDSTRUC MSG
+
+NX_STRUC SID_AND_ATTRIBUTES
+    NX_RESERVE .Sid, NX_PTR, 1
+    NX_RESERVE .Attributes, uint32_t, 1
+NX_ENDSTRUC SID_AND_ATTRIBUTES
+
+NX_STRUC SID_IDENTIFIER_AUTHORITY
+    NX_RESERVE .Value, int8_t, 6
+NX_ENDSTRUC SID_IDENTIFIER_AUTHORITY
+
+NX_STRUC OVERLAPPED
+    NX_RESERVE .Internal, NX_PTR, 1
+    NX_RESERVE .InternalHigh, NX_PTR, 1
+    NX_RESERVE .loffset, uint32_t, 1
+    NX_RESERVE .OffsetHigh, uint32_t, 1
+    NX_RESERVE .hEvent, NX_PTR, 1
+NX_ENDSTRUC OVERLAPPED
+
+NX_STRUC SECURITY_ATTRIBUTES
+    NX_RESERVE .niLength, uint32_t, 1
+    NX_RESERVE .lpSecurityDescriptor, NX_PTR, 1
+    NX_RESERVE .bInheritHandle, int32_t, 1
+NX_ENDSTRUC SECURITY_ATTRIBUTES
+
+NX_STRUC PROCESS_INFORMATION
+    NX_RESERVE .hProcess, NX_PTR, 1
+    NX_RESERVE .hThread, NX_PTR, 1
+    NX_RESERVE .dwProcessId, uint32_t, 1
+    NX_RESERVE .dwThreadId, uint32_t, 1
+NX_ENDSTRUC PROCESS_INFORMATION
+
+NX_STRUC FILETIME
+    NX_RESERVE .dwLowDateTime, uint32_t, 1
+    NX_RESERVE .dwHighDateTime, uint32_t, 1
+NX_ENDSTRUC FILETIME
+
+NX_STRUC SYSTEMTIME
+    NX_RESERVE .wYear, ushort_t, 1
+    NX_RESERVE .wMonth, ushort_t, 1
+    NX_RESERVE .wDayOfWeek, ushort_t, 1
+    NX_RESERVE .wDay, ushort_t, 1
+    NX_RESERVE .wHour, ushort_t, 1
+    NX_RESERVE .wMinute, ushort_t, 1
+    NX_RESERVE .wSecond, ushort_t, 1
+    NX_RESERVE .wMilliseconds, ushort_t, 1
+NX_ENDSTRUC SYSTEMTIME
+
+NX_STRUC COMMPROP
+    NX_RESERVE .wPacketiLength, ushort_t, 1
+    NX_RESERVE .wPacketVersion, ushort_t, 1
+    NX_RESERVE .dwServiceMask, uint32_t, 1
+    NX_RESERVE .dwReserved1, uint32_t, 1
+    NX_RESERVE .dwMaxTxQueue, uint32_t, 1
+    NX_RESERVE .dwMaxRxQueue, uint32_t, 1
+    NX_RESERVE .dwMaxBaud, uint32_t, 1
+    NX_RESERVE .dwProvSubType, uint32_t, 1
+    NX_RESERVE .dwProvCapabilities, uint32_t, 1
+    NX_RESERVE .dwSettableParams, uint32_t, 1
+    NX_RESERVE .dwSettableBaud, uint32_t, 1
+    NX_RESERVE .wSettableData, ushort_t, 1
+    NX_RESERVE .wSettableStopParity, ushort_t, 1
+    NX_RESERVE .dwCurrentTxQueue, uint32_t, 1
+    NX_RESERVE .dwCurrentRxQueue, uint32_t, 1
+    NX_RESERVE .dwProvSpec1, uint32_t, 1
+    NX_RESERVE .dwProvSpec2, uint32_t, 1
+    NX_RESERVE .wcProvChar, wchar_t, 1
+NX_ENDSTRUC COMMPROP
+
+NX_STRUC COMSTAT
+    NX_RESERVE .fCtsHold, uint32_t, 1
+    NX_RESERVE .fDsrHold, uint32_t, 1
+    NX_RESERVE .fRlsdHold, uint32_t, 1
+    NX_RESERVE .fXoffHold, uint32_t, 1
+    NX_RESERVE .fXoffSent, uint32_t, 1
+    NX_RESERVE .fEof, uint32_t, 1
+    NX_RESERVE .fTxim, uint32_t, 1
+    NX_RESERVE .fReserved, uint32_t, 1
+    NX_RESERVE .cbInQue, uint32_t, 1
+    NX_RESERVE .cbOutQue, uint32_t, 1
+NX_ENDSTRUC COMSTAT
+
+NX_STRUC DCB
+    NX_RESERVE .DCBlength, int32_t, 1
+    NX_RESERVE .BaudRate, int32_t, 1
+    NX_RESERVE .fbits, int32_t, 1
+    NX_RESERVE .wReserved, short_t, 1
+    NX_RESERVE .XonLim, short_t, 1
+    NX_RESERVE .XoffLim, short_t, 1
+    NX_RESERVE .ByteSize, int8_t, 1
+    NX_RESERVE .Parity, int8_t, 1
+    NX_RESERVE .StopBits, int8_t, 1
+    NX_RESERVE .XonChar, int8_t, 1
+    NX_RESERVE .XoffChar, int8_t, 1
+    NX_RESERVE .ErrorChar, int8_t, 1
+    NX_RESERVE .EofChar, int8_t, 1
+    NX_RESERVE .EvtChar, int8_t, 1
+NX_ENDSTRUC DCB
+
+NX_STRUC COMMTIMEOUTS
+    NX_RESERVE .ReadIntervalTimeout, uint32_t, 1
+    NX_RESERVE .ReadTotalTimeoutMultiplier, uint32_t, 1
+    NX_RESERVE .ReadTotalTimeoutConstant, uint32_t, 1
+    NX_RESERVE .WriteTotalTimeoutMultiplier, uint32_t, 1
+    NX_RESERVE .WriteTotalTimeoutConstant, uint32_t, 1
+NX_ENDSTRUC COMMTIMEOUTS
+
+NX_STRUC SYSTEM_INFO
+    NX_RESERVE .dwOemID, uint32_t, 1
+    NX_RESERVE .dwPageSize, uint32_t, 1
+    NX_RESERVE .lpMinimumApplicationAddress, NX_PTR, 1
+    NX_RESERVE .lpMaximumApplicationAddress, NX_PTR, 1
+    NX_RESERVE .dwActiveProcessorMask, size_t, 1
+    NX_RESERVE .dwNumberOrfProcessors, uint32_t, 1
+    NX_RESERVE .dwProcessorType, uint32_t, 1
+    NX_RESERVE .dwAllocationGranularity, uint32_t, 1
+    NX_RESERVE .wProcessorLevel, ushort_t, 1
+    NX_RESERVE .wProcessorRevision, ushort_t, 1
+NX_ENDSTRUC SYSTEM_INFO
+
+NX_STRUC MEMORYSTATUS
+    NX_RESERVE .dwiLength, uint32_t, 1
+    NX_RESERVE .dwMemoryLoad, uint32_t, 1
+    NX_RESERVE .dwTotalPhys, size_t, 1
+    NX_RESERVE .dwAvailPhys, size_t, 1
+    NX_RESERVE .dwTotalPageFile, size_t, 1
+    NX_RESERVE .dwAvailPageFile, size_t, 1
+    NX_RESERVE .dwTotalVirtual, size_t, 1
+    NX_RESERVE .dwAvailVirtual, size_t, 1
+NX_ENDSTRUC MEMORYSTATUS
+
+NX_STRUC TPMPARAMS
+    NX_RESERVE .cbSize, uint32_t, 1
+    NX_RESERVE .rcExclude, RECT, 1
+NX_ENDSTRUC TPMPARAMS
+
+NX_STRUC GENERIC_MAPPING
+    NX_RESERVE .GenericRead, uint32_t, 1
+    NX_RESERVE .GenericWrite, uint32_t, 1
+    NX_RESERVE .GenericExecute, uint32_t, 1
+    NX_RESERVE .GenericAll, uint32_t, 1
+NX_ENDSTRUC GENERIC_MAPPING
+
+NX_STRUC LUID
+    NX_RESERVE .LowPart, uint32_t, 1
+    NX_RESERVE .HighPart, int32_t, 1
+NX_ENDSTRUC LUID
+
+NX_STRUC LUID_AND_ATTRIBUTES
+    NX_RESERVE .pLuid, NX_PTR, 1
+    NX_RESERVE .Attributes, uint32_t, 1
+NX_ENDSTRUC LUID_AND_ATTRIBUTES
+
+NX_STRUC ACL
+    NX_RESERVE .AclRevision, int8_t, 1
+    NX_RESERVE .Sbz1, int8_t, 1
+    NX_RESERVE .AclSize, uint16_t, 1
+    NX_RESERVE .AceCount, uint16_t, 1
+    NX_RESERVE .Sbz2, uint16_t, 1
+NX_ENDSTRUC ACL
+
+NX_STRUC ACE_HEADER
+    NX_RESERVE .AceType, int8_t, 1
+    NX_RESERVE .AceFlags, int8_t, 1
+    NX_RESERVE .AceSize, uint16_t, 1
+NX_ENDSTRUC ACE_HEADER
+
+NX_STRUC ACCESS_ALLOWED_ACE
+    NX_RESERVE .Header, ACE_HEADER, 1
+    NX_RESERVE .imask, uint32_t, 1
+    NX_RESERVE .SidStart, uint32_t, 1
+NX_ENDSTRUC ACCESS_ALLOWED_ACE
+
+NX_STRUC ACCESS_DENIED_ACE
+    NX_RESERVE .Header, ACE_HEADER, 1
+    NX_RESERVE .imask, uint32_t, 1
+    NX_RESERVE .SidStart, uint32_t, 1
+NX_ENDSTRUC ACCESS_DENIED_ACE
+
+NX_STRUC SYSTEM_AUDIT_ACE
+    NX_RESERVE .Header, ACE_HEADER, 1
+    NX_RESERVE .imask, uint32_t, 1
+    NX_RESERVE .SidStart, uint32_t, 1
+NX_ENDSTRUC SYSTEM_AUDIT_ACE
+
+NX_STRUC SYSTEM_ALARM_ACE
+    NX_RESERVE .Header, ACE_HEADER, 1
+    NX_RESERVE .imask, uint32_t, 1
+    NX_RESERVE .SidStart, uint32_t, 1
+NX_ENDSTRUC SYSTEM_ALARM_ACE
+
+NX_STRUC ACL_REVISION_INFORMATION
+    NX_RESERVE .AclRevision, uint32_t, 1
+NX_ENDSTRUC ACL_REVISION_INFORMATION
+
+NX_STRUC ACL_SIZE_INFORMATION
+    NX_RESERVE .AceCount, uint32_t, 1
+    NX_RESERVE .AclBytesInUse, uint32_t, 1
+    NX_RESERVE .AclBytesFree, uint32_t, 1
+NX_ENDSTRUC ACL_SIZE_INFORMATION
+
+NX_STRUC SECURITY_DESCRIPTOR
+    NX_RESERVE .Revision, int8_t, 1
+    NX_RESERVE .Sbz1, int8_t, 1
+    NX_RESERVE .Control, uint16_t, 1
+    NX_RESERVE .Owner, NX_PTR, 1
+    NX_RESERVE .lGroup, NX_PTR, 1
+    NX_RESERVE .Sacl, NX_PTR, 1
+    NX_RESERVE .Dacl, NX_PTR, 1
+NX_ENDSTRUC SECURITY_DESCRIPTOR
+
+NX_STRUC PRIVILEGE_SET
+    NX_RESERVE .PrivilegeCount, uint32_t, 1
+    NX_RESERVE .Control, uint32_t, 1
+    NX_RESERVE .Privilege, LUID_AND_ATTRIBUTES, 1
+NX_ENDSTRUC PRIVILEGE_SET
+
+NX_STRUC EXCEPTION_RECORD
+    NX_RESERVE .ExceptionCode, uint32_t, 1
+    NX_RESERVE .ExceptionFlags, uint32_t, 1
+    NX_RESERVE .pExceptionRecord, NX_PTR, 1
+    NX_RESERVE .ExceptionAddress, NX_PTR, 1
+    NX_RESERVE .NumberParameters, uint32_t, 1
+    NX_RESERVE .ExceptionInformation, size_t, 1
+NX_ENDSTRUC EXCEPTION_RECORD
+
+NX_STRUC EXCEPTION_DEBUG_INFO
+    NX_RESERVE .pExceptionRecord, EXCEPTION_RECORD, 1
+    NX_RESERVE .dwFirstChance, uint32_t, 1
+NX_ENDSTRUC EXCEPTION_DEBUG_INFO
+
+NX_STRUC CREATE_THREAD_DEBUG_INFO
+    NX_RESERVE .hThread, NX_PTR, 1
+    NX_RESERVE .lpThreadLocalBase, NX_PTR, 1
+    NX_RESERVE .lpStartAddress, NX_PTR, 1
+NX_ENDSTRUC CREATE_THREAD_DEBUG_INFO
+
+NX_STRUC CREATE_PROCESS_DEBUG_INFO
+    NX_RESERVE .hFile, NX_PTR, 1
+    NX_RESERVE .hProcess, NX_PTR, 1
+    NX_RESERVE .hThread, NX_PTR, 1
+    NX_RESERVE .lpBaseOfImage, NX_PTR, 1
+    NX_RESERVE .dwDebugInfoFileOffset, uint32_t, 1
+    NX_RESERVE .nDebugInfoSize, uint32_t, 1
+    NX_RESERVE .lpThreadLocalBase, NX_PTR, 1
+    NX_RESERVE .lpStartAddress, NX_PTR, 1
+    NX_RESERVE .lpImageName, NX_PTR, 1
+    NX_RESERVE .fUnicode, uint16_t, 1
+NX_ENDSTRUC CREATE_PROCESS_DEBUG_INFO
+
+NX_STRUC EXIT_THREAD_DEBUG_INFO
+    NX_RESERVE .dwExitCode, uint32_t, 1
+NX_ENDSTRUC EXIT_THREAD_DEBUG_INFO
+
+NX_STRUC EXIT_PROCESS_DEBUG_INFO
+    NX_RESERVE .dwExitCode, uint32_t, 1
+NX_ENDSTRUC EXIT_PROCESS_DEBUG_INFO
+
+NX_STRUC LOAD_DLL_DEBUG_INFO
+    NX_RESERVE .hFile, NX_PTR, 1
+    NX_RESERVE .lpBaseOfDll, NX_PTR, 1
+    NX_RESERVE .dwDebugInfoFileOffset, uint32_t, 1
+    NX_RESERVE .nDebugInfoSize, uint32_t, 1
+    NX_RESERVE .lpImageName, NX_PTR, 1
+    NX_RESERVE .fUnicode, uint16_t, 1
+NX_ENDSTRUC LOAD_DLL_DEBUG_INFO
+
+NX_STRUC UNLOAD_DLL_DEBUG_INFO
+    NX_RESERVE .lpBaseOfDll, NX_PTR, 1
+NX_ENDSTRUC UNLOAD_DLL_DEBUG_INFO
+
+NX_STRUC OUTPUT_DEBUG_STRING_INFO
+    NX_RESERVE .lpDebugStringData, NX_PTR, 1
+    NX_RESERVE .fUnicode, uint16_t, 1
+    NX_RESERVE .nDebugStringiLength, uint16_t, 1
+NX_ENDSTRUC OUTPUT_DEBUG_STRING_INFO
+
+NX_STRUC RIP_INFO
+    NX_RESERVE .dwError, uint32_t, 1
+    NX_RESERVE .dwType, uint32_t, 1
+NX_ENDSTRUC RIP_INFO
+
+NX_STRUC OFSTRUCT
+    NX_RESERVE .cBytes, int8_t, 1
+    NX_RESERVE .fFixedDisk, int8_t, 1
+    NX_RESERVE .nErrCode, uint16_t, 1
+    NX_RESERVE .Reserved1, uint16_t, 1
+    NX_RESERVE .Reserved2, uint16_t, 1
+    NX_RESERVE .szPathName, char_t, OFS_MAXPATHNAME
+NX_ENDSTRUC OFSTRUCT
+
+NX_STRUC WNDCLASSEX
+    NX_RESERVE .cbSize, uint32_t, 1
+    NX_RESERVE .style, uint32_t, 1
+    NX_RESERVE .lpfnWndProc, NX_PTR, 1
+    NX_RESERVE .cbClsExtra, int32_t, 1
+    NX_RESERVE .cbWndExtra, int32_t, 1
+    NX_RESERVE .hInstance, NX_PTR, 1
+    NX_RESERVE .hIcon, NX_PTR, 1
+    NX_RESERVE .hCursor, NX_PTR, 1
+    NX_RESERVE .hbrBackground, NX_PTR, 1
+    NX_RESERVE .lpszMenuName, NX_PTR, 1
+    NX_RESERVE .lpszClassName, NX_PTR, 1
+    NX_RESERVE .hIconSm, NX_PTR, 1
+NX_ENDSTRUC WNDCLASSEX
+
+NX_STRUC WNDCLASS
+    NX_RESERVE .style, uint32_t, 1
+    NX_RESERVE .lpfnWndProc, NX_PTR, 1
+    NX_RESERVE .cbClsExtra, int32_t, 1
+    NX_RESERVE .cbWndExtra, int32_t, 1
+    NX_RESERVE .hInstance, NX_PTR, 1
+    NX_RESERVE .hIcon, NX_PTR, 1
+    NX_RESERVE .hCursor, NX_PTR, 1
+    NX_RESERVE .hbrBackground, NX_PTR, 1
+    NX_RESERVE .lpszMenuName, NX_PTR, 1
+    NX_RESERVE .lpszClassName, NX_PTR, 1
+NX_ENDSTRUC WNDCLASS
+
+NX_STRUC CRITICAL_SECTION
+    NX_RESERVE .DebugInfo, NX_PTR, 1
+    NX_RESERVE .LockCount, int32_t, 1
+    NX_RESERVE .RecursionCount, int32_t, 1
+    NX_RESERVE .OwningThread, NX_PTR, 1
+    NX_RESERVE .LockSemaphore, NX_PTR, 1
+    NX_RESERVE .SpinCount, size_t, 1
+NX_ENDSTRUC CRITICAL_SECTION
+
+NX_STRUC BY_HANDLE_FILE_INFORMATION
+    NX_RESERVE .dwFileAttributes, uint32_t, 1
+    NX_RESERVE .ftCreationTime, FILETIME, 1
+    NX_RESERVE .ftLastAccessTime, FILETIME, 1
+    NX_RESERVE .ftLastWriteTime, FILETIME, 1
+    NX_RESERVE .dwVolumeSerialNumber, uint32_t, 1
+    NX_RESERVE .nFileSizeHigh, uint32_t, 1
+    NX_RESERVE .nFileSizeLow, uint32_t, 1
+    NX_RESERVE .nNumberOfLinks, uint32_t, 1
+    NX_RESERVE .nFileIndexHigh, uint32_t, 1
+    NX_RESERVE .nFileIndexLow, uint32_t, 1
+NX_ENDSTRUC BY_HANDLE_FILE_INFORMATION
+
+NX_STRUC MEMORY_BASIC_INFORMATION
+    NX_RESERVE .BaseAddress, NX_PTR, 1
+    NX_RESERVE .AllocationBase, NX_PTR, 1
+    NX_RESERVE .AllocationProtect, uint32_t, 1
+    NX_RESERVE .RegionSize, size_t, 1
+    NX_RESERVE .State, uint32_t, 1
+    NX_RESERVE .Protect, uint32_t, 1
+    NX_RESERVE .lType, uint32_t, 1
+NX_ENDSTRUC MEMORY_BASIC_INFORMATION
+
+NX_STRUC EVENTLOGRECORD
+    NX_RESERVE .iLength, uint32_t, 1
+    NX_RESERVE .Reserved, uint32_t, 1
+    NX_RESERVE .RecordNumber, uint32_t, 1
+    NX_RESERVE .TimeGenerated, uint32_t, 1
+    NX_RESERVE .TimeWritten, uint32_t, 1
+    NX_RESERVE .EventID, uint32_t, 1
+    NX_RESERVE .EventType, uint16_t, 1
+    NX_RESERVE .NumStrings, uint16_t, 1
+    NX_RESERVE .EventCategory, uint16_t, 1
+    NX_RESERVE .ReservedFlags, uint16_t, 1
+    NX_RESERVE .ClosingRecordNumber, uint32_t, 1
+    NX_RESERVE .StringOffset, uint32_t, 1
+    NX_RESERVE .UserSidiLength, uint32_t, 1
+    NX_RESERVE .UserSidOffset, uint32_t, 1
+    NX_RESERVE .DataiLength, uint32_t, 1
+    NX_RESERVE .DataOffset, uint32_t, 1
+NX_ENDSTRUC EVENTLOGRECORD
+
+;// TODO: verify struct var names and update type...
+
+NX_STRUC TOKEN_GROUPS
+    NX_RESERVE .GroupCount, int32_t, 1
+    NX_RESERVE .Groups, int32_t, 1
+NX_ENDSTRUC TOKEN_GROUPS
+
+NX_STRUC TOKEN_PRIVILEGES
+    NX_RESERVE .PrivilegeCount, int32_t, 1
+    NX_RESERVE .Privileges, int32_t, 1
+NX_ENDSTRUC TOKEN_PRIVILEGES
+
+NX_STRUC FLOATING_SAVE_AREA
+    NX_RESERVE .ControlWord, int32_t, 1
+    NX_RESERVE .StatusWord, int32_t, 1
+    NX_RESERVE .TagWord, int32_t, 1
+    NX_RESERVE .ErrorOffset, int32_t, 1
+    NX_RESERVE .ErrorSelector, int32_t, 1
+    NX_RESERVE .DataOffset, int32_t, 1
+    NX_RESERVE .DataSelector, int32_t, 1
+    NX_RESERVE .RegisterArea, int8_t, 1
+    NX_RESERVE .Cr0NpxState, int32_t, 1
+NX_ENDSTRUC FLOATING_SAVE_AREA
+
+NX_STRUC CONTEXT
+    NX_RESERVE .ContextFlags, int32_t, 1
+    NX_RESERVE .iDr0, int32_t, 1
+    NX_RESERVE .iDr1, int32_t, 1
+    NX_RESERVE .iDr2, int32_t, 1
+    NX_RESERVE .iDr3, int32_t, 1
+    NX_RESERVE .iDr6, int32_t, 1
+    NX_RESERVE .iDr7, int32_t, 1
+    NX_RESERVE .FloatSave, int32_t, 1
+    NX_RESERVE .regGs, int32_t, 1
+    NX_RESERVE .regFs, int32_t, 1
+    NX_RESERVE .regEs, int32_t, 1
+    NX_RESERVE .regDs, int32_t, 1
+    NX_RESERVE .regEdi, int32_t, 1
+    NX_RESERVE .regEsi, int32_t, 1
+    NX_RESERVE .regEbx, int32_t, 1
+    NX_RESERVE .regEdx, int32_t, 1
+    NX_RESERVE .regEcx, int32_t, 1
+    NX_RESERVE .regEax, int32_t, 1
+    NX_RESERVE .regEbp, int32_t, 1
+    NX_RESERVE .regEip, int32_t, 1
+    NX_RESERVE .regCs, int32_t, 1
+    NX_RESERVE .regFlag, int32_t, 1
+    NX_RESERVE .regEsp, int32_t, 1
+    NX_RESERVE .regSs, int32_t, 1
+NX_ENDSTRUC CONTEXT
+
+NX_STRUC EXCEPTION_POINTERS
+    NX_RESERVE .pExceptionRecord, int32_t, 1
+    NX_RESERVE .ContextRecord, int32_t, 1
+NX_ENDSTRUC EXCEPTION_POINTERS
+
+NX_STRUC LDT_BYTES
+    NX_RESERVE .BaseMid, int8_t, 1
+    NX_RESERVE .Flags1, int8_t, 1
+    NX_RESERVE .Flags2, int8_t, 1
+    NX_RESERVE .BaseHi, int8_t, 1
+NX_ENDSTRUC LDT_BYTES
+
+NX_STRUC LDT_ENTRY
+    NX_RESERVE .LimitLow, short_t, 1
+    NX_RESERVE .BaseLow, short_t, 1
+    NX_RESERVE .HiWord, int32_t, 1
+NX_ENDSTRUC LDT_ENTRY
+
+NX_STRUC TIME_ZONE_INFORMATION
+    NX_RESERVE .Bias, int32_t, 1
+    NX_RESERVE .StandardName, short_t, 1
+    NX_RESERVE .StandardDate, int32_t, 1
+    NX_RESERVE .StandardBias, int32_t, 1
+    NX_RESERVE .DaylightName, short_t, 1
+    NX_RESERVE .DaylightDate, int32_t, 1
+    NX_RESERVE .DaylightBias, int32_t, 1
+NX_ENDSTRUC TIME_ZONE_INFORMATION
+
+NX_STRUC WIN32_STREAM_ID
+    NX_RESERVE .dwStreamID, int32_t, 1
+    NX_RESERVE .dwStreamAttributes, int32_t, 1
+    NX_RESERVE .dwStreamSizeLow, int32_t, 1
+    NX_RESERVE .dwStreamSizeHigh, int32_t, 1
+    NX_RESERVE .dwStreamNameSize, int32_t, 1
+    NX_RESERVE .cStreamName, int8_t, 1
+NX_ENDSTRUC WIN32_STREAM_ID
+
+NX_STRUC STARTUPINFO
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .lpReserved, int32_t, 1
+    NX_RESERVE .lpDesktop, int32_t, 1
+    NX_RESERVE .lpTitle, int32_t, 1
+    NX_RESERVE .dwX, int32_t, 1
+    NX_RESERVE .dwY, int32_t, 1
+    NX_RESERVE .dwXSize, int32_t, 1
+    NX_RESERVE .dwYSize, int32_t, 1
+    NX_RESERVE .dwXCountChars, int32_t, 1
+    NX_RESERVE .dwYCountChars, int32_t, 1
+    NX_RESERVE .dwFillAttribute, int32_t, 1
+    NX_RESERVE .dwFlags, int32_t, 1
+    NX_RESERVE .wShowWindow, short_t, 1
+    NX_RESERVE .cbReserved2, short_t, 1
+    NX_RESERVE .lpReserved2, int8_t, 1
+    NX_RESERVE .hStdInput, int32_t, 1
+    NX_RESERVE .hStdOutput, int32_t, 1
+    NX_RESERVE .hStdError, int32_t, 1
+NX_ENDSTRUC STARTUPINFO
+
+NX_STRUC WIN32_FIND_DATA
+    NX_RESERVE .dwFileAttributes, int32_t, 1
+    NX_RESERVE .ftCreationTime, FILETIME, 1
+    NX_RESERVE .ftLastAccessTime, FILETIME, 1
+    NX_RESERVE .ftLastWriteTime, FILETIME, 1
+    NX_RESERVE .nFileSizeHigh, int32_t, 1
+    NX_RESERVE .nFileSizeLow, int32_t, 1
+    NX_RESERVE .dwReserved0, int32_t, 1
+    NX_RESERVE .dwReserved1, int32_t, 1
+    NX_RESERVE .cFileName, int8_t, MAX_PATH
+    NX_RESERVE .cAlternate, int8_t, 14 
+NX_ENDSTRUC WIN32_FIND_DATA
+
+NX_STRUC CPINFO
+    NX_RESERVE .MaxCharSize, int32_t, 1
+    NX_RESERVE .DefaultChar, int8_t, 1
+    NX_RESERVE .LeadByte, int8_t, 1
+NX_ENDSTRUC CPINFO
+
+NX_STRUC NUMBERFMT
+    NX_RESERVE .NumDigits, int32_t, 1
+    NX_RESERVE .LeadingZero, int32_t, 1
+    NX_RESERVE .Grouping, int32_t, 1
+    NX_RESERVE .lpDecimalSep, int32_t, 1
+    NX_RESERVE .lpThousandSep, int32_t, 1
+    NX_RESERVE .NegativeOrder, int32_t, 1
+NX_ENDSTRUC NUMBERFMT
+
+NX_STRUC CURRENCYFMT
+    NX_RESERVE .NumDigits, int32_t, 1
+    NX_RESERVE .LeadingZero, int32_t, 1
+    NX_RESERVE .Grouping, int32_t, 1
+    NX_RESERVE .lpDecimalSep, int32_t, 1
+    NX_RESERVE .lpThousandSep, int32_t, 1
+    NX_RESERVE .NegativeOrder, int32_t, 1
+    NX_RESERVE .PositiveOrder, int32_t, 1
+    NX_RESERVE .lpCurrencySymbol, int32_t, 1
+NX_ENDSTRUC CURRENCYFMT
+
+NX_STRUC COORD
+    NX_RESERVE .x, short_t, 1
+    NX_RESERVE .y, short_t, 1
+NX_ENDSTRUC COORD
+
+NX_STRUC SMALL_RECT
+    NX_RESERVE .left, short_t, 1
+    NX_RESERVE .top, short_t, 1
+    NX_RESERVE .right, short_t, 1
+    NX_RESERVE .bottom, short_t, 1
+NX_ENDSTRUC SMALL_RECT
+
+NX_STRUC KEY_EVENT_RECORD
+    NX_RESERVE .bKeyDown, int32_t, 1
+    NX_RESERVE .wRepeatCount, short_t, 1
+    NX_RESERVE .wVirtualKeyCode, short_t, 1
+    NX_RESERVE .wVirtualScanCode, short_t, 1
+    NX_RESERVE .uChar, short_t, 1
+    NX_RESERVE .dwControlKeyState, int32_t, 1
+NX_ENDSTRUC KEY_EVENT_RECORD
+
+NX_STRUC MOUSE_EVENT_RECORD
+    NX_RESERVE .dwMousePosition, int32_t, 1
+    NX_RESERVE .dwButtonState, int32_t, 1
+    NX_RESERVE .dwControlKeyState, int32_t, 1
+    NX_RESERVE .dwEventFlags, int32_t, 1
+NX_ENDSTRUC MOUSE_EVENT_RECORD
+
+NX_STRUC WINDOW_BUFFER_SIZE_RECORD
+    NX_RESERVE .dwSize, int32_t, 1
+NX_ENDSTRUC WINDOW_BUFFER_SIZE_RECORD
+
+NX_STRUC MENU_EVENT_RECORD
+    NX_RESERVE .dwCommandId, int32_t, 1
+NX_ENDSTRUC MENU_EVENT_RECORD
+
+NX_STRUC FOCUS_EVENT_RECORD
+    NX_RESERVE .bSetFocus, int32_t, 1
+NX_ENDSTRUC FOCUS_EVENT_RECORD
+
+NX_STRUC CHAR_INFO
+    NX_RESERVE .Char, short_t, 1
+    NX_RESERVE .Attributes, short_t, 1
+NX_ENDSTRUC CHAR_INFO
+
+NX_STRUC CONSOLE_SCREEN_BUFFER_INFO
+    NX_RESERVE .dwSize, int32_t, 1
+    NX_RESERVE .dwCursorPosition, int32_t, 1
+    NX_RESERVE .wAttributes, short_t, 1
+    NX_RESERVE .srWindow, SMALL_RECT, 1
+    NX_RESERVE .dwMaximumWindowSize, int32_t, 1
+NX_ENDSTRUC CONSOLE_SCREEN_BUFFER_INFO
+
+NX_STRUC CONSOLE_CURSOR_INFO
+    NX_RESERVE .dwSize, int32_t, 1
+    NX_RESERVE .bVisible, int32_t, 1
+NX_ENDSTRUC CONSOLE_CURSOR_INFO
+
+NX_STRUC XFORM
+    NX_RESERVE .eM11, int64_t,1
+    NX_RESERVE .eM12, int64_t, 1
+    NX_RESERVE .eM21, int64_t, 1
+    NX_RESERVE .eM22, int64_t, 1
+    NX_RESERVE .ex, int64_t, 1
+    NX_RESERVE .ey, int64_t, 1
+NX_ENDSTRUC XFORM
+
+NX_STRUC BITMAP
+    NX_RESERVE .bmType, int32_t, 1
+    NX_RESERVE .bmWidth, int32_t, 1
+    NX_RESERVE .bmHeight, int32_t, 1
+    NX_RESERVE .bmWidthBytes, int32_t, 1
+    NX_RESERVE .bmPlanes, short_t, 1
+    NX_RESERVE .bmBitsPixel, short_t, 1
+    NX_RESERVE .bmBits, int32_t, 1
+NX_ENDSTRUC BITMAP
+
+NX_STRUC RGBTRIPLE
+    NX_RESERVE .rgbtBlue, int8_t, 1
+    NX_RESERVE .rgbtGreen, int8_t, 1
+    NX_RESERVE .rgbtRed, int8_t, 1
+NX_ENDSTRUC RGBTRIPLE
+
+NX_STRUC RGBQUAD
+    NX_RESERVE .rgbBlue, int8_t, 1
+    NX_RESERVE .rgbGreen, int8_t, 1
+    NX_RESERVE .rgbRed, int8_t, 1
+    NX_RESERVE .rgbReserved, int8_t, 1
+NX_ENDSTRUC RGBQUAD
+
+NX_STRUC BITMAPCOREHEADER
+    NX_RESERVE .bcSize, int32_t, 1
+    NX_RESERVE .bcWidth, short_t, 1
+    NX_RESERVE .bcHeight, short_t, 1
+    NX_RESERVE .bcPlanes, short_t, 1
+    NX_RESERVE .bcBitCount, short_t, 1
+NX_ENDSTRUC BITMAPCOREHEADER
+
+NX_STRUC BITMAPINFOHEADER
+    NX_RESERVE .biSize, int32_t, 1
+    NX_RESERVE .biWidth, int32_t, 1
+    NX_RESERVE .biHeight, int32_t, 1
+    NX_RESERVE .biPlanes, short_t, 1
+    NX_RESERVE .biBitCount, short_t, 1
+    NX_RESERVE .biCompression, int32_t, 1
+    NX_RESERVE .biSizeImage, int32_t, 1
+    NX_RESERVE .biXPelsPerMeter, int32_t, 1
+    NX_RESERVE .biYPelsPerMeter, int32_t, 1
+    NX_RESERVE .biClrUsed, int32_t, 1
+    NX_RESERVE .biClrImportant, int32_t, 1
+NX_ENDSTRUC BITMAPINFOHEADER
+
+NX_STRUC BITMAPINFO
+    NX_RESERVE .bmiHeader, int32_t, 1
+    NX_RESERVE .bmiColors, int32_t, 1
+NX_ENDSTRUC BITMAPINFO
+
+NX_STRUC BITMAPCOREINFO
+    NX_RESERVE .bmciHeader, int32_t, 1
+    NX_RESERVE .bmciColors, int32_t, 1
+NX_ENDSTRUC BITMAPCOREINFO
+
+NX_STRUC BITMAPFILEHEADER
+    NX_RESERVE .bfType, short_t, 1
+    NX_RESERVE .bfSize, int32_t, 1
+    NX_RESERVE .bfReserved1, short_t, 1
+    NX_RESERVE .bfReserved2, short_t, 1
+    NX_RESERVE .bfOffBits, int32_t, 1
+NX_ENDSTRUC BITMAPFILEHEADER
+
+NX_STRUC HANDLETABLE
+    NX_RESERVE .objectHandle, int32_t, 1
+NX_ENDSTRUC HANDLETABLE
+
+NX_STRUC METARECORD
+    NX_RESERVE .rdSize, int32_t, 1
+    NX_RESERVE .rdFunction, short_t, 1
+    NX_RESERVE .rdParm1, short_t, 1
+NX_ENDSTRUC METARECORD
+
+NX_STRUC METAFILEPICT
+    NX_RESERVE .imm, int32_t, 1
+    NX_RESERVE .xExt, int32_t, 1
+    NX_RESERVE .yExt, int32_t, 1
+    NX_RESERVE .hMF, int32_t, 1
+NX_ENDSTRUC METAFILEPICT
+
+NX_STRUC METAHEADER
+    NX_RESERVE .mtType, short_t, 1
+    NX_RESERVE .mtHeaderSize, short_t, 1
+    NX_RESERVE .mtVersion, short_t, 1
+    NX_RESERVE .mtSize, int32_t, 1
+    NX_RESERVE .mtNoObjects, short_t, 1
+    NX_RESERVE .mtMaxRecord, int32_t, 1
+    NX_RESERVE .mtNoParameters, short_t, 1
+NX_ENDSTRUC METAHEADER
+
+NX_STRUC ENHMETARECORD
+    NX_RESERVE .iType, int32_t, 1
+    NX_RESERVE .nSize, int32_t, 1
+    NX_RESERVE .dParm1, int32_t, 1
+NX_ENDSTRUC ENHMETARECORD
+
+NX_STRUC ENHMETAHEADER
+    NX_RESERVE .iType, int32_t, 1
+    NX_RESERVE .nSize, int32_t, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .rclFrame, RECT, 1
+    NX_RESERVE .dSignature, int32_t, 1
+    NX_RESERVE .nVersion, int32_t, 1
+    NX_RESERVE .nBytes, int32_t, 1
+    NX_RESERVE .nRecords, int32_t, 1
+    NX_RESERVE .nHandles, short_t, 1
+    NX_RESERVE .sReserved, short_t, 1
+    NX_RESERVE .nDescription, int32_t, 1
+    NX_RESERVE .offDescription, int32_t, 1
+    NX_RESERVE .nPalEntries, int32_t, 1
+    NX_RESERVE .szlDevice, int32_t, 1
+    NX_RESERVE .szlMillimeters, int32_t, 1
+NX_ENDSTRUC ENHMETAHEADER
+
+NX_STRUC TEXTMETRIC
+    NX_RESERVE .tmHeight, int32_t, 1
+    NX_RESERVE .tmAscent, int32_t, 1
+    NX_RESERVE .tmDescent, int32_t, 1
+    NX_RESERVE .tmInternalLeading, int32_t, 1
+    NX_RESERVE .tmExternalLeading, int32_t, 1
+    NX_RESERVE .tmAveCharWidth, int32_t, 1
+    NX_RESERVE .tmMaxCharWidth, int32_t, 1
+    NX_RESERVE .tmWeight, int32_t, 1
+    NX_RESERVE .tmOverhang, int32_t, 1
+    NX_RESERVE .tmDigitizedAspectX, int32_t, 1
+    NX_RESERVE .tmDigitizedAspectY, int32_t, 1
+    NX_RESERVE .tmFirstChar, int8_t, 1
+    NX_RESERVE .tmLastChar, int8_t, 1
+    NX_RESERVE .tmDefaultChar, int8_t, 1
+    NX_RESERVE .tmBreakChar, int8_t, 1
+    NX_RESERVE .tmItalic, int8_t, 1
+    NX_RESERVE .tmUnderlined, int8_t, 1
+    NX_RESERVE .tmStruckOut, int8_t, 1
+    NX_RESERVE .tmPitchAndFamily, int8_t, 1
+    NX_RESERVE .tmCharSet, int8_t, 1
+NX_ENDSTRUC TEXTMETRIC
+
+NX_STRUC NEWTEXTMETRIC
+    NX_RESERVE .tmHeight, int32_t, 1
+    NX_RESERVE .tmAscent, int32_t, 1
+    NX_RESERVE .tmDescent, int32_t, 1
+    NX_RESERVE .tmInternalLeading, int32_t, 1
+    NX_RESERVE .tmExternalLeading, int32_t, 1
+    NX_RESERVE .tmAveCharWidth, int32_t, 1
+    NX_RESERVE .tmMaxCharWidth, int32_t, 1
+    NX_RESERVE .tmWeight, int32_t, 1
+    NX_RESERVE .tmOverhang, int32_t, 1
+    NX_RESERVE .tmDigitizedAspectX, int32_t, 1
+    NX_RESERVE .tmDigitizedAspectY, int32_t, 1
+    NX_RESERVE .tmFirstChar, int8_t, 1
+    NX_RESERVE .tmLastChar, int8_t, 1
+    NX_RESERVE .tmDefaultChar, int8_t, 1
+    NX_RESERVE .tmBreakChar, int8_t, 1
+    NX_RESERVE .tmItalic, int8_t, 1
+    NX_RESERVE .tmUnderlined, int8_t, 1
+    NX_RESERVE .tmStruckOut, int8_t, 1
+    NX_RESERVE .tmPitchAndFamily, int8_t, 1
+    NX_RESERVE .tmCharSet, int8_t, 1
+    NX_RESERVE .ntmFlags, int32_t, 1
+    NX_RESERVE .ntmSizeEM, int32_t, 1
+    NX_RESERVE .ntmCellHeight, int32_t, 1
+    NX_RESERVE .ntmAveWidth, int32_t, 1
+NX_ENDSTRUC NEWTEXTMETRIC
+
+NX_STRUC PELARRAY
+    NX_RESERVE .paXCount, int32_t, 1
+    NX_RESERVE .paYCount, int32_t, 1
+    NX_RESERVE .paXExt, int32_t, 1
+    NX_RESERVE .paYExt, int32_t, 1
+    NX_RESERVE .paRGBs, short_t, 1
+NX_ENDSTRUC PELARRAY
+
+NX_STRUC LOGBRUSH
+    NX_RESERVE .lbStyle, int32_t, 1
+    NX_RESERVE .lbColor, int32_t, 1
+    NX_RESERVE .lbHatch, int32_t, 1
+NX_ENDSTRUC LOGBRUSH
+
+NX_STRUC LOGPEN
+    NX_RESERVE .lopnStyle, int32_t, 1
+    NX_RESERVE .lopnWidth, int32_t, 1
+    NX_RESERVE .lopnColor, int32_t, 1
+NX_ENDSTRUC LOGPEN
+
+NX_STRUC EXTLOGPEN
+    NX_RESERVE .elpPenStyle, int32_t, 1
+    NX_RESERVE .elpWidth, int32_t, 1
+    NX_RESERVE .elpBrushStyle, int32_t, 1
+    NX_RESERVE .elpColor, int32_t, 1
+    NX_RESERVE .elpHatch, int32_t, 1
+    NX_RESERVE .elpNumEntries, int32_t, 1
+    NX_RESERVE .elpStyleEntry, int32_t, 1
+NX_ENDSTRUC EXTLOGPEN
+
+NX_STRUC PALETTEENTRY
+    NX_RESERVE .peRed, int8_t, 1
+    NX_RESERVE .peGreen, int8_t, 1
+    NX_RESERVE .peBlue, int8_t, 1
+    NX_RESERVE .peFlags, int8_t, 1
+NX_ENDSTRUC PALETTEENTRY
+
+NX_STRUC LOGPALETTE
+    NX_RESERVE .palVersion, short_t, 1
+    NX_RESERVE .palNumEntries, short_t, 1
+    NX_RESERVE .palPalEntry, int32_t, 1
+NX_ENDSTRUC LOGPALETTE
+
+NX_STRUC LOGFONT
+    NX_RESERVE .lfHeight, int32_t, 1
+    NX_RESERVE .lfWidth, int32_t, 1
+    NX_RESERVE .lfEscapement, int32_t, 1
+    NX_RESERVE .lfOrientation, int32_t, 1
+    NX_RESERVE .lfWeight, int32_t, 1
+    NX_RESERVE .lfItalic, int8_t, 1
+    NX_RESERVE .lfUnderline, int8_t, 1
+    NX_RESERVE .lfStrikeOut, int8_t, 1
+    NX_RESERVE .lfCharSet, int8_t, 1
+    NX_RESERVE .lfOutPrecision, int8_t, 1
+    NX_RESERVE .lfClipPrecision, int8_t, 1
+    NX_RESERVE .lfQuality, int8_t, 1
+    NX_RESERVE .lfPitchAndFamily, int8_t, 1
+    NX_RESERVE .lfFaceName, int8_t, LF_FACESIZE
+NX_ENDSTRUC LOGFONT
+
+NX_STRUC NONCLIENTMETRICS
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .iBorderWidth, int32_t, 1
+    NX_RESERVE .iScrollWidth, int32_t, 1
+    NX_RESERVE .iScrollHeight, int32_t, 1
+    NX_RESERVE .iCaptionWidth, int32_t, 1
+    NX_RESERVE .iCaptionHeight, int32_t, 1
+    NX_RESERVE .lfCaptionFont, int32_t, 1
+    NX_RESERVE .iSMCaptionWidth, int32_t, 1
+    NX_RESERVE .iSMCaptionHeight, int32_t, 1
+    NX_RESERVE .lfSMCaptionFont, int32_t, 1
+    NX_RESERVE .iMenuWidth, int32_t, 1
+    NX_RESERVE .iMenuHeight, int32_t, 1
+    NX_RESERVE .lfMenuFont, int32_t, 1
+    NX_RESERVE .lfStatusFont, int32_t, 1
+    NX_RESERVE .lfMessageFont, int32_t, 1
+NX_ENDSTRUC NONCLIENTMETRICS
+
+NX_STRUC ENUMLOGFONT
+    NX_RESERVE .elfLogFont, int32_t, 1
+    NX_RESERVE .elfFullName, int8_t, 1
+    NX_RESERVE .elfStyle, int8_t, 1
+NX_ENDSTRUC ENUMLOGFONT
+
+NX_STRUC PANOSE
+    NX_RESERVE .ulculture, int32_t, 1
+    NX_RESERVE .bFamilyType, int8_t, 1
+    NX_RESERVE .bSerifStyle, int8_t, 1
+    NX_RESERVE .bWeight, int8_t, 1
+    NX_RESERVE .bProportion, int8_t, 1
+    NX_RESERVE .bContrast, int8_t, 1
+    NX_RESERVE .bStrokeVariation, int8_t, 1
+    NX_RESERVE .bArmStyle, int8_t, 1
+    NX_RESERVE .bLetterform, int8_t, 1
+    NX_RESERVE .bMidline, int8_t, 1
+    NX_RESERVE .bXHeight, int8_t, 1
+NX_ENDSTRUC PANOSE
+
+NX_STRUC EXTLOGFONT
+    NX_RESERVE .elfLogFont, int32_t, 1
+    NX_RESERVE .elfFullName, int8_t, 1
+    NX_RESERVE .elfStyle, int8_t, 1
+    NX_RESERVE .elfVersion, int32_t, 1
+    NX_RESERVE .elfStyleSize, int32_t, 1
+    NX_RESERVE .elfMatch, int32_t, 1
+    NX_RESERVE .elfReserved, int32_t, 1
+    NX_RESERVE .elfVendorId, int8_t, 1
+    NX_RESERVE .elfCulture, int32_t, 1
+    NX_RESERVE .elfPanose, int32_t, 1
+NX_ENDSTRUC EXTLOGFONT
+
+NX_STRUC DEVMODE
+    NX_RESERVE .dmDeviceName, int8_t, 1
+    NX_RESERVE .dmSpecVersion, short_t, 1
+    NX_RESERVE .dmDriverVersion, short_t, 1
+    NX_RESERVE .dmSize, short_t, 1
+    NX_RESERVE .dmDriverExtra, short_t, 1
+    NX_RESERVE .dmFields, int32_t, 1
+    NX_RESERVE .dmOrientation, short_t, 1
+    NX_RESERVE .dmPaperSize, short_t, 1
+    NX_RESERVE .dmPaperiLength, short_t, 1
+    NX_RESERVE .dmPaperWidth, short_t, 1
+    NX_RESERVE .dmScale, short_t, 1
+    NX_RESERVE .dmCopies, short_t, 1
+    NX_RESERVE .dmDefaultSource, short_t, 1
+    NX_RESERVE .dmPrintQuality, short_t, 1
+    NX_RESERVE .dmColor, short_t, 1
+    NX_RESERVE .dmDuplex, short_t, 1
+    NX_RESERVE .dmYResolution, short_t, 1
+    NX_RESERVE .dmTTOption, short_t, 1
+    NX_RESERVE .dmCollate, short_t, 1
+    NX_RESERVE .dmFormName, int8_t, CCHFORMNAME
+    NX_RESERVE .dmUnusedPadding, short_t, 1
+    NX_RESERVE .dmBitsPerPel, short_t, 1
+    NX_RESERVE .dmPelsWidth, int32_t, 1
+    NX_RESERVE .dmPelsHeight, int32_t, 1
+    NX_RESERVE .dmDisplayFlags, int32_t, 1
+    NX_RESERVE .dmDisplayFrequency, int32_t, 1
+NX_ENDSTRUC DEVMODE
+
+NX_STRUC RGNDATAHEADER
+    NX_RESERVE .dwSize, int32_t, 1
+    NX_RESERVE .iType, int32_t, 1
+    NX_RESERVE .nCount, int32_t, 1
+    NX_RESERVE .nRgnSize, int32_t, 1
+    NX_RESERVE .rcBound, RECT, 1
+NX_ENDSTRUC RGNDATAHEADER
+
+NX_STRUC RGNDATA
+    NX_RESERVE .rdh, int32_t, 1
+    NX_RESERVE .Buffer, int8_t, 1
+NX_ENDSTRUC RGNDATA
+
+NX_STRUC ABC
+    NX_RESERVE .abcA, int32_t, 1
+    NX_RESERVE .abcB, int32_t, 1
+    NX_RESERVE .abcC, int32_t, 1
+NX_ENDSTRUC ABC
+
+NX_STRUC ABCFLOAT
+    NX_RESERVE .abcfA, int64_t, 1
+    NX_RESERVE .abcfB, int64_t, 1
+    NX_RESERVE .abcfC, int64_t, 1
+NX_ENDSTRUC ABCFLOAT
+
+NX_STRUC OUTLINETEXTMETRIC
+    NX_RESERVE .otmSize, int32_t, 1
+    NX_RESERVE .otmTextMetrics, int32_t, 1
+    NX_RESERVE .otmFiller, int8_t, 1
+    NX_RESERVE .otmPanoseNumber, int32_t, 1
+    NX_RESERVE .otmfsSelection, int32_t, 1
+    NX_RESERVE .otmfsType, int32_t, 1
+    NX_RESERVE .otmsCharSlopeRise, int32_t, 1
+    NX_RESERVE .otmsCharSlopeRun, int32_t, 1
+    NX_RESERVE .otmItalicAngle, int32_t, 1
+    NX_RESERVE .otmEMSquare, int32_t, 1
+    NX_RESERVE .otmAscent, int32_t, 1
+    NX_RESERVE .otmDescent, int32_t, 1
+    NX_RESERVE .otmLineGap, int32_t, 1
+    NX_RESERVE .otmsCapEmHeight, int32_t, 1
+    NX_RESERVE .otmsXHeight, int32_t, 1
+    NX_RESERVE .otmrcFontBox, RECT, 1
+    NX_RESERVE .otmMacAscent, int32_t, 1
+    NX_RESERVE .otmMacDescent, int32_t, 1
+    NX_RESERVE .otmMacLineGap, int32_t, 1
+    NX_RESERVE .otmusMinimumPPEM, int32_t, 1
+    NX_RESERVE .otmptSubscriptSize, int32_t, 1
+    NX_RESERVE .otmptSubscriptOffset, int32_t, 1
+    NX_RESERVE .otmptSuperscriptSize, int32_t, 1
+    NX_RESERVE .otmptSuperscriptOffset, int32_t, 1
+    NX_RESERVE .otmsStrikeoutSize, int32_t, 1
+    NX_RESERVE .otmsStrikeoutPosition, int32_t, 1
+    NX_RESERVE .otmsUnderscorePosition, int32_t, 1
+    NX_RESERVE .otmsUnderscoreSize, int32_t, 1
+    NX_RESERVE .otmpFamilyName, int32_t, 1
+    NX_RESERVE .otmpFaceName, int32_t, 1
+    NX_RESERVE .otmpStyleName, int32_t, 1
+    NX_RESERVE .otmpFullName, int32_t, 1
+NX_ENDSTRUC OUTLINETEXTMETRIC
+
+NX_STRUC POLYTEXT
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+    NX_RESERVE .n, int32_t, 1
+    NX_RESERVE .lpStr, int32_t, 1
+    NX_RESERVE .uiFlags, int32_t, 1
+    NX_RESERVE .rcl, RECT, 1
+    NX_RESERVE .pdx, int32_t, 1
+NX_ENDSTRUC POLYTEXT
+
+NX_STRUC FIXED
+    NX_RESERVE .fract, short_t, 1
+    NX_RESERVE .Value, short_t, 1
+NX_ENDSTRUC FIXED
+
+NX_STRUC MAT2
+    NX_RESERVE .eM11, int32_t, 1
+    NX_RESERVE .eM12, int32_t, 1
+    NX_RESERVE .eM21, int32_t, 1
+    NX_RESERVE .eM22, int32_t, 1
+NX_ENDSTRUC MAT2
+
+NX_STRUC GLYPHMETRICS
+    NX_RESERVE .gmBlackBoxX, int32_t, 1
+    NX_RESERVE .gmBlackBoxY, int32_t, 1
+    NX_RESERVE .gmptGlyphOrigin, int32_t, 1
+    NX_RESERVE .gmCellIncX, short_t, 1
+    NX_RESERVE .gmCellIncY, short_t, 1
+NX_ENDSTRUC GLYPHMETRICS
+
+NX_STRUC POINTFX
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+NX_ENDSTRUC POINTFX
+
+NX_STRUC TTPOLYCURVE
+    NX_RESERVE .wType, short_t, 1
+    NX_RESERVE .cpfx, short_t, 1
+    NX_RESERVE .apfx, int32_t, 1
+NX_ENDSTRUC TTPOLYCURVE
+
+NX_STRUC TTPOLYGONHEADER
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .dwType, int32_t, 1
+    NX_RESERVE .pfxStart, int32_t, 1
+NX_ENDSTRUC TTPOLYGONHEADER
+
+NX_STRUC RASTERIZER_STATUS
+    NX_RESERVE .nSize, short_t, 1
+    NX_RESERVE .wFlags, short_t, 1
+    NX_RESERVE .nLanguageID, short_t, 1
+NX_ENDSTRUC RASTERIZER_STATUS
+
+NX_STRUC COLORADJUSTMENT
+    NX_RESERVE .caSize, short_t, 1
+    NX_RESERVE .caFlags, short_t, 1
+    NX_RESERVE .caIlluminantIndex, short_t, 1
+    NX_RESERVE .caRedGamma, short_t, 1
+    NX_RESERVE .caGreenGamma, short_t, 1
+    NX_RESERVE .caBlueGamma, short_t, 1
+    NX_RESERVE .caReferenceBlack, short_t, 1
+    NX_RESERVE .caReferenceWhite, short_t, 1
+    NX_RESERVE .caContrast, short_t, 1
+    NX_RESERVE .caBrightness, short_t, 1
+    NX_RESERVE .caColorfulness, short_t, 1
+    NX_RESERVE .caRedGreenTint, short_t, 1
+NX_ENDSTRUC COLORADJUSTMENT
+
+NX_STRUC DOCINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .lpszDocName, int32_t, 1
+    NX_RESERVE .lpszOutput, int32_t, 1
+NX_ENDSTRUC DOCINFO
+
+NX_STRUC KERNINGPAIR
+    NX_RESERVE .wFirst, short_t, 1
+    NX_RESERVE .wSecond, short_t, 1
+    NX_RESERVE .iKernAmount, int32_t, 1
+NX_ENDSTRUC KERNINGPAIR
+
+NX_STRUC emr
+    NX_RESERVE .iType, int32_t, 1
+    NX_RESERVE .nSize, int32_t, 1
+NX_ENDSTRUC emr
+
+NX_STRUC emrtext
+    NX_RESERVE .ptlReference, POINT, 1
+    NX_RESERVE .nchars, int32_t, 1
+    NX_RESERVE .offString, int32_t, 1
+    NX_RESERVE .fOptions, int32_t, 1
+    NX_RESERVE .ircl, int32_t, 1
+    NX_RESERVE .offDx, int32_t, 1
+NX_ENDSTRUC emrtext
+
+NX_STRUC EMR
+    NX_RESERVE .iType, int32_t, 1
+    NX_RESERVE .nSize, int32_t, 1
+NX_ENDSTRUC EMR
+
+NX_STRUC EMRABORTPATH
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRABORTPATH
+
+NX_STRUC EMRBEGINPATH
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRBEGINPATH
+
+NX_STRUC EMRENDPATH
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRENDPATH
+
+NX_STRUC EMRCLOSEFIGURE
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRCLOSEFIGURE
+
+NX_STRUC EMRFLATTENPATH
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRFLATTENPATH
+
+NX_STRUC EMRWIDENPATH
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRWIDENPATH
+
+NX_STRUC EMRSETMETARGN
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRSETMETARGN
+
+NX_STRUC EMREMRSAVEDC
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMREMRSAVEDC
+
+NX_STRUC EMRREALIZEPALETTE
+    NX_RESERVE .emr, EMR, 1
+NX_ENDSTRUC EMRREALIZEPALETTE
+
+NX_STRUC EMRSELECTCLIPPATH
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRSELECTCLIPPATH
+
+NX_STRUC EMRSETBKMODE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRSETBKMODE
+
+NX_STRUC EMRSETMAPMODE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRSETMAPMODE
+
+NX_STRUC EMRSETPOLYFILLMODE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRSETPOLYFILLMODE
+
+NX_STRUC EMRSETROP2
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRSETROP2
+
+NX_STRUC EMRSETSTRETCHBLTMODE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRSETSTRETCHBLTMODE
+
+NX_STRUC EMRSETTEXTALIGN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRSETTEXTALIGN
+
+NX_STRUC EMRSETMITERLIMIT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .eMiterLimit, int64_t, 1
+NX_ENDSTRUC EMRSETMITERLIMIT
+
+NX_STRUC EMRRESTOREDC
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iRelative, int32_t, 1
+NX_ENDSTRUC EMRRESTOREDC
+
+NX_STRUC EMRSETARCDIRECTION
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .iArcDirection, int32_t, 1
+NX_ENDSTRUC EMRSETARCDIRECTION
+
+NX_STRUC EMRSETMAPPERFLAGS
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .dwFlags, int32_t, 1
+NX_ENDSTRUC EMRSETMAPPERFLAGS
+
+NX_STRUC EMRSETTEXTCOLOR
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .crColor, int32_t, 1
+NX_ENDSTRUC EMRSETTEXTCOLOR
+
+NX_STRUC EMRSETBKCOLOR
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .crColor, int32_t, 1
+NX_ENDSTRUC EMRSETBKCOLOR
+
+NX_STRUC EMRSELECTOBJECT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihObject, int32_t, 1
+NX_ENDSTRUC EMRSELECTOBJECT
+
+NX_STRUC EMRDELETEOBJECT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihObject, int32_t, 1
+NX_ENDSTRUC EMRDELETEOBJECT
+
+NX_STRUC EMRSELECTPALETTE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihPal, int32_t, 1
+NX_ENDSTRUC EMRSELECTPALETTE
+
+NX_STRUC EMRRESIZEPALETTE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihPal, int32_t, 1
+    NX_RESERVE .cEntries, int32_t, 1
+NX_ENDSTRUC EMRRESIZEPALETTE
+
+NX_STRUC EMRSETPALETTEENTRIES
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihPal, int32_t, 1
+    NX_RESERVE .iStart, int32_t, 1
+    NX_RESERVE .cEntries, int32_t, 1
+    NX_RESERVE .aPalEntries, int32_t, 1
+NX_ENDSTRUC EMRSETPALETTEENTRIES
+
+NX_STRUC EMRSETCOLORADJUSTMENT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ColorAdjustment, int32_t, 1
+NX_ENDSTRUC EMRSETCOLORADJUSTMENT
+
+NX_STRUC EMRGDICOMMENT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .cbData, int32_t, 1
+    NX_RESERVE .xData1, short_t, 1
+NX_ENDSTRUC EMRGDICOMMENT
+
+NX_STRUC EMREOF
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .nPalEntries, int32_t, 1
+    NX_RESERVE .offPalEntries, int32_t, 1
+    NX_RESERVE .nSizeLast, int32_t, 1
+NX_ENDSTRUC EMREOF
+
+NX_STRUC EMRLINETO
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptl, POINT, 1
+NX_ENDSTRUC EMRLINETO
+
+NX_STRUC EMRMOVETOEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptl, POINT, 1
+NX_ENDSTRUC EMRMOVETOEX
+
+NX_STRUC EMROFFSETCLIPRGN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptlOffset, POINT, 1
+NX_ENDSTRUC EMROFFSETCLIPRGN
+
+NX_STRUC EMRFILLPATH
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+NX_ENDSTRUC EMRFILLPATH
+
+NX_STRUC EMRSTROKEANDFILLPATH
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+NX_ENDSTRUC EMRSTROKEANDFILLPATH
+
+NX_STRUC EMRSTROKEPATH
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+NX_ENDSTRUC EMRSTROKEPATH
+
+NX_STRUC EMREXCLUDECLIPRECT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclClip, RECT, 1
+NX_ENDSTRUC EMREXCLUDECLIPRECT
+
+NX_STRUC EMRINTERSECTCLIPRECT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclClip, RECT, 1
+NX_ENDSTRUC EMRINTERSECTCLIPRECT
+
+NX_STRUC EMRSETVIEWPORTORGEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptlOrigin, POINT, 1
+NX_ENDSTRUC EMRSETVIEWPORTORGEX
+
+NX_STRUC EMRSETWINDOWORGEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptlOrigin, POINT, 1
+NX_ENDSTRUC EMRSETWINDOWORGEX
+
+NX_STRUC EMRSETBRUSHORGEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptlOrigin, POINT, 1
+NX_ENDSTRUC EMRSETBRUSHORGEX
+
+NX_STRUC EMRSETVIEWPORTEXTEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .szlExtent, int32_t, 1
+NX_ENDSTRUC EMRSETVIEWPORTEXTEX
+
+NX_STRUC EMRSETWINDOWEXTEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .szlExtent, int32_t, 1
+NX_ENDSTRUC EMRSETWINDOWEXTEX
+
+NX_STRUC EMRSCALEVIEWPORTEXTEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .xNum, int32_t, 1
+    NX_RESERVE .xDenom, int32_t, 1
+    NX_RESERVE .yNum, int32_t, 1
+    NX_RESERVE .yDemon, int32_t, 1
+NX_ENDSTRUC EMRSCALEVIEWPORTEXTEX
+
+NX_STRUC EMRSCALEWINDOWEXTEX
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .xNum, int32_t, 1
+    NX_RESERVE .xDenom, int32_t, 1
+    NX_RESERVE .yNum, int32_t, 1
+    NX_RESERVE .yDemon, int32_t, 1
+NX_ENDSTRUC EMRSCALEWINDOWEXTEX
+
+NX_STRUC EMRSETWORLDTRANSFORM
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .xform, int32_t, 1
+NX_ENDSTRUC EMRSETWORLDTRANSFORM
+
+NX_STRUC EMRMODIFYWORLDTRANSFORM
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .xform, int32_t, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMRMODIFYWORLDTRANSFORM
+
+NX_STRUC EMRSETPIXELV
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptlPixel, POINT, 1
+    NX_RESERVE .crColor, int32_t, 1
+NX_ENDSTRUC EMRSETPIXELV
+
+NX_STRUC EMREXTFLOODFILL
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptlStart, POINT, 1
+    NX_RESERVE .crColor, int32_t, 1
+    NX_RESERVE .iMode, int32_t, 1
+NX_ENDSTRUC EMREXTFLOODFILL
+
+NX_STRUC EMRELLIPSE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBox, RECT, 1
+NX_ENDSTRUC EMRELLIPSE
+
+NX_STRUC EMRRECTANGLE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBox, RECT, 1
+NX_ENDSTRUC EMRRECTANGLE
+
+NX_STRUC EMRROUNDRECT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBox, RECT, 1
+    NX_RESERVE .szlCorner, int32_t, 1
+NX_ENDSTRUC EMRROUNDRECT
+
+NX_STRUC EMRARC
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBox, RECT, 1
+    NX_RESERVE .ptlStart, POINT, 1
+    NX_RESERVE .ptlEnd, POINT, 1
+NX_ENDSTRUC EMRARC
+
+NX_STRUC EMRARCTO
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBox, RECT, 1
+    NX_RESERVE .ptlStart, POINT, 1
+    NX_RESERVE .ptlEnd, POINT, 1
+NX_ENDSTRUC EMRARCTO
+
+NX_STRUC EMRCHORD
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBox, RECT, 1
+    NX_RESERVE .ptlStart, POINT, 1
+    NX_RESERVE .ptlEnd, POINT, 1
+NX_ENDSTRUC EMRCHORD
+
+NX_STRUC EMRPIE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBox, RECT, 1
+    NX_RESERVE .ptlStart, POINT, 1
+    NX_RESERVE .ptlEnd, POINT, 1
+NX_ENDSTRUC EMRPIE
+
+NX_STRUC EMRANGLEARC
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ptlCenter, POINT, 1
+    NX_RESERVE .nRadius, int32_t, 1
+    NX_RESERVE .eStartAngle, int64_t, 1
+    NX_RESERVE .eSweepAngle, int64_t, 1
+NX_ENDSTRUC EMRANGLEARC
+
+NX_STRUC EMRPOLYLINE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cptl, int32_t, 1
+    NX_RESERVE .aptl1, int32_t, 1
+NX_ENDSTRUC EMRPOLYLINE
+
+NX_STRUC EMRPOLYBEZIER
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cptl, int32_t, 1
+    NX_RESERVE .aptl1, int32_t, 1
+NX_ENDSTRUC EMRPOLYBEZIER
+
+NX_STRUC EMRPOLYGON
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cptl, int32_t, 1
+    NX_RESERVE .aptl1, int32_t, 1
+NX_ENDSTRUC EMRPOLYGON
+
+NX_STRUC EMRPOLYBEZIERTO
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cptl, int32_t, 1
+    NX_RESERVE .aptl1, int32_t, 1
+NX_ENDSTRUC EMRPOLYBEZIERTO
+
+NX_STRUC EMRPOLYLINE16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .apts1, int32_t, 1
+NX_ENDSTRUC EMRPOLYLINE16
+
+NX_STRUC EMRPOLYBEZIER16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .apts1, int32_t, 1
+NX_ENDSTRUC EMRPOLYBEZIER16
+
+NX_STRUC EMRPOLYGON16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .apts1, int32_t, 1
+NX_ENDSTRUC EMRPOLYGON16
+
+NX_STRUC EMRPLOYBEZIERTO16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .apts1, int32_t, 1
+NX_ENDSTRUC EMRPLOYBEZIERTO16
+
+NX_STRUC EMRPOLYLINETO16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .apts1, int32_t, 1
+NX_ENDSTRUC EMRPOLYLINETO16
+
+NX_STRUC EMRPOLYDRAW
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cptl, int32_t, 1
+    NX_RESERVE .aptl1, int32_t, 1
+    NX_RESERVE .abTypes1, short_t, 1
+NX_ENDSTRUC EMRPOLYDRAW
+
+NX_STRUC EMRPOLYDRAW16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .apts, int32_t, 1
+    NX_RESERVE .abTypes, short_t, 1
+NX_ENDSTRUC EMRPOLYDRAW16
+
+NX_STRUC EMRPOLYPOLYLINE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .nPolys, int32_t, 1
+    NX_RESERVE .cptl, int32_t, 1
+    NX_RESERVE .aPolyCounts, int32_t, 1
+    NX_RESERVE .aptl, int32_t, 1
+NX_ENDSTRUC EMRPOLYPOLYLINE
+
+NX_STRUC EMRPOLYPOLYGON
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .nPolys, int32_t, 1
+    NX_RESERVE .cptl, int32_t, 1
+    NX_RESERVE .aPolyCounts, int32_t, 1
+    NX_RESERVE .aptl1, int32_t, 1
+NX_ENDSTRUC EMRPOLYPOLYGON
+
+NX_STRUC EMRPOLYPOLYLINE16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .nPolys, int32_t, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .aPolyCounts, int32_t, 1
+    NX_RESERVE .apts1, int32_t, 1
+NX_ENDSTRUC EMRPOLYPOLYLINE16
+
+NX_STRUC EMRPOLYPOLYGON16
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .nPolys, int32_t, 1
+    NX_RESERVE .cpts, int32_t, 1
+    NX_RESERVE .aPolyCounts, int32_t, 1
+    NX_RESERVE .apts1, int32_t, 1
+NX_ENDSTRUC EMRPOLYPOLYGON16
+
+NX_STRUC EMRINVERTRGN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cbRgnData, int32_t, 1
+    NX_RESERVE .RgnData1, short_t, 1
+NX_ENDSTRUC EMRINVERTRGN
+
+NX_STRUC EMRPAINTRGN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cbRgnData, int32_t, 1
+    NX_RESERVE .RgnData1, short_t, 1
+NX_ENDSTRUC EMRPAINTRGN
+
+NX_STRUC EMRFILLRGN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cbRgnData, int32_t, 1
+    NX_RESERVE .ihBrush, int32_t, 1
+    NX_RESERVE .RgnData, short_t, 1
+NX_ENDSTRUC EMRFILLRGN
+
+NX_STRUC EMRFRAMERGN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .cbRgnData, int32_t, 1
+    NX_RESERVE .ihBrush, int32_t, 1
+    NX_RESERVE .szlStroke, int32_t, 1
+    NX_RESERVE .RgnData1, short_t, 1
+NX_ENDSTRUC EMRFRAMERGN
+
+NX_STRUC EMREXTSELECTCLIPRGN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .cbRgnData, int32_t, 1
+    NX_RESERVE .iMode, int32_t, 1
+    NX_RESERVE .RgnData, short_t, 1
+NX_ENDSTRUC EMREXTSELECTCLIPRGN
+
+NX_STRUC EMREXTTEXTOUT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .iGraphicsMode, int32_t, 1
+    NX_RESERVE .exScale, int64_t, 1
+    NX_RESERVE .eyScale, int64_t, 1
+    NX_RESERVE .emrtext, int32_t, 1
+NX_ENDSTRUC EMREXTTEXTOUT
+
+NX_STRUC EMRBITBLT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .xDest, int32_t, 1
+    NX_RESERVE .yDest, int32_t, 1
+    NX_RESERVE .cxDest, int32_t, 1
+    NX_RESERVE .cyDest, int32_t, 1
+    NX_RESERVE .dwRop, int32_t, 1
+    NX_RESERVE .xSrc, int32_t, 1
+    NX_RESERVE .ySrc, int32_t, 1
+    NX_RESERVE .xformSrc, int32_t, 1
+    NX_RESERVE .crBkColorSrc, int32_t, 1
+    NX_RESERVE .iUsageSrc, int32_t, 1
+    NX_RESERVE .offBmiSrc, int32_t, 1
+    NX_RESERVE .cbBmiSrc, int32_t, 1
+    NX_RESERVE .offBitsSrc, int32_t, 1
+    NX_RESERVE .cbBitsSrc, int32_t, 1
+NX_ENDSTRUC EMRBITBLT
+
+NX_STRUC EMRSTRETCHBLT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .xDest, int32_t, 1
+    NX_RESERVE .yDest, int32_t, 1
+    NX_RESERVE .cxDest, int32_t, 1
+    NX_RESERVE .cyDest, int32_t, 1
+    NX_RESERVE .dwRop, int32_t, 1
+    NX_RESERVE .xSrc, int32_t, 1
+    NX_RESERVE .ySrc, int32_t, 1
+    NX_RESERVE .xformSrc, int32_t, 1
+    NX_RESERVE .crBkColorSrc, int32_t, 1
+    NX_RESERVE .iUsageSrc, int32_t, 1
+    NX_RESERVE .offBmiSrc, int32_t, 1
+    NX_RESERVE .cbBmiSrc, int32_t, 1
+    NX_RESERVE .offBitsSrc, int32_t, 1
+    NX_RESERVE .cbBitsSrc, int32_t, 1
+    NX_RESERVE .cxSrc, int32_t, 1
+    NX_RESERVE .cySrc, int32_t, 1
+NX_ENDSTRUC EMRSTRETCHBLT
+
+NX_STRUC EMRMASKBLT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .xDest, int32_t, 1
+    NX_RESERVE .yDest, int32_t, 1
+    NX_RESERVE .cxDest, int32_t, 1
+    NX_RESERVE .cyDest, int32_t, 1
+    NX_RESERVE .dwRop, int32_t, 1
+    NX_RESERVE .xSrc2, int32_t, 1
+    NX_RESERVE .cyDest2, int32_t, 1
+    NX_RESERVE .dwRop2, int32_t, 1
+    NX_RESERVE .xSrc, int32_t, 1
+    NX_RESERVE .ySrc, int32_t, 1
+    NX_RESERVE .xformSrc, int32_t, 1
+    NX_RESERVE .crBkColorSrc, int32_t, 1
+    NX_RESERVE .iUsageSrc, int32_t, 1
+    NX_RESERVE .offBmiSrc, int32_t, 1
+    NX_RESERVE .cbBmiSrc, int32_t, 1
+    NX_RESERVE .offBitsSrc, int32_t, 1
+    NX_RESERVE .cbBitsSrc, int32_t, 1
+    NX_RESERVE .xMask, int32_t, 1
+    NX_RESERVE .yMask, int32_t, 1
+    NX_RESERVE .iUsageMask, int32_t, 1
+    NX_RESERVE .offBmiMask, int32_t, 1
+    NX_RESERVE .cbBmiMask, int32_t, 1
+    NX_RESERVE .offBitsMask, int32_t, 1
+    NX_RESERVE .cbBitsMask, int32_t, 1
+NX_ENDSTRUC EMRMASKBLT
+
+NX_STRUC EMRPLGBLT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .aptlDest3, int32_t, 1
+    NX_RESERVE .xSrc, int32_t, 1
+    NX_RESERVE .ySrc, int32_t, 1
+    NX_RESERVE .cxSrc, int32_t, 1
+    NX_RESERVE .cySrc, int32_t, 1
+    NX_RESERVE .xformSrc, int32_t, 1
+    NX_RESERVE .crBkColorSrc, int32_t, 1
+    NX_RESERVE .iUsageSrc, int32_t, 1
+    NX_RESERVE .offBmiSrc, int32_t, 1
+    NX_RESERVE .cbBmiSrc, int32_t, 1
+    NX_RESERVE .offBitsSrc, int32_t, 1
+    NX_RESERVE .cbBitsSrc, int32_t, 1
+    NX_RESERVE .xMask, int32_t, 1
+    NX_RESERVE .yMask, int32_t, 1
+    NX_RESERVE .iUsageMask, int32_t, 1
+    NX_RESERVE .offBmiMask, int32_t, 1
+    NX_RESERVE .cbBmiMask, int32_t, 1
+    NX_RESERVE .offBitsMask, int32_t, 1
+    NX_RESERVE .cbBitsMask, int32_t, 1
+NX_ENDSTRUC EMRPLGBLT
+
+NX_STRUC EMRSETDIBITSTODEVICE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .xDest, int32_t, 1
+    NX_RESERVE .yDest, int32_t, 1
+    NX_RESERVE .xSrc, int32_t, 1
+    NX_RESERVE .ySrc, int32_t, 1
+    NX_RESERVE .cxSrc, int32_t, 1
+    NX_RESERVE .cySrc, int32_t, 1
+    NX_RESERVE .offBmiSrc, int32_t, 1
+    NX_RESERVE .cbBmiSrc, int32_t, 1
+    NX_RESERVE .offBitsSrc, int32_t, 1
+    NX_RESERVE .cbBitsSrc, int32_t, 1
+    NX_RESERVE .iUsageSrc, int32_t, 1
+    NX_RESERVE .iStartScan, int32_t, 1
+    NX_RESERVE .cScans, int32_t, 1
+NX_ENDSTRUC EMRSETDIBITSTODEVICE
+
+NX_STRUC EMRSTRETCHDIBITS
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .rclBounds, RECT, 1
+    NX_RESERVE .xDest, int32_t, 1
+    NX_RESERVE .yDest, int32_t, 1
+    NX_RESERVE .xSrc, int32_t, 1
+    NX_RESERVE .ySrc, int32_t, 1
+    NX_RESERVE .cxSrc, int32_t, 1
+    NX_RESERVE .cySrc, int32_t, 1
+    NX_RESERVE .offBmiSrc, int32_t, 1
+    NX_RESERVE .cbBmiSrc, int32_t, 1
+    NX_RESERVE .offBitsSrc, int32_t, 1
+    NX_RESERVE .cbBitsSrc, int32_t, 1
+    NX_RESERVE .iUsageSrc, int32_t, 1
+    NX_RESERVE .dwRop, int32_t, 1
+    NX_RESERVE .cxDest, int32_t, 1
+    NX_RESERVE .cyDest, int32_t, 1
+NX_ENDSTRUC EMRSTRETCHDIBITS
+
+NX_STRUC EMREXTCREATEFONTINDIRECT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihFont, int32_t, 1
+    NX_RESERVE .elfw, int32_t, 1
+NX_ENDSTRUC EMREXTCREATEFONTINDIRECT
+
+NX_STRUC EMRCREATEPALETTE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihPal, int32_t, 1
+    NX_RESERVE .lgpl, int32_t, 1
+NX_ENDSTRUC EMRCREATEPALETTE
+
+NX_STRUC EMRCREATEPEN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihPen, int32_t, 1
+    NX_RESERVE .lopn, int32_t, 1
+NX_ENDSTRUC EMRCREATEPEN
+
+NX_STRUC EMREXTCREATEPEN
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihPen, int32_t, 1
+    NX_RESERVE .offBmi, int32_t, 1
+    NX_RESERVE .cbBmi, int32_t, 1
+    NX_RESERVE .offBits, int32_t, 1
+    NX_RESERVE .cbBits, int32_t, 1
+    NX_RESERVE .elp, int32_t, 1
+NX_ENDSTRUC EMREXTCREATEPEN
+
+NX_STRUC EMRCREATEBRUSHINDIRECT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihBrush, int32_t, 1
+    NX_RESERVE .lb, int32_t, 1
+NX_ENDSTRUC EMRCREATEBRUSHINDIRECT
+
+NX_STRUC EMRCREATEMONOBRUSH
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihBrush, int32_t, 1
+    NX_RESERVE .iUsage, int32_t, 1
+    NX_RESERVE .offBmi, int32_t, 1
+    NX_RESERVE .cbBmi, int32_t, 1
+    NX_RESERVE .offBits, int32_t, 1
+    NX_RESERVE .cbBits, int32_t, 1
+NX_ENDSTRUC EMRCREATEMONOBRUSH
+
+NX_STRUC EMRCREATEDIBPATTERNBRUSHPT
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihBursh, int32_t, 1
+    NX_RESERVE .iUsage, int32_t, 1
+    NX_RESERVE .offBmi, int32_t, 1
+    NX_RESERVE .cbBmi, int32_t, 1
+    NX_RESERVE .offBits, int32_t, 1
+    NX_RESERVE .cbBits, int32_t, 1
+NX_ENDSTRUC EMRCREATEDIBPATTERNBRUSHPT
+
+NX_STRUC BITMAPV4HEADER
+    NX_RESERVE .bV4Size, int32_t, 1
+    NX_RESERVE .bV4Width, int32_t, 1
+    NX_RESERVE .bV4Height, int32_t, 1
+    NX_RESERVE .bV4Planes, short_t, 1
+    NX_RESERVE .bV4BitCount, short_t, 1
+    NX_RESERVE .bV4V4Compression, int32_t, 1
+    NX_RESERVE .bV4SizeImage, int32_t, 1
+    NX_RESERVE .bV4XPelsPerMeter, int32_t, 1
+    NX_RESERVE .bV4YPelsPerMeter, int32_t, 1
+    NX_RESERVE .bV4ClrUsed, int32_t, 1
+    NX_RESERVE .bV4ClrImportant, int32_t, 1
+    NX_RESERVE .bV4RedMask, int32_t, 1
+    NX_RESERVE .bV4GreenMask, int32_t, 1
+    NX_RESERVE .bV4BlueMask, int32_t, 1
+    NX_RESERVE .bV4AlphaMask, int32_t, 1
+    NX_RESERVE .bV4CSType, int32_t, 1
+    NX_RESERVE .bV4Endpoints, int32_t, 1
+    NX_RESERVE .bV4GammaRed, int32_t, 1
+    NX_RESERVE .bV4GammaGreen, int32_t, 1
+    NX_RESERVE .bV4GammaBlue, int32_t, 1
+NX_ENDSTRUC BITMAPV4HEADER
+
+NX_STRUC FONTSIGNATURE
+    NX_RESERVE .fsUsb4, int32_t, 1
+    NX_RESERVE .fsCsb2, int32_t, 1
+NX_ENDSTRUC FONTSIGNATURE
+
+NX_STRUC CHARSETINFO
+    NX_RESERVE .ciCharset, int32_t, 1
+    NX_RESERVE .ciACP, int32_t, 1
+    NX_RESERVE .xlfs, int32_t, 1
+NX_ENDSTRUC CHARSETINFO
+
+NX_STRUC LOCALESIGNATURE
+    NX_RESERVE .lsUsb4, int32_t, 1
+    NX_RESERVE .lsCsbDefault, int32_t, 1
+    NX_RESERVE .lsCsbSupported, int32_t, 1
+NX_ENDSTRUC LOCALESIGNATURE
+
+NX_STRUC NEWTEXTMETRICEX
+    NX_RESERVE .ntmTm, int32_t, 1
+    NX_RESERVE .ntmFontSig, int32_t, 1
+NX_ENDSTRUC NEWTEXTMETRICEX
+
+NX_STRUC ENUMLOGFONTEX
+    NX_RESERVE .elfLogFont, int32_t, 1
+    NX_RESERVE .elfFullName, int8_t, 1
+    NX_RESERVE .elfStyle, int8_t, 1
+    NX_RESERVE .elfScript, int8_t, 1
+NX_ENDSTRUC ENUMLOGFONTEX
+
+NX_STRUC GCP_RESULTS
+    NX_RESERVE .lStructSize, int32_t, 1
+    NX_RESERVE .lpOutString, int32_t, 1
+    NX_RESERVE .lpOrder, int32_t, 1
+    NX_RESERVE .lpDX, int32_t, 1
+    NX_RESERVE .lpCaretPos, int32_t, 1
+    NX_RESERVE .lpClass, int32_t, 1
+    NX_RESERVE .lpGlyphs, int32_t, 1
+    NX_RESERVE .nGlyphs, int32_t, 1
+    NX_RESERVE .nMaxFit, int32_t, 1
+NX_ENDSTRUC GCP_RESULTS
+
+NX_STRUC CIEXYZ
+    NX_RESERVE .ciexyzX, int32_t, 1
+    NX_RESERVE .ciexyzY, int32_t, 1
+    NX_RESERVE .ciexyzZ, int32_t, 1
+NX_ENDSTRUC CIEXYZ
+
+NX_STRUC CIEXYZTRIPLE
+    NX_RESERVE .ciexyzRed, int32_t, 1
+    NX_RESERVE .ciexyzGreen, int32_t, 1
+    NX_RESERVE .ciexyBlue, int32_t, 1
+NX_ENDSTRUC CIEXYZTRIPLE
+
+NX_STRUC LOGCOLORSPACE
+    NX_RESERVE .lcsSignature, int32_t, 1
+    NX_RESERVE .lcsVersion, int32_t, 1
+    NX_RESERVE .lcsSize, int32_t, 1
+    NX_RESERVE .lcsCSType, int32_t, 1
+    NX_RESERVE .lcsIntent, int32_t, 1
+    NX_RESERVE .lcsEndPoints, int32_t, 1
+    NX_RESERVE .lcsGammaRed, int32_t, 1
+    NX_RESERVE .lcsGammaGreen, int32_t, 1
+    NX_RESERVE .lcsGammaBlue, int32_t, 1
+    NX_RESERVE .lcsFileName, int8_t, MAX_PATH
+NX_ENDSTRUC LOGCOLORSPACE
+
+NX_STRUC EMRSELECTCOLORSPACE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihCS, int32_t, 1
+NX_ENDSTRUC EMRSELECTCOLORSPACE
+
+NX_STRUC EMRCREATECOLORSPACE
+    NX_RESERVE .emr, EMR, 1
+    NX_RESERVE .ihCS, int32_t, 1
+    NX_RESERVE .lcs, int32_t, 1
+NX_ENDSTRUC EMRCREATECOLORSPACE
+
+NX_STRUC CBTACTIVATESTRUCT
+    NX_RESERVE .fMouse, int32_t, 1
+    NX_RESERVE .hWndActive, int32_t, 1
+NX_ENDSTRUC CBTACTIVATESTRUCT
+
+NX_STRUC EVENTMSG
+    NX_RESERVE .message, int32_t, 1
+    NX_RESERVE .paramL, int32_t, 1
+    NX_RESERVE .paramH, int32_t, 1
+    NX_RESERVE .time, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+NX_ENDSTRUC EVENTMSG
+
+NX_STRUC CWPSTRUCT
+    NX_RESERVE .lParam, int32_t, 1
+    NX_RESERVE .wParam, int32_t, 1
+    NX_RESERVE .message, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+NX_ENDSTRUC CWPSTRUCT
+
+NX_STRUC DEBUGHOOKINFO
+    NX_RESERVE .hModuleHook, int32_t, 1
+    NX_RESERVE .Reserved, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+    NX_RESERVE .wParam, int32_t, 1
+    NX_RESERVE .code, int32_t, 1
+NX_ENDSTRUC DEBUGHOOKINFO
+
+NX_STRUC MOUSEHOOKSTRUCT
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .wHitTestCode, int32_t, 1
+    NX_RESERVE .dwExtraInfo, int32_t, 1
+NX_ENDSTRUC MOUSEHOOKSTRUCT
+
+NX_STRUC MINMAXINFO
+    NX_RESERVE .ptReserved, POINT, 1
+    NX_RESERVE .ptMaxSize, POINT, 1
+    NX_RESERVE .ptMaxPosition, POINT, 1
+    NX_RESERVE .ptMinTrackSize, POINT, 1
+    NX_RESERVE .ptMaxTrackSize, POINT, 1
+NX_ENDSTRUC MINMAXINFO
+
+NX_STRUC COPYDATASTRUCT
+    NX_RESERVE .dwData, int32_t, 1
+    NX_RESERVE .cbData, int32_t, 1
+    NX_RESERVE .lpData, int32_t, 1
+NX_ENDSTRUC COPYDATASTRUCT
+
+NX_STRUC WINDOWPOS
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .hWndInsertAfter, int32_t, 1
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+    NX_RESERVE .lx, int32_t, 1
+    NX_RESERVE .ly, int32_t, 1
+    NX_RESERVE .flags, int32_t, 1
+NX_ENDSTRUC WINDOWPOS
+
+NX_STRUC ACCEL
+    NX_RESERVE .fVirt, int8_t, 1
+    NX_RESERVE .key, short_t, 1
+    NX_RESERVE .cmd, short_t, 1
+NX_ENDSTRUC ACCEL
+
+NX_STRUC PAINTSTRUCT
+    NX_RESERVE .hdc, int32_t, 1
+    NX_RESERVE .fErase, int32_t, 1
+    NX_RESERVE .rcPaint, RECT, 1
+    NX_RESERVE .fRestore, int32_t, 1
+    NX_RESERVE .fIncUpdate, int32_t, 1
+    NX_RESERVE .rgbReserved, int8_t, 32 
+NX_ENDSTRUC PAINTSTRUCT
+
+NX_STRUC CREATESTRUCT
+    NX_RESERVE .lpCreateParams, int32_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .hMenu, int32_t, 1
+    NX_RESERVE .hWndParent, int32_t, 1
+    NX_RESERVE .ly, int32_t, 1
+    NX_RESERVE .lx, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .style, int32_t, 1
+    NX_RESERVE .lpszName, int32_t, 1
+    NX_RESERVE .lpszClass, int32_t, 1
+    NX_RESERVE .ExStyle, int32_t, 1
+NX_ENDSTRUC CREATESTRUCT
+
+NX_STRUC CBT_CREATEWND
+    NX_RESERVE .lpcs, int32_t, 1
+    NX_RESERVE .hWndInsertAfter, int32_t, 1
+NX_ENDSTRUC CBT_CREATEWND
+
+NX_STRUC WINDOWPLACEMENT
+    NX_RESERVE .iLength, int32_t, 1
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .showCmd, int32_t, 1
+    NX_RESERVE .ptMinPosition, POINT, 1
+    NX_RESERVE .ptMaxPosition, POINT, 1
+    NX_RESERVE .rcNormalPosition, RECT, 1
+NX_ENDSTRUC WINDOWPLACEMENT
+
+NX_STRUC MEASUREITEMSTRUCT
+    NX_RESERVE .CtlType, int32_t, 1
+    NX_RESERVE .CtlID, int32_t, 1
+    NX_RESERVE .itemID, int32_t, 1
+    NX_RESERVE .itemWidth, int32_t, 1
+    NX_RESERVE .itemHeight, int32_t, 1
+    NX_RESERVE .itemData, int32_t, 1
+NX_ENDSTRUC MEASUREITEMSTRUCT
+
+NX_STRUC DRAWITEMSTRUCT
+    NX_RESERVE .CtlType, int32_t, 1
+    NX_RESERVE .CtlID, int32_t, 1
+    NX_RESERVE .itemID, int32_t, 1
+    NX_RESERVE .itemAction, int32_t, 1
+    NX_RESERVE .itemState, int32_t, 1
+    NX_RESERVE .hwndItem, int32_t, 1
+    NX_RESERVE .hDC, int32_t, 1
+    NX_RESERVE .rcItem, RECT, 1
+    NX_RESERVE .itemData, int32_t, 1
+NX_ENDSTRUC DRAWITEMSTRUCT
+
+NX_STRUC DELETEITEMSTRUCT
+    NX_RESERVE .CtlType, int32_t, 1
+    NX_RESERVE .CtlID, int32_t, 1
+    NX_RESERVE .itemID, int32_t, 1
+    NX_RESERVE .hwndItem, int32_t, 1
+    NX_RESERVE .itemData, int32_t, 1
+NX_ENDSTRUC DELETEITEMSTRUCT
+
+NX_STRUC COMPAREITEMSTRUCT
+    NX_RESERVE .CtlType, int32_t, 1
+    NX_RESERVE .CtlID, int32_t, 1
+    NX_RESERVE .hwndItem, int32_t, 1
+    NX_RESERVE .itemID1, int32_t, 1
+    NX_RESERVE .itemData1, int32_t, 1
+    NX_RESERVE .itemID2, int32_t, 1
+    NX_RESERVE .itemData2, int32_t, 1
+NX_ENDSTRUC COMPAREITEMSTRUCT
+
+NX_STRUC DLGTEMPLATE
+    NX_RESERVE .style, int32_t, 1
+    NX_RESERVE .dwExtendedStyle, int32_t, 1
+    NX_RESERVE .cdit, short_t, 1
+    NX_RESERVE .x, short_t, 1
+    NX_RESERVE .y, short_t, 1
+    NX_RESERVE .lx, short_t, 1
+    NX_RESERVE .ly, short_t, 1
+NX_ENDSTRUC DLGTEMPLATE
+
+NX_STRUC DLGITEMTEMPLATE
+    NX_RESERVE .style, int32_t, 1
+    NX_RESERVE .dwExtendedStyle, int32_t, 1
+    NX_RESERVE .x, short_t, 1
+    NX_RESERVE .y, short_t, 1
+    NX_RESERVE .lx, short_t, 1
+    NX_RESERVE .ly, short_t, 1
+    NX_RESERVE .id, short_t, 1
+NX_ENDSTRUC DLGITEMTEMPLATE
+
+NX_STRUC MENUITEMTEMPLATEHEADER
+    NX_RESERVE .versionNumber, short_t, 1
+    NX_RESERVE .loffset, short_t, 1
+NX_ENDSTRUC MENUITEMTEMPLATEHEADER
+
+NX_STRUC MENUITEMTEMPLATE
+    NX_RESERVE .mtOption, short_t, 1
+    NX_RESERVE .mtID, short_t, 1
+    NX_RESERVE .mtString, int8_t, 1
+NX_ENDSTRUC MENUITEMTEMPLATE
+
+NX_STRUC ICONINFO
+    NX_RESERVE .fIcon, int32_t, 1
+    NX_RESERVE .xHotspot, int32_t, 1
+    NX_RESERVE .yHotspot, int32_t, 1
+    NX_RESERVE .hbmMask, int32_t, 1
+    NX_RESERVE .hbmColor, int32_t, 1
+NX_ENDSTRUC ICONINFO
+
+NX_STRUC MDICREATESTRUCT
+    NX_RESERVE .szClass, int32_t, 1
+    NX_RESERVE .szTitle, int32_t, 1
+    NX_RESERVE .hOwner, int32_t, 1
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+    NX_RESERVE .lx, int32_t, 1
+    NX_RESERVE .ly, int32_t, 1
+    NX_RESERVE .style, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC MDICREATESTRUCT
+
+NX_STRUC CLIENTCREATESTRUCT
+    NX_RESERVE .hWindowMenu, int32_t, 1
+    NX_RESERVE .idFirstChild, int32_t, 1
+NX_ENDSTRUC CLIENTCREATESTRUCT
+
+NX_STRUC MULTIKEYHELP
+    NX_RESERVE .mkSize, int32_t, 1
+    NX_RESERVE .mkKeylist, int8_t, 1
+    NX_RESERVE .szKeyphrase, int8_t, 253
+NX_ENDSTRUC MULTIKEYHELP
+
+NX_STRUC HELPWININFO
+    NX_RESERVE .wStructSize, int32_t, 1
+    NX_RESERVE .x, int32_t, 1
+    NX_RESERVE .y, int32_t, 1
+    NX_RESERVE .lx, int32_t, 1
+    NX_RESERVE .ly, int32_t, 1
+    NX_RESERVE .wMax, int32_t, 1
+    NX_RESERVE .rgchMember, int8_t, 2
+NX_ENDSTRUC HELPWININFO
+
+NX_STRUC DDEACK
+    NX_RESERVE .bAppReturnCode, short_t, 1
+    NX_RESERVE .Reserved, short_t, 1
+    NX_RESERVE .fbusy, short_t, 1
+    NX_RESERVE .fack, short_t, 1
+NX_ENDSTRUC DDEACK
+
+NX_STRUC DDEADVISE
+    NX_RESERVE .Reserved, short_t, 1
+    NX_RESERVE .fDeferUpd, short_t, 1
+    NX_RESERVE .fAckReq, short_t, 1
+    NX_RESERVE .cfFormat, short_t, 1
+NX_ENDSTRUC DDEADVISE
+
+NX_STRUC DDEDATA
+    NX_RESERVE .unused, short_t, 1
+    NX_RESERVE .fresponse, short_t, 1
+    NX_RESERVE .fRelease, short_t, 1
+    NX_RESERVE .Reserved, short_t, 1
+    NX_RESERVE .fAckReq, short_t, 1
+    NX_RESERVE .cfFormat, short_t, 1
+    NX_RESERVE .Value1, int8_t, 1
+NX_ENDSTRUC DDEDATA
+
+NX_STRUC DDEPOKE
+    NX_RESERVE .unused, short_t, 1
+    NX_RESERVE .fRelease, short_t, 1
+    NX_RESERVE .fReserved, short_t, 1
+    NX_RESERVE .cfFormat, short_t, 1
+    NX_RESERVE .Value1, int8_t, 1
+NX_ENDSTRUC DDEPOKE
+
+NX_STRUC DDELN
+    NX_RESERVE .unused, short_t, 1
+    NX_RESERVE .fRelease, short_t, 1
+    NX_RESERVE .fDeferUpd, short_t, 1
+    NX_RESERVE .fAckReq, short_t, 1
+    NX_RESERVE .cfFormat, short_t, 1
+NX_ENDSTRUC DDELN
+
+NX_STRUC DDEUP
+    NX_RESERVE .unused, short_t, 1
+    NX_RESERVE .fAck, short_t, 1
+    NX_RESERVE .fRelease, short_t, 1
+    NX_RESERVE .fReserved, short_t, 1
+    NX_RESERVE .fAckReq, short_t, 1
+    NX_RESERVE .cfFormat, short_t, 1
+    NX_RESERVE .xRGB1, int8_t, 1
+NX_ENDSTRUC DDEUP
+
+NX_STRUC HSZPAIR
+    NX_RESERVE .hszSvc, int32_t, 1
+    NX_RESERVE .hszTopic, int32_t, 1
+NX_ENDSTRUC HSZPAIR
+
+NX_STRUC SECURITY_QUALITY_OF_SERVICE
+    NX_RESERVE .iLength, int32_t, 1
+    NX_RESERVE .Impersonationlevel, short_t, 1
+    NX_RESERVE .ContextTrackingMode, short_t, 1
+    NX_RESERVE .EffectiveOnly, int32_t, 1
+NX_ENDSTRUC SECURITY_QUALITY_OF_SERVICE
+
+NX_STRUC CONVCONTEXT
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .wFlags, int32_t, 1
+    NX_RESERVE .wCountryID, int32_t, 1
+    NX_RESERVE .iCodePage, int32_t, 1
+    NX_RESERVE .dwLangID, int32_t, 1
+    NX_RESERVE .dwSecurity, int32_t, 1
+    NX_RESERVE .qos, int32_t, 1
+NX_ENDSTRUC CONVCONTEXT
+
+NX_STRUC CONVINFO
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .hUser, int32_t, 1
+    NX_RESERVE .hConvPartner, int32_t, 1
+    NX_RESERVE .hszSvcPartner, int32_t, 1
+    NX_RESERVE .hszServiceReq, int32_t, 1
+    NX_RESERVE .hszTopic, int32_t, 1
+    NX_RESERVE .hszItem, int32_t, 1
+    NX_RESERVE .wFmt, int32_t, 1
+    NX_RESERVE .wType, int32_t, 1
+    NX_RESERVE .wStatus, int32_t, 1
+    NX_RESERVE .wConvst, int32_t, 1
+    NX_RESERVE .wLastError, int32_t, 1
+    NX_RESERVE .hConvList, int32_t, 1
+    NX_RESERVE .ConvCtxt, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .hwndPartner, int32_t, 1
+NX_ENDSTRUC CONVINFO
+
+NX_STRUC DDEML_MSG_HOOK_DATA
+    NX_RESERVE .uiLo, int32_t, 1
+    NX_RESERVE .uiHi, int32_t, 1
+    NX_RESERVE .cbData, int32_t, 1
+    NX_RESERVE .xData, int32_t, 1
+NX_ENDSTRUC DDEML_MSG_HOOK_DATA
+
+NX_STRUC MONMSGSTRUCT
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .hwndTo, int32_t, 1
+    NX_RESERVE .dwTime, int32_t, 1
+    NX_RESERVE .htask, int32_t, 1
+    NX_RESERVE .wMsg, int32_t, 1
+    NX_RESERVE .wParam, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+    NX_RESERVE .dmhd, int32_t, 1
+NX_ENDSTRUC MONMSGSTRUCT
+
+NX_STRUC MONCBSTRUCT
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .dwTime, int32_t, 1
+    NX_RESERVE .htask, int32_t, 1
+    NX_RESERVE .dwRet, int32_t, 1
+    NX_RESERVE .wType, int32_t, 1
+    NX_RESERVE .wFmt, int32_t, 1
+    NX_RESERVE .hConv, int32_t, 1
+    NX_RESERVE .hsz1, int32_t, 1
+    NX_RESERVE .hsz2, int32_t, 1
+    NX_RESERVE .hData, int32_t, 1
+    NX_RESERVE .dwData1, int32_t, 1
+    NX_RESERVE .dwData2, int32_t, 1
+    NX_RESERVE .cc, int32_t, 1
+    NX_RESERVE .cbData, int32_t, 1
+    NX_RESERVE .xData8, int32_t, 1
+NX_ENDSTRUC MONCBSTRUCT
+
+NX_STRUC MONHSZSTRUCT
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .fsAction, int32_t, 1
+    NX_RESERVE .dwTime, int32_t, 1
+    NX_RESERVE .hsz, int32_t, 1
+    NX_RESERVE .htask, int32_t, 1
+    NX_RESERVE .xstr, int8_t, 1
+NX_ENDSTRUC MONHSZSTRUCT
+
+NX_STRUC MONERRSTRUCT
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .wLastError, int32_t, 1
+    NX_RESERVE .dwTime, int32_t, 1
+    NX_RESERVE .htask, int32_t, 1
+NX_ENDSTRUC MONERRSTRUCT
+
+NX_STRUC MONLINKSTRUCT
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .dwTime, int32_t, 1
+    NX_RESERVE .htask, int32_t, 1
+    NX_RESERVE .fEstablished, int32_t, 1
+    NX_RESERVE .fNoData, int32_t, 1
+    NX_RESERVE .hszSvc, int32_t, 1
+    NX_RESERVE .hszTopic, int32_t, 1
+    NX_RESERVE .hszItem, int32_t, 1
+    NX_RESERVE .wFmt, int32_t, 1
+    NX_RESERVE .fServer, int32_t, 1
+    NX_RESERVE .hConvServer, int32_t, 1
+    NX_RESERVE .hConvClient, int32_t, 1
+NX_ENDSTRUC MONLINKSTRUCT
+
+NX_STRUC MONCONVSTRUCT
+    NX_RESERVE .cb, int32_t, 1
+    NX_RESERVE .fConnect, int32_t, 1
+    NX_RESERVE .dwTime, int32_t, 1
+    NX_RESERVE .htask, int32_t, 1
+    NX_RESERVE .hszSvc, int32_t, 1
+    NX_RESERVE .hszTopic, int32_t, 1
+    NX_RESERVE .hConvClient, int32_t, 1
+    NX_RESERVE .hConvServer, int32_t, 1
+NX_ENDSTRUC MONCONVSTRUCT
+
+NX_STRUC smpte
+    NX_RESERVE .hour, int8_t, 1
+    NX_RESERVE .minute, int8_t, 1
+    NX_RESERVE .sec, int8_t, 1
+    NX_RESERVE .frame, int8_t, 1
+    NX_RESERVE .fps, int8_t, 1
+    NX_RESERVE .dummy, int8_t, 1
+    NX_RESERVE .pad, int8_t, 1
+NX_ENDSTRUC smpte
+
+NX_STRUC midi
+    NX_RESERVE .songptrpos, int32_t, 1
+NX_ENDSTRUC midi
+
+NX_STRUC MMTIME
+    NX_RESERVE .wType, int32_t, 1
+    NX_RESERVE .u, int32_t, 1
+NX_ENDSTRUC MMTIME
+
+NX_STRUC MIDIEVENT
+    NX_RESERVE .dwDeltaTime, int32_t, 1
+    NX_RESERVE .dwStreamID, int32_t, 1
+    NX_RESERVE .dwEvent, int32_t, 1
+    NX_RESERVE .dwParms, int32_t, 1
+NX_ENDSTRUC MIDIEVENT
+
+NX_STRUC MIDISTRMBUFFVER
+    NX_RESERVE .dwVersion, int32_t, 1
+    NX_RESERVE .dwMid, int32_t, 1
+    NX_RESERVE .dwOEMVersion, int32_t, 1
+NX_ENDSTRUC MIDISTRMBUFFVER
+
+NX_STRUC MIDIPROPTIMEDIV
+    NX_RESERVE .cbStruct, int32_t, 1
+    NX_RESERVE .dwTimeDiv, int32_t, 1
+NX_ENDSTRUC MIDIPROPTIMEDIV
+
+NX_STRUC MIDIPROPTEMPO
+    NX_RESERVE .cbStruct, int32_t, 1
+    NX_RESERVE .dwTempo, int32_t, 1
+NX_ENDSTRUC MIDIPROPTEMPO
+
+NX_STRUC MIXERCAPS
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .vDriverVersion, int32_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+    NX_RESERVE .fdwSupport, int32_t, 1
+    NX_RESERVE .cDestinations, int32_t, 1
+NX_ENDSTRUC MIXERCAPS
+
+NX_STRUC Target
+    NX_RESERVE .dwType, int32_t, 1
+    NX_RESERVE .dwDeviceID, int32_t, 1
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .vDriverVersion, int32_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+NX_ENDSTRUC Target
+
+NX_STRUC MIXERLINECONTROLS
+    NX_RESERVE .cbStruct, int32_t, 1
+    NX_RESERVE .dwLineID, int32_t, 1
+    NX_RESERVE .dwControl, int32_t, 1
+    NX_RESERVE .cControls, int32_t, 1
+    NX_RESERVE .cbmxctrl, int32_t, 1
+    NX_RESERVE .pamxctrl, int32_t, 1
+NX_ENDSTRUC MIXERLINECONTROLS
+
+NX_STRUC MIXERCONTROLDETAILS
+    NX_RESERVE .cbStruct, int32_t, 1
+    NX_RESERVE .dwControlID, int32_t, 1
+    NX_RESERVE .cChannels, int32_t, 1
+    NX_RESERVE .item, int32_t, 1
+    NX_RESERVE .cbDetails, int32_t, 1
+    NX_RESERVE .paDetails, int32_t, 1
+NX_ENDSTRUC MIXERCONTROLDETAILS
+
+NX_STRUC MIXERCONTROLDETAILS_BOOLEAN
+    NX_RESERVE .fValue, int32_t, 1
+NX_ENDSTRUC MIXERCONTROLDETAILS_BOOLEAN
+
+NX_STRUC MIXERCONTROLDETAILS_SIGNED
+    NX_RESERVE .lValue, int32_t, 1
+NX_ENDSTRUC MIXERCONTROLDETAILS_SIGNED
+
+NX_STRUC MIXERCONTROLDETAILS_UNSIGNED
+    NX_RESERVE .dwValue, int32_t, 1
+NX_ENDSTRUC MIXERCONTROLDETAILS_UNSIGNED
+
+NX_STRUC JOYINFOEX
+    NX_RESERVE .dwSize, int32_t, 1
+    NX_RESERVE .dwFlags, int32_t, 1
+    NX_RESERVE .dwXpos, int32_t, 1
+    NX_RESERVE .dwYpos, int32_t, 1
+    NX_RESERVE .dwZpos, int32_t, 1
+    NX_RESERVE .dwRpos, int32_t, 1
+    NX_RESERVE .dwUpos, int32_t, 1
+    NX_RESERVE .dwVpos, int32_t, 1
+    NX_RESERVE .dwButtons, int32_t, 1
+    NX_RESERVE .dwButtonNumber, int32_t, 1
+    NX_RESERVE .dwPOV, int32_t, 1
+    NX_RESERVE .dwReserved1, int32_t, 1
+    NX_RESERVE .dwReserved2, int32_t, 1
+NX_ENDSTRUC JOYINFOEX
+
+NX_STRUC DRVCONFIGINFO
+    NX_RESERVE .dwDCISize, int32_t, 1
+    NX_RESERVE .lpszDCISectionName, int32_t, 1
+    NX_RESERVE .lpszDCIAliasName, int32_t, 1
+    NX_RESERVE .dnDevNode, int32_t, 1
+NX_ENDSTRUC DRVCONFIGINFO
+
+NX_STRUC WAVEHDR
+    NX_RESERVE .lpData, int32_t, 1
+    NX_RESERVE .dwBufferiLength, int32_t, 1
+    NX_RESERVE .dwBytesRecorded, int32_t, 1
+    NX_RESERVE .dwUser, int32_t, 1
+    NX_RESERVE .dwFlags, int32_t, 1
+    NX_RESERVE .dwLoops, int32_t, 1
+    NX_RESERVE .lpNext, int32_t, 1
+    NX_RESERVE .Reserved, int32_t, 1
+NX_ENDSTRUC WAVEHDR
+
+NX_STRUC WAVEOUTCAPS
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .vDriverVersion, int32_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+    NX_RESERVE .dwFormats, int32_t, 1
+    NX_RESERVE .wChannels, short_t, 1
+    NX_RESERVE .dwSupport, int32_t, 1
+NX_ENDSTRUC WAVEOUTCAPS
+
+NX_STRUC WAVEINCAPS
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .vDriverVersion, int32_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+    NX_RESERVE .dwFormats, int32_t, 1
+    NX_RESERVE .wChannels, short_t, 1
+NX_ENDSTRUC WAVEINCAPS
+
+NX_STRUC WAVEFORMAT
+    NX_RESERVE .wFormatTag, short_t, 1
+    NX_RESERVE .nChannels, short_t, 1
+    NX_RESERVE .nSamplesPerSec, int32_t, 1
+    NX_RESERVE .nAvgBytesPerSec, int32_t, 1
+    NX_RESERVE .nBlockAlign, short_t, 1
+NX_ENDSTRUC WAVEFORMAT
+
+NX_STRUC PCMWAVEFORMAT
+    NX_RESERVE .wf, int32_t, 1
+    NX_RESERVE .wBitsPerSample, short_t, 1
+NX_ENDSTRUC PCMWAVEFORMAT
+
+NX_STRUC MIDIOUTCAPS
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .vDriverVersion, int32_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+    NX_RESERVE .wTechnology, short_t, 1
+    NX_RESERVE .wVoices, short_t, 1
+    NX_RESERVE .wNotes, short_t, 1
+    NX_RESERVE .wChannelMask, short_t, 1
+    NX_RESERVE .dwSupport, int32_t, 1
+NX_ENDSTRUC MIDIOUTCAPS
+
+NX_STRUC MIDIINCAPS
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .vDriverVersion, int32_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+NX_ENDSTRUC MIDIINCAPS
+
+NX_STRUC MIDIHDR
+    NX_RESERVE .lpData, int32_t, 1
+    NX_RESERVE .dwBufferiLength, int32_t, 1
+    NX_RESERVE .dwBytesRecorded, int32_t, 1
+    NX_RESERVE .dwUser, int32_t, 1
+    NX_RESERVE .dwFlags, int32_t, 1
+    NX_RESERVE .lpNext, int32_t, 1
+    NX_RESERVE .Reserved, int32_t, 1
+NX_ENDSTRUC MIDIHDR
+
+NX_STRUC AUXCAPS
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .vDriverVersion, int32_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+    NX_RESERVE .wTechnology, short_t, 1
+    NX_RESERVE .dwSupport, int32_t, 1
+NX_ENDSTRUC AUXCAPS
+
+NX_STRUC TIMECAPS
+    NX_RESERVE .wPeriodMin, int32_t, 1
+    NX_RESERVE .wPeriodMax, int32_t, 1
+NX_ENDSTRUC TIMECAPS
+
+NX_STRUC JOYCAPS
+    NX_RESERVE .wMid, short_t, 1
+    NX_RESERVE .wPid, short_t, 1
+    NX_RESERVE .szPname, int8_t, MAXPNAMELEN
+    NX_RESERVE .wXmin, short_t, 1
+    NX_RESERVE .wXmax, short_t, 1
+    NX_RESERVE .wYmin, short_t, 1
+    NX_RESERVE .wYmax, short_t, 1
+    NX_RESERVE .wZmin, short_t, 1
+    NX_RESERVE .wZmax, short_t, 1
+    NX_RESERVE .wNumButtons, short_t, 1
+    NX_RESERVE .wPeriodMin, short_t, 1
+    NX_RESERVE .wPeriodMax, short_t, 1
+NX_ENDSTRUC JOYCAPS
+
+NX_STRUC JOYINFO
+    NX_RESERVE .wXpos, short_t, 1
+    NX_RESERVE .wYpos, short_t, 1
+    NX_RESERVE .wZpos, short_t, 1
+    NX_RESERVE .wButtons, short_t, 1
+NX_ENDSTRUC JOYINFO
+
+NX_STRUC MMIOINFO
+    NX_RESERVE .dwFlags, int32_t, 1
+    NX_RESERVE .fccIOProc, int32_t, 1
+    NX_RESERVE .pIOProc, int32_t, 1
+    NX_RESERVE .wErrorRet, int32_t, 1
+    NX_RESERVE .htask, int32_t, 1
+    NX_RESERVE .cchBuffer, int32_t, 1
+    NX_RESERVE .pchBuffer, int32_t, 1
+    NX_RESERVE .pchNext, int32_t, 1
+    NX_RESERVE .pchEndRead, int32_t, 1
+    NX_RESERVE .pchEndWrite, int32_t, 1
+    NX_RESERVE .lBufOffset, int32_t, 1
+    NX_RESERVE .lDiskOffset, int32_t, 1
+    NX_RESERVE .adwInfo4, int32_t, 1
+    NX_RESERVE .dwReserved1, int32_t, 1
+    NX_RESERVE .dwReserved2, int32_t, 1
+    NX_RESERVE .hmmio, int32_t, 1
+NX_ENDSTRUC MMIOINFO
+
+NX_STRUC MMCKINFO
+    NX_RESERVE .ckid, int32_t, 1
+    NX_RESERVE .ckSize, int32_t, 1
+    NX_RESERVE .fccType, int32_t, 1
+    NX_RESERVE .dwDataOffset, int32_t, 1
+    NX_RESERVE .dwFlags, int32_t, 1
+NX_ENDSTRUC MMCKINFO
+
+NX_STRUC MCI_GENERIC_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+NX_ENDSTRUC MCI_GENERIC_PARMS
+
+NX_STRUC MCI_OPEN_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .wDeviceID, int32_t, 1
+    NX_RESERVE .lpstrDeviceType, int32_t, 1
+    NX_RESERVE .lpstrElementName, int32_t, 1
+    NX_RESERVE .lpstrAlias, int32_t, 1
+NX_ENDSTRUC MCI_OPEN_PARMS
+
+NX_STRUC MCI_PLAY_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwFrom, int32_t, 1
+    NX_RESERVE .dwTo, int32_t, 1
+NX_ENDSTRUC MCI_PLAY_PARMS
+
+NX_STRUC MCI_SEEK_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwTo, int32_t, 1
+NX_ENDSTRUC MCI_SEEK_PARMS
+
+NX_STRUC MCI_STATUS_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwReturn, int32_t, 1
+    NX_RESERVE .dwItem, int32_t, 1
+    NX_RESERVE .dwTrack, short_t, 1
+NX_ENDSTRUC MCI_STATUS_PARMS
+
+NX_STRUC MCI_INFO_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpstrReturn, int32_t, 1
+    NX_RESERVE .dwRetSize, int32_t, 1
+NX_ENDSTRUC MCI_INFO_PARMS
+
+NX_STRUC MCI_GETDEVCAPS_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwReturn, int32_t, 1
+    NX_RESERVE .dwIten, int32_t, 1
+NX_ENDSTRUC MCI_GETDEVCAPS_PARMS
+
+NX_STRUC MCI_SYSINFO_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpstrReturn, int32_t, 1
+    NX_RESERVE .dwRetSize, int32_t, 1
+    NX_RESERVE .dwNumber, int32_t, 1
+    NX_RESERVE .wDeviceType, int32_t, 1
+NX_ENDSTRUC MCI_SYSINFO_PARMS
+
+NX_STRUC MCI_SET_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwTimeFormat, int32_t, 1
+    NX_RESERVE .dwAudio, int32_t, 1
+NX_ENDSTRUC MCI_SET_PARMS
+
+NX_STRUC MCI_BREAK_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .nVirtKey, int32_t, 1
+    NX_RESERVE .hwndBreak, int32_t, 1
+NX_ENDSTRUC MCI_BREAK_PARMS
+
+NX_STRUC MCI_SOUND_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpstrSoundName, int32_t, 1
+NX_ENDSTRUC MCI_SOUND_PARMS
+
+NX_STRUC MCI_SAVE_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpFileName, int32_t, 1
+NX_ENDSTRUC MCI_SAVE_PARMS
+
+NX_STRUC MCI_LOAD_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpFileName, int32_t, 1
+NX_ENDSTRUC MCI_LOAD_PARMS
+
+NX_STRUC MCI_RECORD_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwFrom, int32_t, 1
+    NX_RESERVE .dwTo, int32_t, 1
+NX_ENDSTRUC MCI_RECORD_PARMS
+
+NX_STRUC MCI_VD_PLAY_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwFrom, int32_t, 1
+    NX_RESERVE .dwTo, int32_t, 1
+    NX_RESERVE .dwSpeed, int32_t, 1
+NX_ENDSTRUC MCI_VD_PLAY_PARMS
+
+NX_STRUC MCI_VD_STEP_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwFrames, int32_t, 1
+NX_ENDSTRUC MCI_VD_STEP_PARMS
+
+NX_STRUC MCI_VD_ESCAPE_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpstrCommand, int32_t, 1
+NX_ENDSTRUC MCI_VD_ESCAPE_PARMS
+
+NX_STRUC MCI_WAVE_OPEN_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .wDeviceID, int32_t, 1
+    NX_RESERVE .lpstrDeviceType, int32_t, 1
+    NX_RESERVE .lpstrElementName, int32_t, 1
+    NX_RESERVE .lpstrAlias, int32_t, 1
+    NX_RESERVE .dwBufferSeconds, int32_t, 1
+NX_ENDSTRUC MCI_WAVE_OPEN_PARMS
+
+NX_STRUC MCI_WAVE_DELETE_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwFrom, int32_t, 1
+    NX_RESERVE .dwTo, int32_t, 1
+NX_ENDSTRUC MCI_WAVE_DELETE_PARMS
+
+NX_STRUC MCI_WAVE_SET_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwTimeFormat, int32_t, 1
+    NX_RESERVE .dwAudio, int32_t, 1
+    NX_RESERVE .wInput, int32_t, 1
+    NX_RESERVE .wOutput, int32_t, 1
+    NX_RESERVE .wFormatTag, short_t, 1
+    NX_RESERVE .wReserved2, short_t, 1
+    NX_RESERVE .nChannels, short_t, 1
+    NX_RESERVE .wReserved3, short_t, 1
+    NX_RESERVE .nSamplesPerSec, int32_t, 1
+    NX_RESERVE .nAvgBytesPerSec, int32_t, 1
+    NX_RESERVE .nBlockAlign, short_t, 1
+    NX_RESERVE .wReserved4, short_t, 1
+    NX_RESERVE .wBitsPerSample, short_t, 1
+    NX_RESERVE .wReserved5, short_t, 1
+NX_ENDSTRUC MCI_WAVE_SET_PARMS
+
+NX_STRUC MCI_SEQ_SET_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwTimeFormat, int32_t, 1
+    NX_RESERVE .dwAudio, int32_t, 1
+    NX_RESERVE .dwTempo, int32_t, 1
+    NX_RESERVE .dwPort, int32_t, 1
+    NX_RESERVE .dwSlave, int32_t, 1
+    NX_RESERVE .dwMaster, int32_t, 1
+    NX_RESERVE .dwOffset, int32_t, 1
+NX_ENDSTRUC MCI_SEQ_SET_PARMS
+
+NX_STRUC MCI_ANIM_OPEN_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .wDeviceID, int32_t, 1
+    NX_RESERVE .lpstrDeviceType, int32_t, 1
+    NX_RESERVE .lpstrElementName, int32_t, 1
+    NX_RESERVE .lpstrAlias, int32_t, 1
+    NX_RESERVE .dwStyle, int32_t, 1
+    NX_RESERVE .hWndParent, int32_t, 1
+NX_ENDSTRUC MCI_ANIM_OPEN_PARMS
+
+NX_STRUC MCI_ANIM_PLAY_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwFrom, int32_t, 1
+    NX_RESERVE .dwTo, int32_t, 1
+    NX_RESERVE .dwSpeed, int32_t, 1
+NX_ENDSTRUC MCI_ANIM_PLAY_PARMS
+
+NX_STRUC MCI_ANIM_STEP_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .dwFrames, int32_t, 1
+NX_ENDSTRUC MCI_ANIM_STEP_PARMS
+
+NX_STRUC MCI_ANIM_WINDOW_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .nCmdShow, int32_t, 1
+    NX_RESERVE .lpstrText, int32_t, 1
+NX_ENDSTRUC MCI_ANIM_WINDOW_PARMS
+
+NX_STRUC MCI_ANIM_RECT_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .rc, RECT, 1
+NX_ENDSTRUC MCI_ANIM_RECT_PARMS
+
+NX_STRUC MCI_ANIM_UPDATE_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .rc, RECT, 1
+    NX_RESERVE .hDC, int32_t, 1
+NX_ENDSTRUC MCI_ANIM_UPDATE_PARMS
+
+NX_STRUC MCI_OVLY_OPEN_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .wDeviceID, int32_t, 1
+    NX_RESERVE .lpstrDeviceType, int32_t, 1
+    NX_RESERVE .lpstrElementName, int32_t, 1
+    NX_RESERVE .lpstrAlias, int32_t, 1
+    NX_RESERVE .dwStyle, int32_t, 1
+    NX_RESERVE .hWndParent, int32_t, 1
+NX_ENDSTRUC MCI_OVLY_OPEN_PARMS
+
+NX_STRUC MCI_OVLY_WINDOW_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .nCmdShow, int32_t, 1
+    NX_RESERVE .lpstrText, int32_t, 1
+NX_ENDSTRUC MCI_OVLY_WINDOW_PARMS
+
+NX_STRUC MCI_OVLY_RECT_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .rc, RECT, 1
+NX_ENDSTRUC MCI_OVLY_RECT_PARMS
+
+NX_STRUC MCI_OVLY_SAVE_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpFileName, int32_t, 1
+    NX_RESERVE .rc, RECT, 1
+NX_ENDSTRUC MCI_OVLY_SAVE_PARMS
+
+NX_STRUC MCI_OVLY_LOAD_PARMS
+    NX_RESERVE .dwCallback, int32_t, 1
+    NX_RESERVE .lpFileName, int32_t, 1
+    NX_RESERVE .rc, RECT, 1
+NX_ENDSTRUC MCI_OVLY_LOAD_PARMS
+
+NX_STRUC PRINTER_INFO_1
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .pDescription, int32_t, 1
+    NX_RESERVE .pName, int32_t, 1
+    NX_RESERVE .pComment, int32_t, 1
+NX_ENDSTRUC PRINTER_INFO_1
+
+NX_STRUC PRINTER_INFO_2
+    NX_RESERVE .pServerName, int32_t, 1
+    NX_RESERVE .pPrinterName, int32_t, 1
+    NX_RESERVE .pShareName, int32_t, 1
+    NX_RESERVE .pPortName, int32_t, 1
+    NX_RESERVE .pDriverName, int32_t, 1
+    NX_RESERVE .pComment, int32_t, 1
+    NX_RESERVE .pLocation, int32_t, 1
+    NX_RESERVE .pDevMode, int32_t, 1
+    NX_RESERVE .pSepFile, int32_t, 1
+    NX_RESERVE .pPrintProcessor, int32_t, 1
+    NX_RESERVE .pDatatype, int32_t, 1
+    NX_RESERVE .pParameters, int32_t, 1
+    NX_RESERVE .pSecurityDescriptor, int32_t, 1
+    NX_RESERVE .Attributes, int32_t, 1
+    NX_RESERVE .Priority, int32_t, 1
+    NX_RESERVE .DefaultPriority, int32_t, 1
+    NX_RESERVE .StartTime, int32_t, 1
+    NX_RESERVE .UntilTime, int32_t, 1
+    NX_RESERVE .Status, int32_t, 1
+    NX_RESERVE .cJobs, int32_t, 1
+    NX_RESERVE .AveragePPM, int32_t, 1
+NX_ENDSTRUC PRINTER_INFO_2
+
+NX_STRUC PRINTER_INFO_3
+    NX_RESERVE .pSecurityDescriptor, int32_t, 1
+NX_ENDSTRUC PRINTER_INFO_3
+
+NX_STRUC JOB_INFO_1
+    NX_RESERVE .JobId, int32_t, 1
+    NX_RESERVE .pPrinterName, int32_t, 1
+    NX_RESERVE .pMachineName, int32_t, 1
+    NX_RESERVE .pUserName, int32_t, 1
+    NX_RESERVE .pDocument, int32_t, 1
+    NX_RESERVE .pDatatype, int32_t, 1
+    NX_RESERVE .pStatus, int32_t, 1
+    NX_RESERVE .Status, int32_t, 1
+    NX_RESERVE .Priority, int32_t, 1
+    NX_RESERVE .Position, int32_t, 1
+    NX_RESERVE .TotalPages, int32_t, 1
+    NX_RESERVE .PagesPrinted, int32_t, 1
+    NX_RESERVE .Submitted, int32_t, 1
+NX_ENDSTRUC JOB_INFO_1
+
+NX_STRUC JOB_INFO_2
+    NX_RESERVE .JobId, int32_t, 1
+    NX_RESERVE .pPrinterName, int32_t, 1
+    NX_RESERVE .pMachineName, int32_t, 1
+    NX_RESERVE .pUserName, int32_t, 1
+    NX_RESERVE .pDocument, int32_t, 1
+    NX_RESERVE .pNotifyName, int32_t, 1
+    NX_RESERVE .pDatatype, int32_t, 1
+    NX_RESERVE .pPrintProcessor, int32_t, 1
+    NX_RESERVE .pParameters, int32_t, 1
+    NX_RESERVE .pDriverName, int32_t, 1
+    NX_RESERVE .pDevMode, int32_t, 1
+    NX_RESERVE .pStatus, int32_t, 1
+    NX_RESERVE .pSecurityDescriptor, int32_t, 1
+    NX_RESERVE .Status, int32_t, 1
+    NX_RESERVE .Priority, int32_t, 1
+    NX_RESERVE .Position, int32_t, 1
+    NX_RESERVE .StartTime, int32_t, 1
+    NX_RESERVE .UntilTime, int32_t, 1
+    NX_RESERVE .TotalPages, int32_t, 1
+    NX_RESERVE .isize, int32_t, 1
+    NX_RESERVE .Submitted, int32_t, 1
+    NX_RESERVE .time, int32_t, 1
+    NX_RESERVE .PagesPrinted, int32_t, 1
+NX_ENDSTRUC JOB_INFO_2
+
+NX_STRUC ADDJOB_INFO_1
+    NX_RESERVE .Path, int32_t, 1
+    NX_RESERVE .JobId, int32_t, 1
+NX_ENDSTRUC ADDJOB_INFO_1
+
+NX_STRUC DRIVER_INFO_1
+    NX_RESERVE .pName, int32_t, 1
+NX_ENDSTRUC DRIVER_INFO_1
+
+NX_STRUC DRIVER_INFO_2
+    NX_RESERVE .cVersion, int32_t, 1
+    NX_RESERVE .pName, int32_t, 1
+    NX_RESERVE .pEnvironment, int32_t, 1
+    NX_RESERVE .pDriverPath, int32_t, 1
+    NX_RESERVE .pDataFile, int32_t, 1
+    NX_RESERVE .pConfigFile, int32_t, 1
+NX_ENDSTRUC DRIVER_INFO_2
+
+NX_STRUC DOC_INFO_1
+    NX_RESERVE .pDocName, int32_t, 1
+    NX_RESERVE .pOutputFile, int32_t, 1
+    NX_RESERVE .pDatatype, int32_t, 1
+NX_ENDSTRUC DOC_INFO_1
+
+NX_STRUC FORM_INFO_1
+    NX_RESERVE .pName, int32_t, 1
+    NX_RESERVE .isize, int32_t, 1
+    NX_RESERVE .ImageableArea, int32_t, 1
+NX_ENDSTRUC FORM_INFO_1
+
+NX_STRUC PRINTPROCESSOR_INFO_1
+    NX_RESERVE .pName, int32_t, 1
+NX_ENDSTRUC PRINTPROCESSOR_INFO_1
+
+NX_STRUC PORT_INFO_1
+    NX_RESERVE .pName, int32_t, 1
+NX_ENDSTRUC PORT_INFO_1
+
+NX_STRUC MONITOR_INFO_1
+    NX_RESERVE .pName, int32_t, 1
+NX_ENDSTRUC MONITOR_INFO_1
+
+NX_STRUC MONITOR_INFO_2
+    NX_RESERVE .pName, int32_t, 1
+    NX_RESERVE .pEnvironment, int32_t, 1
+    NX_RESERVE .pDLLName, int32_t, 1
+NX_ENDSTRUC MONITOR_INFO_2
+
+NX_STRUC DATATYPES_INFO_1
+    NX_RESERVE .pName, int32_t, 1
+NX_ENDSTRUC DATATYPES_INFO_1
+
+NX_STRUC PRINTER_DEFAULTS
+    NX_RESERVE .pDatatype, int32_t, 1
+    NX_RESERVE .pDevMode, int32_t, 1
+    NX_RESERVE .DesiredAccess, int32_t, 1
+NX_ENDSTRUC PRINTER_DEFAULTS
+
+NX_STRUC PRINTER_INFO_4
+    NX_RESERVE .pPrinterName, int32_t, 1
+    NX_RESERVE .pServerName, int32_t, 1
+    NX_RESERVE .Attributes, int32_t, 1
+NX_ENDSTRUC PRINTER_INFO_4
+
+NX_STRUC PRINTER_INFO_5
+    NX_RESERVE .pPrinterName, int32_t, 1
+    NX_RESERVE .pPortName, int32_t, 1
+    NX_RESERVE .Attributes, int32_t, 1
+    NX_RESERVE .DeviceNotSelectedTimeout, int32_t, 1
+    NX_RESERVE .TransmissionRetryTimeout, int32_t, 1
+NX_ENDSTRUC PRINTER_INFO_5
+
+NX_STRUC DRIVER_INFO_3
+    NX_RESERVE .cVersion, int32_t, 1
+    NX_RESERVE .pName, int32_t, 1
+    NX_RESERVE .pEnvironment, int32_t, 1
+    NX_RESERVE .pDriverPath, int32_t, 1
+    NX_RESERVE .pDataFile, int32_t, 1
+    NX_RESERVE .pConfigFile, int32_t, 1
+    NX_RESERVE .pHelpFile, int32_t, 1
+    NX_RESERVE .pDependentFiles, int32_t, 1
+    NX_RESERVE .pMonitorName, int32_t, 1
+    NX_RESERVE .pDefaultDataType, int32_t, 1
+NX_ENDSTRUC DRIVER_INFO_3
+
+NX_STRUC DOC_INFO_2
+    NX_RESERVE .pDocName, int32_t, 1
+    NX_RESERVE .pOutputFile, int32_t, 1
+    NX_RESERVE .pDatatype, int32_t, 1
+    NX_RESERVE .dwMode, int32_t, 1
+    NX_RESERVE .JobId, int32_t, 1
+NX_ENDSTRUC DOC_INFO_2
+
+NX_STRUC PORT_INFO_2
+    NX_RESERVE .pPortName, int32_t, 1
+    NX_RESERVE .pMonitorName, int32_t, 1
+    NX_RESERVE .pDescription, int32_t, 1
+    NX_RESERVE .fPortType, int32_t, 1
+    NX_RESERVE .Reserved, int32_t, 1
+NX_ENDSTRUC PORT_INFO_2
+
+NX_STRUC PROVIDOR_INFO_1
+    NX_RESERVE .pName, int32_t, 1
+    NX_RESERVE .pEnvironment, int32_t, 1
+    NX_RESERVE .pDLLName, int32_t, 1
+NX_ENDSTRUC PROVIDOR_INFO_1
+
+NX_STRUC NETRESOURCE
+    NX_RESERVE .dwScope, int32_t, 1
+    NX_RESERVE .dwType, int32_t, 1
+    NX_RESERVE .dwDisplayType, int32_t, 1
+    NX_RESERVE .dwUsage, int32_t, 1
+    NX_RESERVE .lpLocalName, int32_t, 1
+    NX_RESERVE .lpRemoteName, int32_t, 1
+    NX_RESERVE .lpComment, int32_t, 1
+    NX_RESERVE .lpProvider, int32_t, 1
+NX_ENDSTRUC NETRESOURCE
+
+NX_STRUC NCB
+    NX_RESERVE .ncb_command, short_t, 1
+    NX_RESERVE .ncb_retcode, short_t, 1
+    NX_RESERVE .ncb_lsn, short_t, 1
+    NX_RESERVE .ncb_num, short_t, 1
+    NX_RESERVE .ncb_buffer, int32_t, 1
+    NX_RESERVE .ncb_length, short_t, 1
+    NX_RESERVE .ncb_callname, int8_t, NCBNAMSZ
+    NX_RESERVE .ncb_name, int8_t, NCBNAMSZ
+    NX_RESERVE .ncb_rto, short_t, 1
+    NX_RESERVE .ncb_sto, short_t, 1
+    NX_RESERVE .ncb_post, int32_t, 1
+    NX_RESERVE .ncb_lana_num, short_t, 1
+    NX_RESERVE .ncb_cmd_cplt, short_t, 1
+    NX_RESERVE .ncb_reserve10, int8_t, 1
+    NX_RESERVE .ncb_event, int32_t, 1
+NX_ENDSTRUC NCB
+
+NX_STRUC ADAPTER_STATUS
+    NX_RESERVE .adapter_address, int8_t, 6
+    NX_RESERVE .rev_major, short_t, 1
+    NX_RESERVE .reserved0, short_t, 1
+    NX_RESERVE .adapter_type, short_t, 1
+    NX_RESERVE .rev_minor, short_t, 1
+    NX_RESERVE .duration, short_t, 1
+    NX_RESERVE .frmr_recv, short_t, 1
+    NX_RESERVE .frmr_xmit, short_t, 1
+    NX_RESERVE .iframe_recv_err, short_t, 1
+    NX_RESERVE .xmit_aborts, short_t, 1
+    NX_RESERVE .xmit_success, int32_t, 1
+    NX_RESERVE .recv_success, int32_t, 1
+    NX_RESERVE .iframe_xmit_err, short_t, 1
+    NX_RESERVE .recv_buff_unavail, short_t, 1
+    NX_RESERVE .t1_timeouts, short_t, 1
+    NX_RESERVE .ti_timeouts, short_t, 1
+    NX_RESERVE .Reserved1, int32_t, 1
+    NX_RESERVE .free_ncbs, short_t, 1
+    NX_RESERVE .max_cfg_ncbs, short_t, 1
+    NX_RESERVE .max_ncbs, short_t, 1
+    NX_RESERVE .xmit_buf_unavail, short_t, 1
+    NX_RESERVE .max_dgram_isize, short_t, 1
+    NX_RESERVE .pending_sess, short_t, 1
+    NX_RESERVE .max_cfg_sess, short_t, 1
+    NX_RESERVE .max_sess, short_t, 1
+    NX_RESERVE .max_sess_pkt_isize, short_t, 1
+    NX_RESERVE .name_count, short_t, 1
+NX_ENDSTRUC ADAPTER_STATUS
+
+NX_STRUC NAME_BUFFER
+    NX_RESERVE .xname, int8_t, NCBNAMSZ
+    NX_RESERVE .name_num, short_t, 1
+    NX_RESERVE .name_flags, short_t, 1
+NX_ENDSTRUC NAME_BUFFER
+
+NX_STRUC SESSION_HEADER
+    NX_RESERVE .sess_name, short_t, 1
+    NX_RESERVE .num_sess, short_t, 1
+    NX_RESERVE .rcv_dg_outstanding, short_t, 1
+    NX_RESERVE .rcv_any_outstanding, short_t, 1
+NX_ENDSTRUC SESSION_HEADER
+
+NX_STRUC SESSION_BUFFER
+    NX_RESERVE .lsn, short_t, 1
+    NX_RESERVE .State, short_t, 1
+    NX_RESERVE .local_name, int8_t, NCBNAMSZ
+    NX_RESERVE .remote_name, int8_t, NCBNAMSZ
+    NX_RESERVE .rcvs_outstanding, short_t, 1
+    NX_RESERVE .sends_outstanding, short_t, 1
+NX_ENDSTRUC SESSION_BUFFER
+
+NX_STRUC LANA_ENUM
+    NX_RESERVE .iLength, short_t, 1
+    NX_RESERVE .lana, short_t, 1
+NX_ENDSTRUC LANA_ENUM
+
+NX_STRUC FIND_NAME_HEADER
+    NX_RESERVE .node_count, short_t, 1
+    NX_RESERVE .Reserved, short_t, 1
+    NX_RESERVE .unique_group, short_t, 1
+NX_ENDSTRUC FIND_NAME_HEADER
+
+NX_STRUC FIND_NAME_BUFFER
+    NX_RESERVE .iLength, short_t, 1
+    NX_RESERVE .access_control, short_t, 1
+    NX_RESERVE .frame_control, short_t, 1
+    NX_RESERVE .destination_addr, short_t, 1
+    NX_RESERVE .source_addr, short_t, 1
+    NX_RESERVE .routing_info, short_t, 1
+NX_ENDSTRUC FIND_NAME_BUFFER
+
+NX_STRUC ACTION_HEADER
+    NX_RESERVE .transport_id, int32_t, 1
+    NX_RESERVE .action_code, short_t, 1
+    NX_RESERVE .Reserved, short_t, 1
+NX_ENDSTRUC ACTION_HEADER
+
+NX_STRUC CRGB
+    NX_RESERVE .bRed, int8_t, 1
+    NX_RESERVE .bGreen, int8_t, 1
+    NX_RESERVE .bBlue, int8_t, 1
+    NX_RESERVE .bExtra, int8_t, 1
+NX_ENDSTRUC CRGB
+
+NX_STRUC SERVICE_STATUS
+    NX_RESERVE .dwServiceType, int32_t, 1
+    NX_RESERVE .dwCurrentState, int32_t, 1
+    NX_RESERVE .dwControlsAccepted, int32_t, 1
+    NX_RESERVE .dwWin32ExitCode, int32_t, 1
+    NX_RESERVE .dwServiceSpecificExitCode, int32_t, 1
+    NX_RESERVE .dwCheckPoint, int32_t, 1
+    NX_RESERVE .dwWaitHint, int32_t, 1
+NX_ENDSTRUC SERVICE_STATUS
+
+NX_STRUC ENUM_SERVICE_STATUS
+    NX_RESERVE .lpServiceName, int32_t, 1
+    NX_RESERVE .lpDisplayName, int32_t, 1
+    NX_RESERVE .ServiceStatus, int32_t, 1
+NX_ENDSTRUC ENUM_SERVICE_STATUS
+
+NX_STRUC QUERY_SERVICE_LOCK_STATUS
+    NX_RESERVE .fIsLocked, int32_t, 1
+    NX_RESERVE .lpLockOwner, int32_t, 1
+    NX_RESERVE .dwLockDuration, int32_t, 1
+NX_ENDSTRUC QUERY_SERVICE_LOCK_STATUS
+
+NX_STRUC QUERY_SERVICE_CONFIG
+    NX_RESERVE .dwServiceType, int32_t, 1
+    NX_RESERVE .dwStartType, int32_t, 1
+    NX_RESERVE .dwErrorControl, int32_t, 1
+    NX_RESERVE .lpBinaryPathName, int32_t, 1
+    NX_RESERVE .lpLoadOrderGroup, int32_t, 1
+    NX_RESERVE .dwTagId, int32_t, 1
+    NX_RESERVE .lpDependencies, int32_t, 1
+    NX_RESERVE .lpServiceStartName, int32_t, 1
+    NX_RESERVE .lpDisplayName, int32_t, 1
+NX_ENDSTRUC QUERY_SERVICE_CONFIG
+
+NX_STRUC SERVICE_TABLE_ENTRY
+    NX_RESERVE .lpServiceName, int32_t, 1
+    NX_RESERVE .lpServiceProc, int32_t, 1
+NX_ENDSTRUC SERVICE_TABLE_ENTRY
+
+NX_STRUC LARGE_INTEGER
+    NX_RESERVE .lowpart, int32_t, 1
+    NX_RESERVE .highpart, int32_t, 1
+NX_ENDSTRUC LARGE_INTEGER
+
+NX_STRUC PERF_DATA_BLOCK
+    NX_RESERVE .Signature, int8_t, 4
+    NX_RESERVE .LittleEndian, int32_t, 1
+    NX_RESERVE .Version, int32_t, 1
+    NX_RESERVE .Revision, int32_t, 1
+    NX_RESERVE .TotalByteiLength, int32_t, 1
+    NX_RESERVE .HeaderiLength, int32_t, 1
+    NX_RESERVE .NumObjectTypes, int32_t, 1
+    NX_RESERVE .DefaultObject, int32_t, 1
+    NX_RESERVE .SystemTime, int32_t, 1
+    NX_RESERVE .PerfTime, int32_t, 1
+    NX_RESERVE .PerfFreq, int32_t, 1
+    NX_RESERVE .PerTime100nSec, int32_t, 1
+    NX_RESERVE .SystemNameiLength, int32_t, 1
+    NX_RESERVE .SystemNameOffset, int32_t, 1
+NX_ENDSTRUC PERF_DATA_BLOCK
+
+NX_STRUC PERF_OBJECT_TYPE
+    NX_RESERVE .TotalByteiLength, int32_t, 1
+    NX_RESERVE .DefinitioniLength, int32_t, 1
+    NX_RESERVE .HeaderiLength, int32_t, 1
+    NX_RESERVE .ObjectNameTitleIndex, int32_t, 1
+    NX_RESERVE .ObjectNameTitle, int32_t, 1
+    NX_RESERVE .ObjectHelpTitleIndex, int32_t, 1
+    NX_RESERVE .ObjectHelpTitle, int32_t, 1
+    NX_RESERVE .DetailLevel, int32_t, 1
+    NX_RESERVE .NumCounters, int32_t, 1
+    NX_RESERVE .DefaultCounter, int32_t, 1
+    NX_RESERVE .NumInstances, int32_t, 1
+    NX_RESERVE .CodePage, int32_t, 1
+    NX_RESERVE .PerfTime, int32_t, 1
+    NX_RESERVE .PerfFreq, int32_t, 1
+NX_ENDSTRUC PERF_OBJECT_TYPE
+
+NX_STRUC PERF_COUNTER_DEFINITION
+    NX_RESERVE .ByteiLength, int32_t, 1
+    NX_RESERVE .CounterNameTitleIndex, int32_t, 1
+    NX_RESERVE .CounterNameTitle, int32_t, 1
+    NX_RESERVE .CounterHelpTitleIndex, int32_t, 1
+    NX_RESERVE .CounterHelpTitle, int32_t, 1
+    NX_RESERVE .DefaultScale, int32_t, 1
+    NX_RESERVE .DetailLevel, int32_t, 1
+    NX_RESERVE .CounterType, int32_t, 1
+    NX_RESERVE .CounterSize, int32_t, 1
+    NX_RESERVE .CounterOffset, int32_t, 1
+NX_ENDSTRUC PERF_COUNTER_DEFINITION
+
+NX_STRUC PERF_INSTANCE_DEFINITION
+    NX_RESERVE .ByteiLength, int32_t, 1
+    NX_RESERVE .ParentObjectTitleIndex, int32_t, 1
+    NX_RESERVE .ParentObjectInstance, int32_t, 1
+    NX_RESERVE .UniqueID, int32_t, 1
+    NX_RESERVE .NameOffset, int32_t, 1
+    NX_RESERVE .NameiLength, int32_t, 1
+NX_ENDSTRUC PERF_INSTANCE_DEFINITION
+
+NX_STRUC PERF_COUNTER_BLOCK
+    NX_RESERVE .ByteiLength, int32_t, 1
+NX_ENDSTRUC PERF_COUNTER_BLOCK
+
+NX_STRUC COMPOSITIONFORM
+    NX_RESERVE .dwStyle, int32_t, 1
+    NX_RESERVE .ptCurrentPos, POINT, 1
+    NX_RESERVE .rcArea, RECT, 1
+NX_ENDSTRUC COMPOSITIONFORM
+
+NX_STRUC CANDIDATEFORM
+    NX_RESERVE .dwIndex, int32_t, 1
+    NX_RESERVE .dwStyle, int32_t, 1
+    NX_RESERVE .ptCurrentPos, POINT, 1
+    NX_RESERVE .rcArea, RECT, 1
+NX_ENDSTRUC CANDIDATEFORM
+
+NX_STRUC CANDIDATELIST
+    NX_RESERVE .dwSize, int32_t, 1
+    NX_RESERVE .dwStyle, int32_t, 1
+    NX_RESERVE .dwCount, int32_t, 1
+    NX_RESERVE .dwSelection, int32_t, 1
+    NX_RESERVE .dwPageStart, int32_t, 1
+    NX_RESERVE .dwPageSize, int32_t, 1
+    NX_RESERVE .dwOffset1, int32_t, 1
+NX_ENDSTRUC CANDIDATELIST
+
+NX_STRUC STYLEBUF
+    NX_RESERVE .dwStyle, int32_t, 1
+    NX_RESERVE .szDescription, int8_t, STYLE_DESCRIPTION_SIZE
+NX_ENDSTRUC STYLEBUF
+
+NX_STRUC MODEMDEVCAPS
+    NX_RESERVE .dwActualSize, int32_t, 1
+    NX_RESERVE .dwRequiredSize, int32_t, 1
+    NX_RESERVE .dwDevSpecificOffset, int32_t, 1
+    NX_RESERVE .dwDevSpecificSize, int32_t, 1
+    NX_RESERVE .dwModemProviderVersion, int32_t, 1
+    NX_RESERVE .dwModemManufacturerOffset, int32_t, 1
+    NX_RESERVE .dwModemManufacturerSize, int32_t, 1
+    NX_RESERVE .dwModemModelOffset, int32_t, 1
+    NX_RESERVE .dwModemModelSize, int32_t, 1
+    NX_RESERVE .dwModemVersionOffset, int32_t, 1
+    NX_RESERVE .dwModemVersionSize, int32_t, 1
+    NX_RESERVE .dwDialOptions, int32_t, 1
+    NX_RESERVE .dwCallSetupFailTimer, int32_t, 1
+    NX_RESERVE .dwInactivityTimeout, int32_t, 1
+    NX_RESERVE .dwSpeakerVolume, int32_t, 1
+    NX_RESERVE .dwSpeakerMode, int32_t, 1
+    NX_RESERVE .dwModemOptions, int32_t, 1
+    NX_RESERVE .dwMaxDTERate, int32_t, 1
+    NX_RESERVE .dwMaxDCERate, int32_t, 1
+    NX_RESERVE .abVariablePortion, int8_t, 1
+NX_ENDSTRUC MODEMDEVCAPS
+
+NX_STRUC MODEMSETTINGS
+    NX_RESERVE .dwActualSize, int32_t, 1
+    NX_RESERVE .dwRequiredSize, int32_t, 1
+    NX_RESERVE .dwDevSpecificOffset, int32_t, 1
+    NX_RESERVE .dwDevSpecificSize, int32_t, 1
+    NX_RESERVE .dwCallSetupFailTimer, int32_t, 1
+    NX_RESERVE .dwInactivityTimeout, int32_t, 1
+    NX_RESERVE .dwSpeakerVolume, int32_t, 1
+    NX_RESERVE .dwSpeakerMode, int32_t, 1
+    NX_RESERVE .dwPreferredModemOptions, int32_t, 1
+    NX_RESERVE .dwNegotiatedModemOptions, int32_t, 1
+    NX_RESERVE .dwNegotiatedDCERate, int32_t, 1
+    NX_RESERVE .abVariablePortion, int8_t, 1
+NX_ENDSTRUC MODEMSETTINGS
+
+NX_STRUC DRAGINFO
+    NX_RESERVE .uSize, int32_t, 1
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .fNC, int32_t, 1
+    NX_RESERVE .lpFileList, int32_t, 1
+    NX_RESERVE .grfKeyState, int32_t, 1
+NX_ENDSTRUC DRAGINFO
+
+NX_STRUC APPBARDATA
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .uCallbackMessage, int32_t, 1
+    NX_RESERVE .uEdge, int32_t, 1
+    NX_RESERVE .rc, RECT, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC APPBARDATA
+
+NX_STRUC SHFILEOPSTRUCT
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .wFunc, int32_t, 1
+    NX_RESERVE .pFrom, int32_t, 1
+    NX_RESERVE .pTo, int32_t, 1
+    NX_RESERVE .fFlags, short_t, 1
+    NX_RESERVE .fAnyOperationsAborted, int32_t, 1
+    NX_RESERVE .hNameMappings, int32_t, 1
+    NX_RESERVE .lpszProgressTitle, int32_t, 1
+NX_ENDSTRUC SHFILEOPSTRUCT
+
+NX_STRUC SHNAMEMAPPING
+    NX_RESERVE .pszOldPath, int32_t, 1
+    NX_RESERVE .pszNewPath, int32_t, 1
+    NX_RESERVE .cchOldPath, int32_t, 1
+    NX_RESERVE .cchNewPath, int32_t, 1
+NX_ENDSTRUC SHNAMEMAPPING
+
+NX_STRUC SHELLEXECUTEINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .fMask, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .lpVerb, int32_t, 1
+    NX_RESERVE .lpFile, int32_t, 1
+    NX_RESERVE .lpParameters, int32_t, 1
+    NX_RESERVE .lpDirectory, int32_t, 1
+    NX_RESERVE .nShow, int32_t, 1
+    NX_RESERVE .hInstApp, int32_t, 1
+    NX_RESERVE .lpIDList, int32_t, 1
+    NX_RESERVE .lpClass, int32_t, 1
+    NX_RESERVE .hkeyClass, int32_t, 1
+    NX_RESERVE .dwHotKey, int32_t, 1
+    NX_RESERVE .hIcon, int32_t, 1
+    NX_RESERVE .hProcess, int32_t, 1
+NX_ENDSTRUC SHELLEXECUTEINFO
+
+NX_STRUC NOTIFYICONDATA
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .hwnd, int32_t, 1
+    NX_RESERVE .uID, int32_t, 1
+    NX_RESERVE .uFlags, int32_t, 1
+    NX_RESERVE .uCallbackMessage, int32_t, 1
+    NX_RESERVE .hIcon, int32_t, 1
+    NX_RESERVE .szTip, int8_t, 64
+NX_ENDSTRUC NOTIFYICONDATA
+
+NX_STRUC SHFILEINFO
+    NX_RESERVE .hIcon, int32_t, 1
+    NX_RESERVE .iIcon, int32_t, 1
+    NX_RESERVE .dwAttributes, int32_t, 1
+    NX_RESERVE .szDisplayName, int8_t, 1
+    NX_RESERVE .szTypeName, int8_t, 80 
+NX_ENDSTRUC SHFILEINFO
+
+NX_STRUC VS_FIXEDFILEINFO
+    NX_RESERVE .dwSignature, int32_t, 1
+    NX_RESERVE .dwStrucVersion, int32_t, 1
+    NX_RESERVE .dwFileVersionMS, int32_t, 1
+    NX_RESERVE .dwFileVersionLS, int32_t, 1
+    NX_RESERVE .dwProductVersionMS, int32_t, 1
+    NX_RESERVE .dwProductVersionLS, int32_t, 1
+    NX_RESERVE .dwFileFlagsMask, int32_t, 1
+    NX_RESERVE .dwFileFlags, int32_t, 1
+    NX_RESERVE .dwFileOS, int32_t, 1
+    NX_RESERVE .dwFileType, int32_t, 1
+    NX_RESERVE .dwFileSubtype, int32_t, 1
+    NX_RESERVE .dwFileDateMS, int32_t, 1
+    NX_RESERVE .dwFileDateLS, int32_t, 1
+NX_ENDSTRUC VS_FIXEDFILEINFO
+
+NX_STRUC ICONMETRICS
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .iHorzSpacing, int32_t, 1
+    NX_RESERVE .iVertSpacing, int32_t, 1
+    NX_RESERVE .iTitleWrap, int32_t, 1
+    NX_RESERVE .lfFont, int32_t, 1
+NX_ENDSTRUC ICONMETRICS
+
+NX_STRUC HELPINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .iContextType, int32_t, 1
+    NX_RESERVE .iCtrlId, int32_t, 1
+    NX_RESERVE .hItemHandle, int32_t, 1
+    NX_RESERVE .dwContextId, int32_t, 1
+    NX_RESERVE .MousePos, int32_t, 1
+NX_ENDSTRUC HELPINFO
+
+NX_STRUC ANIMATIONINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .iMinAnimate, int32_t, 1
+NX_ENDSTRUC ANIMATIONINFO
+
+NX_STRUC MINIMIZEDMETRICS
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .iWidth, int32_t, 1
+    NX_RESERVE .iHorzGap, int32_t, 1
+    NX_RESERVE .iVertGap, int32_t, 1
+    NX_RESERVE .iArrange, int32_t, 1
+    NX_RESERVE .lfFont, int32_t, 1
+NX_ENDSTRUC MINIMIZEDMETRICS
+
+NX_STRUC OSVERSIONINFO
+    NX_RESERVE .dwOSVersionInfoSize, int32_t, 1
+    NX_RESERVE .dwMajorVersion, int32_t, 1
+    NX_RESERVE .dwMinorVersion, int32_t, 1
+    NX_RESERVE .dwBuildNumber, int32_t, 1
+    NX_RESERVE .dwPlatformId, int32_t, 1
+    NX_RESERVE .szCSDVersion, int8_t, 128
+NX_ENDSTRUC OSVERSIONINFO
+
+NX_STRUC SYSTEM_POWER_STATUS
+    NX_RESERVE .ACLineStatus, int8_t, 1
+    NX_RESERVE .BatteryFlag, int8_t, 1
+    NX_RESERVE .BatteryLifePercent, int8_t, 1
+    NX_RESERVE .Reserved1, int8_t, 1
+    NX_RESERVE .BatteryLifeTime, int32_t, 1
+    NX_RESERVE .BatteryFullLifeTime, int32_t, 1
+NX_ENDSTRUC SYSTEM_POWER_STATUS
+
+NX_STRUC NMHDR
+    NX_RESERVE .hwndFrom, int32_t, 1
+    NX_RESERVE .idfrom, int32_t, 1
+    NX_RESERVE .code, int32_t, 1
+NX_ENDSTRUC NMHDR
+
+NX_STRUC DEVNAMES
+    NX_RESERVE .wDriverOffset, short_t, 1
+    NX_RESERVE .wDeviceOffset, short_t, 1
+    NX_RESERVE .wOutputOffset, short_t, 1
+    NX_RESERVE .wDefault, short_t, 1
+NX_ENDSTRUC DEVNAMES
+
+NX_STRUC PAGESETUPDLGAPI
+    NX_RESERVE .lStructSize, int32_t, 1
+    NX_RESERVE .hwndOwner, int32_t, 1
+    NX_RESERVE .hDevMode, int32_t, 1
+    NX_RESERVE .hDevNames, int32_t, 1
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .ptPaperSize, POINT, 1
+    NX_RESERVE .rtMinMargin, int32_t, 1
+    NX_RESERVE .rtMargin, int32_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .lCustData, int32_t, 1
+    NX_RESERVE .lpfnPageSetupHook, int32_t, 1
+    NX_RESERVE .lpfnPagePaintHook, int32_t, 1
+    NX_RESERVE .lpPageSetupTemplateName, int32_t, 1
+    NX_RESERVE .hPageSetupTemplate, int32_t, 1
+NX_ENDSTRUC PAGESETUPDLGAPI
+
+NX_STRUC COMMCONFIG
+    NX_RESERVE .dwSize, int32_t, 1
+    NX_RESERVE .wVersion, short_t, 1
+    NX_RESERVE .wReserved, short_t, 1
+    NX_RESERVE .dcbx, int32_t, 1
+    NX_RESERVE .dwProviderSubType, int32_t, 1
+    NX_RESERVE .dwProviderOffset, int32_t, 1
+    NX_RESERVE .dwProviderSize, int32_t, 1
+    NX_RESERVE .wcProviderData, int8_t, 1
+NX_ENDSTRUC COMMCONFIG
+
+NX_STRUC PIXELFORMATDESCRIPTOR
+    NX_RESERVE .nSize, short_t, 1
+    NX_RESERVE .nVersion, short_t, 1
+    NX_RESERVE .dwFlags, int32_t, 1
+    NX_RESERVE .iPixelType, int8_t, 1
+    NX_RESERVE .cColorBits, int8_t, 1
+    NX_RESERVE .cRedBits, int8_t, 1
+    NX_RESERVE .cRedShift, int8_t, 1
+    NX_RESERVE .cGreenBits, int8_t, 1
+    NX_RESERVE .cGreenShift, int8_t, 1
+    NX_RESERVE .cBlueBits, int8_t, 1
+    NX_RESERVE .cBlueShift, int8_t, 1
+    NX_RESERVE .cAlphaBits, int8_t, 1
+    NX_RESERVE .cAlphaShift, int8_t, 1
+    NX_RESERVE .cAccumBits, int8_t, 1
+    NX_RESERVE .cAccumRedBits, int8_t, 1
+    NX_RESERVE .cAccumGreenBits, int8_t, 1
+    NX_RESERVE .cAccumBlueBits, int8_t, 1
+    NX_RESERVE .cAccumAlphaBits, int8_t, 1
+    NX_RESERVE .cDepthBits, int8_t, 1
+    NX_RESERVE .cStencilBits, int8_t, 1
+    NX_RESERVE .cAuxBuffers, int8_t, 1
+    NX_RESERVE .iLayerType, int8_t, 1
+    NX_RESERVE .bReserved, int8_t, 1
+    NX_RESERVE .dwLayerMask, int32_t, 1
+    NX_RESERVE .dwVisibleMask, int32_t, 1
+    NX_RESERVE .dwDamageMask, int32_t, 1
+NX_ENDSTRUC PIXELFORMATDESCRIPTOR
+
+NX_STRUC DRAWTEXTPARAMS
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .iTabiLength, int32_t, 1
+    NX_RESERVE .iLeftMargin, int32_t, 1
+    NX_RESERVE .iRightMargin, int32_t, 1
+    NX_RESERVE .uiiLengthDrawn, int32_t, 1
+NX_ENDSTRUC DRAWTEXTPARAMS
+
+NX_STRUC MENUITEMINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .fMask, int32_t, 1
+    NX_RESERVE .fType, int32_t, 1
+    NX_RESERVE .fState, int32_t, 1
+    NX_RESERVE .wID, int32_t, 1
+    NX_RESERVE .hSubMenu, int32_t, 1
+    NX_RESERVE .hbmpChecked, int32_t, 1
+    NX_RESERVE .hbmpUnchecked, int32_t, 1
+    NX_RESERVE .dwItemData, int32_t, 1
+    NX_RESERVE .dwTypeData, int32_t, 1
+    NX_RESERVE .cch, int32_t, 1
+NX_ENDSTRUC MENUITEMINFO
+
+NX_STRUC SCROLLINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .fMask, int32_t, 1
+    NX_RESERVE .nMin, int32_t, 1
+    NX_RESERVE .nMax, int32_t, 1
+    NX_RESERVE .nPage, int32_t, 1
+    NX_RESERVE .nPos, int32_t, 1
+    NX_RESERVE .nTrackPos, int32_t, 1
+NX_ENDSTRUC SCROLLINFO
+
+NX_STRUC MSGBOXPARAMS
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .hwndOwner, int32_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .lpszText, int32_t, 1
+    NX_RESERVE .lpszCaption, int32_t, 1
+    NX_RESERVE .dwStyle, int32_t, 1
+    NX_RESERVE .lpszIcon, int32_t, 1
+    NX_RESERVE .dwContextHelpId, int32_t, 1
+    NX_RESERVE .lpfnMsgBoxCallback, int32_t, 1
+    NX_RESERVE .dwLanguageId, int32_t, 1
+NX_ENDSTRUC MSGBOXPARAMS
+
+NX_STRUC DEBUG_EVENT
+    NX_RESERVE .dwDebugEventCode, int32_t, 1
+    NX_RESERVE .dwProcessId, int32_t, 1
+    NX_RESERVE .dwThreadId, int32_t, 1
+    NX_RESERVE .u, int32_t, 1
+NX_ENDSTRUC DEBUG_EVENT
+
+NX_STRUC COLORMAP
+    NX_RESERVE .cmFrom, int32_t, 1
+    NX_RESERVE .cmTo, int32_t, 1
+NX_ENDSTRUC COLORMAP
+
+NX_STRUC AuxVol
+    NX_RESERVE .vLow, short_t, 1
+    NX_RESERVE .vHigh, short_t, 1
+NX_ENDSTRUC AuxVol
+
+NX_STRUC DBGTHREAD
+    NX_RESERVE .hThread, int32_t, 1
+    NX_RESERVE .lpStartAddress, int32_t, 1
+    NX_RESERVE .bfState, int32_t, 1
+    NX_RESERVE .nNext, int32_t, 1
+NX_ENDSTRUC DBGTHREAD
+
+NX_STRUC DbgProcess
+    NX_RESERVE .hDbgHeap, int32_t, 1
+    NX_RESERVE .dwProcessID, int32_t, 1
+    NX_RESERVE .dwThreadID, int32_t, 1
+    NX_RESERVE .hProcess, int32_t, 1
+    NX_RESERVE .hFile, int32_t, 1
+    NX_RESERVE .lpImage, int32_t, 1
+NX_ENDSTRUC DbgProcess
+
+NX_STRUC IMAGE_DATA_DIRECTORY
+    NX_RESERVE .VirtualAddress, int32_t, 1
+    NX_RESERVE .isize, int32_t, 1
+NX_ENDSTRUC IMAGE_DATA_DIRECTORY
+
+NX_STRUC IMAGE_OPTIONAL_HEADER
+    NX_RESERVE .Magic, short_t, 1
+    NX_RESERVE .MajorLinkerVersion, int8_t, 1
+    NX_RESERVE .MinorLinkerVersion, int8_t, 1
+    NX_RESERVE .SizeOfCode, int32_t, 1
+    NX_RESERVE .SizeOfInitializedData, int32_t, 1
+    NX_RESERVE .SizeOfUninitializedData, int32_t, 1
+    NX_RESERVE .AddressOfEntryPoint, int32_t, 1
+    NX_RESERVE .BaseOfCode, int32_t, 1
+    NX_RESERVE .BaseOfData, int32_t, 1
+    NX_RESERVE .ImageBase, int32_t, 1
+    NX_RESERVE .SectionAlignment, int32_t, 1
+    NX_RESERVE .FileAlignment, int32_t, 1
+    NX_RESERVE .MajorOperatingSystemVersion, short_t, 1
+    NX_RESERVE .MinorOperatingSystemVersion, short_t, 1
+    NX_RESERVE .MajorImageVersion, short_t, 1
+    NX_RESERVE .MinorImageVersion, short_t, 1
+    NX_RESERVE .MajorSubsystemVersion, short_t, 1
+    NX_RESERVE .MinorSubsystemVersion, short_t, 1
+    NX_RESERVE .Reserved1, int32_t, 1
+    NX_RESERVE .SizeOfImage, int32_t, 1
+    NX_RESERVE .SizeOfHeaders, int32_t, 1
+    NX_RESERVE .CheckSum, int32_t, 1
+    NX_RESERVE .Subsystem, short_t, 1
+    NX_RESERVE .DllCharacteristics, short_t, 1
+    NX_RESERVE .SizeOfStackReserve, int32_t, 1
+    NX_RESERVE .SizeOfStackCommit, int32_t, 1
+    NX_RESERVE .SizeOfHeapReserve, int32_t, 1
+    NX_RESERVE .SizeOfHeapCommit, int32_t, 1
+    NX_RESERVE .LoaderFlags, int32_t, 1
+    NX_RESERVE .NumberOfRvaAndSizes, int32_t, 1
+    NX_RESERVE .DataDirectory, int64_t, 1
+NX_ENDSTRUC IMAGE_OPTIONAL_HEADER
+
+NX_STRUC IMAGE_FILE_HEADER
+    NX_RESERVE .Machine, short_t, 1
+    NX_RESERVE .NumberOfSections, short_t, 1
+    NX_RESERVE .TimeDateStamp, int32_t, 1
+    NX_RESERVE .PointerToSymbolTable, int32_t, 1
+    NX_RESERVE .NumberOfSymbols, int32_t, 1
+    NX_RESERVE .SizeOfOptionalHeader, short_t, 1
+    NX_RESERVE .Characteristics, short_t, 1
+NX_ENDSTRUC IMAGE_FILE_HEADER
+
+NX_STRUC IMAGE_NT_HEADERS
+    NX_RESERVE .Signature, int32_t, 1
+    NX_RESERVE .FileHeader, int32_t, 1
+    NX_RESERVE .OptionalHeader, int32_t, 1
+NX_ENDSTRUC IMAGE_NT_HEADERS
+
+NX_STRUC IMAGE_EXPORT_DIRECTORY
+    NX_RESERVE .Characteristics, int32_t, 1
+    NX_RESERVE .TimeDateStamp, int32_t, 1
+    NX_RESERVE .MajorVersion, short_t, 1
+    NX_RESERVE .MinorVersion, short_t, 1
+    NX_RESERVE .nName, int32_t, 1
+    NX_RESERVE .nBase, int32_t, 1
+    NX_RESERVE .NumberOfFunctions, int32_t, 1
+    NX_RESERVE .NumberOfNames, int32_t, 1
+    NX_RESERVE .AddressOfFunctions, int32_t, 1
+    NX_RESERVE .AddressOfNames, int32_t, 1
+    NX_RESERVE .AddressOfNameOrdinals, short_t, 1
+NX_ENDSTRUC IMAGE_EXPORT_DIRECTORY
+
+NX_STRUC IMAGE_DOS_HEADER
+    NX_RESERVE .e_magic, short_t, 1
+    NX_RESERVE .e_cblp, short_t, 1
+    NX_RESERVE .e_cp, short_t, 1
+    NX_RESERVE .e_crlc, short_t, 1
+    NX_RESERVE .e_cparhdr, short_t, 1
+    NX_RESERVE .e_minalloc, short_t, 1
+    NX_RESERVE .e_maxalloc, short_t, 1
+    NX_RESERVE .e_ss, short_t, 1
+    NX_RESERVE .e_sp, short_t, 1
+    NX_RESERVE .e_csum, short_t, 1
+    NX_RESERVE .e_ip, short_t, 1
+    NX_RESERVE .e_cs, short_t, 1
+    NX_RESERVE .e_lfarlc, short_t, 1
+    NX_RESERVE .e_ovno, short_t, 1
+    NX_RESERVE .e_res4, short_t, 1
+    NX_RESERVE .e_oemid, short_t, 1
+    NX_RESERVE .e_oeminfo, short_t, 1
+    NX_RESERVE .e_res2, short_t, 1
+    NX_RESERVE .e_lfanew, int32_t, 1
+NX_ENDSTRUC IMAGE_DOS_HEADER
+
+NX_STRUC USER_INFO_3
+    NX_RESERVE .uName, int32_t, 1
+    NX_RESERVE .Password, int32_t, 1
+    NX_RESERVE .PasswordAge, int32_t, 1
+    NX_RESERVE .Privilege, int32_t, 1
+    NX_RESERVE .HomeDir, int32_t, 1
+    NX_RESERVE .Comment, int32_t, 1
+    NX_RESERVE .Flags, int32_t, 1
+    NX_RESERVE .ScriptPath, int32_t, 1
+    NX_RESERVE .AuthFlags, int32_t, 1
+    NX_RESERVE .FullName, int32_t, 1
+    NX_RESERVE .UserComment, int32_t, 1
+    NX_RESERVE .Parms, int32_t, 1
+    NX_RESERVE .Workstations, int32_t, 1
+    NX_RESERVE .LastLogon, int32_t, 1
+    NX_RESERVE .LastLogoff, int32_t, 1
+    NX_RESERVE .AcctExpires, int32_t, 1
+    NX_RESERVE .MaxStorage, int32_t, 1
+    NX_RESERVE .UnitsPerWeek, int32_t, 1
+    NX_RESERVE .LogonHours, int32_t, 1
+    NX_RESERVE .BadPwCount, int32_t, 1
+    NX_RESERVE .NumLogons, int32_t, 1
+    NX_RESERVE .LogonServer, int32_t, 1
+    NX_RESERVE .CountryCode, int32_t, 1
+    NX_RESERVE .CodePage, int32_t, 1
+    NX_RESERVE .UserID, int32_t, 1
+    NX_RESERVE .PrimaryGroupID, int32_t, 1
+    NX_RESERVE .Profile, int32_t, 1
+    NX_RESERVE .HomeDirDrive, int32_t, 1
+    NX_RESERVE .PasswordExpired, int32_t, 1
+NX_ENDSTRUC USER_INFO_3
+
+NX_STRUC GROUP_INFO_2
+    NX_RESERVE .uName, int32_t, 1
+    NX_RESERVE .Comment, int32_t, 1
+    NX_RESERVE .GroupID, int32_t, 1
+    NX_RESERVE .Attributes, int32_t, 1
+NX_ENDSTRUC GROUP_INFO_2
+
+NX_STRUC INIT_COMMON_CONTROLSEX
+    NX_RESERVE .dwSize, int32_t, 1
+    NX_RESERVE .dwICC, int32_t, 1
+NX_ENDSTRUC INIT_COMMON_CONTROLSEX
+
+NX_STRUC REBARINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .fMask, int32_t, 1
+    NX_RESERVE .himl, int32_t, 1
+NX_ENDSTRUC REBARINFO
+
+NX_STRUC REBARBANDINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .fMask, int32_t, 1
+    NX_RESERVE .fStyle, int32_t, 1
+    NX_RESERVE .clrFore, int32_t, 1
+    NX_RESERVE .clrBack, int32_t, 1
+    NX_RESERVE .lpText, int32_t, 1
+    NX_RESERVE .cch, int32_t, 1
+    NX_RESERVE .iImage, int32_t, 1
+    NX_RESERVE .hwndChild, int32_t, 1
+    NX_RESERVE .cxMinChild, int32_t, 1
+    NX_RESERVE .cyMinChild, int32_t, 1
+    NX_RESERVE .lx, int32_t, 1
+    NX_RESERVE .hbmBack, int32_t, 1
+    NX_RESERVE .wID, int32_t, 1
+    NX_RESERVE .cyChild, int32_t, 1
+    NX_RESERVE .cyMaxChild, int32_t, 1
+    NX_RESERVE .cyIntegral, int32_t, 1
+    NX_RESERVE .cxIdeal, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+    NX_RESERVE .cxHeader, int32_t, 1
+NX_ENDSTRUC REBARBANDINFO
+
+NX_STRUC NMREBARCHILDSIZE
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .uBand, int32_t, 1
+    NX_RESERVE .wID, int32_t, 1
+    NX_RESERVE .rcChild, RECT, 1
+    NX_RESERVE .rcBand, RECT, 1
+NX_ENDSTRUC NMREBARCHILDSIZE
+
+NX_STRUC NMREBAR
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .dwMask, int32_t, 1
+    NX_RESERVE .uBand, int32_t, 1
+    NX_RESERVE .fStyle, int32_t, 1
+    NX_RESERVE .wID, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC NMREBAR
+
+NX_STRUC NMRBAUTOSIZE
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .fChanged, int32_t, 1
+    NX_RESERVE .rcTarget, RECT, 1
+    NX_RESERVE .rcActual, RECT, 1
+NX_ENDSTRUC NMRBAUTOSIZE
+
+NX_STRUC RB_HITTESTINFO
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .iBand, short_t, 1
+NX_ENDSTRUC RB_HITTESTINFO
+
+NX_STRUC IMAGEINFO
+    NX_RESERVE .hbmImage, int32_t, 1
+    NX_RESERVE .hbmMask, int32_t, 1
+    NX_RESERVE .Unused1, int32_t, 1
+    NX_RESERVE .Unused2, int32_t, 1
+    NX_RESERVE .rcImage, RECT, 1
+NX_ENDSTRUC IMAGEINFO
+
+NX_STRUC HD_ITEM
+    NX_RESERVE .imask, int32_t, 1
+    NX_RESERVE .lxy, int32_t, 1
+    NX_RESERVE .pszText, int32_t, 1
+    NX_RESERVE .hbm, int32_t, 1
+    NX_RESERVE .cchTextMax, int32_t, 1
+    NX_RESERVE .fmt, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC HD_ITEM
+
+NX_STRUC HD_LAYOUT
+    NX_RESERVE .prc, int32_t, 1
+    NX_RESERVE .pwpos, int32_t, 1
+NX_ENDSTRUC HD_LAYOUT
+
+NX_STRUC HD_HITTESTINFO
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .iItem, int32_t, 1
+NX_ENDSTRUC HD_HITTESTINFO
+
+NX_STRUC HD_NOTIFY
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .iItem, int32_t, 1
+    NX_RESERVE .iButton, int32_t, 1
+    NX_RESERVE .pitem, int32_t, 1
+NX_ENDSTRUC HD_NOTIFY
+
+NX_STRUC TBBUTTON
+    NX_RESERVE .iBitmap, int32_t, 1
+    NX_RESERVE .idCommand, int32_t, 1
+    NX_RESERVE .fsState, int8_t, 1
+    NX_RESERVE .fsStyle, int8_t, 1
+    NX_RESERVE .dwData, int32_t, 1
+    NX_RESERVE .iString, int32_t, 1
+NX_ENDSTRUC TBBUTTON
+
+NX_STRUC ColorMap
+    NX_RESERVE .cmFrom, int32_t, 1
+    NX_RESERVE .cmTo, int32_t, 1
+NX_ENDSTRUC ColorMap
+
+NX_STRUC TBADDBITMAP
+    NX_RESERVE .hInst, int32_t, 1
+    NX_RESERVE .nId, int32_t, 1
+NX_ENDSTRUC TBADDBITMAP
+
+NX_STRUC TBSAVEPARAMS
+    NX_RESERVE .hkr, int32_t, 1
+    NX_RESERVE .pszSubKey, int32_t, 1
+    NX_RESERVE .pszValueName, int32_t, 1
+NX_ENDSTRUC TBSAVEPARAMS
+
+NX_STRUC TBREPLACEBITMAP
+    NX_RESERVE .hInstOld, int32_t, 1
+    NX_RESERVE .nIdOld, int32_t, 1
+    NX_RESERVE .hInstNew, int32_t, 1
+    NX_RESERVE .nIdNew, int32_t, 1
+    NX_RESERVE .nButtons, int32_t, 1
+NX_ENDSTRUC TBREPLACEBITMAP
+
+NX_STRUC TBNOTIFY
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .iItem, int32_t, 1
+    NX_RESERVE .tbButton, TBBUTTON, 1
+    NX_RESERVE .cchText, int32_t, 1
+    NX_RESERVE .pszText, int32_t, 1
+NX_ENDSTRUC TBNOTIFY
+
+NX_STRUC TOOLINFO
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .uFlags, int32_t, 1
+    NX_RESERVE .hWnd, int32_t, 1
+    NX_RESERVE .uId, int32_t, 1
+    NX_RESERVE .rect, RECT, 1
+    NX_RESERVE .hInst, int32_t, 1
+    NX_RESERVE .lpszText, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC TOOLINFO
+
+NX_STRUC TT_HITTESTINFO
+    NX_RESERVE .hWnd, int32_t, 1
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .ti, TOOLINFO, 1
+NX_ENDSTRUC TT_HITTESTINFO
+
+NX_STRUC TOOLTIPTEXT
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .lpszText, int32_t, 1
+    NX_RESERVE .szText, int8_t, 80
+    NX_RESERVE .hInst, int32_t, 1
+    NX_RESERVE .uFlags, int32_t, 1
+NX_ENDSTRUC TOOLTIPTEXT
+
+NX_STRUC DRAGLISTINFO
+    NX_RESERVE .uNotification, int32_t, 1
+    NX_RESERVE .hWnd, int32_t, 1
+    NX_RESERVE .ptCursor, POINT, 1
+NX_ENDSTRUC DRAGLISTINFO
+
+NX_STRUC UDACCEL
+    NX_RESERVE .nSec, int32_t, 1
+    NX_RESERVE .nInc, int32_t, 1
+NX_ENDSTRUC UDACCEL
+
+NX_STRUC NM_UPDOWN
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .iPos, int32_t, 1
+    NX_RESERVE .iDelta, int32_t, 1
+NX_ENDSTRUC NM_UPDOWN
+
+NX_STRUC LV_ITEM
+    NX_RESERVE .imask, int32_t, 1
+    NX_RESERVE .iItem, int32_t, 1
+    NX_RESERVE .iSubItem, int32_t, 1
+    NX_RESERVE .state, int32_t, 1
+    NX_RESERVE .stateMask, int32_t, 1
+    NX_RESERVE .pszText, int32_t, 1
+    NX_RESERVE .cchTextMax, int32_t, 1
+    NX_RESERVE .iImage, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC LV_ITEM
+
+NX_STRUC LV_FINDINFO
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .psz, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .vkDirection, int32_t, 1
+NX_ENDSTRUC LV_FINDINFO
+
+NX_STRUC LV_HITTESTINFO
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .iItem, int32_t, 1
+NX_ENDSTRUC LV_HITTESTINFO
+
+NX_STRUC LV_COLUMN
+    NX_RESERVE .imask, int32_t, 1
+    NX_RESERVE .fmt, int32_t, 1
+    NX_RESERVE .lx, int32_t, 1
+    NX_RESERVE .pszText, int32_t, 1
+    NX_RESERVE .cchTextMax, int32_t, 1
+    NX_RESERVE .iSubItem, int32_t, 1
+NX_ENDSTRUC LV_COLUMN
+
+NX_STRUC NM_LISTVIEW
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .iItem, int32_t, 1
+    NX_RESERVE .iSubItem, int32_t, 1
+    NX_RESERVE .uNewState, int32_t, 1
+    NX_RESERVE .uOldState, int32_t, 1
+    NX_RESERVE .uChanged, int32_t, 1
+    NX_RESERVE .ptAction, POINT, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC NM_LISTVIEW
+
+NX_STRUC LV_DISPINFO
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .item, int32_t, 1
+NX_ENDSTRUC LV_DISPINFO
+
+NX_STRUC LV_KEYDOWN
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .wVKey, short_t, 1
+    NX_RESERVE .flags, int32_t, 1
+NX_ENDSTRUC LV_KEYDOWN
+
+NX_STRUC TREEITEM
+    NX_RESERVE .dummy, int32_t, 1
+NX_ENDSTRUC TREEITEM
+
+NX_STRUC TV_ITEM
+    NX_RESERVE .imask, int32_t, 1
+    NX_RESERVE .hItem, int32_t, 1
+    NX_RESERVE .state, int32_t, 1
+    NX_RESERVE .stateMask, int32_t, 1
+    NX_RESERVE .pszText, int32_t, 1
+    NX_RESERVE .cchTextMax, int32_t, 1
+    NX_RESERVE .iImage, int32_t, 1
+    NX_RESERVE .iSelectedImage, int32_t, 1
+    NX_RESERVE .cChildren, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC TV_ITEM
+
+NX_STRUC TV_INSERTSTRUCT
+    NX_RESERVE .hParent, int32_t, 1
+    NX_RESERVE .hInsertAfter, int32_t, 1
+    NX_RESERVE .item, int32_t, 1
+NX_ENDSTRUC TV_INSERTSTRUCT
+
+NX_STRUC TV_HITTESTINFO
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .flags, int32_t, 1
+    NX_RESERVE .hItem, int32_t, 1
+NX_ENDSTRUC TV_HITTESTINFO
+
+NX_STRUC TV_SORTCB
+    NX_RESERVE .hParent, int32_t, 1
+    NX_RESERVE .lpfnCompare, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC TV_SORTCB
+
+NX_STRUC NM_TREEVIEW
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .action, int32_t, 1
+    NX_RESERVE .itemOld, int32_t, 1
+    NX_RESERVE .itemNew, int32_t, 1
+    NX_RESERVE .ptDrag, POINT, 1
+NX_ENDSTRUC NM_TREEVIEW
+
+NX_STRUC TV_DISPINFO
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .item, int32_t, 1
+NX_ENDSTRUC TV_DISPINFO
+
+NX_STRUC TV_KEYDOWN
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .wVKey, short_t, 1
+    NX_RESERVE .flags, int32_t, 1
+NX_ENDSTRUC TV_KEYDOWN
+
+NX_STRUC TC_ITEMHEADER
+    NX_RESERVE .imask, int32_t, 1
+    NX_RESERVE .lpReserved1, int32_t, 1
+    NX_RESERVE .lpReserved2, int32_t, 1
+    NX_RESERVE .pszText, int32_t, 1
+    NX_RESERVE .cchTextMax, int32_t, 1
+    NX_RESERVE .iImage, int32_t, 1
+NX_ENDSTRUC TC_ITEMHEADER
+
+NX_STRUC TC_ITEM
+    NX_RESERVE .imask, int32_t, 1
+    NX_RESERVE .lpReserved1, int32_t, 1
+    NX_RESERVE .lpReserved2, int32_t, 1
+    NX_RESERVE .pszText, int32_t, 1
+    NX_RESERVE .cchTextMax, int32_t, 1
+    NX_RESERVE .iImage, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC TC_ITEM
+
+NX_STRUC TC_HITTESTINFO
+    NX_RESERVE .pt, POINT, 1
+    NX_RESERVE .flags, int32_t, 1
+NX_ENDSTRUC TC_HITTESTINFO
+
+NX_STRUC TC_KEYDOWN
+    NX_RESERVE .hdr, NMHDR, 1
+    NX_RESERVE .wVKey, short_t, 1
+    NX_RESERVE .flags, int32_t, 1
+NX_ENDSTRUC TC_KEYDOWN
+
+NX_STRUC CHOOSECOLORAPI
+    NX_RESERVE .lStructSize, int32_t, 1
+    NX_RESERVE .hwndOwner, int32_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .rgbResult, int32_t, 1
+    NX_RESERVE .lpCustColors, int32_t, 1
+    NX_RESERVE .Flags, int32_t, 1
+    NX_RESERVE .lCustData, int32_t, 1
+    NX_RESERVE .lpfnHook, int32_t, 1
+    NX_RESERVE .lpTemplateName, int32_t, 1
+NX_ENDSTRUC CHOOSECOLORAPI
+
+NX_STRUC FINDREPLACE
+    NX_RESERVE .lStructSize, int32_t, 1
+    NX_RESERVE .hWndOwner, int32_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .Flags, int32_t, 1
+    NX_RESERVE .lpstrFindWhat, int32_t, 1
+    NX_RESERVE .lpstrReplaceWith, int32_t, 1
+    NX_RESERVE .wFindWhatLen, short_t, 1
+    NX_RESERVE .wReplaceWithLen, short_t, 1
+    NX_RESERVE .lCustData, int32_t, 1
+    NX_RESERVE .lpfnHook, int32_t, 1
+    NX_RESERVE .lpTemplateName, int32_t, 1
+NX_ENDSTRUC FINDREPLACE
+
+NX_STRUC CHOOSEFONTAPI
+    NX_RESERVE .lStructSize, int32_t, 1
+    NX_RESERVE .hWndOwner, int32_t, 1
+    NX_RESERVE .hDC, int32_t, 1
+    NX_RESERVE .lpLogFont, int32_t, 1
+    NX_RESERVE .iPointSize, int32_t, 1
+    NX_RESERVE .Flags, int32_t, 1
+    NX_RESERVE .rgbColors, int32_t, 1
+    NX_RESERVE .lCustData, int32_t, 1
+    NX_RESERVE .lpfnHook, int32_t, 1
+    NX_RESERVE .lpTemplateName, int32_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .lpszStyle, int32_t, 1
+    NX_RESERVE .nFontType, short_t, 1
+    NX_RESERVE .Alignment, short_t, 1
+    NX_RESERVE .nSizeMin, int32_t, 1
+    NX_RESERVE .nSizeMax, int32_t, 1
+NX_ENDSTRUC CHOOSEFONTAPI
+
+NX_STRUC PRINTDLGAPI
+    NX_RESERVE .lStructSize, int32_t, 1
+    NX_RESERVE .hWndOwner, int32_t, 1
+    NX_RESERVE .hDevMode, int32_t, 1
+    NX_RESERVE .hDevNames, int32_t, 1
+    NX_RESERVE .hDC, int32_t, 1
+    NX_RESERVE .Flags, int32_t, 1
+    NX_RESERVE .nFromPage, short_t, 1
+    NX_RESERVE .nToPage, short_t, 1
+    NX_RESERVE .nMinPage, short_t, 1
+    NX_RESERVE .nMaxPage, short_t, 1
+    NX_RESERVE .nCopies, short_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .lCustData, int32_t, 1
+    NX_RESERVE .lpfnPrintHook, int32_t, 1
+    NX_RESERVE .lpfnSetupHook, int32_t, 1
+    NX_RESERVE .lpPrintTemplateName, int32_t, 1
+    NX_RESERVE .lpPrintSetupTemplateName, int32_t, 1
+    NX_RESERVE .hPrintTemplate, int32_t, 1
+    NX_RESERVE .hSetupTemplate, int32_t, 1
+NX_ENDSTRUC PRINTDLGAPI
+
+NX_STRUC OPENFILENAME
+    NX_RESERVE .lStructSize, int32_t, 1
+    NX_RESERVE .hWndOwner, int32_t, 1
+    NX_RESERVE .hInstance, int32_t, 1
+    NX_RESERVE .lpstrFilter, int32_t, 1
+    NX_RESERVE .lpstrCustomFilter, int32_t, 1
+    NX_RESERVE .nMaxCustFilter, int32_t, 1
+    NX_RESERVE .nFilterIndex, int32_t, 1
+    NX_RESERVE .lpstrFile, int32_t, 1
+    NX_RESERVE .nMaxFile, int32_t, 1
+    NX_RESERVE .lpstrFileTitle, int32_t, 1
+    NX_RESERVE .nMaxFileTitle, int32_t, 1
+    NX_RESERVE .lpstrInitialDir, int32_t, 1
+    NX_RESERVE .lpstrTitle, int32_t, 1
+    NX_RESERVE .Flags, int32_t, 1
+    NX_RESERVE .nFileOffset, short_t, 1
+    NX_RESERVE .nFileExtension, short_t, 1
+    NX_RESERVE .lpstrDefExt, int32_t, 1
+    NX_RESERVE .lCustData, int32_t, 1
+    NX_RESERVE .lpfnHook, int32_t, 1
+    NX_RESERVE .lpTemplateName, int32_t, 1
+NX_ENDSTRUC OPENFILENAME
+
+NX_STRUC CHARFORMAT
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .dwMask, int32_t, 1
+    NX_RESERVE .dwEffects, int32_t, 1
+    NX_RESERVE .yHeight, int32_t, 1
+    NX_RESERVE .yOffset, int32_t, 1
+    NX_RESERVE .crTextColor, int32_t, 1
+    NX_RESERVE .bCharSet, int8_t, 1
+    NX_RESERVE .bPitchAndFamily, int8_t, 1
+    NX_RESERVE .szFaceName, int8_t, 1
+NX_ENDSTRUC CHARFORMAT
+
+NX_STRUC CHARRANGE
+    NX_RESERVE .cpMin, int32_t, 1
+    NX_RESERVE .cpMax, int32_t, 1
+NX_ENDSTRUC CHARRANGE
+
+NX_STRUC TEXTRANGE
+    NX_RESERVE .chrg, CHARRANGE, 1
+    NX_RESERVE .lpstrText, int32_t, 1
+NX_ENDSTRUC TEXTRANGE
+
+NX_STRUC EDITSTREAM
+    NX_RESERVE .dwCookie, int32_t, 1
+    NX_RESERVE .dwError, int32_t, 1
+    NX_RESERVE .pfnCallback, int32_t, 1
+NX_ENDSTRUC EDITSTREAM
+
+NX_STRUC FINDTEXT
+    NX_RESERVE .chrg, CHARRANGE, 1
+    NX_RESERVE .lpstrText, int32_t, 1
+NX_ENDSTRUC FINDTEXT
+
+NX_STRUC FINDTEXTEX
+    NX_RESERVE .chrg, CHARRANGE, 1
+    NX_RESERVE .lpstrText, int32_t, 1
+    NX_RESERVE .chrgText, CHARRANGE, 1
+NX_ENDSTRUC FINDTEXTEX
+
+NX_STRUC FORMATRANGE
+    NX_RESERVE .hdc, int32_t, 1
+    NX_RESERVE .hdcTarget, int32_t, 1
+    NX_RESERVE .rc, RECT, 1
+    NX_RESERVE .rcPage, RECT, 1
+    NX_RESERVE .chrg, CHARRANGE, 1
+NX_ENDSTRUC FORMATRANGE
+
+NX_STRUC PARAFORMAT
+    NX_RESERVE .cbSize, int32_t, 1
+    NX_RESERVE .dwMask, int32_t, 1
+    NX_RESERVE .wNumbering, short_t, 1
+    NX_RESERVE .wReserved, short_t, 1
+    NX_RESERVE .dxStartIndent, int32_t, 1
+    NX_RESERVE .dxRightIndent, int32_t, 1
+    NX_RESERVE .dxOffset, int32_t, 1
+    NX_RESERVE .wAlignment, short_t, 1
+    NX_RESERVE .cTabCount, short_t, 1
+    NX_RESERVE .rgxTabs, int32_t, 1
+NX_ENDSTRUC PARAFORMAT
+
+NX_STRUC MSGFILTER
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .msg, int32_t, 1
+    NX_RESERVE .wParam, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+NX_ENDSTRUC MSGFILTER
+
+NX_STRUC REQRESIZE
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .rc, RECT, 1
+NX_ENDSTRUC REQRESIZE
+
+NX_STRUC SELCHANGE
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .chrg, CHARRANGE, 1
+    NX_RESERVE .seltyp, short_t, 1
+NX_ENDSTRUC SELCHANGE
+
+NX_STRUC ENDROPFILES
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .hDrop, int32_t, 1
+    NX_RESERVE .cp, int32_t, 1
+    NX_RESERVE .fProtected, int32_t, 1
+NX_ENDSTRUC ENDROPFILES
+
+NX_STRUC ENPROTECTED
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .msg, int32_t, 1
+    NX_RESERVE .wParam, int32_t, 1
+    NX_RESERVE .lParam, int32_t, 1
+    NX_RESERVE .chrg, CHARRANGE, 1
+NX_ENDSTRUC ENPROTECTED
+
+NX_STRUC ENSAVECLIPBOARD
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .cObjectCount, int32_t, 1
+    NX_RESERVE .cch, int32_t, 1
+NX_ENDSTRUC ENSAVECLIPBOARD
+
+NX_STRUC ENOLEOPFAILED
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .iob, int32_t, 1
+    NX_RESERVE .lOper, int32_t, 1
+    NX_RESERVE .hr, int32_t, 1
+NX_ENDSTRUC ENOLEOPFAILED
+
+NX_STRUC ENCORRECTTEXT
+    NX_RESERVE .nmhdr, NMHDR, 1
+    NX_RESERVE .chrg, CHARRANGE, 1
+    NX_RESERVE .seltyp, short_t, 1
+NX_ENDSTRUC ENCORRECTTEXT
+
+NX_STRUC PUNCTUATION
+    NX_RESERVE .iSize, int32_t, 1
+    NX_RESERVE .szPunctuation, int32_t, 1
+NX_ENDSTRUC PUNCTUATION
+
+NX_STRUC COMPCOLOR
+    NX_RESERVE .crText, int32_t, 1
+    NX_RESERVE .crBackground, int32_t, 1
+    NX_RESERVE .dwEffects, int32_t, 1
+NX_ENDSTRUC COMPCOLOR
+
+NX_STRUC REPASTESPECIAL
+    NX_RESERVE .dwAspect, int32_t, 1
+    NX_RESERVE .dwParam, int32_t, 1
+NX_ENDSTRUC REPASTESPECIAL
+
+NX_STRUC fd_setstruc
+    NX_RESERVE .fd_count, int32_t, 1
+    NX_RESERVE .fd_array, int32_t, 1
+NX_ENDSTRUC fd_setstruc
+
+NX_STRUC timeval
+    NX_RESERVE .tv_sec, int32_t, 1
+    NX_RESERVE .tv_usec, int32_t, 1
+NX_ENDSTRUC timeval
+
+NX_STRUC sockaddr_in
+    NX_RESERVE .sin_family, short_t, 1
+    NX_RESERVE .sin_port, short_t, 1
+    NX_RESERVE .sin_addr, int32_t, 1
+    NX_RESERVE .sin_zero, int8_t, 8
+NX_ENDSTRUC sockaddr_in
+
+NX_STRUC sockaddr
+    NX_RESERVE .sa_family, short_t, 1
+    NX_RESERVE .sa_data, short_t, 1
+NX_ENDSTRUC sockaddr
+
+NX_STRUC WSAdata
+    NX_RESERVE .wVersion, short_t, 1
+    NX_RESERVE .wHighVersion, short_t, 1
+    NX_RESERVE .szDescription, int8_t, WSADESCRIPTION_LEN+1
+    NX_RESERVE .szSystemStatus, int8_t, WSASYS_STATUS_LEN+1
+    NX_RESERVE .iMaxSockets, short_t, 1
+    NX_RESERVE .iMaxUdpDg, short_t, 1
+    NX_RESERVE .lpVendorInfo, int32_t, 1
+NX_ENDSTRUC WSAdata
+
+NX_STRUC sockproto
+    NX_RESERVE .sp_family, short_t, 1
+    NX_RESERVE .sp_protocol, short_t, 1
+NX_ENDSTRUC sockproto
+
+NX_STRUC linger
+    NX_RESERVE .l_onoff, short_t, 1
+    NX_RESERVE .l_linger, short_t, 1
+NX_ENDSTRUC linger
+
+NX_STRUC hostentStru
+    NX_RESERVE .h_name, int32_t, 1
+    NX_RESERVE .h_alias, int32_t, 1
+    NX_RESERVE .h_addr, short_t, 1
+    NX_RESERVE .h_len, short_t, 1
+    NX_RESERVE .h_list, int32_t, 1
+NX_ENDSTRUC hostentStru
+
+NX_STRUC netent
+    NX_RESERVE .n_name, int32_t, 1
+    NX_RESERVE .n_aliases, int32_t, 1
+    NX_RESERVE .n_addrtype, short_t, 1
+    NX_RESERVE .n_net, int32_t, 1
+NX_ENDSTRUC netent
+
+NX_STRUC servent
+    NX_RESERVE .s_name, int32_t, 1
+    NX_RESERVE .s_aliases, int32_t, 1
+    NX_RESERVE .s_port, short_t, 1
+    NX_RESERVE .s_proto, int32_t, 1
+NX_ENDSTRUC servent
+
+NX_STRUC icmp_hdr
+    NX_RESERVE .icmp_type, int8_t, 1
+    NX_RESERVE .icmp_code, int8_t, 1
+    NX_RESERVE .icmp_cksum, short_t, 1
+    NX_RESERVE .icmp_id, short_t, 1
+    NX_RESERVE .icmp_seq, short_t, 1
+    NX_RESERVE .icmp_data, int8_t, 1
+NX_ENDSTRUC icmp_hdr
+
+NX_STRUC ip_hdr
+    NX_RESERVE .ip_hlv, int8_t, 1
+    NX_RESERVE .ip_tos, int8_t, 1
+    NX_RESERVE .ip_len, short_t, 1
+    NX_RESERVE .ip_id, short_t, 1
+    NX_RESERVE .ip_off, short_t, 1
+    NX_RESERVE .ip_ttl, int8_t, 1
+    NX_RESERVE .ip_p, int8_t, 1
+    NX_RESERVE .ip_cksum, short_t, 1
+    NX_RESERVE .ip_src, int32_t, 1
+    NX_RESERVE .ip_dest, int32_t, 1
+NX_ENDSTRUC ip_hdr
+
+NX_STRUC ICMP_OPTIONS
+    NX_RESERVE .Ttl, int8_t, 1
+    NX_RESERVE .Tos, int8_t, 1
+    NX_RESERVE .Flags, int8_t, 1
+    NX_RESERVE .OptionsSize, int8_t, 1
+    NX_RESERVE .OptionsData, int32_t, 1
+NX_ENDSTRUC ICMP_OPTIONS
+
+NX_STRUC ICMP_ECHO_REPLY
+    NX_RESERVE .Address, int32_t, 1
+    NX_RESERVE .Status, int32_t, 1
+    NX_RESERVE .RoundTripTime, int32_t, 1
+    NX_RESERVE .DataSize, short_t, 1
+    NX_RESERVE .Reserved, short_t, 1
+    NX_RESERVE .DataPointer, int32_t, 1
+    NX_RESERVE .Options, int32_t, 1
+    NX_RESERVE .zData, char_t, 250
+NX_ENDSTRUC ICMP_ECHO_REPLY
 
 %endif
