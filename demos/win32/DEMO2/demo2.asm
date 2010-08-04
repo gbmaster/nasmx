@@ -61,7 +61,6 @@ umsg    argd        ; Window message
 wparam  argd        ; wParam
 lparam  argd        ; lParam
 
-
 .wm_create:
     cmp      argv(umsg), dword WM_CREATE
     jnz      .wm_destroy
@@ -94,35 +93,38 @@ endproc
     szClass:    db    "Demo2Class", 0x0
 
     wc:
-    NX_ISTRUC WNDCLASSEX
-		NX_AT .style, CS_VREDRAW + CS_HREDRAW
-		NX_AT .cbSize, WNDCLASSEX_size
-		NX_AT .lpfnWndProc,   NULL
-		NX_AT .cbClsExtra,    NULL
-		NX_AT .cbWndExtra,    NULL
-		NX_AT .hInstance,     NULL
-		NX_AT .hIcon,         NULL
-		NX_AT .hCursor,       NULL
-		NX_AT .hbrBackground, COLOR_BTNFACE + 1
-		NX_AT .lpszMenuName,  NULL
-		NX_AT .lpszClassName, NULL
-		NX_AT .hIconSm,       NULL
-    NX_IENDSTRUC WNDCLASSEX
-	
+    NASMX_ISTRUC WNDCLASSEX
+		NASMX_AT cbSize,        sizeof(WNDCLASSEX)
+		NASMX_AT style,         CS_VREDRAW + CS_HREDRAW
+		NASMX_AT lpfnWndProc,   NULL
+		NASMX_AT cbClsExtra,    NULL
+		NASMX_AT cbWndExtra,    NULL
+		NASMX_AT hInstance,     NULL
+		NASMX_AT hIcon,         NULL
+		NASMX_AT hCursor,       NULL
+		NASMX_AT hbrBackground, COLOR_BTNFACE + 1
+		NASMX_AT lpszMenuName,  NULL
+		NASMX_AT lpszClassName, NULL
+		NASMX_AT hIconSm,       NULL
+    NASMX_IENDSTRUC
+
     message:
-    NX_ISTRUC MSG
-        NX_AT .hwnd,        NULL
-        NX_AT .message,     NULL
-        NX_AT .wParam,      NULL
-        NX_AT .lParam,      NULL
-        NX_AT .time,        NULL
-        NX_AT .pt,          NULL
-    NX_IENDSTRUC MSG
+    NASMX_ISTRUC MSG
+        NASMX_AT hwnd,     NULL
+        NASMX_AT message,  NULL
+        NASMX_AT wParam,   NULL
+        NASMX_AT lParam,   NULL
+        NASMX_AT time,     NULL
+		NX_ISTRUC pt
+			NASMX_AT x,       NULL
+			NASMX_AT y,       NULL
+		NX_IENDSTRUC
+    NASMX_IENDSTRUC
 	
     rct:
-    NX_ISTRUC RECT
-        NX_AT .left,        NULL
-        NX_AT .top,         NULL
-        NX_AT .right,       NULL
-        NX_AT .bottom,      NULL
-    NX_IENDSTRUC RECT
+    NASMX_ISTRUC RECT
+        NASMX_AT left,     NULL
+        NASMX_AT top,      NULL
+        NASMX_AT right,    NULL
+        NASMX_AT bottom,   NULL
+    NASMX_IENDSTRUC

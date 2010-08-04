@@ -10,9 +10,9 @@
 ;//
 ;// Check NASM Version
 ;//
-%define __nxerrmsg "NASM v2.08 or later required"
+%define __nxerrmsg "NASM v2.09 or later required"
 %ifdef __NASM_VERSION_ID__
-	%if __NASM_VERSION_ID__ < 0x02075000
+	%if __NASM_VERSION_ID__ < 0x02086350
 		%fatal __nxerrmsg
 	%endif
 %else
@@ -85,52 +85,38 @@ NASMX_DEFINE VERSION,"20100801"
 ;//
 ;// native sizes
 ;//
-%define byte__nx_tag_size 1
-%define word__nx_tag_size 2
-%define dword__nx_tag_size 4
-%define qword__nx_tag_size 8
-%define tword__nx_tag_size 10
-%define oword__nx_tag_size 16
-
-
-;//////////////////////////////////////////////////////////////
-;//
-;// nasm reserves
-;//
-%define byte__nx_tag_reserve RESB
-%define word__nx_tag_reserve RESW
-%define dword__nx_tag_reserve RESD
-%define qword__nx_tag_reserve RESQ
-%define tword__nx_tag_reserve REST
-%define oword__nx_tag_reserve RESO
+%idefine byte_size 1
+%idefine word_size 2
+%idefine dword_size 4
+%idefine qword_size 8
+%idefine tword_size 10
+%idefine oword_size 16
 
 ;//////////////////////////////////////////////////////////////
 ;//
 ;// nasm storage types
 ;//
-%define byte__nx_tag_storage DB
-%define word__nx_tag_storage DW
-%define dword__nx_tag_storage DD
-%define qword__nx_tag_storage DQ
-%define tword__nx_tag_storage DT
-%define oword__nx_tag_storage DO
+%idefine byte_storage DB
+%idefine word_storage DW
+%idefine dword_storage DD
+%idefine qword_storage DQ
+%idefine tword_storage DT
+%idefine oword_storage DO
 
 ;//////////////////////////////////////////////////////////////
 ;//
 ;// nasmx classifcation of types
 ;//
-%define byte__nx_tag_type BYTE
-%define word__nx_tag_type WORD
-%define dword__nx_tag_type DWORD
-%define qword__nx_tag_type QWORD
-%define tword__nx_tag_type TWORD
-%define oword__nx_tag_type OWORD
+%idefine byte_type BYTE
+%idefine word_type WORD
+%idefine dword_type DWORD
+%idefine qword_type QWORD
+%idefine tword_type TWORD
+%idefine oword_type OWORD
 
 
+%define typeof(x) x %+ _type
 %define sizeof(x) x %+ _size
-%define _nx_sizeof(x) x %+ __nx_tag_size
-%define _nx_reserve(x) x %+ __nx_tag_reserve
-%define _nx_typeof(x) x %+ __nx_tag_type
 
 ;//////////////////////////////////////////////////////////////
 ;//
@@ -139,15 +125,18 @@ NASMX_DEFINE VERSION,"20100801"
 ;// usage:
 ;//   typedef dword, int32_t
 %imacro typedef 2.nolist
-	%ifndef %{1}__nx_tag_size
-			%fatal unknown tag size for %1
+	%ifndef %{1}_size
+			%fatal unknown size: %1
 	%endif
-;   %xdefine %{2}__nx_tag_size %{1}__nx_tag_size
-;   %xdefine %{2}__nx_tag_type %{1}__nx_tag_type
-;   %xdefine %{2}__nx_tag_reserve %{1}__nx_tag_reserve
-;   %xdefine %{2}__nx_tag_storage %{1}__nx_tag_storage
-   %xdefine %{2} %{1}
-%endm
+
+;   %xdefine %{2}_size %{1}_size
+;   %xdefine %{2}_type %{1}_type
+;   %xdefine %{2}_reserve %{1}_reserve
+;   %xdefine %{2}_storage %{1}_storage
+	%ixdefine %{2}_size %{1}_size
+;	%fatal size of %2 = sizeof(%{2})
+	%ixdefine %{2} %{1}
+%endmacro
 
 
 ;//////////////////////////////////////////////////////////////
@@ -182,7 +171,7 @@ typedef qword, ptr64_t
 ;// use for 32->64 bit expansion of either int or ptr
 %ixdefine NX_PTR ptr%[__BITS__]_t
 typedef NX_PTR, size_t
-%assign __NASMX_ABI_BITS__ _nx_sizeof(size_t) * 8
+%assign __NASMX_ABI_BITS__ sizeof(size_t) * 8
 %ifnidn __BITS__,__NASMX_ABI_BITS__
 	%fatal unknown size_t: __BITS__
 %endif
@@ -211,131 +200,190 @@ typedef byte, utf8_t
 typedef word, utf16_t
 typedef dword, utf32_t
 
-
 ;//////////////////////////////////////////////////////////////
 ;//
-;// NX_STRUC
+;// Set a NASMX tag
 ;//
-%imacro NX_STRUC 1-2.nolist 0
-	struc %{1}
-
-	%assign %$_nx_size 0
-
-	;// do not define __nx_tag_type for structs
-	%xdefine %{1}__nx_tag_name %{1}
-	%xdefine %{1}__nx_tag_reserve RESB
-	%xdefine %{1}__nx_tag_storage DB
-
-%endmacro
-
-;//////////////////////////////////////////////////////////////
-;//
-;// Set a NASMX field tag
-;//
-;// This macro creates a global define for structure fields
+;// This macro creates a global define for structures and fields
 ;//
 ;// usage:
-;//    NX_DEFINE_FIELD_TAG struc_name, field_name, tag_name, tag args
+;//    NX_DEFINE_TAG struc_name, [ field_name, ] tag_name, tag args
 ;//
-%imacro NX_DEFINE_FIELD_TAG 4.nolist
-	%xdefine %{1}_field_%{2}__nx_tag_%{3} %{4}
-;	%fatal tag %{3}: %{1}_field_%{2}__nx_tag_%{3} %{4}
-%endmacro
-
-
-;//////////////////////////////////////////////////////////////
-;//
-;// Set a NASMX field storage tag
-;//
-;// usage:
-;//    NX_DEFINE_FIELD_STORAGE struc_name, var_name, storage_equivalent
-%imacro NX_DEFINE_FIELD_STORAGE 3.nolist
-	%ifndef %{3}__nx_tag_storage
-		%fatal unknown storage tag for %{1}{%2}
-	%endif
-	NX_DEFINE_FIELD_TAG %{1}, %{2}, storage, %{3}__nx_tag_storage
-%endmacro
-
-;//////////////////////////////////////////////////////////////
-;//
-;// Set a NASMX field offset tag
-;//
-;// usage:
-;//    NX_DEF_OFFSET struc_name, var_name, offset
-%imacro NX_DEFINE_FIELD_OFFSET 3.nolist
-	NX_DEFINE_FIELD_TAG %{1}, %{2}, offset, %{3}
-%endmacro
-
-%imacro NX_DEFINE_FIELD_NAME 2.nolist
-	NX_DEFINE_FIELD_TAG %{1}, %{2}, name, %{2}
-%endmacro
-
-;// usage:
-;//   NX_RESERVE .hWnd, NX_PTR, 1
-;//   NX_RESERVE .pt, POINT, 1
-%imacro NX_RESERVE 2-3.nolist 1
-; struc creates it's own ctx!
-;	%ifnctx __CTX_NX_STRUC
-;		%fatal corrupt context
-;	%endif
-	%ifndef %{2}__nx_tag_reserve
-		%fatal unknown reserve tag in %{$name} definition: %{2}
-	%endif
-	%ifndef %{2}__nx_tag_size
-		%fatal unknown size tag in %{$name} definition: %{2}
-	%endif
-
-	NX_DEFINE_FIELD_NAME %{$name}, %{1}
-	NX_DEFINE_FIELD_OFFSET %{$name}, %{1}, %{$size}
-	NX_DEFINE_FIELD_STORAGE %{$name}, %{1}, %{2}
-
-	%ifndef %{2}__nx_tag_type
-		;// this is a struct param
-		%assign %%_argsize %{2}_size
-		%assign %%_qty %{3}
-		%assign %%_amt (%%_argsize * %%_qty)
+%imacro NX_DEFINE_TAG 3-4.nolist
+	%if %0 < 3
+		%xdefine %{1}_%{2} %{3}
+;		%fatal st %{1} %{2} = %{1}_%{2} %{3}
 	%else
-		%assign %%_argsize %{2}__nx_tag_size
-		%assign %%_amt %{3}
+		%xdefine %{1}.%{2}_%{3} %{4}
+;		%fatal fd %{1}.%{2} %{3} = %{1}.%{2}_%{3} %{4}
 	%endif
-	;// calc running struct size
-	%assign %$_nx_size (%$_nx_size + %%_argsize)
+%endmacro
 
-	%if %%_amt < 0
-		%fatal negative quanity
+;// usage:
+;//    NX_EQUATE_OFFSET struc_name, offset [ ,field_name ]
+;//
+%imacro NX_EQUATE_OFFSET 2-3.nolist
+	%assign %%__off %2
+	%if %%__off < 0
+		%fatal invalid offset for %1 : %2
 	%endif
-	%xdefine %$resline %{1}: %{2}__nx_tag_reserve %%_amt
-	;%fatal resline = %{$resline}
-%{1}: %{2}__nx_tag_reserve %%_amt
-%endmacro
-
-%imacro NX_ENDSTRUC 1.nolist
-	%xdefine %{1}__nx_tag_size %$_nx_size
-
-	endstruc
-%endmacro
-
-%imacro NX_ISTRUC 1-2.nolist 0
-	%ifndef %{1}__nx_tag_name
-		%fatal unknown name tag: %1
+	%if %0 < 3
+		%assign %{1} %2
+	%else
+		%assign %{1}.%{3} %2
 	%endif
-	istruc %{1}
-
-	%xdefine %$name %{1}
 %endmacro
 
-%imacro NX_DECLARE_STORAGE 3
-	%xdefine %$atline at %{1}%{2}, %{1}_field_%{2}__nx_tag_storage %{3}
-	%fatal atline: %$atline
+%imacro NX_EQUATE_SIZE 2-3
+	%if %0 == 2
+		%{1}_size equ %{2}
+	%else
+		%{1}.%{2}_size equ %{3}
+	%endif
 %endmacro
 
-%imacro NX_AT 2
+;//////////////////////////////////////////////////////////////
+;//
+;// NASMX_STRUC
+;//
+%imacro NASMX_STRUC 1-*.nolist __NX_ROOT, __NX_CTX_STRUC
+	%ifnidni %3,__NX_CTX_STRUC
+		%ifnidni %3,__NX_CTX_UNION
+			%fatal unknown arg
+		%endif
+	%endif
+	%ifnidni %{3},__NX_CTX_STRUC
+		%ifnidni %{3},__NX_CTX_UNION
+			%fatal unknown arg
+		%endif
+	%endif
+	%ifctx __NX_CTX_STRUC
+		%define %%nested 1
+	%elifctx __NX_CTX_UNION
+		%define %%nested 1
+	%else
+		%define %%nested 0
+	%endif
+	%if (%%nested == 0)
+		%push %3
+		%define %$name %1
+		%assign %$size 0
+	%else
+		%xdefine %%tname %{$name}.%1
+		%assign %%tsize %$size
+		%push %3
+; the following fails on 2.08.02
+		%define %$name %%tname
+		%assign %$size %%tsize
+	%endif
+	%assign %$osize %$size
+	%assign %$usize 0
+	;// do not define _type for structs
+	NX_DEFINE_TAG %{$name}, name, %{$name}
+	NX_DEFINE_TAG %{$name}, storage, byte_storage
+%endmacro
+
+%imacro NASMX_UNION 1-2.nolist
+	NX_STRUCT %1, __NX_ROOT __NX_CTX_UNION
+%endmacro
+
+;// usage:
+;//   NASMX_RESERVE hWnd, NX_PTR, 1
+%imacro NASMX_RESERVE 2-3.nolist 1
+	%ifnctx __NX_CTX_STRUC
+		%ifnctx __NX_CTX_UNION
+			%fatal corrupt context
+		%endif
+	%endif
+	%ifndef %{2}_size
+		%fatal unknown type for %{$name} %{1}: %{2}
+	%endif
+	%ifndef %{2}_storage
+		%fatal unknown storage tag for %{$name} %{1}
+	%endif
+
+	%assign %%_argsize %{2}_size
+	%if %%_argsize < 0
+		%fatal invalid arg size for %{$name} %{1}: %{2}
+	%endif
+	%assign %%_qty %{3}
+	%if %%_qty < 0
+		%fatal invalid arg qty  for %{$name} %{1}: %{3}
+	%endif
+	%assign %%_amt (%%_argsize * %%_qty)
+
+	NX_DEFINE_TAG %{$name}, %{1}, name, %{1}
+	NX_DEFINE_TAG %{$name}, %{1}, size, %%_amt
+	NX_DEFINE_TAG %{$name}, %{1}, storage, %{2}_storage
+	NX_EQUATE_OFFSET %{$name}, %{$size}, %{1}
+
+	%assign %$size (%$size + %%_amt)
+
+	%ifctx __NX_CTX_UNION
+		%assign %%tsize %$size-%$osize
+		%if (%%tsize > %$usize)
+			%assign %$usize %%tsize
+		%endif
+		NX_DEFINE_TAG %{$name}, %{1}, size, %%tsize
+		%assign %$size %$osize
+	%endif
+%endmacro
+
+%imacro NASMX_ENDSTRUC 0.nolist
+	%if ((%$size-%$osize) > %$usize)
+		%assign %$usize %$size-%$osize
+	%endif
+
+	NX_DEFINE_TAG %{$name}, size, %{$usize}
+	NX_EQUATE_OFFSET %{$name}, %{$osize}
+	%assign %%tsize %$usize
+	%pop
+	%ifctx __NX_CTX_STRUC
+		%assign %$size %$size+%%tsize
+	%elifctx __NX_CTX_UNION
+		%assign %$size %$size+%%tsize
+		%if ((%$size-%$osize) > %$usize)
+			%assign %$usize %$size-%$osize
+		%endif
+		%assign %$size %$osize
+	%endif
+%endmacro
+
+%imacro NASMX_ISTRUC 1.nolist
+	%ifctx __NX_CTX_ISTRUC
+		%xdefine %%tname %{$name}.%1
+		%fatal tname %%tname
+		times %%tname-($-%$nxistrucstart) db 0
+		%push  __NX_CTX_ISTRUC
+		%xdefine %$name %%tname
+		%xdefine %$sname %$name
+	%else
+		%push __NX_CTX_ISTRUC
+		%xdefine %$name %{1}
+		%define %$sname 0
+	%endif
+	%$nxistrucstart:
+%endmacro
+
+%imacro NX_DECLARE_STORAGE 1-3+.nolist
+	%if %0 == 1
+		%assign %%__off (%{1}_size - %{$sname})
+;		%fatal %{1} st off is %%__off
+		times (%%__off)-($-%$nxistrucstart) db 0
+	%else
+		%assign %%__off (%{1}.%{2} - %{$sname})
+		times (%%__off)-($-%$nxistrucstart) db 0
+		%{1}.%{2}_storage %3
+	%endif
+%endmacro
+
+%imacro NASMX_AT 1-2+.nolist
 	NX_DECLARE_STORAGE %{$name}, %{1}, %{2}
 %endmacro
 
-%imacro NX_IENDSTRUC 1.nolist
-%undef %$name
-iend
+%imacro NASMX_IENDSTRUC 0.nolist
+	NX_DECLARE_STORAGE %{$name}
+	%pop
 %endmacro
 
 %ifidn	 __OUTPUT_FORMAT__,elf
