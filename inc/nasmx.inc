@@ -234,11 +234,15 @@ typedef dword, utf32_t
 	%endif
 %endmacro
 
+;// usage:
+;//    NX_EQUATE_SIZE struc_name, size [ ,field_name ]
+;//
 %imacro NX_EQUATE_SIZE 2-3
+; we cannot use equ for variables
 	%if %0 == 2
-		%{1}_size equ %{2}
+		%assign %{1}_size %{2}
 	%else
-		%{1}.%{2}_size equ %{3}
+		%assign %{1}.%{3}_size %{2}
 	%endif
 %endmacro
 
@@ -266,14 +270,14 @@ typedef dword, utf32_t
 	%endif
 	%if (%%nested == 0)
 		%push %3
-		%define %$name %1
+		%xdefine %$name %1
 		%assign %$size 0
 	%else
 		%xdefine %%tname %{$name}.%1
 		%assign %%tsize %$size
 		%push %3
 ; the following fails on 2.08.02
-		%define %$name %%tname
+		%xdefine %$name %%tname
 		%assign %$size %%tsize
 	%endif
 	%assign %$osize %$size
@@ -334,14 +338,20 @@ typedef dword, utf32_t
 		%assign %$usize %$size-%$osize
 	%endif
 
-	NX_DEFINE_TAG %{$name}, size, %{$usize}
-	NX_EQUATE_OFFSET %{$name}, %{$osize}
-	%assign %%tsize %$usize
+	NX_EQUATE_SIZE %{$name}, %{$usize}
+;	%fatal name %{$name} size = %{$usize}  %{$name}_size
+	%xdefine %%__name %{$name}
+	%assign %%__off %$osize
+	%assign %%__size %$usize
 	%pop
 	%ifctx __NX_CTX_STRUC
-		%assign %$size %$size+%%tsize
+;		%fatal name = %%__name off = %%__off  size = %%__size
+		%assign %$size (%$size + %%__size)
+		NX_EQUATE_OFFSET %%__name, %%__off
+;		%fatal name = %%__name off = %%__off  size = %%__size
 	%elifctx __NX_CTX_UNION
-		%assign %$size %$size+%%tsize
+		%assign %$size (%$size + %%__size)
+		NX_EQUATE_OFFSET %%__name, %%__off
 		%if ((%$size-%$osize) > %$usize)
 			%assign %$usize %$size-%$osize
 		%endif
@@ -349,31 +359,46 @@ typedef dword, utf32_t
 	%endif
 %endmacro
 
-%imacro NASMX_ISTRUC 1.nolist
+%imacro NASMX_ISTRUC 2.nolist
 	%ifctx __NX_CTX_ISTRUC
-		%xdefine %%tname %{$name}.%1
-		%fatal tname %%tname
-		times %%tname-($-%$nxistrucstart) db 0
+		%xdefine %%__start %{$nxistrucstart}.%{1}
+		%assign %%__off %{$name}.%{1}
+		times %%__off-($-%{$nxistrucstart}) db 0
 		%push  __NX_CTX_ISTRUC
-		%xdefine %$name %%tname
-		%xdefine %$sname %$name
+;		%fatal name = %%__start off = %%__off
+;		%xdefine %$name %%__name
+;		%xdefine %$sname %$name
+		%xdefine %$nxistrucstart %%__start
 	%else
 		%push __NX_CTX_ISTRUC
-		%xdefine %$name %{1}
-		%define %$sname 0
+		%xdefine %$nxistrucstart %{1}
 	%endif
-	%$nxistrucstart:
+	%xdefine %$name %{2}
+	%define %$sname 0
+	%{$nxistrucstart}:
 %endmacro
 
 %imacro NX_DECLARE_STORAGE 1-3+.nolist
 	%if %0 == 1
-		%assign %%__off (%{1}_size - %{$sname})
-;		%fatal %{1} st off is %%__off
-		times (%%__off)-($-%$nxistrucstart) db 0
+		;// assert: finish up struc if needed
+;		%fatal %{1} _size = %{1}_size
+		%assign %%__size %{1}_size
+;		%fatal %{1} st size is %%__size
+		%assign %%__times (%%__size)-($-%$nxistrucstart)
+;		%fatal t %%__times
+		%if (%%__times > 0)
+			times (%%__size)-($-%$nxistrucstart) db 0
+		%endif
 	%else
-		%assign %%__off (%{1}.%{2} - %{$sname})
-		times (%%__off)-($-%$nxistrucstart) db 0
+		%assign %%__off %{1}.%{2}
+;		%fatal off %%__off %{1} %{2} %{1}.%{2}
+		%assign %%__times (%%__off)-($-%$nxistrucstart)
+;		%fatal t %%__times
+		%if (%%__times > 0)
+			times (%%__off)-($-%$nxistrucstart) db 0
+		%endif
 		%{1}.%{2}_storage %3
+;		%fatal %{1} %{2} _storage = %{1}.%{2}_storage %{3}
 	%endif
 %endmacro
 

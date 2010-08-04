@@ -92,8 +92,7 @@ endproc
     szTitle:    db    "Demo2", 0x0
     szClass:    db    "Demo2Class", 0x0
 
-    wc:
-    NASMX_ISTRUC WNDCLASSEX
+    NASMX_ISTRUC wc, WNDCLASSEX
 		NASMX_AT cbSize,        sizeof(WNDCLASSEX)
 		NASMX_AT style,         CS_VREDRAW + CS_HREDRAW
 		NASMX_AT lpfnWndProc,   NULL
@@ -108,21 +107,19 @@ endproc
 		NASMX_AT hIconSm,       NULL
     NASMX_IENDSTRUC
 
-    message:
-    NASMX_ISTRUC MSG
+    NASMX_ISTRUC message, MSG
         NASMX_AT hwnd,     NULL
         NASMX_AT message,  NULL
         NASMX_AT wParam,   NULL
         NASMX_AT lParam,   NULL
         NASMX_AT time,     NULL
-		NX_ISTRUC pt
+		NASMX_ISTRUC pt, POINT
 			NASMX_AT x,       NULL
 			NASMX_AT y,       NULL
-		NX_IENDSTRUC
+		NASMX_IENDSTRUC
     NASMX_IENDSTRUC
-	
-    rct:
-    NASMX_ISTRUC RECT
+
+    NASMX_ISTRUC rct, RECT
         NASMX_AT left,     NULL
         NASMX_AT top,      NULL
         NASMX_AT right,    NULL
