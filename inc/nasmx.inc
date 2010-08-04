@@ -96,6 +96,18 @@ NASMX_DEFINE VERSION,"20100801"
 ;//
 ;// nasm storage types
 ;//
+%idefine byte_reserve RESB
+%idefine word_reserve RESW
+%idefine dword_reserve RESD
+%idefine qword_reserve RESQ
+%idefine tword_reserve REST
+%idefine oword_reserve RESO
+
+
+;//////////////////////////////////////////////////////////////
+;//
+;// nasm storage types
+;//
 %idefine byte_storage DB
 %idefine word_storage DW
 %idefine dword_storage DD
@@ -117,6 +129,8 @@ NASMX_DEFINE VERSION,"20100801"
 
 %define typeof(x) x %+ _type
 %define sizeof(x) x %+ _size
+%define reserve(x) x %+ _reserve
+%define declare(x) x %+ _storage
 
 ;//////////////////////////////////////////////////////////////
 ;//
@@ -414,40 +428,90 @@ typedef dword, utf32_t
 %ifidn	 __OUTPUT_FORMAT__,elf
 	NASMX_DEFINE UNDERSCORE
 	typedef dword, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf32__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %elifidn __OUTPUT_FORMAT__,elf32
 	NASMX_DEFINE UNDERSCORE
 	typedef dword, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf32__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %elifidn __OUTPUT_FORMAT__,elf64
 	NASMX_DEFINE UNDERSCORE
 	typedef dword, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf32__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %elifidn __OUTPUT_FORMAT__,macho
 	NASMX_DEFINE UNDERSCORE
 	NASMX_DEFINE CDECL_UNDERSCORE
 	typedef dword, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf32__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %elifidn __OUTPUT_FORMAT__,macho32
 	NASMX_DEFINE UNDERSCORE
 	NASMX_DEFINE CDECL_UNDERSCORE
 	typedef dword, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf32__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %elifidn __OUTPUT_FORAMT__,macho64
 	NASMX_DEFINE UNDERSCORE
 	NASMX_DEFINE CDECL_UNDERSCORE
 	typedef dword, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf32__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %elifidn __OUTPUT_FORMAT__,win32
 	NASMX_DEFINE UNDERSCORE
 	typedef word, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf16__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %elifidn __OUTPUT_FORMAT__,win64
 	NASMX_DEFINE UNDERSCORE
 	typedef word, wchar_t
+	%ifdef UNICODE
+		%idefine NX_CHAR wchar_t
+		%idefine NX_TEXT(x)  __utf16__(x)
+	%else
+		%idefine NX_CHAR char_t
+		%idefine NX_TEXT(x) x
+	%endif
 %else
 	NASMX_DEFINE UNDERSCORE
 	NASMX_DEFINE CDECL_UNDERSCORE
 	typedef dword, wchar_t
-%endif
-
-%ifdef UNICODE
-	%idefine NX_CHAR wchar_t
-%else
-	%idefine NX_CHAR char_t
 %endif
 
 %imacro IMPORT 1-2.nolist
