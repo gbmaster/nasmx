@@ -562,7 +562,6 @@
 	%endif
 %endmacro
 
-
 %imacro DEFAULT 0
 	%ifctx SWITCH
 		%define _default_
