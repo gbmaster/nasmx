@@ -22,99 +22,100 @@
 ; vs. size considerations.
 
 %imacro syscall 0-7.nolist
-  %if %0 > 1
-    %if %0 > 2
-      %if %0 > 3
-        %if %0 > 4
-          %if %0 > 5
-            %if %0 > 6
-              %ifnum %{7}
-                %if %{7} == 0
-                  xor r9, r9
-                %elif %{7} == -1
-                  or  r9, -1
-                %elif ((%{7} >= -2147483648) && (%{7} <= 2147483647))
-                  mov r9d, %{7}
-                %else
+  %if %0 > 0
+    %if %0 > 1
+      %if %0 > 2
+        %if %0 > 3
+          %if %0 > 4
+            %if %0 > 5
+              %if %0 > 6
+                %ifnum %{7}
+                  %if %{7} == 0
+                    xor r9, r9
+                  %elif %{7} == -1
+                    or  r9, -1
+                  %elif ((%{7} >= -2147483648) && (%{7} <= 2147483647))
+                    mov r9d, %{7}
+                  %else
+                    mov r9, %{7}
+                  %endif
+                %elifnidni %{7}, r9
                   mov r9, %{7}
                 %endif
-              %elifnidi %{7}, r9
-                mov r9, %{7}
               %endif
-            %endif
-            %ifnum %{6}
-              %if %{6} == 0
-                xor r8, r8
-              %elif %{6} == -1
-                or  r8, -1
-              %elif ((%{6} >= -2147483648) && (%{6} <= 2147483647))
-                mov r8d, %{6}
-              %else
+              %ifnum %{6}
+                %if %{6} == 0
+                  xor r8, r8
+                %elif %{6} == -1
+                  or  r8, -1
+                %elif ((%{6} >= -2147483648) && (%{6} <= 2147483647))
+                  mov r8d, %{6}
+                %else
+                  mov r8, %{6}
+                %endif
+              %elifnidni %{6}, r8
                 mov r8, %{6}
               %endif
-            %elifnidni %{6}, r8
-              mov r8, %{6}
             %endif
-          %endif
-          %ifnum %{5}
-            %if %{5} == 0
-              xor r10, r10
-            %elif %{5} == -1
-              or  r10, -1
-            %elif ((%{5} >= -2147483648) && (%{5} <= 2147483647))
-              mov r10d, %{5}
-            %else
+            %ifnum %{5}
+              %if %{5} == 0
+                xor r10, r10
+              %elif %{5} == -1
+                or  r10, -1
+              %elif ((%{5} >= -2147483648) && (%{5} <= 2147483647))
+                mov r10d, %{5}
+              %else
+                mov r10, %{5}
+              %endif
+            %elifnidni %{5}, r10
               mov r10, %{5}
             %endif
-          %elifnidni %{5}, r10
-            mov r10, %{5}
           %endif
-        %endif
-        %ifnum %{4}
-          %if %{4} == 0
-            xor rdx, rdx
-          %elif %{4} == -1
-            or  rdx, -1
-          %elif ((%{4} >= -2147483648) && (%{4} <= 2147483647))
-            mov edx, %{4}
-          %else
+          %ifnum %{4}
+            %if %{4} == 0
+              xor rdx, rdx
+            %elif %{4} == -1
+              or  rdx, -1
+            %elif ((%{4} >= -2147483648) && (%{4} <= 2147483647))
+              mov edx, %{4}
+            %else
+              mov rdx, %{4}
+            %endif
+          %elifnidni %{4}, rdx
             mov rdx, %{4}
           %endif
-        %elifnidni %{4}, rdx
-          mov rdx, %{4}
         %endif
-      %endif
-      %ifnum %{3}
-        %if %{3} == 0
-          xor rsi, rsi
-        %elif %{3} == -1
-          or  rsi, -1
-        %elif ((%{3} >= -2147483648) && (%{3} <= 2147483647))
-          mov esi, %{3}
-        %else
+        %ifnum %{3}
+          %if %{3} == 0
+            xor rsi, rsi
+          %elif %{3} == -1
+            or  rsi, -1
+          %elif ((%{3} >= -2147483648) && (%{3} <= 2147483647))
+            mov esi, %{3}
+          %else
+            mov rsi, %{3}
+          %endif
+        %elifnidni %{3}, rsi
           mov rsi, %{3}
         %endif
-      %elifnidni %{3}, rsi
-        mov rsi, %{3}
       %endif
-    %endif
-    %ifnum %{2}
-      %if %{2} == 0
-        xor rdi, rdi
-      %elif %{2} == -1
-        or  rdi, -1
-      %elif ((%{2} >= -2147483648) && (%{2} <= 2147483647))
-        mov edi, %{2}
-      %else
+      %ifnum %{2}
+        %if %{2} == 0
+          xor rdi, rdi
+        %elif %{2} == -1
+          or  rdi, -1
+        %elif ((%{2} >= -2147483648) && (%{2} <= 2147483647))
+          mov edi, %{2}
+        %else
+          mov rdi, %{2}
+        %endif
+      %elifnidni %{2}, rdi
         mov rdi, %{2}
       %endif
-    %elifnidni %{2}, rdi
-      mov rdi, %{2}
     %endif
+    ; take advantage of sign-extension
+    mov eax, SYS_ %+ %{1}
   %endif
-
-  ; take advantage of sign-extension
-  mov eax, SYS_ %+ %{1}
   syscall  ; the opcode, not the macro
 %endmacro
 
