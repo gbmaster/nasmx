@@ -4,7 +4,7 @@ AS=nasm
 ASFLAGS=-f elf32
 LD=gcc
 LDFLAGS		=-Wall -s
-LIBS		=-lc -lglut
+LIBS		=-lc -lglut -lGL
 INCLUDES	=-I../../../inc/
 
 # [ Suffixes ]
